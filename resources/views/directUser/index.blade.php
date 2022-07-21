@@ -53,15 +53,21 @@
                             <td class="p-3 text-gray-700 border-b role">{{ $data->role }}</td>
                             <td class="p-3 text-gray-700 border-b">
                                 @if ($data->status)
-                                <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-green-900">
+                                <div class="flex items-center justify-center px-3 py-1 rounded-full bg-green-200/50">
+                                    <span class="text-sm font-semibold text-green-900">Aktif</span>
+                                </div>
+                                {{-- <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-green-900">
                                     <span aria-hidden class="absolute inset-0 bg-green-200 rounded-full opacity-50"></span>
                                     <span class="relative">Aktif</span>
-                                </span>
+                                </span> --}}
                                 @else
-                                <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-red-900">
+                                <div class="flex items-center justify-center px-3 py-1 rounded-full bg-red-200/50">
+                                    <span class="text-sm font-semibold text-red-900 whitespace-nowrap">Tidak Aktif</span>
+                                </div>
+                                {{-- <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-red-900">
                                     <span aria-hidden class="absolute inset-0 bg-red-200 rounded-full opacity-50"></span>
                                     <span class="relative">Tidak Aktif</span>
-                                </span>
+                                </span> --}}
                                 @endif
                             </td>
                             <td class="p-3 text-gray-700 border-b">
