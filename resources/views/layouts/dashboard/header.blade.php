@@ -9,8 +9,8 @@
 
     <div class="flex items-center gap-x-4">
         <div class="flex flex-col">
-            <span class="text-indigo-600 font-bold">{{ auth()->user()->name }}</span>
-            <span class="text-gray-600 text-xs">{{ auth()->user()->branch }}</span>
+            <span class="font-bold text-indigo-600">{{ auth()->user()->name }}</span>
+            <span class="text-xs text-gray-600">{{ auth()->user()->branch }}</span>
         </div>
         <div x-data="{ dropdownOpen: false }" class="relative">
             <button @click="dropdownOpen = ! dropdownOpen" class="relative block w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none">
@@ -21,7 +21,7 @@
 
             <div x-cloak x-show="dropdownOpen" class="absolute right-0 z-10 w-48 mt-2 overflow-hidden bg-white rounded-md shadow-xl">
                 {{-- <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Profile</a> --}}
-                <a href="/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Logout</a>
+                <a href="{{ URL::to('/logout') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white">Logout</a>
             </div>
         </div>
     </div>
