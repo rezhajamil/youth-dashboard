@@ -14,22 +14,36 @@ class DirectSalesContoller extends Controller
      */
     public function index()
     {
-        $dataUsers = DB::select(
-            "select cluster,branch,regional,
+        $dataUsersCluster = DB::select(
+            "select cluster,
             count(if(role='AO',1,NULL)) as 'ao',
             count(if(role='EO',1,NULL)) as 'eo',
             count(if(role='MOGI',1,NULL)) as 'mogi',
             count(if(role='YBA',1,NULL)) as 'yba',
             count(cluster) as 'jumlah'
             from data_user
-            GROUP by cluster,branch,regional
-            Order by regional,branch,cluster DESC
+            GROUP by 1
+            Order by cluster DESC
+            ",
+            [1]
+        );
+
+        $dataUsersBranch = DB::select(
+            "select regional,branch,
+            count(if(role='AO',1,NULL)) as 'ao',
+            count(if(role='EO',1,NULL)) as 'eo',
+            count(if(role='MOGI',1,NULL)) as 'mogi',
+            count(if(role='YBA',1,NULL)) as 'yba',
+            count(cluster) as 'jumlah'
+            from data_user
+            GROUP by 1,2
+            Order by regional,branch
             ",
             [1]
         );
 
         // ddd($dataUsers);
-        return view('directSales.index', compact('dataUsers'));
+        return view('directSales.index', compact('dataUsersCluster', 'dataUsersBranch'));
     }
 
     /**

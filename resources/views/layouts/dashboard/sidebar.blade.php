@@ -18,26 +18,28 @@
         </a>
 
         <a class="flex items-center px-6 py-2 mt-4 text-gray-500 cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" x-on:click="direct=!direct">
-            <i class="fa-solid fa-chart-line w-6 h-6"></i>
+            <i class="w-6 h-6 fa-solid fa-chart-line"></i>
             <span class="mx-3 text-white">Direct Sales</span>
-            <i class="fa-solid fa-angle-right text-white ml-auto inline-block transform transition-transform" :class="{'rotate-90': direct, 'rotate-0': !direct}"></i>
-
+            <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right" :class="{'rotate-90': direct, 'rotate-0': !direct}"></i>
         </a>
-        <div class="bg-gray-700 rounded-md mx-6 mt-2 w-3/4 ml-auto flex flex-col overflow-hidden" x-show="direct" x-transition>
-            <a href="{{ route('direct_sales.index') }}" class="text-white hover:bg-white hover:text-gray-700 transition-all border-b border-b-gray-900"><span class="inline-block py-3 px-2">Data Direct</span></a>
-            <a href="" class="text-white hover:bg-white hover:text-gray-700 transition-all border-b border-b-gray-900"><span class="inline-block py-3 px-2">Absensi Direct</span></a>
+        <div class="flex flex-col w-3/4 mx-6 mt-2 ml-auto overflow-hidden bg-gray-700 rounded-md" x-show="direct" x-transition>
+            <a href="{{ route('direct_sales.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Data Direct</span></a>
+            <a href="" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Absensi Direct</span></a>
         </div>
 
         <a class="flex items-center px-6 py-2 mt-4 text-gray-500 cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" x-on:click="sales=!sales">
-            <i class="fa-solid fa-chart-line w-6 h-6"></i>
+            <i class="w-6 h-6 fa-solid fa-chart-line"></i>
             <span class="mx-3 text-white">Sales</span>
-            <i class="fa-solid fa-angle-right text-white ml-auto inline-block transform transition-transform" :class="{'rotate-90': sales, 'rotate-0': !sales}"></i>
-
+            <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right" :class="{'rotate-90': sales, 'rotate-0': !sales}"></i>
         </a>
-        <div class="bg-gray-700 rounded-md mx-6 mt-2 w-3/4 ml-auto flex flex-col overflow-hidden" x-show="sales" x-transition>
-            <a href="{{ route('sales.index') }}" class="text-white hover:bg-white hover:text-gray-700 transition-all border-b border-b-gray-900"><span class="inline-block py-3 px-2">Report Sales</span></a>
-            <a href="" class="text-white hover:bg-white hover:text-gray-700 transition-all border-b border-b-gray-900"><span class="inline-block py-3 px-2">Flash Sales</span></a>
+        <div class="flex flex-col w-3/4 mx-6 mt-2 ml-auto overflow-hidden bg-gray-700 rounded-md" x-show="sales" x-transition>
+            <a href="{{ route('sales.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Report Sales</span></a>
+            <a href="" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Flash Sales</span></a>
         </div>
+        <a href="{{ route('direct_user.index') }}" class="flex items-center px-6 py-2 mt-4 text-gray-500 cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100">
+            <i class="w-6 h-6 fa-solid fa-users"></i>
+            <span class="mx-3 text-white">Database Direct User</span>
+        </a>
 
         {{-- <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="{{ route('jumat.index') }}">
         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
