@@ -71,11 +71,11 @@
                                 @endif
                             </td>
                             <td class="p-3 text-gray-700 border-b">
-                                <a href="{{ route('direct_user.edit',$data->id) }}" class="block my-1 text-sm font-semibold text-indigo-600 transition hover:text-indigo-800">Edit</a>
+                                <a href="{{ route('direct_user.edit',$data->id) }}" class="block my-1 text-base font-semibold text-indigo-600 transition hover:text-indigo-800">Edit</a>
                                 <form action="{{ route('direct_user.change_status',$data->id) }}" method="post">
                                     @csrf
                                     @method('put')
-                                    <button class="block my-1 text-sm font-semibold text-left text-red-600 transition hover:text-red-800">Ubah Status</button>
+                                    <button class="block my-1 text-base font-semibold text-left text-red-600 transition hover:text-red-800">Ubah Status</button>
                                 </form>
                             </td>
                         </tr>
