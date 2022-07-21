@@ -35,6 +35,11 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('dashboard', DashboardController::class);
     Route::resource('direct_sales', DirectSalesContoller::class);
     Route::resource('sales', SalesContoller::class);
+    // Route::get('sales', function () {
+    //     return redirect()->route('sales.migrasi');
+    // });
+    Route::get('migrasi/sales', [SalesContoller::class, 'migrasi'])->name('sales.migrasi');
+    Route::get('orbit/sales', [SalesContoller::class, 'orbit'])->name('sales.orbit');
     Route::resource('direct_user', DirectUserController::class);
     Route::put('direct_user/change_status/{direct_user}', [DirectUserController::class, 'changeStatus'])->name('direct_user.change_status');
 });

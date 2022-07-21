@@ -4,12 +4,12 @@
     <div class="flex flex-col">
         <div class="mt-4">
             <h4 class="text-xl font-bold text-gray-600 align-baseline">Migrasi 4G/Direct Sales</h4>
-            <form class="flex flex-wrap items-center mt-4 gap-x-4 gap-y-2" action="{{ route('sales.index') }}" method="get">
+            <form class="flex flex-wrap items-center mt-4 gap-x-4 gap-y-2" action="{{ route('sales.migrasi') }}" method="get">
                 <input type="date" name="date" id="date" class="px-4 rounded-lg" value="{{ request()->get('date') }}" required>
                 <div class="flex gap-x-3">
                     <button class="px-4 py-2 font-bold text-white transition bg-indigo-600 rounded-lg hover:bg-indigo-800"><i class="mr-2 fa-solid fa-magnifying-glass"></i>Cari</button>
                     @if (request()->get('date'))
-                    <a href="{{ route('sales.index') }}" class="px-4 py-2 font-bold text-white transition bg-gray-600 rounded-lg hover:bg-gray-800"><i class="mr-2 fa-solid fa-circle-xmark"></i>Reset</a>
+                    <a href="{{ route('sales.migrasi') }}" class="px-4 py-2 font-bold text-white transition bg-gray-600 rounded-lg hover:bg-gray-800"><i class="mr-2 fa-solid fa-circle-xmark"></i>Reset</a>
                     @endif
                 </div>
             </form>

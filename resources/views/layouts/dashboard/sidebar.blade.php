@@ -23,8 +23,8 @@
             <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right" :class="{'rotate-90': direct, 'rotate-0': !direct}"></i>
         </a>
         <div class="flex flex-col w-3/4 mx-6 mt-2 ml-auto overflow-hidden bg-gray-700 rounded-md" x-show="direct" x-transition>
-            <a href="{{ route('direct_sales.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Data Direct</span></a>
-            <a href="" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Absensi Direct</span></a>
+            <a href="{{ route('direct_sales.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Resume Direct</span></a>
+            <a href="{{ route('direct_user.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Detail Direct</span></a>
         </div>
 
         <a class="flex items-center px-6 py-2 mt-4 text-gray-500 cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" x-on:click="sales=!sales">
@@ -33,13 +33,13 @@
             <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right" :class="{'rotate-90': sales, 'rotate-0': !sales}"></i>
         </a>
         <div class="flex flex-col w-3/4 mx-6 mt-2 ml-auto overflow-hidden bg-gray-700 rounded-md" x-show="sales" x-transition>
-            <a href="{{ route('sales.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Report Sales</span></a>
-            <a href="" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Flash Sales</span></a>
+            <a href="{{ route('sales.migrasi') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Migrasi</span></a>
+            <a href="{{ route('sales.orbit') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Orbit</span></a>
         </div>
-        <a href="{{ route('direct_user.index') }}" class="flex items-center px-6 py-2 mt-4 text-gray-500 cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100">
-            <i class="w-6 h-6 fa-solid fa-users"></i>
-            <span class="mx-3 text-white">Database Direct User</span>
-        </a>
+        {{-- <a href="{{ route('direct_user.index') }}" class="flex items-center px-6 py-2 mt-4 text-gray-500 cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100">
+        <i class="w-6 h-6 fa-solid fa-users"></i>
+        <span class="mx-3 text-white">Database Direct User</span>
+        </a> --}}
 
         {{-- <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="{{ route('jumat.index') }}">
         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
