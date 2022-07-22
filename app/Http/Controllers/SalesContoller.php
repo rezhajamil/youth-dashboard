@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class SalesContoller extends Controller
@@ -177,10 +178,11 @@ class SalesContoller extends Controller
                         INNER JOIN 
                         (SELECT c.msisdn,telp,date,c.status
                         FROM sales_copy as b
-                        INNER JOIN validasi_orbit as c
+                        LEFT JOIN validasi_orbit as c
                         on b.msisdn=c.msisdn) as d
 
                         ON a.telp=d.telp
+                        Where branch='" . Auth::user()->branch . "'
                         GROUP BY 1,2,3;";
 
             $query_cluster = "SELECT a.cluster,d.status,
@@ -191,10 +193,11 @@ class SalesContoller extends Controller
                         INNER JOIN 
                         (SELECT c.msisdn,telp,date,c.status
                         FROM sales_copy as b
-                        INNER JOIN validasi_orbit as c
+                        LEFT JOIN validasi_orbit as c
                         on b.msisdn=c.msisdn) as d
 
                         ON a.telp=d.telp
+                        Where branch='" . Auth::user()->branch . "'
                         GROUP BY 1,2;";
 
             $query = "SELECT a.cluster,d.telp,a.nama,d.status,d.sales_date
@@ -207,6 +210,7 @@ class SalesContoller extends Controller
                     where sales_date BETWEEN '" . $m1 . "' and '" . $mtd . "' ) as d
 
                     ON a.telp=d.telp
+                    Where branch='" . Auth::user()->branch . "'
                     GROUP by 1,2,3,4,5
                     ORDER BY 1,3,4,5;
                     ";

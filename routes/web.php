@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DirectSalesContoller;
 use App\Http\Controllers\DirectUserController;
 use App\Http\Controllers\SalesContoller;
+use App\Http\Controllers\SekolahController;
 use App\Http\Controllers\WilayahController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,11 +31,17 @@ Route::name('wilayah.')->group(function () {
     Route::post('wilayah/get_tap', [WilayahController::class, 'getTap'])->name('get_tap');
 });
 
+Route::name('sekolah.')->group(function () {
+    Route::post('sekolah/get_kabupaten', [SekolahController::class, 'getKabupaten'])->name('get_kabupaten');
+    Route::post('sekolah/get_kecamatan', [SekolahController::class, 'getKecamatan'])->name('get_kecamatan');
+});
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index']);
     Route::resource('dashboard', DashboardController::class);
     Route::resource('direct_sales', DirectSalesContoller::class);
     Route::resource('sales', SalesContoller::class);
+    Route::resource('sekolah', SekolahController::class);
     // Route::get('sales', function () {
     //     return redirect()->route('sales.migrasi');
     // });
