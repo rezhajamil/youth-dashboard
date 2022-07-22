@@ -95,6 +95,8 @@ class SalesContoller extends Controller
             $mtd = date('Y-m-d', strtotime($request->date));
             $last_m1 = date('Y-m-01', strtotime('-1 month', strtotime($request->date)));
             $last_mtd = $this->convDate($mtd);
+            $where_branch = Auth::user()->privilege == "branch" ? "and branch='" . Auth::user()->branch . "'" : '';
+
             $query = "
             SELECT b.`cluster`, b.tap, b.nama,COUNT(b.id_digipos) as digipos,
             COUNT(CASE WHEN a.date BETWEEN '" . $m1 . "' and '" . $mtd . "' then outlet_id end) mtd,
@@ -105,6 +107,7 @@ class SalesContoller extends Controller
                     INNER JOIN data_user b ON a.outlet_id=b.id_digipos
                     
                     WHERE a.status='MIGRATION_SUCCCESS' OR a.status='USIM_ACTIVE'
+                    " . $where_branch . "
                     GROUP BY 1,2,3
                     ORDER BY 1,2,3;
             ";
@@ -121,6 +124,7 @@ class SalesContoller extends Controller
                     INNER JOIN data_user b ON a.outlet_id=b.id_digipos
                     
                     WHERE a.status='MIGRATION_SUCCCESS' OR a.status='USIM_ACTIVE'
+                    " . $where_branch . "
                     GROUP BY 1;";
 
             $query_branch = "
@@ -135,6 +139,7 @@ class SalesContoller extends Controller
                     INNER JOIN data_user b ON a.outlet_id=b.id_digipos
                     
                     WHERE a.status='MIGRATION_SUCCCESS' OR a.status='USIM_ACTIVE'
+                    " . $where_branch . "
                     GROUP BY 1,2;";
 
             $sales = DB::select($query, [1]);
@@ -169,52 +174,38 @@ class SalesContoller extends Controller
             $mtd = date('Y-m-d', strtotime($request->date));
             $last_m1 = date('Y-m-01', strtotime('-1 month', strtotime($request->date)));
             $last_mtd = $this->convDate($mtd);
-            $where_branch = Auth::user()->privilege == "branch" ? "where branch='" . Auth::user()->branch . "'" : '';
+            $branch = Auth::user()->privilege == "branch" ? "branch='" . Auth::user()->branch . "'" : '';
+            $where = Auth::user()->privilege == "branch" ? "where" : "";
+            $and = Auth::user()->privilege == "branch" ? "and" : "";
 
-            $query_branch = "SELECT a.regional,a.branch,d.status,
-                        COUNT(CASE WHEN d.date BETWEEN '" . $m1 . "' AND '" . $mtd . "' THEN d.msisdn END) as mtd,
-                        COUNT(CASE WHEN d.date BETWEEN '" . $last_m1 . "' AND '" . $last_mtd . "' THEN d.msisdn END) as last_mtd
+            $query_branch = "SELECT b.regional, b.branch ,c.status,
+                    COUNT(CASE WHEN a.`date` BETWEEN '" . $m1 . "' AND '" . $mtd . "' THEN a.msisdn END) mtd,
+                       COUNT(CASE WHEN a.`date` BETWEEN '" . $last_m1 . "' AND '" . $last_mtd . "' THEN a.msisdn END) last_mtd
+                    FROM sales_copy a  
+                    JOIN data_user b ON b.telp = a.telp
+                    LEFT JOIN validasi_orbit c on c.msisdn = a.msisdn
+                    " . $where . " 
+                    " . $branch . "
+                    GROUP BY 1,2,3;";
 
-                        FROM data_user as a
-                        INNER JOIN 
-                        (SELECT c.msisdn,telp,date,c.status
-                        FROM sales_copy as b
-                        LEFT JOIN validasi_orbit as c
-                        on b.msisdn=c.msisdn) as d
+            $query_cluster = "SELECT b.cluster,c.status,
+                    COUNT(CASE WHEN a.`date` BETWEEN '" . $m1 . "' AND '" . $mtd . "' THEN a.msisdn END) mtd,
+                       COUNT(CASE WHEN a.`date` BETWEEN '" . $last_m1 . "' AND '" . $last_mtd . "' THEN a.msisdn END) last_mtd
+                    FROM sales_copy a  
+                    JOIN data_user b ON b.telp = a.telp
+                    LEFT JOIN validasi_orbit c on c.msisdn = a.msisdn
+                    " . $where . "
+                    " . $branch . "
+                    GROUP BY 1,2;";
 
-                        ON a.telp=d.telp
-                        " . $where_branch . "
-                        GROUP BY 1,2,3;";
-
-            $query_cluster = "SELECT a.cluster,d.status,
-                        COUNT(CASE WHEN d.date BETWEEN '" . $m1 . "' AND '" . $mtd . "' THEN d.msisdn END) as mtd,
-                        COUNT(CASE WHEN d.date BETWEEN '" . $last_m1 . "' AND '" . $last_mtd . "' THEN d.msisdn END) as last_mtd
-
-                        FROM data_user as a
-                        INNER JOIN 
-                        (SELECT c.msisdn,telp,date,c.status
-                        FROM sales_copy as b
-                        LEFT JOIN validasi_orbit as c
-                        on b.msisdn=c.msisdn) as d
-
-                        ON a.telp=d.telp
-                        " . $where_branch . "
-                        GROUP BY 1,2;";
-
-            $query = "SELECT a.cluster,d.telp,a.nama,d.status,d.sales_date
-                    FROM data_user as a
-                    INNER JOIN 
-                    (SELECT c.msisdn,telp,sales_date,c.status
-                    FROM sales_copy as b
-                    LEFT JOIN validasi_orbit as c
-                    on b.msisdn=c.msisdn
-                    where sales_date BETWEEN '" . $m1 . "' and '" . $mtd . "' ) as d
-
-                    ON a.telp=d.telp
-                    " . $where_branch . "
-                    GROUP by 1,2,3,4,5
-                    ORDER BY 1,3,4,5;
-                    ";
+            $query = "SELECT b.nama, b.cluster, a.telp, c.status,a.`date`
+                    FROM sales_copy a  
+                    JOIN data_user b ON b.telp = a.telp
+                    LEFT JOIN validasi_orbit c on c.msisdn = a.msisdn
+                    where a.date BETWEEN '" . $m1 . "' AND '" . $mtd . "'
+                    " . $and . "
+                    " . $branch . "
+                    ORDER by b.cluster, b.nama ASC";
 
             $sales_branch = DB::select($query_branch, [1]);
             $sales_cluster = DB::select($query_cluster, [1]);

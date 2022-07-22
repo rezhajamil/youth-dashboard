@@ -24,7 +24,7 @@
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Branch</th>
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Status</th>
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">MTD</th>
-                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Last MTD</th>
+                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">M-1</th>
                             {{-- <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Action</th> --}}
                         </tr>
                     </thead>
@@ -53,7 +53,7 @@
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Cluster</th>
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Status</th>
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">MTD</th>
-                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Last MTD</th>
+                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">M-1</th>
                             {{-- <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Action</th> --}}
                         </tr>
                     </thead>
@@ -111,7 +111,7 @@
                             <td class="p-4 text-gray-700 uppercase border-b nama">{{ $data->nama }}</td>
                             <td class="p-4 text-gray-700 uppercase border-b status">{{ $data->status }}</td>
                             <td class="p-4 text-gray-700 uppercase border-b telp">{{ $data->telp }}</td>
-                            <td class="p-4 text-gray-700 uppercase border-b aktif">{{ $data->sales_date }}</td>
+                            <td class="p-4 text-gray-700 uppercase border-b aktif">{{ $data->date }}</td>
                             {{-- <td class="p-4 text-gray-700 border-b"></td> --}}
                         </tr>
                         @endforeach
