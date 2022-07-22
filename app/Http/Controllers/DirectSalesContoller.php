@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class DirectSalesContoller extends Controller
@@ -22,6 +23,7 @@ class DirectSalesContoller extends Controller
             count(if(role='YBA',1,NULL)) as 'yba',
             count(cluster) as 'jumlah'
             from data_user
+            where branch='" . Auth::user()->branch . "'
             GROUP by 1
             Order by cluster DESC
             ",
@@ -36,6 +38,7 @@ class DirectSalesContoller extends Controller
             count(if(role='YBA',1,NULL)) as 'yba',
             count(cluster) as 'jumlah'
             from data_user
+            where branch='" . Auth::user()->branch . "'
             GROUP by 1,2
             Order by regional,branch
             ",

@@ -169,6 +169,7 @@ class SalesContoller extends Controller
             $mtd = date('Y-m-d', strtotime($request->date));
             $last_m1 = date('Y-m-01', strtotime('-1 month', strtotime($request->date)));
             $last_mtd = $this->convDate($mtd);
+            $where_branch = Auth::user()->privilege == "branch" ? "where branch='" . Auth::user()->branch . "'" : '';
 
             $query_branch = "SELECT a.regional,a.branch,d.status,
                         COUNT(CASE WHEN d.date BETWEEN '" . $m1 . "' AND '" . $mtd . "' THEN d.msisdn END) as mtd,
@@ -182,7 +183,7 @@ class SalesContoller extends Controller
                         on b.msisdn=c.msisdn) as d
 
                         ON a.telp=d.telp
-                        Where branch='" . Auth::user()->branch . "'
+                        " . $where_branch . "
                         GROUP BY 1,2,3;";
 
             $query_cluster = "SELECT a.cluster,d.status,
@@ -197,7 +198,7 @@ class SalesContoller extends Controller
                         on b.msisdn=c.msisdn) as d
 
                         ON a.telp=d.telp
-                        Where branch='" . Auth::user()->branch . "'
+                        " . $where_branch . "
                         GROUP BY 1,2;";
 
             $query = "SELECT a.cluster,d.telp,a.nama,d.status,d.sales_date
@@ -205,12 +206,12 @@ class SalesContoller extends Controller
                     INNER JOIN 
                     (SELECT c.msisdn,telp,sales_date,c.status
                     FROM sales_copy as b
-                    INNER JOIN validasi_orbit as c
+                    LEFT JOIN validasi_orbit as c
                     on b.msisdn=c.msisdn
                     where sales_date BETWEEN '" . $m1 . "' and '" . $mtd . "' ) as d
 
                     ON a.telp=d.telp
-                    Where branch='" . Auth::user()->branch . "'
+                    " . $where_branch . "
                     GROUP by 1,2,3,4,5
                     ORDER BY 1,3,4,5;
                     ";
