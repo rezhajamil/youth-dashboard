@@ -12,4 +12,7 @@ class Sekolah extends Model
     protected $table = 'Data_Sekolah_Sumatera';
 
     protected $guarded = [];
+
+    protected $primaryKey = 'NPSN';
+    public $incrementing = false;
 }

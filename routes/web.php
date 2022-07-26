@@ -41,7 +41,14 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('dashboard', DashboardController::class);
     Route::resource('direct_sales', DirectSalesContoller::class);
     Route::resource('sales', SalesContoller::class);
-    Route::resource('sekolah', SekolahController::class);
+    // Route::resource('sekolah', SekolahController::class);
+    Route::get('sekolah', [SekolahController::class, 'index'])->name('sekolah.index');
+    Route::post('sekolah', [SekolahController::class, 'store'])->name('sekolah.store');
+    Route::get('sekolah/create', [SekolahController::class, 'create'])->name('sekolah.create');
+    Route::delete('sekolah/{npsn}', [SekolahController::class, 'destroy'])->name('sekolah.destroy');
+    Route::put('sekolah/{npsn}', [SekolahController::class, 'update'])->name('sekolah.update');
+    Route::get('sekolah/{npsn}', [SekolahController::class, 'show'])->name('sekolah.show');
+    Route::get('sekolah/{npsn}/edit', [SekolahController::class, 'edit'])->name('sekolah.edit');
     // Route::get('sales', function () {
     //     return redirect()->route('sales.migrasi');
     // });

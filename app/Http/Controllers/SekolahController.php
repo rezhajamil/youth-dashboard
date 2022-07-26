@@ -20,15 +20,15 @@ class SekolahController extends Controller
 
         if ($request->kecamatan) {
             $sekolah = Sekolah::where('kecamatan', $request->kecamatan)->orderBy('nama_sekolah')->get();
-            $kabupaten = Sekolah::select('kab_kota')->where('provinsi', $request->provinsi)->whereNotNull('kab_kota')->distinct()->orderBy('kab_kota')->get();
-            $kecamatan = Sekolah::select('kecamatan')->where('kab_kota', $request->kabupaten)->whereNotNull('kecamatan')->distinct()->orderBy('kecamatan')->get();
+            $kabupaten = DB::table('territory')->select('kabupaten')->where('provinsi', $request->provinsi)->whereNotNull('kabupaten')->distinct()->orderBy('kabupaten')->get();
+            $kecamatan = DB::table('territory')->select('kecamatan')->where('kabupaten', $request->kabupaten)->whereNotNull('kecamatan')->distinct()->orderBy('kecamatan')->get();
         } else if ($request->kabupaten) {
             $sekolah = Sekolah::where('kab_kota', $request->kabupaten)->orderBy('kecamatan')->orderBy('nama_sekolah')->get();
-            $kabupaten = Sekolah::select('kab_kota')->where('provinsi', $request->provinsi)->whereNotNull('kab_kota')->distinct()->orderBy('kab_kota')->get();
-            $kecamatan = [];
+            $kabupaten = DB::table('territory')->select('kabupaten')->where('provinsi', $request->provinsi)->whereNotNull('kabupaten')->distinct()->orderBy('kabupaten')->get();
+            $kecamatan = DB::table('territory')->select('kecamatan')->where('kabupaten', $request->kabupaten)->whereNotNull('kecamatan')->distinct()->orderBy('kecamatan')->get();
         } else if ($request->provinsi) {
             $sekolah = Sekolah::where('provinsi', $request->provinsi)->orderBy('kab_kota')->orderBy('kecamatan')->orderBy('nama_sekolah')->get();
-            $kabupaten = [];
+            $kabupaten = DB::table('territory')->select('kabupaten')->where('provinsi', $request->provinsi)->whereNotNull('kabupaten')->distinct()->orderBy('kabupaten')->get();
             $kecamatan = [];
         } else {
             $sekolah = [];
@@ -77,9 +77,31 @@ class SekolahController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($npsn)
     {
-        //
+        $sekolah = Sekolah::where('NPSN', $npsn)->first();
+        $regional = explode(".", $sekolah->REGIONAL);
+        if ($sekolah->KAB_KOTA) {
+            // $kabupaten = [(object)['kabupaten' => $sekolah->KAB_KOTA]];
+            $kabupaten = [(object)['kabupaten' => $sekolah->KAB_KOTA]];
+        } else {
+            $kabupaten = DB::table('territory')->select('kabupaten')->distinct()->where('area', 'SUMATERA')->orderBy('kabupaten')->get();
+        }
+
+        if ($sekolah->KECAMATAN) {
+            $kecamatan = [(object)['kecamatan' => $sekolah->KECAMATAN]];
+        } else {
+            if ($sekolah->KAB_KOTA) {
+                $kecamatan = DB::table('territory')->select('kecamatan')->distinct()->where('kabupaten', $sekolah->KAB_KOTA)->orderBy('kecamatan')->get();
+            } else {
+                $kecamatan = [];
+            }
+        }
+        // foreach ($kabupaten as $item) {
+        //     ddd($item);
+        // }
+        $branch = DB::table('territory')->select('new_branch as branch')->distinct()->where('region', $regional[1])->orderBy('new_branch')->get();
+        return view('sekolah.edit', compact('sekolah', 'kabupaten', 'kecamatan', 'branch'));
     }
 
     /**
@@ -89,9 +111,25 @@ class SekolahController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $npsn)
     {
-        //
+        $request->validate([
+            'kabupaten' => 'required',
+            'kecamatan' => 'required',
+            'branch' => 'required',
+            'cluster' => 'required',
+        ]);
+
+        $sekolah = Sekolah::find($npsn);
+        $sekolah->timestamps = false;
+        $sekolah->KAB_KOTA = $request->kabupaten;
+        $sekolah->KECAMATAN = $request->kecamatan;
+        $sekolah->BRANCH = $request->branch;
+        $sekolah->CLUSTER = $request->cluster;
+
+        $sekolah->save();
+
+        return redirect()->route('sekolah.index');
     }
 
     /**
@@ -108,7 +146,7 @@ class SekolahController extends Controller
     public function getKabupaten(Request $request)
     {
         $provinsi = $request->provinsi;
-        $kabupaten = Sekolah::select('kab_kota')->distinct()->where('provinsi', $provinsi)->whereNotNull('kab_kota')->orderBy('kab_kota')->get();
+        $kabupaten = DB::table('territory')->select('kabupaten')->distinct()->where('provinsi', $provinsi)->whereNotNull('kabupaten')->orderBy('kabupaten')->get();
 
         return response()->json($kabupaten);
     }
@@ -116,7 +154,7 @@ class SekolahController extends Controller
     public function getKecamatan(Request $request)
     {
         $kabupaten = $request->kabupaten;
-        $kecamatan = Sekolah::select('kecamatan')->distinct()->where('kab_kota', $kabupaten)->whereNotNull('kecamatan')->orderBy('kecamatan')->get();
+        $kecamatan = DB::table('territory')->select('kecamatan')->distinct()->where('kabupaten', $kabupaten)->whereNotNull('kecamatan')->orderBy('kecamatan')->get();
 
         return response()->json($kecamatan);
     }

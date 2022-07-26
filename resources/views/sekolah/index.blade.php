@@ -6,7 +6,7 @@
             <h4 class="text-xl font-bold text-gray-600 align-baseline">Data Sekolah</h4>
 
             <div class="flex justify-between">
-                <form class="flex flex-wrap items-center my-4 gap-x-4 gap-y-2" action="{{ route('sekolah.index') }}" method="get">
+                <form class="flex flex-wrap items-center my-3 gap-x-4 gap-y-2" action="{{ route('sekolah.index') }}" method="get">
                     <select name="provinsi" id="provinsi" class="px-8 rounded-lg">
                         <option value="" selected disabled>Pilih Provinsi</option>
                         @foreach ($provinsi as $item)
@@ -16,7 +16,7 @@
                     <select name="kabupaten" id="kabupaten" class="px-8 rounded-lg">
                         <option value="" selected disabled>Pilih Kabupaten/Kota</option>
                         @foreach ($kabupaten as $item)
-                        <option value="{{ $item->kab_kota }}" {{ $item->kab_kota==request()->get('kabupaten')?'selected':'' }}>{{ $item->kab_kota }}</option>
+                        <option value="{{ $item->kabupaten }}" {{ $item->kabupaten==request()->get('kabupaten')?'selected':'' }}>{{ $item->kabupaten }}</option>
                         @endforeach
                     </select>
                     <select name="kecamatan" id="kecamatan" class="px-8 rounded-lg">
@@ -46,7 +46,7 @@
                 </select>
             </div>
 
-            <div class="flex flex-wrap items-end mb-2 gap-x-4">
+            <div class="flex flex-wrap items-end my-3 gap-x-4">
                 <input type="text" name="search" id="search" placeholder="Search..." class="px-4 rounded-lg">
                 <div class="flex flex-col">
                     {{-- <span class="font-bold text-gray-600">Berdasarkan</span> --}}
@@ -97,7 +97,9 @@
                             <td class="p-4 text-gray-700 border-b branch">{{ $data->BRANCH }}</td>
                             <td class="p-4 text-gray-700 border-b cluster">{{ $data->CLUSTER }}</td>
                             <td class="p-4 text-gray-700 border-b">
-                                {{-- <a href="{{ route('sekolah.edit',$data->npsn) }}" class="block my-1 text-base font-semibold text-indigo-600 transition hover:text-indigo-800">Edit</a> --}}
+                                @if (!$data->KAB_KOTA||!$data->KECAMATAN||!$data->BRANCH||!$data->CLUSTER)
+                                <a href="{{ route('sekolah.edit',$data->NPSN) }}" class="block my-1 text-base font-semibold text-indigo-600 transition hover:text-indigo-800">Edit</a>
+                                @endif
                                 {{-- <form action="{{ route('direct_user.change_status',$data->id) }}" method="post">
                                 @csrf
                                 @method('put')
@@ -135,7 +137,7 @@
                         `<option value="" selected disabled>Pilih Kabupaten/Kota</option> ` +
                         data.map((item) => {
                             return `
-                            <option value="${item.kab_kota}">${item.kab_kota}</option>
+                            <option value="${item.kabupaten}">${item.kabupaten}</option>
                             `
                         })
                     )
