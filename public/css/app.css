@@ -970,6 +970,12 @@ select {
 .-mr-2 {
   margin-right: -0.5rem;
 }
+.mr-3 {
+  margin-right: 0.75rem;
+}
+.mr-1 {
+  margin-right: 0.25rem;
+}
 .block {
   display: block;
 }
@@ -1608,6 +1614,10 @@ select {
   --tw-text-opacity: 1;
   color: rgb(31 41 55 / var(--tw-text-opacity));
 }
+.text-slate-600 {
+  --tw-text-opacity: 1;
+  color: rgb(71 85 105 / var(--tw-text-opacity));
+}
 .underline {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
@@ -1615,6 +1625,12 @@ select {
 .antialiased {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.accent-premier {
+  accent-color: #B90027;
+}
+.accent-red-600 {
+  accent-color: #dc2626;
 }
 .opacity-50 {
   opacity: 0.5;

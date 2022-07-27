@@ -15,16 +15,25 @@
                         @endif
                     </div>
                 </form>
-                {{-- <div class="flex gap-x-3">
-                    <div class="relative rounded w-fit h-fit">
-                        <input type="checkbox" id="by_region" class="appearance-none">
+                <div class="flex px-6 gap-x-3">
+                    <div class="p-4 bg-white rounded w-fit h-fit">
+                        <label for="by_region" class="mr-1 font-semibold text-slate-600">By Region</label>
+                        <input type="checkbox" id="by_region" checked>
                     </div>
-                </div> --}}
+                    <div class="p-4 bg-white rounded w-fit h-fit">
+                        <label for="by_cluster" class="mr-1 font-semibold text-slate-600">By Cluster</label>
+                        <input type="checkbox" id="by_cluster" checked>
+                    </div>
+                    {{-- <div class="p-4 bg-white rounded w-fit h-fit">
+                        <label for="by_detail" class="mr-1 font-semibold text-slate-600">By Detail</label>
+                        <input type="checkbox" id="by_detail">
+                    </div> --}}
+                </div>
 
             </div>
 
-            <span class="inline-block mt-6 mb-2 text-lg font-semibold text-gray-600">Direct Sales By Region</span>
-            <div class="overflow-hidden bg-white rounded-md shadow w-fit">
+            <span class="block mt-6 mb-2 text-lg font-semibold text-gray-600">Direct Sales By Region</span>
+            <div class="overflow-hidden bg-white rounded-md shadow w-fit" id="table-region">
                 <table class="text-left border-collapse w-fit">
                     <thead class="border-b">
                         <tr>
@@ -35,7 +44,7 @@
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">M-1</th>
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">MOM</th>
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">DS MTD</th>
-                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">LAST DS MTD</th>
+                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">DS M-1</th>
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">DS MOM</th>
                             {{-- <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Action</th> --}}
                         </tr>
@@ -59,8 +68,8 @@
                 </table>
             </div>
 
-            <span class="inline-block mt-6 mb-2 text-lg font-semibold text-gray-600">Direct Sales By Cluster</span>
-            <div class="overflow-hidden bg-white rounded-md shadow w-fit">
+            <span class="block mt-6 mb-2 text-lg font-semibold text-gray-600">Direct Sales By Cluster</span>
+            <div class="overflow-hidden bg-white rounded-md shadow w-fit" id="table-cluster">
                 <table class="text-left border-collapse w-fit">
                     <thead class="border-b">
                         <tr>
@@ -70,7 +79,7 @@
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">M-1</th>
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">MOM</th>
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">DS MTD</th>
-                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">LAST DS MTD</th>
+                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">DS M-1</th>
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">DS MOM</th>
                             {{-- <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Action</th> --}}
                         </tr>
@@ -159,6 +168,14 @@
                 }
             });
         });
+
+        $("#by_region").on("change", function() {
+            $("#table-region").toggle();
+        })
+
+        $("#by_cluster").on("change", function() {
+            $("#table-cluster").toggle();
+        })
 
     })
 
