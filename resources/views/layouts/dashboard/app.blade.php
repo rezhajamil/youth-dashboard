@@ -27,7 +27,7 @@
             @include('layouts.dashboard.header')
 
             <main class="flex-1 overflow-auto bg-gray-200">
-                <div class="container px-6 py-4 mx-auto">
+                <div class="px-6 py-4 mx-auto">
                     @yield('body')
                 </div>
             </main>

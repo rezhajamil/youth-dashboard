@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BroadCastController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DirectSalesContoller;
 use App\Http\Controllers\DirectUserController;
@@ -41,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('dashboard', DashboardController::class);
     Route::resource('direct_sales', DirectSalesContoller::class);
     Route::resource('sales', SalesContoller::class);
+    Route::resource('broadcast', BroadCastController::class);
     // Route::resource('sekolah', SekolahController::class);
     Route::get('sekolah', [SekolahController::class, 'index'])->name('sekolah.index');
     Route::post('sekolah', [SekolahController::class, 'store'])->name('sekolah.store');
