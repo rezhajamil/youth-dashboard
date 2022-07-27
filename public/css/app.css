@@ -1298,6 +1298,14 @@ select {
   --tw-border-opacity: 1;
   border-bottom-color: rgb(17 24 39 / var(--tw-border-opacity));
 }
+.border-l-tersier {
+  --tw-border-opacity: 1;
+  border-left-color: rgb(90 89 94 / var(--tw-border-opacity));
+}
+.border-r-tersier {
+  --tw-border-opacity: 1;
+  border-right-color: rgb(90 89 94 / var(--tw-border-opacity));
+}
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));

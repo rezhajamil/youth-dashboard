@@ -198,7 +198,7 @@ class SalesContoller extends Controller
                     " . $branch . "
                     GROUP BY 1,2;";
 
-            $query = "SELECT b.nama, b.cluster, a.telp, c.status,a.`date`
+            $query = "SELECT b.nama, b.cluster, a.msisdn, c.status,a.`date`
                     FROM sales_copy a  
                     JOIN data_user b ON b.telp = a.telp
                     LEFT JOIN validasi_orbit c on c.msisdn = a.msisdn

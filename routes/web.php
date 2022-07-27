@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BroadCastController;
+use App\Http\Controllers\ContentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DirectSalesContoller;
 use App\Http\Controllers\DirectUserController;
@@ -51,6 +52,9 @@ Route::middleware(['auth'])->group(function () {
     Route::put('sekolah/{npsn}', [SekolahController::class, 'update'])->name('sekolah.update');
     Route::get('sekolah/{npsn}', [SekolahController::class, 'show'])->name('sekolah.show');
     Route::get('sekolah/{npsn}/edit', [SekolahController::class, 'edit'])->name('sekolah.edit');
+
+    Route::get('content/sapaan', [ContentController::class, 'sapaan'])->name('sapaan.index');
+    Route::delete('content/sapaan/{id}', [ContentController::class, 'destroy_sapaan'])->name('sapaan.destroy');
     // Route::get('sales', function () {
     //     return redirect()->route('sales.migrasi');
     // });

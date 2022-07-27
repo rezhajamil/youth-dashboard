@@ -96,7 +96,7 @@
                     <span class="font-bold text-gray-600">Berdasarkan</span>
                     <select name="search_by" id="search_by" class="rounded-lg">
                         <option value="cluster">Cluster</option>
-                        <option value="telp">Telepon</option>
+                        <option value="msisdn">MSISDN</option>
                         <option value="nama">Nama</option>
                         <option value="status">Status</option>
                         <option value="aktif">Tanggal Aktif</option>
@@ -113,7 +113,7 @@
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Cluster</th>
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Nama</th>
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Status</th>
-                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Telepon</th>
+                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">MSISDN</th>
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Tanggal Aktif</th>
                             {{-- <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">MOM</th> --}}
                             {{-- <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Action</th> --}}
@@ -126,7 +126,7 @@
                             <td class="p-4 text-gray-700 uppercase border-b cluster">{{ $data->cluster }}</td>
                             <td class="p-4 text-gray-700 uppercase border-b nama">{{ $data->nama }}</td>
                             <td class="p-4 text-gray-700 uppercase border-b status">{{ $data->status }}</td>
-                            <td class="p-4 text-gray-700 uppercase border-b telp">{{ $data->telp }}</td>
+                            <td class="p-4 text-gray-700 uppercase border-b msisdn">{{ $data->msisdn }}</td>
                             <td class="p-4 text-gray-700 uppercase border-b aktif">{{ $data->date }}</td>
                             {{-- <td class="p-4 text-gray-700 border-b"></td> --}}
                         </tr>
