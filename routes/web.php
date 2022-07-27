@@ -54,7 +54,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('sekolah/{npsn}/edit', [SekolahController::class, 'edit'])->name('sekolah.edit');
 
     Route::get('content/sapaan', [ContentController::class, 'sapaan'])->name('sapaan.index');
+    Route::post('content/sapaan', [ContentController::class, 'store_sapaan'])->name('sapaan.store');
+    Route::get('content/sapaan/create', [ContentController::class, 'create_sapaan'])->name('sapaan.create');
     Route::delete('content/sapaan/{id}', [ContentController::class, 'destroy_sapaan'])->name('sapaan.destroy');
+
+    Route::get('content/challenge', [ContentController::class, 'challenge'])->name('challenge.index');
+    Route::post('content/challenge', [ContentController::class, 'store_challenge'])->name('challenge.store');
+    Route::get('content/challenge/create', [ContentController::class, 'create_challenge'])->name('challenge.create');
+    Route::delete('content/challenge/{id}', [ContentController::class, 'destroy_challenge'])->name('challenge.destroy');
     // Route::get('sales', function () {
     //     return redirect()->route('sales.migrasi');
     // });
