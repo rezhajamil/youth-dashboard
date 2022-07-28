@@ -62,6 +62,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('content/challenge', [ContentController::class, 'store_challenge'])->name('challenge.store');
     Route::get('content/challenge/create', [ContentController::class, 'create_challenge'])->name('challenge.create');
     Route::delete('content/challenge/{id}', [ContentController::class, 'destroy_challenge'])->name('challenge.destroy');
+
+    Route::get('content/slide', [ContentController::class, 'slide'])->name('slide.index');
+    Route::post('content/slide', [ContentController::class, 'store_slide'])->name('slide.store');
+    Route::get('content/slide/create', [ContentController::class, 'create_slide'])->name('slide.create');
+    Route::delete('content/slide/{id}', [ContentController::class, 'destroy_slide'])->name('slide.destroy');
     // Route::get('sales', function () {
     //     return redirect()->route('sales.migrasi');
     // });

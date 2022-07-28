@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ContentController extends Controller
 {
@@ -91,5 +92,51 @@ class ContentController extends Controller
         ]);
 
         return redirect()->route('challenge.index');
+    }
+
+    public function slide()
+    {
+        $slide = DB::table('slide_show')->orderBy('date', 'desc')->get();
+        return view('content.slide.index', compact('slide'));
+    }
+
+    public function create_slide()
+    {
+        return view('content.slide.create');
+    }
+
+    public function store_slide(Request $request)
+    {
+        $request->validate([
+            'role' => 'required',
+            'judul' => 'required',
+            'gambar' => 'required|image',
+        ]);
+
+        if ($request->hasFile('gambar')) {
+            $gambar = $request->file('gambar');
+            $url = $gambar->storeAs('slide_show', $gambar->getClientOriginalName());
+            $slide = DB::table('slide_show')->insert([
+                'role' => $request->role,
+                'judul' => $request->judul,
+                'nama' => Auth::user()->name,
+                'branch' => Auth::user()->branch,
+                'status' => '1',
+                'date' => date("Y-m-d"),
+                'gambar' => $url,
+            ]);
+        }
+
+        return redirect()->route('slide.index');
+    }
+
+    public function destroy_slide($id)
+    {
+        $slide = DB::table('slide_show')->find($id);
+        $gambar = $slide->gambar;
+        Storage::disk('public')->delete($gambar);
+        DB::table('slide_show')->delete($id);
+
+        return back();
     }
 }

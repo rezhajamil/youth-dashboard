@@ -18,7 +18,7 @@
         </a>
 
         @if (auth()->user()->privilege=="superadmin")
-        <a class="flex items-center px-6 py-2 mt-4 text-gray-500 cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" x-on:click="content=!content">
+        <a class="flex items-center px-6 py-2 mt-4 text-gray-500 transition-all cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" x-on:click="content=!content">
             <i class="w-6 h-6 fa-solid fa-list-check"></i>
             <span class="mx-3 text-white">Content Management</span>
             <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right" :class="{'rotate-90': content, 'rotate-0': !content}"></i>
@@ -26,7 +26,7 @@
         <div class="flex flex-col w-3/4 mx-6 mt-2 ml-auto overflow-hidden bg-gray-700 rounded-md" x-show="content" x-transition>
             <a href="{{ route('sapaan.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Sapaan</span></a>
             <a href="{{ route('challenge.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Challenge</span></a>
-            <a href="" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Slide Show</span></a>
+            <a href="{{ route('slide.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Slide Show</span></a>
             <a href="" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Schedule</span></a>
             <a href="" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Notification</span></a>
             <a href="" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">News</span></a>
@@ -34,7 +34,7 @@
         </div>
         @endif
 
-        <a class="flex items-center px-6 py-2 mt-4 text-gray-500 cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" x-on:click="direct=!direct">
+        <a class="flex items-center px-6 py-2 mt-4 text-gray-500 transition-all cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" x-on:click="direct=!direct">
             <i class="w-6 h-6 fa-solid fa-chart-line"></i>
             <span class="mx-3 text-white">Direct Sales</span>
             <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right" :class="{'rotate-90': direct, 'rotate-0': !direct}"></i>
@@ -44,7 +44,7 @@
             <a href="{{ route('direct_user.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Detail Direct</span></a>
         </div>
 
-        <a class="flex items-center px-6 py-2 mt-4 text-gray-500 cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" x-on:click="sales=!sales">
+        <a class="flex items-center px-6 py-2 mt-4 text-gray-500 transition-all cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" x-on:click="sales=!sales">
             <i class="w-6 h-6 fa-solid fa-chart-line"></i>
             <span class="mx-3 text-white">Sales</span>
             <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right" :class="{'rotate-90': sales, 'rotate-0': !sales}"></i>
@@ -54,7 +54,7 @@
             <a href="{{ route('sales.orbit') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Orbit</span></a>
         </div>
 
-        <a class="flex items-center px-6 py-2 mt-4 text-gray-500 cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" x-on:click="school=!school">
+        <a class="flex items-center px-6 py-2 mt-4 text-gray-500 transition-all cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" x-on:click="school=!school">
             <i class="w-6 h-6 fa-solid fa-school"></i>
             <span class="mx-3 text-white">Sekolah</span>
             <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right" :class="{'rotate-90': school, 'rotate-0': !school}"></i>
@@ -63,12 +63,12 @@
             <a href="{{ route('sekolah.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Database</span></a>
             {{-- <a href="{{ route('sales.orbit') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Orbit</span></a> --}}
         </div>
-        <a href="{{ route('broadcast.index') }}" class="flex items-center px-6 py-2 mt-4 text-gray-500 cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" x-on:click="broadcast=!broadcast">
+        <a href="{{ route('broadcast.index') }}" class="flex items-center px-6 py-2 mt-4 text-gray-500 transition-all cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" x-on:click="broadcast=!broadcast">
             <i class="w-6 h-6 fa-solid fa-tower-broadcast"></i>
             <span class="mx-3 text-white">Broadcast</span>
             <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right" :class="{'rotate-90': school, 'rotate-0': !school}"></i>
         </a>
-        {{-- <a href="{{ route('direct_user.index') }}" class="flex items-center px-6 py-2 mt-4 text-gray-500 cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100">
+        {{-- <a href="{{ route('direct_user.index') }}" class="flex items-center px-6 py-2 mt-4 text-gray-500 transition-all cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100">
         <i class="w-6 h-6 fa-solid fa-users"></i>
         <span class="mx-3 text-white">Database Direct User</span>
         </a> --}}
