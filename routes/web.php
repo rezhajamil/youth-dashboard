@@ -67,11 +67,23 @@ Route::middleware(['auth'])->group(function () {
     Route::post('content/slide', [ContentController::class, 'store_slide'])->name('slide.store');
     Route::get('content/slide/create', [ContentController::class, 'create_slide'])->name('slide.create');
     Route::delete('content/slide/{id}', [ContentController::class, 'destroy_slide'])->name('slide.destroy');
+
+    Route::get('content/schedule', [ContentController::class, 'schedule'])->name('schedule.index');
+    Route::post('content/schedule', [ContentController::class, 'store_schedule'])->name('schedule.store');
+    Route::get('content/schedule/create', [ContentController::class, 'create_schedule'])->name('schedule.create');
+    Route::delete('content/schedule/{id}', [ContentController::class, 'destroy_schedule'])->name('schedule.destroy');
+    Route::put('content/schedule/{id}', [ContentController::class, 'change_status_schedule'])->name('schedule.change_status');
+
+    Route::get('content/notification', [ContentController::class, 'notification'])->name('notification.index');
+    Route::post('content/notification', [ContentController::class, 'store_notification'])->name('notification.store');
+    Route::get('content/notification/create', [ContentController::class, 'create_notification'])->name('notification.create');
+    Route::delete('content/notification/{id}', [ContentController::class, 'destroy_notification'])->name('notification.destroy');
     // Route::get('sales', function () {
     //     return redirect()->route('sales.migrasi');
     // });
     Route::get('migrasi/sales', [SalesContoller::class, 'migrasi'])->name('sales.migrasi');
     Route::get('orbit/sales', [SalesContoller::class, 'orbit'])->name('sales.orbit');
+    Route::delete('orbit/sales/destroy/{msisdn}', [SalesContoller::class, 'destroy_orbit'])->name('sales.orbit.destroy');
     Route::resource('direct_user', DirectUserController::class);
     Route::put('direct_user/change_status/{direct_user}', [DirectUserController::class, 'changeStatus'])->name('direct_user.change_status');
 });

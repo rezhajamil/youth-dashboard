@@ -27,8 +27,8 @@
             <a href="{{ route('sapaan.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Sapaan</span></a>
             <a href="{{ route('challenge.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Challenge</span></a>
             <a href="{{ route('slide.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Slide Show</span></a>
-            <a href="" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Schedule</span></a>
-            <a href="" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Notification</span></a>
+            <a href="{{ route('schedule.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Schedule</span></a>
+            <a href="{{ route('notification.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Notification</span></a>
             <a href="" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">News</span></a>
             <a href="" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Category</span></a>
         </div>

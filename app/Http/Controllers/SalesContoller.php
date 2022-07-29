@@ -203,6 +203,7 @@ class SalesContoller extends Controller
                     JOIN data_user b ON b.telp = a.telp
                     LEFT JOIN validasi_orbit c on c.msisdn = a.msisdn
                     where a.date BETWEEN '" . $m1 . "' AND '" . $mtd . "'
+                    and not a.status ='1' 
                     " . $and . "
                     " . $branch . "
                     ORDER by b.cluster, b.nama ASC";
@@ -216,6 +217,15 @@ class SalesContoller extends Controller
             $sales = [];
         }
         return view('sales.orbit.index', compact('sales_branch', 'sales_cluster', 'sales'));
+    }
+
+    public function destroy_orbit($msisdn)
+    {
+        $orbit = DB::table('sales_copy')->where('msisdn', $msisdn)->update([
+            'status' => '1'
+        ]);
+
+        return back();
     }
 
     /**

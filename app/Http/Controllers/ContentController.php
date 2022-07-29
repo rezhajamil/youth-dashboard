@@ -139,4 +139,99 @@ class ContentController extends Controller
 
         return back();
     }
+
+    public function schedule()
+    {
+        $schedule = DB::table('daftar_pertemuan')->orderBy('date', 'desc')->get();
+        return view('content.schedule.index', compact('schedule'));
+    }
+
+    public function create_schedule()
+    {
+        $user_type = DB::table('user_type')->select('user_type')->distinct()->where('status', '1')->orderBy('user_type')->get();
+        return view('content.schedule.create', compact('user_type'));
+    }
+
+    public function store_schedule(Request $request)
+    {
+        $request->validate([
+            'jenis' => 'required',
+            'date' => 'required',
+            'time' => 'required',
+            'pembicara' => 'required',
+            'mc' => 'required',
+            'judul' => 'required',
+            'poin' => 'required',
+            'minus' => 'required',
+        ]);
+
+        $schedule = DB::table('daftar_pertemuan')->insert([
+            'jenis' => $request->jenis,
+            'date' => $request->date,
+            'time' => $request->time,
+            'judul' => $request->judul,
+            'pembicara' => $request->pembicara,
+            'mc' => $request->mc,
+            'poin' => $request->poin,
+            'minus' => $request->minus,
+            'status' => '0',
+        ]);
+
+        return redirect()->route('schedule.index');
+    }
+
+    public function destroy_schedule($id)
+    {
+        DB::table('daftar_pertemuan')->delete($id);
+
+        return back();
+    }
+
+    public function change_status_schedule($id)
+    {
+        $schedule = DB::table('daftar_pertemuan')->where('id', $id)->first();
+        $status = $schedule->status ? 0 : 1;
+
+        DB::table('daftar_pertemuan')->where('id', $id)->update([
+            'status' => $status
+        ]);
+        return back();
+    }
+
+    public function notification()
+    {
+        $notification = DB::table('notification')->orderBy('date', 'desc')->get();
+        return view('content.notification.index', compact('notification'));
+    }
+
+    public function create_notification()
+    {
+        $user_type = DB::table('user_type')->select('user_type')->distinct()->where('status', '1')->orderBy('user_type')->get();
+        return view('content.notification.create', compact('user_type'));
+    }
+
+    public function store_notification(Request $request)
+    {
+        $request->validate([
+            'role' => 'required',
+            'judul' => 'required',
+            'message' => 'required',
+        ]);
+
+        $notification = DB::table('notification')->insert([
+            'role' => $request->role,
+            'judul' => $request->judul,
+            'message' => $request->message,
+            'date' => date("Y-m-d"),
+        ]);
+
+        return redirect()->route('notification.index');
+    }
+
+    public function destroy_notification($id)
+    {
+        DB::table('notification')->delete($id);
+
+        return back();
+    }
 }

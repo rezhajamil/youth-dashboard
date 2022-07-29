@@ -116,7 +116,7 @@
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">MSISDN</th>
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Tanggal Aktif</th>
                             {{-- <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">MOM</th> --}}
-                            {{-- <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Action</th> --}}
+                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -128,7 +128,13 @@
                             <td class="p-4 text-gray-700 uppercase border-b status">{{ $data->status }}</td>
                             <td class="p-4 text-gray-700 uppercase border-b msisdn">{{ $data->msisdn }}</td>
                             <td class="p-4 text-gray-700 uppercase border-b aktif">{{ $data->date }}</td>
-                            {{-- <td class="p-4 text-gray-700 border-b"></td> --}}
+                            <td class="p-4 text-gray-700 border-b">
+                                <form action="{{ route('sales.orbit.destroy',$data->msisdn) }}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <button class="block my-1 text-base font-semibold text-left text-red-600 transition hover:text-red-800">Hapus</button>
+                                </form>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
