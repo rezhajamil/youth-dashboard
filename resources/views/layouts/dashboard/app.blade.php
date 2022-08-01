@@ -11,6 +11,7 @@
 
     <title>DASHBOARD YOUTH JAWARA</title>
 
+    <link rel="icon" href="{{ asset("images/logo-shape-text.png") }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/trix.css') }}">
     {{-- <link rel="icon" href="{{ asset('images/mosque.svg') }}"> --}}

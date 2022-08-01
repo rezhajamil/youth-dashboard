@@ -234,4 +234,49 @@ class ContentController extends Controller
 
         return back();
     }
+
+    public function category()
+    {
+        $category = DB::table('kategori')->where('status', '1')->orderBy('date', 'desc')->get();
+        return view('content.category.index', compact('category'));
+    }
+
+    public function create_category()
+    {
+        $user_type = DB::table('user_type')->select('user_type')->distinct()->where('status', '1')->orderBy('user_type')->get();
+        return view('content.category.create', compact('user_type'));
+    }
+
+    public function store_category(Request $request)
+    {
+        $request->validate([
+            'role' => 'required',
+            'jenis' => 'required',
+            'detail' => 'required',
+            'harga' => 'required',
+            'poin' => 'required',
+            'keterangan' => 'required',
+        ]);
+
+        $category = DB::table('kategori')->insert([
+            'role' => $request->role,
+            'jenis' => $request->jenis,
+            'detail' => $request->detail,
+            'harga' => $request->harga,
+            'poin' => $request->poin,
+            'keterangan' => $request->keterangan,
+            'status' => '1',
+            'branch' => Auth::user()->name,
+            'date' => date("Y-m-d"),
+        ]);
+
+        return redirect()->route('category.index');
+    }
+
+    public function destroy_category($id)
+    {
+        DB::table('kategori')->delete($id);
+
+        return back();
+    }
 }

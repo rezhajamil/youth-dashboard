@@ -78,6 +78,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('content/notification', [ContentController::class, 'store_notification'])->name('notification.store');
     Route::get('content/notification/create', [ContentController::class, 'create_notification'])->name('notification.create');
     Route::delete('content/notification/{id}', [ContentController::class, 'destroy_notification'])->name('notification.destroy');
+
+    Route::get('content/category', [ContentController::class, 'category'])->name('category.index');
+    Route::post('content/category', [ContentController::class, 'store_category'])->name('category.store');
+    Route::get('content/category/create', [ContentController::class, 'create_category'])->name('category.create');
+    Route::delete('content/category/{id}', [ContentController::class, 'destroy_category'])->name('category.destroy');
     // Route::get('sales', function () {
     //     return redirect()->route('sales.migrasi');
     // });
