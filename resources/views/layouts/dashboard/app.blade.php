@@ -15,11 +15,17 @@
     <link rel="stylesheet" href="{{ asset('css/trix.css') }}">
     {{-- <link rel="icon" href="{{ asset('images/mosque.svg') }}"> --}}
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/trix.js') }}" defer></script>
+    <script src="{{ asset('js/wow.js') }}" defer></script>
     <script src="https://kit.fontawesome.com/b2ba1193ce.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        new WOW().init();
+
+    </script>
 </head>
 <body>
     <style>

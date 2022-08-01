@@ -829,14 +829,14 @@ select {
 .z-50 {
   z-index: 50;
 }
+.col-span-2 {
+  grid-column: span 2 / span 2;
+}
 .col-span-full {
   grid-column: 1 / -1;
 }
 .col-span-1 {
   grid-column: span 1 / span 1;
-}
-.col-span-2 {
-  grid-column: span 2 / span 2;
 }
 .mx-4 {
   margin-left: 1rem;
@@ -946,6 +946,9 @@ select {
 .-mr-2 {
   margin-right: -0.5rem;
 }
+.mr-auto {
+  margin-right: auto;
+}
 .block {
   display: block;
 }
@@ -966,6 +969,9 @@ select {
 }
 .hidden {
   display: none;
+}
+.aspect-auto {
+  aspect-ratio: auto;
 }
 .h-5 {
   height: 1.25rem;
@@ -1001,6 +1007,12 @@ select {
 }
 .h-4 {
   height: 1rem;
+}
+.h-28 {
+  height: 7rem;
+}
+.h-40 {
+  height: 10rem;
 }
 .max-h-screen {
   max-height: 100vh;
@@ -1048,6 +1060,9 @@ select {
 }
 .w-4 {
   width: 1rem;
+}
+.w-28 {
+  width: 7rem;
 }
 .max-w-xl {
   max-width: 36rem;
@@ -1269,6 +1284,10 @@ select {
   --tw-border-opacity: 1;
   border-color: rgb(243 244 246 / var(--tw-border-opacity));
 }
+.border-sky-600 {
+  --tw-border-opacity: 1;
+  border-color: rgb(2 132 199 / var(--tw-border-opacity));
+}
 .border-b-gray-900 {
   --tw-border-opacity: 1;
   border-bottom-color: rgb(17 24 39 / var(--tw-border-opacity));
@@ -1297,13 +1316,13 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(220 38 38 / var(--tw-bg-opacity));
 }
-.bg-gray-100 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
-}
 .bg-indigo-800 {
   --tw-bg-opacity: 1;
   background-color: rgb(55 48 163 / var(--tw-bg-opacity));
+}
+.bg-gray-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
 .bg-gray-800 {
   --tw-bg-opacity: 1;
@@ -1362,6 +1381,10 @@ select {
 .bg-red-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(254 202 202 / var(--tw-bg-opacity));
+}
+.bg-sky-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(2 132 199 / var(--tw-bg-opacity));
 }
 .bg-opacity-25 {
   --tw-bg-opacity: 0.25;
@@ -1601,13 +1624,21 @@ select {
   --tw-text-opacity: 1;
   color: rgb(127 29 29 / var(--tw-text-opacity));
 }
+.text-blue-600 {
+  --tw-text-opacity: 1;
+  color: rgb(37 99 235 / var(--tw-text-opacity));
+}
 .text-gray-800 {
   --tw-text-opacity: 1;
   color: rgb(31 41 55 / var(--tw-text-opacity));
 }
-.text-blue-600 {
+.text-sky-600 {
   --tw-text-opacity: 1;
-  color: rgb(37 99 235 / var(--tw-text-opacity));
+  color: rgb(2 132 199 / var(--tw-text-opacity));
+}
+.text-sky-700 {
+  --tw-text-opacity: 1;
+  color: rgb(3 105 161 / var(--tw-text-opacity));
 }
 .underline {
   -webkit-text-decoration-line: underline;
@@ -1757,6 +1788,14 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
 }
+.hover\:bg-sky-500:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(14 165 233 / var(--tw-bg-opacity));
+}
+.hover\:bg-sky-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(2 132 199 / var(--tw-bg-opacity));
+}
 .hover\:bg-opacity-25:hover {
   --tw-bg-opacity: 0.25;
 }
@@ -1792,13 +1831,13 @@ select {
   --tw-text-opacity: 1;
   color: rgb(55 48 163 / var(--tw-text-opacity));
 }
-.hover\:text-gray-800:hover {
-  --tw-text-opacity: 1;
-  color: rgb(31 41 55 / var(--tw-text-opacity));
-}
 .hover\:text-blue-800:hover {
   --tw-text-opacity: 1;
   color: rgb(30 64 175 / var(--tw-text-opacity));
+}
+.hover\:text-gray-800:hover {
+  --tw-text-opacity: 1;
+  color: rgb(31 41 55 / var(--tw-text-opacity));
 }
 .hover\:underline:hover {
   -webkit-text-decoration-line: underline;
@@ -1830,6 +1869,10 @@ select {
 .focus\:border-gray-300:focus {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
+}
+.focus\:border-sky-600:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(2 132 199 / var(--tw-border-opacity));
 }
 .focus\:bg-indigo-700:focus {
   --tw-bg-opacity: 1;
@@ -1978,6 +2021,10 @@ select {
     width: 50%;
   }
 
+  .sm\:w-40 {
+    width: 10rem;
+  }
+
   .sm\:max-w-md {
     max-width: 28rem;
   }
@@ -2006,6 +2053,10 @@ select {
     justify-content: space-between;
   }
 
+  .sm\:self-baseline {
+    align-self: baseline;
+  }
+
   .sm\:rounded-lg {
     border-radius: 0.5rem;
   }
@@ -2025,6 +2076,10 @@ select {
 
   .sm\:text-right {
     text-align: right;
+  }
+
+  .sm\:align-baseline {
+    vertical-align: baseline;
   }
 }
 @media (min-width: 768px) {

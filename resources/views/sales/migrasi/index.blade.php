@@ -156,7 +156,15 @@
 <script>
     $(document).ready(function() {
         $("#search").on("input", function() {
-            let search = $(this).val();
+            find();
+        });
+
+        $("#search_by").on("input", function() {
+            find();
+        });
+
+        const find = () => {
+            let search = $("#search").val();
             let searchBy = $('#search_by').val();
             let pattern = new RegExp(search, "i");
             $(`.${searchBy}`).each(function() {
@@ -167,7 +175,7 @@
                     $(this).parent().hide();
                 }
             });
-        });
+        }
 
         $("#by_region").on("change", function() {
             $("#table-region").toggle();

@@ -83,6 +83,7 @@ Route::middleware(['auth'])->group(function () {
     // });
     Route::get('migrasi/sales', [SalesContoller::class, 'migrasi'])->name('sales.migrasi');
     Route::get('orbit/sales', [SalesContoller::class, 'orbit'])->name('sales.orbit');
+    Route::get('digipos/sales', [SalesContoller::class, 'digipos'])->name('sales.digipos');
     Route::delete('orbit/sales/destroy/{msisdn}', [SalesContoller::class, 'destroy_orbit'])->name('sales.orbit.destroy');
     Route::resource('direct_user', DirectUserController::class);
     Route::put('direct_user/change_status/{direct_user}', [DirectUserController::class, 'changeStatus'])->name('direct_user.change_status');

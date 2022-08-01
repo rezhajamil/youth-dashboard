@@ -11,53 +11,65 @@
 
     <title>DASHBOARD YOUTH JAWARA</title>
 
+    <link rel="icon" href="{{ asset("images/logo-shape-text.png") }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
     {{-- <link rel="icon" href="{{ asset('images/mosque.svg') }}"> --}}
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
     <script src="https://kit.fontawesome.com/b2ba1193ce.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="flex justify-center items-center h-screen bg-gray-200 px-6">
-        <div class="p-6 max-w-sm bg-white shadow-md rounded-md w-1/2">
-            <div class="flex justify-center items-center">
-                <span class="text-gray-700 font-semibold text-2xl">Dashboard</span>
+    <div class="flex flex-col items-center justify-center h-screen px-6 bg-gray-200">
+        <img src="{{ asset('images/logo-shape-text.png') }}" alt="" class="h-40 mb-4 aspect-auto wow fadeInDown" data-wow-duration="2s">
+        <div class="w-1/2 max-w-sm p-6 bg-white rounded-md shadow-md">
+            <div class="flex items-center justify-center">
+                <span class="text-2xl font-semibold text-gray-700">Login Dashboard</span>
             </div>
 
             <form class="mt-4" action="{{ route('login') }}" method="POST">
                 @csrf
                 <label class="block">
-                    <span class="text-gray-700 text-sm">Username</span>
-                    <input type="text" class="form-input mt-1 block w-full rounded-md focus:border-indigo-600" name="username">
+                    <span class="text-sm text-gray-700">Username</span>
+                    <input type="text" class="block w-full mt-1 rounded-md form-input focus:border-sky-600" name="username">
                 </label>
 
                 <label class="block mt-3">
-                    <span class="text-gray-700 text-sm">Password</span>
-                    <input type="password" class="form-input mt-1 block w-full rounded-md focus:border-indigo-600" name="password">
+                    <span class="text-sm text-gray-700">Password</span>
+                    <input type="password" class="block w-full mt-1 rounded-md form-input focus:border-sky-600" name="password">
                 </label>
 
-                <div class="flex justify-between items-center mt-4">
+                <div class="flex items-center justify-between mt-4">
                     <div>
                         <label class="inline-flex items-center">
-                            <input type="checkbox" class="form-checkbox text-indigo-600">
-                            <span class="mx-2 text-gray-600 text-sm">Remember me</span>
+                            <input type="checkbox" class="text-sky-600 form-checkbox">
+                            <span class="mx-2 text-sm text-gray-600">Remember me</span>
                         </label>
                     </div>
 
-                    <div>
-                        <a href="{{ route('password.request') }}" class="block text-sm fontme text-indigo-700 hover:underline" href="#">Forgot your password?</a>
-                    </div>
-                </div>
-
-                <div class="mt-6">
-                    <button class="py-2 px-4 text-center bg-indigo-600 rounded-md w-full text-white text-sm hover:bg-indigo-500">
-                        Sign in
-                    </button>
-                </div>
-            </form>
+                    {{-- <div>
+                        <a href="{{ route('password.request') }}" class="block text-sm text-sky-700 fontme hover:underline" href="#">Forgot your password?</a>
+                </div> --}}
         </div>
+
+        <div class="mt-6">
+            <button class="w-full px-4 py-2 text-sm text-center text-white rounded-md bg-sky-600 hover:bg-sky-500">
+                Sign in
+            </button>
+        </div>
+        </form>
+    </div>
     </div>
 
+    <script>
+        $(document).ready(function() {
+            new WOW().init();
+        });
+
+    </script>
 </body>
 </html>
