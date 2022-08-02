@@ -67,21 +67,21 @@ if ($bilangan < pow(10, 9) && $bilangan>= pow(10, 6)) {
                                 </tr>
                                 <tr>
                                     <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MOM</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
                                     <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MOM</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
                                     <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MOM</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
                                     <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MOM</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
                                     <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MOM</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
                                     <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MOM</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
                                     <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MOM</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
                                     <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MOM</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -91,21 +91,21 @@ if ($bilangan < pow(10, 9) && $bilangan>= pow(10, 6)) {
                                     <td class="p-3 text-gray-700 uppercase border border-b ">{{ $data->region }}</td>
                                     <td class="p-3 text-gray-700 uppercase border border-b ">{{ $data->branch }}</td>
                                     <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->omset_mtd) }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ $data->omset_mom }}%</td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->omset_last_mtd) }}</td>
                                     <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->rech_reg_mtd) }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ $data->rech_reg_mom }}%</td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->rech_reg_last_mtd) }}</td>
                                     <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->rech_vas_mtd) }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ $data->rech_vas_mom }}%</td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->rech_vas_last_mtd) }}</td>
                                     <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->digital_mtd) }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ $data->digital_mom }}%</td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->digital_last_mtd) }}</td>
                                     <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->cvm_mtd) }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ $data->cvm_mom }}%</td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->cvm_last_mtd) }}</td>
                                     <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->voice_mtd) }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ $data->voice_mom }}%</td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->voice_last_mtd) }}</td>
                                     <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->nsb_mtd) }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ $data->nsb_mom }}%</td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->nsb_last_mtd) }}</td>
                                     <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->ketengan_mtd) }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ $data->ketengan_mom }}%</td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->ketengan_last_mtd) }}</td>
                                     {{-- <td class="p-3 text-gray-700 border border-b"></td> --}}
                                 </tr>
                                 @endforeach
@@ -132,21 +132,21 @@ if ($bilangan < pow(10, 9) && $bilangan>= pow(10, 6)) {
                                 </tr>
                                 <tr>
                                     <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MOM</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
                                     <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MOM</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
                                     <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MOM</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
                                     <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MOM</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
                                     <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MOM</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
                                     <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MOM</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
                                     <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MOM</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
                                     <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MOM</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -155,21 +155,21 @@ if ($bilangan < pow(10, 9) && $bilangan>= pow(10, 6)) {
                                     <td class="p-3 font-bold text-gray-700 border border-b">{{ $key+1 }}</td>
                                     <td class="p-3 text-gray-700 uppercase border border-b ">{{ $data->cluster }}</td>
                                     <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->omset_mtd) }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ $data->omset_mom }}%</td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->omset_last_mtd) }}</td>
                                     <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->rech_reg_mtd) }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ $data->rech_reg_mom }}%</td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->rech_reg_last_mtd) }}</td>
                                     <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->rech_vas_mtd) }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ $data->rech_vas_mom }}%</td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->rech_vas_last_mtd) }}</td>
                                     <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->digital_mtd) }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ $data->digital_mom }}%</td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->digital_last_mtd) }}</td>
                                     <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->cvm_mtd) }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ $data->cvm_mom }}%</td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->cvm_last_mtd) }}</td>
                                     <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->voice_mtd) }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ $data->voice_mom }}%</td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->voice_last_mtd) }}</td>
                                     <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->nsb_mtd) }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ $data->nsb_mom }}%</td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->nsb_last_mtd) }}</td>
                                     <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->ketengan_mtd) }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ $data->ketengan_mom }}%</td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->ketengan_last_mtd) }}</td>
                                     {{-- <td class="p-3 text-gray-700 border border-b"></td> --}}
                                 </tr>
                                 @endforeach
@@ -213,21 +213,21 @@ if ($bilangan < pow(10, 9) && $bilangan>= pow(10, 6)) {
                                 </tr>
                                 <tr>
                                     <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MOM</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
                                     <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MOM</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
                                     <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MOM</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
                                     <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MOM</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
                                     <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MOM</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
                                     <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MOM</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
                                     <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MOM</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
                                     <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MOM</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -240,21 +240,21 @@ if ($bilangan < pow(10, 9) && $bilangan>= pow(10, 6)) {
                                     <td class="p-3 text-gray-700 uppercase border border-b nama">{{ $data->nama }}</td>
                                     <td class="p-3 text-gray-700 uppercase border border-b role">{{ $data->role }}</td>
                                     <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->omset_mtd) }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ $data->omset_mom }}%</td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->omset_last_mtd) }}</td>
                                     <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->rech_reg_mtd) }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ $data->rech_reg_mom }}%</td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->rech_reg_last_mtd) }}</td>
                                     <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->rech_vas_mtd) }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ $data->rech_vas_mom }}%</td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->rech_vas_last_mtd) }}</td>
                                     <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->digital_mtd) }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ $data->digital_mom }}%</td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->digital_last_mtd) }}</td>
                                     <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->cvm_mtd) }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ $data->cvm_mom }}%</td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->cvm_last_mtd) }}</td>
                                     <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->voice_mtd) }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ $data->voice_mom }}%</td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->voice_last_mtd) }}</td>
                                     <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->nsb_mtd) }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ $data->nsb_mom }}%</td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->nsb_last_mtd) }}</td>
                                     <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->ketengan_mtd) }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ $data->ketengan_mom }}%</td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b">{{ convertBil($data->ketengan_last_mtd) }}</td>
                                     {{-- <td class="p-3 text-gray-700 border border-b"></td> --}}
                                 </tr>
                                 @endforeach

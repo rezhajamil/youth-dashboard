@@ -90,6 +90,7 @@ class SalesContoller extends Controller
 
     public function migrasi(Request $request)
     {
+        $update = DB::select('select max(date) as last_update from 4g_usim_all_trx;');
         if ($request->date) {
             $m1 = date('Y-m-01', strtotime($request->date));
             $mtd = date('Y-m-d', strtotime($request->date));
@@ -164,11 +165,12 @@ class SalesContoller extends Controller
             $sales_cluster = [];
             $sales_branch = [];
         }
-        return view('sales.migrasi.index', compact('sales', 'sales_cluster', 'sales_branch'));
+        return view('sales.migrasi.index', compact('sales', 'sales_cluster', 'sales_branch', 'update'));
     }
 
     public function orbit(Request $request)
     {
+        $update = DB::select('select max(date) as last_update from sales_copy;');
         if ($request->date) {
             $m1 = date('Y-m-01', strtotime($request->date));
             $mtd = date('Y-m-d', strtotime($request->date));
@@ -216,7 +218,7 @@ class SalesContoller extends Controller
             $sales_cluster = [];
             $sales = [];
         }
-        return view('sales.orbit.index', compact('sales_branch', 'sales_cluster', 'sales'));
+        return view('sales.orbit.index', compact('sales_branch', 'sales_cluster', 'sales', 'update'));
     }
 
     public function destroy_orbit($msisdn)

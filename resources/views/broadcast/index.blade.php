@@ -4,6 +4,7 @@
     <div class="flex flex-col">
         <div class="mt-4">
             <h4 class="text-xl font-bold text-gray-600 align-baseline">Broadcast Program</h4>
+            <span class="text-sm">Update : {{ $update[0]->last_update }}</span>
 
             <div class="flex justify-between mt-4 ">
                 <form class="flex flex-wrap items-center gap-x-4 gap-y-2" action="{{ route('broadcast.index') }}" method="get">

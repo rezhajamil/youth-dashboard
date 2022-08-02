@@ -15,6 +15,7 @@ class BroadCastController extends Controller
      */
     public function index(Request $request)
     {
+        $update = DB::select('select max(date) as last_update from new_after_broadcast;');
         $m1 = date('Y-m-01', strtotime($request->date));
         $mtd = date('Y-m-d', strtotime($request->date));
         $last_m1 = date('Y-m-01', strtotime('-1 month', strtotime($request->date)));
@@ -40,7 +41,7 @@ class BroadCastController extends Controller
             GROUP BY  `data_user`.nama, `data_user`.cluster, `data_user`.role
             ORDER BY `data_user`.cluster,`data_user`.role,`data_user`.nama  ;");
 
-        return view('broadcast.index', compact('dataProgram', 'broadcast'));
+        return view('broadcast.index', compact('dataProgram', 'broadcast', 'update'));
     }
 
     /**
