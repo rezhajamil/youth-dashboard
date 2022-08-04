@@ -35,7 +35,7 @@
         @endif
 
         <a class="flex items-center px-6 py-2 mt-4 text-gray-500 transition-all cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" x-on:click="direct=!direct">
-            <i class="w-6 h-6 fa-solid fa-chart-line"></i>
+            <i class="w-6 h-6 fa-solid fa-user-group"></i>
             <span class="mx-3 text-white">Direct Sales</span>
             <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right" :class="{'rotate-90': direct, 'rotate-0': !direct}"></i>
         </a>
