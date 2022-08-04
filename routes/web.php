@@ -44,6 +44,11 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('direct_sales', DirectSalesContoller::class);
     Route::resource('sales', SalesContoller::class);
     Route::resource('broadcast', BroadCastController::class);
+
+    Route::get('campaign', [BroadCastController::class, 'campaign'])->name('campaign.index');
+    Route::post('campaign', [BroadCastController::class, 'store_campaign'])->name('campaign.store');
+    Route::get('campaign/create', [BroadCastController::class, 'create_campaign'])->name('campaign.create');
+    Route::delete('campaign/{id}', [BroadCastController::class, 'destroy_campaign'])->name('campaign.destroy');
     // Route::resource('sekolah', SekolahController::class);
     Route::get('sekolah', [SekolahController::class, 'index'])->name('sekolah.index');
     Route::post('sekolah', [SekolahController::class, 'store'])->name('sekolah.store');
