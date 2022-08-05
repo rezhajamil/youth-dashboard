@@ -18,7 +18,7 @@ class SalesContoller extends Controller
         if ($request->date) {
             $m1 = date('Y-m-01', strtotime($request->date));
             $mtd = date('Y-m-d', strtotime($request->date));
-            $last_m1 = date('Y-m-01', strtotime('-1 month', strtotime($request->date)));
+            $last_m1 = date('Y-m-01', strtotime($this->convDate($mtd)));
             $last_mtd = $this->convDate($mtd);
             $query = "
             SELECT b.`cluster`, b.tap, b.nama,COUNT(b.id_digipos) as digipos,
@@ -94,7 +94,8 @@ class SalesContoller extends Controller
         if ($request->date) {
             $m1 = date('Y-m-01', strtotime($request->date));
             $mtd = date('Y-m-d', strtotime($request->date));
-            $last_m1 = date('Y-m-01', strtotime('-1 month', strtotime($request->date)));
+            $last_m1 = date('Y-m-01', strtotime($this->convDate($mtd)));
+            // ddd(date('Y-m-01', strtotime($this->convDate($mtd))));
             $last_mtd = $this->convDate($mtd);
             $where_branch = Auth::user()->privilege == "branch" ? "and branch='" . Auth::user()->branch . "'" : '';
 
@@ -165,7 +166,6 @@ class SalesContoller extends Controller
             $sales_cluster = [];
             $sales_branch = [];
         }
-        ddd([$query]);
         return view('sales.migrasi.index', compact('sales', 'sales_cluster', 'sales_branch', 'update'));
     }
 
@@ -175,7 +175,7 @@ class SalesContoller extends Controller
         if ($request->date) {
             $m1 = date('Y-m-01', strtotime($request->date));
             $mtd = date('Y-m-d', strtotime($request->date));
-            $last_m1 = date('Y-m-01', strtotime('-1 month', strtotime($request->date)));
+            $last_m1 = date('Y-m-01', strtotime($this->convDate($mtd)));
             $last_mtd = $this->convDate($mtd);
             $branch = Auth::user()->privilege == "branch" ? "branch='" . Auth::user()->branch . "'" : '';
             $where = Auth::user()->privilege == "branch" ? "where" : "";
