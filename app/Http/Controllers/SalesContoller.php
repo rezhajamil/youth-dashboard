@@ -165,6 +165,7 @@ class SalesContoller extends Controller
             $sales_cluster = [];
             $sales_branch = [];
         }
+        ddd([$query]);
         return view('sales.migrasi.index', compact('sales', 'sales_cluster', 'sales_branch', 'update'));
     }
 

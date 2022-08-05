@@ -134,6 +134,7 @@
                     </thead>
                     <tbody>
                         @foreach ($sales as $key=>$data)
+                        {{-- {{ ddd($data->last_mtd) }} --}}
                         <tr class="hover:bg-gray-200">
                             <td class="p-4 font-bold text-gray-700 border-b">{{ $key+1 }}</td>
                             <td class="p-4 text-gray-700 uppercase border-b cluster">{{ $data->cluster }}</td>
