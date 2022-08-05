@@ -15,6 +15,7 @@ class DirectSalesContoller extends Controller
      */
     public function index()
     {
+        $branch = Auth::user()->privilege == "branch" ? "where branch='" . Auth::user()->branch . "'" : '';
         $dataUsersCluster = DB::select(
             "select cluster,
             count(if(role='AO',1,NULL)) as 'ao',
@@ -23,7 +24,7 @@ class DirectSalesContoller extends Controller
             count(if(role='YBA',1,NULL)) as 'yba',
             count(cluster) as 'jumlah'
             from data_user
-            where branch='" . Auth::user()->branch . "'
+            " . $branch . "
             GROUP by 1
             Order by cluster DESC
             ",
@@ -38,7 +39,7 @@ class DirectSalesContoller extends Controller
             count(if(role='YBA',1,NULL)) as 'yba',
             count(cluster) as 'jumlah'
             from data_user
-            where branch='" . Auth::user()->branch . "'
+            " . $branch . "
             GROUP by 1,2
             Order by regional,branch
             ",
