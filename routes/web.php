@@ -5,6 +5,7 @@ use App\Http\Controllers\ContentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DirectSalesContoller;
 use App\Http\Controllers\DirectUserController;
+use App\Http\Controllers\OutletController;
 use App\Http\Controllers\SalesContoller;
 use App\Http\Controllers\SekolahController;
 use App\Http\Controllers\WilayahController;
@@ -44,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('direct_sales', DirectSalesContoller::class);
     Route::resource('sales', SalesContoller::class);
     Route::resource('broadcast', BroadCastController::class);
+    Route::resource('outlet', OutletController::class);
 
     Route::get('campaign', [BroadCastController::class, 'campaign'])->name('campaign.index');
     Route::post('campaign', [BroadCastController::class, 'store_campaign'])->name('campaign.store');

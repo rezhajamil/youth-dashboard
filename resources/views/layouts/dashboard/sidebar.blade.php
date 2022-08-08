@@ -74,6 +74,12 @@
             <a href="{{ route('campaign.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Campaign</span></a>
             <a href="" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Whitelist</span></a>
         </div>
+        <a href="{{ route('outlet.index') }}" class="flex items-center px-6 py-2 mt-4 text-gray-500 transition-all cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" x-on:click="outlet=!outlet">
+            <i class="w-6 h-6 fa-solid fa-shop"></i>
+            <span class="mx-3 text-white">Outlet</span>
+            <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right" :class="{'rotate-90': outlet, 'rotate-0': !outlet}"></i>
+        </a>
+
 
         {{-- <a href="{{ route('direct_user.index') }}" class="flex items-center px-6 py-2 mt-4 text-gray-500 transition-all cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100">
         <i class="w-6 h-6 fa-solid fa-users"></i>
