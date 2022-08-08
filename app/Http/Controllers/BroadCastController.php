@@ -132,6 +132,52 @@ class BroadCastController extends Controller
         return back();
     }
 
+    public function whitelist(Request $request)
+    {
+        $program = $request->program;
+        $dataProgram = DB::table('new_after_broadcast')->select('program')->distinct()->get();
+        $branch = Auth::user()->privilege == "branch" ? "AND data_user.branch='" . Auth::user()->branch . "'" : '';
+
+        $whitelist = DB::select("SELECT 
+                    
+                    new_data_broadcast.telp, data_user.nama,data_user.branch,new_data_broadcast.cluster,
+                    count(`new_data_broadcast`.msisdn) as 'wl',
+                    count(if(`new_data_broadcast`.telp!='no',1,NULL)) as 'diambil',
+                    count(if(`new_data_broadcast`.status='1',1,NULL)) as 'sudah' ,
+                    count(if(`new_data_broadcast`.status='0',1,NULL)) as 'belum',
+                    count(if(`new_data_broadcast`.telp='no',1,NULL)) as 'sisa'
+                   
+                    
+                    FROM `new_data_broadcast`
+                    JOIN data_user ON data_user.telp=new_data_broadcast.telp
+                    
+                    
+                    Where new_data_broadcast.program='$program' 
+					" . $branch . "
+                    GROUP by 1,2,3,4
+                    order by 3,4,2");
+
+        $whitelist_branch = DB::select("SELECT 
+                    data_user.branch,new_data_broadcast.cluster,
+                    count(`new_data_broadcast`.msisdn) as 'wl',
+                    count(if(`new_data_broadcast`.telp!='no',1,NULL)) as 'diambil',
+                    count(if(`new_data_broadcast`.status='1',1,NULL)) as 'sudah' ,
+                    count(if(`new_data_broadcast`.status='0',1,NULL)) as 'belum',
+                    count(if(`new_data_broadcast`.telp='no',1,NULL)) as 'sisa'
+                   
+                    
+                    FROM `new_data_broadcast`
+                    JOIN data_user ON data_user.telp=new_data_broadcast.telp
+                    
+                    
+                    Where new_data_broadcast.program='$program' 
+					" . $branch . "
+                    GROUP by 1,2
+                    order by 1,2");
+
+        return view('broadcast.whitelist.index', compact('whitelist', 'whitelist_branch', 'dataProgram'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
