@@ -87,7 +87,11 @@ class BroadCastController extends Controller
 
     public function create_campaign()
     {
-        $data_program = DB::table('new_after_broadcast')->select('program')->distinct()->get();
+        $branch = Auth::user()->privilege == 'branch' ? "and branch='ALL' OR branch='" . Auth::user()->branch . "'" : '';
+        $data_program =
+            DB::select("select program from new_list_program where status='1'
+            " . $branch . "
+        ");
         $user_type = DB::table('user_type')->select('user_type')->distinct()->where('status', '1')->orderBy('user_type')->get();
         return view('broadcast.campaign.create', compact('user_type', 'data_program'));
     }
@@ -192,12 +196,20 @@ class BroadCastController extends Controller
 
     public function create_whitelist()
     {
+        $branch = Auth::user()->privilege == 'branch' ? "and branch='ALL' OR branch='" . Auth::user()->branch . "'" : '';
         if (Auth::user()->privilege == "superadmin") {
             $cluster = DB::table('wilayah')->select('cluster')->distinct()->whereNotNull('cluster')->get();
         } else {
             $cluster = DB::table('wilayah')->select('cluster')->distinct()->whereNotNull('cluster')->where('branch', Auth::user()->branch)->get();
         }
-        $dataProgram = DB::table('new_after_broadcast')->select('program')->distinct()->get();
+        $dataProgram = DB::select("select program from new_list_program where status='1'
+            " . $branch . "
+        ");
+
+        // ddd("select program from new_list_program where status='1'
+        //     " . $branch . "
+        // ");
+        // ddd(Auth::user()->privilege);
         return view('broadcast.whitelist.create', compact('cluster', 'dataProgram'));
     }
 

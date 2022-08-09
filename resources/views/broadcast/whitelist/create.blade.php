@@ -37,7 +37,9 @@
 
                         <div>
                             <label class="text-gray-700" for="file">File</label>
-                            <label class="block text-xs text-gray-700" for="file">CSV dengan delimiter |</label>
+                            <label class="block text-xs text-gray-700" for="file">File dengan format .csv</label>
+                            <label class="block text-xs text-gray-700" for="file">Format 'msisdn -> 628xxxxxxxxxxx'</label>
+                            <label class="block text-xs text-gray-700" for="file">File maksimal 500 baris</label>
                             <input class="w-full rounded-md form-input focus:border-indigo-600" type="file" name="file" value="{{ old('file') }}">
                             @error('file')
                             <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
