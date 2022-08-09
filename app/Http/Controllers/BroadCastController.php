@@ -178,6 +178,64 @@ class BroadCastController extends Controller
         return view('broadcast.whitelist.index', compact('whitelist', 'whitelist_branch', 'dataProgram'));
     }
 
+    public function release_whitelist(Request $request, $telp)
+    {
+        $program = $request->program;
+        $whitelist = DB::table('new_data_broadcast')->where('telp', $telp)->where('program', $program)->where('status', '0')->update(
+            [
+                'telp' => 'no'
+            ]
+        );
+
+        return back();
+    }
+
+    public function create_whitelist()
+    {
+        if (Auth::user()->privilege == "superadmin") {
+            $cluster = DB::table('wilayah')->select('cluster')->distinct()->whereNotNull('cluster')->get();
+        } else {
+            $cluster = DB::table('wilayah')->select('cluster')->distinct()->whereNotNull('cluster')->where('branch', Auth::user()->branch)->get();
+        }
+        $dataProgram = DB::table('new_after_broadcast')->select('program')->distinct()->get();
+        return view('broadcast.whitelist.create', compact('cluster', 'dataProgram'));
+    }
+
+    public function store_whitelist(Request $request)
+    {
+        $request->validate([
+            'cluster' => 'required',
+            'program' => 'required',
+            'file' => 'required|mimes:csv,txt'
+        ]);
+
+        if ($request->hasFile('file')) {
+            if (file_exists($request->file)) {
+                $file = fopen($request->file, "r");
+
+                $idx = 0;
+                while (($row = fgetcsv($file, 10000, "|")) !== FALSE) {
+
+                    $data = [
+                        'cluster' => $request->cluster,
+                        'msisdn' => $row[0],
+                        'telp' => 'no',
+                        'status' => '1',
+                        'program' => $request->program
+                    ];
+
+                    if ($idx > 0) {
+                        // echo '<pre>' . $idx . var_export($data, true) . '</pre>';
+                        DB::table('new_data_broadcast')->insert($data);
+                    }
+                    $idx++;
+                }
+            }
+        }
+
+        return redirect()->route('whitelist.index');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -4,6 +4,7 @@
     <div class="flex flex-col">
         <div class="mt-4">
             <h4 class="text-xl font-bold text-gray-600 align-baseline">Broadcast Program</h4>
+            <a href="{{ route('whitelist.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-800"><i class="mr-2 fa-solid fa-plus"></i> Data Whitelist Baru</a>
             {{-- <span class="text-sm">Update : {{ $update_broadcast[0]->last_update }}</span> --}}
 
             <div class="flex justify-between mt-4 ">
@@ -85,6 +86,7 @@
                             <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Telp</th>
                             <th colspan="3" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Whitelist</th>
                             <th colspan="4" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Broadcast</th>
+                            <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Action</th>
 
                             {{-- <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Action</th> --}}
                         </tr>
@@ -113,8 +115,13 @@
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->belum }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->sudah/$data->wl)*100,2).' %' }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->sisa }}</td>
-
-                            {{-- <td class="p-3 text-gray-700 border-b"></td> --}}
+                            <td class="p-3 text-gray-700 border-b">
+                                <form action="{{ route('whitelist.release',$data->telp) }}" method="post">
+                                    @csrf
+                                    @method('put')
+                                    <button class="block my-1 text-base font-semibold text-left text-green-600 transition hover:text-green-800">Release Whitelist</button>
+                                </form>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
