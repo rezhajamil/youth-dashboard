@@ -215,6 +215,10 @@ class BroadCastController extends Controller
 
     public function store_whitelist(Request $request)
     {
+        ini_set(
+            'max_execution_time',
+            '0'
+        );
         $request->validate([
             'cluster' => 'required',
             'program' => 'required',
@@ -236,9 +240,11 @@ class BroadCastController extends Controller
                         'program' => $request->program
                     ];
 
-                    if ($idx > 0) {
+                    if ($idx > 0 && $idx < 501) {
                         // echo '<pre>' . $idx . var_export($data, true) . '</pre>';
                         DB::table('new_data_broadcast')->insert($data);
+                    } else if ($idx > 501) {
+                        break;
                     }
                     $idx++;
                 }
