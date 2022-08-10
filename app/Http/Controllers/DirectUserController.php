@@ -128,7 +128,7 @@ class DirectUserController extends Controller
             $region = DB::table('wilayah')->select('regional')->distinct()->whereNotNull('regional')->get();
             $branch = DB::table('wilayah')->select('branch')->distinct()->whereNotNull('branch')->get();
             $cluster = DB::table('wilayah')->select('cluster')->distinct()->whereNotNull('cluster')->get();
-            $tap = DB::table('taps')->select('nama')->distinct()->whereNotNull('nama')->orderBy('nama')->get();
+            $tap = DB::table('taps')->select('nama')->distinct()->whereNotNull('nama')->where('cluster', $user->cluster)->orderBy('nama')->get();
         } else {
             $region = DB::table('wilayah')->select('regional')->distinct()->where('regional', Auth::user()->regional)->get();
             $branch = DB::table('wilayah')->select('branch')->distinct()->where('branch', Auth::user()->branch)->get();
