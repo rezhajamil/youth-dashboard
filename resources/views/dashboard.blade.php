@@ -5,9 +5,9 @@
 <div class="mt-4">
     <div class="flex flex-wrap -mx-6">
         <div class="w-full px-6 sm:w-1/2 xl:w-1/4">
-            <div class="flex items-center px-5 py-6 shadow-sm rounded-md bg-white">
-                <div class="p-3 rounded-full bg-indigo-600 bg-opacity-75">
-                    <svg class="h-8 w-8 text-white" viewBox="0 0 28 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm">
+                <div class="p-3 bg-indigo-600 bg-opacity-75 rounded-full">
+                    <svg class="w-8 h-8 text-white" viewBox="0 0 28 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M18.2 9.08889C18.2 11.5373 16.3196 13.5222 14 13.5222C11.6804 13.5222 9.79999 11.5373 9.79999 9.08889C9.79999 6.64043 11.6804 4.65556 14 4.65556C16.3196 4.65556 18.2 6.64043 18.2 9.08889Z" fill="currentColor" />
                         <path d="M25.2 12.0444C25.2 13.6768 23.9464 15 22.4 15C20.8536 15 19.6 13.6768 19.6 12.0444C19.6 10.4121 20.8536 9.08889 22.4 9.08889C23.9464 9.08889 25.2 10.4121 25.2 12.0444Z" fill="currentColor" />
                         <path d="M19.6 22.3889C19.6 19.1243 17.0927 16.4778 14 16.4778C10.9072 16.4778 8.39999 19.1243 8.39999 22.3889V26.8222H19.6V22.3889Z" fill="currentColor" />
@@ -24,10 +24,10 @@
             </div>
         </div>
 
-        <div class="w-full mt-6 px-6 sm:w-1/2 xl:w-1/4 sm:mt-0">
-            <div class="flex items-center px-5 py-6 shadow-sm rounded-md bg-white">
-                <div class="p-3 rounded-full bg-orange-600 bg-opacity-75">
-                    <svg class="h-8 w-8 text-white" viewBox="0 0 28 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div class="w-full px-6 mt-6 sm:w-1/2 xl:w-1/4 sm:mt-0">
+            <div class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm">
+                <div class="p-3 bg-orange-600 bg-opacity-75 rounded-full">
+                    <svg class="w-8 h-8 text-white" viewBox="0 0 28 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M18.2 9.08889C18.2 11.5373 16.3196 13.5222 14 13.5222C11.6804 13.5222 9.79999 11.5373 9.79999 9.08889C9.79999 6.64043 11.6804 4.65556 14 4.65556C16.3196 4.65556 18.2 6.64043 18.2 9.08889Z" fill="currentColor" />
                         <path d="M25.2 12.0444C25.2 13.6768 23.9464 15 22.4 15C20.8536 15 19.6 13.6768 19.6 12.0444C19.6 10.4121 20.8536 9.08889 22.4 9.08889C23.9464 9.08889 25.2 10.4121 25.2 12.0444Z" fill="currentColor" />
                         <path d="M19.6 22.3889C19.6 19.1243 17.0927 16.4778 14 16.4778C10.9072 16.4778 8.39999 19.1243 8.39999 22.3889V26.8222H19.6V22.3889Z" fill="currentColor" />
@@ -39,16 +39,16 @@
                 </div>
 
                 <div class="mx-5">
-                    <h4 class="text-2xl font-semibold text-gray-700">{{ $userEO }}1</h4>
+                    <h4 class="text-2xl font-semibold text-gray-700">{{ $userEO }}</h4>
                     <div class="text-gray-500">User EO</div>
                 </div>
             </div>
         </div>
 
-        <div class="w-full mt-6 px-6 sm:w-1/2 xl:w-1/4 xl:mt-0">
-            <div class="flex items-center px-5 py-6 shadow-sm rounded-md bg-white">
-                <div class="p-3 rounded-full bg-pink-600 bg-opacity-75">
-                    <svg class="h-8 w-8 text-white" viewBox="0 0 28 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div class="w-full px-6 mt-6 sm:w-1/2 xl:w-1/4 xl:mt-0">
+            <div class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm">
+                <div class="p-3 bg-pink-600 bg-opacity-75 rounded-full">
+                    <svg class="w-8 h-8 text-white" viewBox="0 0 28 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M18.2 9.08889C18.2 11.5373 16.3196 13.5222 14 13.5222C11.6804 13.5222 9.79999 11.5373 9.79999 9.08889C9.79999 6.64043 11.6804 4.65556 14 4.65556C16.3196 4.65556 18.2 6.64043 18.2 9.08889Z" fill="currentColor" />
                         <path d="M25.2 12.0444C25.2 13.6768 23.9464 15 22.4 15C20.8536 15 19.6 13.6768 19.6 12.0444C19.6 10.4121 20.8536 9.08889 22.4 9.08889C23.9464 9.08889 25.2 10.4121 25.2 12.0444Z" fill="currentColor" />
                         <path d="M19.6 22.3889C19.6 19.1243 17.0927 16.4778 14 16.4778C10.9072 16.4778 8.39999 19.1243 8.39999 22.3889V26.8222H19.6V22.3889Z" fill="currentColor" />
@@ -65,10 +65,10 @@
             </div>
         </div>
 
-        <div class="w-full mt-6 px-6 sm:w-1/2 xl:w-1/4 xl:mt-0">
-            <div class="flex items-center px-5 py-6 shadow-sm rounded-md bg-white">
-                <div class="p-3 rounded-full bg-red-600 bg-opacity-75">
-                    <svg class="h-8 w-8 text-white" viewBox="0 0 28 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div class="w-full px-6 mt-6 sm:w-1/2 xl:w-1/4 xl:mt-0">
+            <div class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm">
+                <div class="p-3 bg-red-600 bg-opacity-75 rounded-full">
+                    <svg class="w-8 h-8 text-white" viewBox="0 0 28 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M18.2 9.08889C18.2 11.5373 16.3196 13.5222 14 13.5222C11.6804 13.5222 9.79999 11.5373 9.79999 9.08889C9.79999 6.64043 11.6804 4.65556 14 4.65556C16.3196 4.65556 18.2 6.64043 18.2 9.08889Z" fill="currentColor" />
                         <path d="M25.2 12.0444C25.2 13.6768 23.9464 15 22.4 15C20.8536 15 19.6 13.6768 19.6 12.0444C19.6 10.4121 20.8536 9.08889 22.4 9.08889C23.9464 9.08889 25.2 10.4121 25.2 12.0444Z" fill="currentColor" />
                         <path d="M19.6 22.3889C19.6 19.1243 17.0927 16.4778 14 16.4778C10.9072 16.4778 8.39999 19.1243 8.39999 22.3889V26.8222H19.6V22.3889Z" fill="currentColor" />
