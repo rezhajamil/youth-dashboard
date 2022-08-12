@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataUser;
+use DateInterval;
+use DatePeriod;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -190,6 +193,69 @@ class DirectUserController extends Controller
 
         $user->save();
         return redirect()->route('direct_user.index')->with('success');
+    }
+
+    public function absensi(Request $request)
+    {
+        if (Auth::user()->privilege == 'branch') {
+            $cluster = DB::table('wilayah')->select('cluster')->distinct()->where('branch', Auth::user()->branch)->whereNotNull('cluster')->get();
+        } else {
+            $cluster = DB::table('wilayah')->select('cluster')->distinct()->whereNotNull('cluster')->get();
+        }
+        if ($request->month && $request->year) {
+            $month = $request->month;
+            $year = $request->year;
+        } else {
+            $month = date('n');
+            $year = date('Y');
+        }
+
+        $getPeriod = new DatePeriod(
+            new DateTime($year . '-' . $month . '-01'),
+            new DateInterval('P1D'),
+            new DateTime(date('Y-m-d', strtotime(date("Y-m-t", strtotime($year . '-' . $month . '-01')) . ' +1 day')))
+        );
+        $period = [];
+        foreach ($getPeriod as $key => $value) {
+            array_push($period, $value->format('d-M-Y'));
+        }
+
+        $query = "SELECT cluster,absen_ao.nama,date,absen_ao.telp 
+                        FROM absen_ao
+                        JOIN data_user
+                        on absen_ao.telp=data_user.telp
+                        WHERE MONTH(date)=" . $month . " AND YEAR(date)=" . $year . " 
+                        AND CLUSTER='" . $request->cluster . "'
+                        ORDER BY 2,3;";
+
+        if ($request->cluster) {
+            $absensi = DB::select($query);
+        } else {
+            $absensi = [];
+        }
+        // ddd($absensi);
+        return view('directUser.absensi.index', compact('absensi', 'period', 'cluster', 'year', 'month'));
+    }
+
+    public function show_absensi($telp, Request $request)
+    {
+        $month = $request->month;
+        $year = $request->year;
+
+        $getPeriod = new DatePeriod(
+            new DateTime($year . '-' . $month . '-01'),
+            new DateInterval('P1D'),
+            new DateTime(date('Y-m-d', strtotime(date("Y-m-t", strtotime($year . '-' . $month . '-01')) . ' +1 day')))
+        );
+        $period = [];
+        foreach ($getPeriod as $key => $value) {
+            array_push($period, $value->format('d-M-Y'));
+        }
+
+        $query = "SELECT * FROM absen_ao WHERE telp='" . $telp . "' order by date;";
+        $absensi = DB::select($query);
+
+        return view('directUser.absensi.show', compact('absensi', 'period'));
     }
 
     /**

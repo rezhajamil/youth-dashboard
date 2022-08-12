@@ -106,6 +106,8 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('orbit/sales/destroy/{msisdn}', [SalesContoller::class, 'destroy_orbit'])->name('sales.orbit.destroy');
     Route::resource('direct_user', DirectUserController::class);
     Route::put('direct_user/change_status/{direct_user}', [DirectUserController::class, 'changeStatus'])->name('direct_user.change_status');
+    Route::get('absensi', [DirectUserController::class, 'absensi'])->name('direct_user.absensi');
+    Route::get('absensi/show/{telp}', [DirectUserController::class, 'show_absensi'])->name('direct_user.absensi.show');
 });
 
 require __DIR__ . '/auth.php';
