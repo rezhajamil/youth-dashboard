@@ -18,11 +18,34 @@ class OutletController extends Controller
     {
         ini_set('max_execution_time', '0');
         ini_set('memory_limit', -1);
+        $all_site = [];
+        $all_outlet = [];
+        if (file_exists('D:/Telkomsel/4g_list_site.csv')) {
+            $file_site = fopen('D:/Telkomsel/4g_list_site.csv', "r");
+            $idx = 0;
+            while (($row = fgetcsv($file_site, 10000, "|")) !== FALSE) {
+
+                $data = [
+                    'site_id' => $row[1],
+                    'longitude' => $row[6],
+                    'latitude' => $row[7],
+                ];
+
+                if ($idx > 0) {
+                    array_push($all_site, $data);
+                    echo '<pre>' . $idx . var_export($all_site, true) . '</pre>';
+                }
+                $idx++;
+            }
+        }
+
+        die();
         $all_site = DB::table('4g_list_site')->select('*')->get();
         $all_outlet = DB::table('outlet_preference')->select('*')->get();
         $unit = 'kilometers';
         // ddd('aa');
         // dd($all_outlet);
+
 
         foreach ($all_outlet as $key => $outlet) {
             $match_site = [];

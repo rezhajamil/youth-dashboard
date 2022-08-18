@@ -62,7 +62,6 @@
                                 <option value="" selected disabled>Pilih TAP</option>
                                 @foreach ($tap as $item)
                                 <option value="{{ $item->nama }}" {{ old('tap')==$item->nama?'selected':'' }}>{{ strtoupper($item->nama) }}</option>
-
                                 @endforeach
                             </select>
                             @error('tap')
@@ -76,7 +75,6 @@
                                 <option value="" selected disabled>Pilih Role</option>
                                 @foreach ($role as $item)
                                 <option value="{{ $item->user_type }}" {{ old('role')==$item->user_type?'selected':'' }}>{{ $item->user_type }}</option>
-
                                 @endforeach
                             </select>
                             @error('role')

@@ -13,6 +13,12 @@
                         <option value="{{ $item->cluster }}" {{ request()->get('cluster')==$item->cluster?'selected':'' }}>{{ $item->cluster }}</option>
                         @endforeach
                     </select>
+                    <select name="role" id="role" required>
+                        <option value="" selected disabled>Pilih Role</option>
+                        @foreach ($role as $item)
+                        <option value="{{ $item->user_type }}" {{ request()->get('role')==$item->user_type?'selected':'' }}>{{ $item->user_type }}</option>
+                        @endforeach
+                    </select>
                     <select name="month" id="month" required>
                         <option value="" selected disabled>Pilih Bulan</option>
                         @for ($i = 1; $i < 13; $i++) <option value="{{ $i }}" {{ date('n')==$i?'selected':'' }}>{{ $i }}</option>
@@ -43,7 +49,7 @@
                 <table class="text-left border-collapse w-fit">
                     <thead class="border-b">
                         <tr>
-                            <th class="p-2 text-sm font-bold text-gray-100 uppercase border-2 border-tersier bg-premier">No</th>
+                            {{-- <th class="p-2 text-sm font-bold text-gray-100 uppercase border-2 border-tersier bg-premier">No</th> --}}
                             <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Nama</th>
                             @foreach ($period as $data)
                             <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 whitespace-nowrap border-tersier bg-premier">{{ date('d',strtotime($data)) }}</th>
@@ -57,7 +63,7 @@
                         @foreach ($absensi as $key=>$data)
                         @if ($data->telp!=$telp)
                         <tr class="transition hover:bg-gray-200/40">
-                            <td class="p-2 font-bold text-center text-gray-700 border-2">{{ $key+1 }}</td>
+                            {{-- <td class="p-2 font-bold text-center text-gray-700 border-2">{{ $key+1 }}</td> --}}
                             <td class="p-2 text-gray-700 uppercase border-2 ">
                                 <a href="{{ URL::to('/absensi/show/'.$data->telp.'?month='.$month.'&year='.$year) }}" class="transition hover:text-indigo-800">
                                     <span class="block font-semibold whitespace-nowrap">{{ $data->nama }}</span>

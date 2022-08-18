@@ -226,15 +226,17 @@ class DirectUserController extends Controller
                         on absen_ao.telp=data_user.telp
                         WHERE MONTH(date)=" . $month . " AND YEAR(date)=" . $year . " 
                         AND CLUSTER='" . $request->cluster . "'
+                        and role='" . $request->role . "'
                         ORDER BY 2,3;";
 
-        if ($request->cluster) {
+        if ($request->cluster && $request->role) {
             $absensi = DB::select($query);
         } else {
             $absensi = [];
         }
-        // ddd($absensi);
-        return view('directUser.absensi.index', compact('absensi', 'period', 'cluster', 'year', 'month'));
+        $role = DB::table('user_type')->where('status', '1')->get();
+        // ddd($role);
+        return view('directUser.absensi.index', compact('absensi', 'period', 'cluster', 'year', 'month', 'role'));
     }
 
     public function show_absensi($telp, Request $request)
