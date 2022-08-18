@@ -220,19 +220,49 @@ class DirectUserController extends Controller
             array_push($period, $value->format('d-M-Y'));
         }
 
-        $query = "SELECT cluster,absen_ao.nama,date,absen_ao.telp 
+        // $query = "SELECT cluster,absen_ao.nama,date,absen_ao.telp 
+        //                 FROM absen_ao
+        //                 JOIN data_user
+        //                 on absen_ao.telp=data_user.telp
+        //                 WHERE MONTH(date)=" . $month . " AND YEAR(date)=" . $year . " 
+        //                 AND CLUSTER='" . $request->cluster . "'
+        //                 and role='" . $request->role . "'
+        //                 ORDER BY 2,3;";
+
+        if (Auth::user()->privilege == 'superadmin') {
+            if ($request->cluster && $request->role) {
+                $absensi = DB::select("SELECT cluster,absen_ao.nama,date,absen_ao.telp 
                         FROM absen_ao
                         JOIN data_user
                         on absen_ao.telp=data_user.telp
                         WHERE MONTH(date)=" . $month . " AND YEAR(date)=" . $year . " 
                         AND CLUSTER='" . $request->cluster . "'
                         and role='" . $request->role . "'
-                        ORDER BY 2,3;";
-
-        if ($request->cluster && $request->role) {
-            $absensi = DB::select($query);
+                        ORDER BY 2,3;");
+            } else if ($request->role) {
+                $absensi = DB::select("SELECT cluster,absen_ao.nama,date,absen_ao.telp 
+                        FROM absen_ao
+                        JOIN data_user
+                        on absen_ao.telp=data_user.telp
+                        WHERE MONTH(date)=" . $month . " AND YEAR(date)=" . $year . "
+                        and role='" . $request->role . "'
+                        ORDER BY 2,3;");
+            } else {
+                $absensi = [];
+            }
         } else {
-            $absensi = [];
+            if ($request->cluster && $request->role) {
+                $absensi = DB::select("SELECT cluster,absen_ao.nama,date,absen_ao.telp 
+                        FROM absen_ao
+                        JOIN data_user
+                        on absen_ao.telp=data_user.telp
+                        WHERE MONTH(date)=" . $month . " AND YEAR(date)=" . $year . " 
+                        AND CLUSTER='" . $request->cluster . "'
+                        and role='" . $request->role . "'
+                        ORDER BY 2,3;");
+            } else {
+                $absensi = [];
+            }
         }
         $role = DB::table('user_type')->where('status', '1')->get();
         // ddd($role);
