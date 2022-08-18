@@ -69,7 +69,7 @@
                                     <span class="block font-semibold whitespace-nowrap">{{ $data->nama }}</span>
                                 </a>
                                 <a href="{{ URL::to('/absensi/show/'.$data->telp.'?month='.$month.'&year='.$year) }}" class="transition hover:text-indigo-800">
-                                    <span class="block text-xs font-light">{{ $data->telp }}</span>
+                                    <span class="block text-xs font-light">{{ $data->branch }} | {{ $data->telp }}</span>
                                 </a>
                             </td>
                             @foreach ($period as $item)

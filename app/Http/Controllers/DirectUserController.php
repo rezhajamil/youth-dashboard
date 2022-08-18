@@ -252,7 +252,7 @@ class DirectUserController extends Controller
             }
         } else {
             if ($request->cluster && $request->role) {
-                $absensi = DB::select("SELECT cluster,absen_ao.nama,date,absen_ao.telp 
+                $absensi = DB::select("SELECT cluster,absen_ao.nama,date,absen_ao.telp,branch 
                         FROM absen_ao
                         JOIN data_user
                         on absen_ao.telp=data_user.telp
