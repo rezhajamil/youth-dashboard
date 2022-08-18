@@ -231,7 +231,7 @@ class DirectUserController extends Controller
 
         if (Auth::user()->privilege == 'superadmin') {
             if ($request->cluster && $request->role) {
-                $absensi = DB::select("SELECT cluster,absen_ao.nama,date,absen_ao.telp 
+                $absensi = DB::select("SELECT cluster,absen_ao.nama,date,absen_ao.telp,branch 
                         FROM absen_ao
                         JOIN data_user
                         on absen_ao.telp=data_user.telp
@@ -240,7 +240,7 @@ class DirectUserController extends Controller
                         and role='" . $request->role . "'
                         ORDER BY 2,3;");
             } else if ($request->role) {
-                $absensi = DB::select("SELECT cluster,absen_ao.nama,date,absen_ao.telp 
+                $absensi = DB::select("SELECT cluster,absen_ao.nama,date,absen_ao.telp,branch 
                         FROM absen_ao
                         JOIN data_user
                         on absen_ao.telp=data_user.telp
