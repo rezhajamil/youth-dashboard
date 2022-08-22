@@ -120,29 +120,29 @@ class QuizController extends Controller
         return back();
     }
 
-    public function answer(Request $request, $id)
+    public function answer(Request $request)
     {
         $plain = true;
-        $quiz = DB::table('quiz_session')->find($id);
-        $answer = DB::table('quiz_answer')->where('session', $id)->where('telp', $request->telp)->first();
+        $quiz = DB::table('quiz_session')->where('status', '1')->first();
+        $answer = DB::table('quiz_answer')->where('session', $quiz->id)->where('telp', $request->telp)->first();
         $user = DB::table('data_user')->where('telp', $request->telp)->first();
-        return view('directUser.quiz.answer', compact('quiz', 'answer', 'id', 'plain', 'user'));
+        return view('directUser.quiz.answer', compact('quiz', 'answer', 'plain', 'user'));
     }
 
-    public function start(Request $request, $id)
+    public function start(Request $request)
     {
         $plain = true;
-        $quiz = DB::table('quiz_session')->find($id);
-        $answer = DB::table('quiz_answer')->where('session', $id)->where('telp', $request->telp)->first();
+        $quiz = DB::table('quiz_session')->where('status', '1')->first();
+        $answer = DB::table('quiz_answer')->where('session', $quiz->id)->where('telp', $request->telp)->first();
 
         DB::table('quiz_answer')->insert([
-            'session' => $id,
+            'session' => $quiz->id,
             'telp' => $request->telp,
             'time_start' => date('Y-m-d H:i:s'),
             'hasil' => '0'
         ]);
 
-        return redirect(URL::to('/qns/' . $id . '?telp=' . $request->telp));
+        return redirect(URL::to('/qns/' . $quiz->id . '?telp=' . $request->telp));
     }
 
     public function store_answer(Request $request)

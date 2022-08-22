@@ -7,14 +7,14 @@
         @if (strtotime(date('Y-m-d H:i:s'))-strtotime($answer->time_start)>($quiz->time*60) || $answer->finish)
         <span class="block w-full mt-4 mb-2 font-bold text-xl text-center text-tersier">Quiz Telah Selesai</span>
         <span class="block w-full font-bold text-center text-tersier">Hasil Quiz Anda : {{ $answer->hasil }}/{{ count(json_decode($quiz->soal)) }}</span>
-        <div class="bg-sekunder rounded-full p-4 px-7 my-8 w-fit mx-auto">
+        <div class="bg-sekunder rounded-full p-4 px-8 my-8 w-fit mx-auto">
             <span class="block w-full text-center font-bold text-2xl text-white py-2">{{ number_format(($answer->hasil/count(json_decode($quiz->soal)))*100,0,".",",") }}</span>
         </div>
         @else
         <form action="{{ route('quiz.answer.store') }}" method="post" id="form-quiz">
             @csrf
             <input type="hidden" name="telp" value="{{ request()->get('telp') }}">
-            <input type="hidden" name="session" value="{{ $id }}">
+            <input type="hidden" name="session" value="{{ $quiz->id }}">
             @foreach (json_decode($quiz->soal) as $key=>$data)
             <div class="flex flex-col py-4 border-b-4 gap-y-3">
                 <span class="font-semibold">{{ $key+1 }}) {{ $data }}</span>
@@ -68,7 +68,7 @@
         <span class="block w-full font-bold text-sekunder">Selamat Datang {{ $user->nama }} | {{ $user->telp }}</span>
         <span class="block w-full my-2 font-semibold text-tersier">Waktu Mengerjakan Quiz : {{ $quiz->time }} Menit</span>
         {!! $quiz->deskripsi !!}
-        <a href="{{ URL::to('/start/quiz/'.$id.'?telp='.request()->get('telp')) }}" class="bg-sekunder rounded my-6 block w-fit hover:bg-black transition-all text-white font-semibold mx-auto px-4 py-2">
+        <a href="{{ URL::to('/start/quiz/'.$quiz->id.'?telp='.request()->get('telp')) }}" class="bg-sekunder rounded my-6 block w-fit hover:bg-black transition-all text-white font-semibold mx-auto px-4 py-2">
             Mulai Quiz
         </a>
         @endif

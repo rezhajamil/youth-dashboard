@@ -40,8 +40,8 @@ Route::name('sekolah.')->group(function () {
     Route::post('sekolah/get_kecamatan', [SekolahController::class, 'getKecamatan'])->name('get_kecamatan');
 });
 
-Route::get('/qns/{id}', [QuizController::class, 'answer'])->name('quiz.answer.create');
-Route::get('/start/quiz/{id}', [QuizController::class, 'start'])->name('quiz.answer.start');
+Route::get('/qns/', [QuizController::class, 'answer'])->name('quiz.answer.create');
+Route::get('/start/quiz/', [QuizController::class, 'start'])->name('quiz.answer.start');
 Route::post('/store_answer/quiz/', [QuizController::class, 'store_answer'])->name('quiz.answer.store');
 
 Route::middleware(['auth'])->group(function () {
