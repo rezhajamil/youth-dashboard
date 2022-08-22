@@ -1,7 +1,7 @@
 @extends('layouts.dashboard.app')
 @section('body')
 <section class="w-full h-full py-4 px-4 flex justify-center min-h-screen bg-premier">
-    <div class="bg-white rounded-lg shadow-xl px-4 py-2 w-full sm:w-3/4 ">
+    <div class="bg-white rounded-lg shadow-xl px-4 py-2 w-full h-fit sm:w-3/4 ">
         <span class="block w-full text-center font-bold text-2xl mb-2 text-sekunder py-2 border-b-2">{{ $quiz->nama }}</span>
         @if ($answer)
         @if (strtotime(date('Y-m-d H:i:s'))-strtotime($answer->time_start)>($quiz->time*60) || $answer->finish)
