@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 
@@ -15,6 +16,9 @@ class QuizController extends Controller
      */
     public function index()
     {
+        if (Auth::user()->privilege == 'branch') {
+            abort(403);
+        }
         $session = DB::table('quiz_session')->orderBy('status', 'desc')->orderBy('date')->get();
         return view('directUser.quiz.index', compact('session'));
     }
@@ -26,6 +30,9 @@ class QuizController extends Controller
      */
     public function create()
     {
+        if (Auth::user()->privilege == 'branch') {
+            abort(403);
+        }
         return view('directUser.quiz.create');
     }
 
@@ -37,6 +44,9 @@ class QuizController extends Controller
      */
     public function store(Request $request)
     {
+        if (Auth::user()->privilege == 'branch') {
+            abort(403);
+        }
         $request->validate([
             'nama' => 'required',
             'time' => 'required|numeric'
@@ -64,6 +74,9 @@ class QuizController extends Controller
      */
     public function show($id)
     {
+        if (Auth::user()->privilege == 'branch') {
+            abort(403);
+        }
         $quiz = DB::table('quiz_session')->find($id);
 
         return view('directUser.quiz.show', compact('quiz'));
@@ -163,5 +176,12 @@ class QuizController extends Controller
         ]);
 
         return redirect(URL::to('/qns?telp=' . $request->telp));
+    }
+
+    public function answer_list($id)
+    {
+        $answer = DB::table('quiz_answer')->join('data_user', 'data_user.telp', '=', 'quiz_answer.telp')->where('session', $id)->orderBy('cluster')->orderBy('nama')->get();
+        $quiz = DB::table('quiz_session')->find($id);
+        return view('directUser.quiz.result', compact('answer', 'quiz'));
     }
 }

@@ -42,8 +42,9 @@
                                 @endif
                             </td>
 
-                            <td class="p-4 text-gray-700 border-b">
+                            <td class="p-4 text-gray-700 border-b flex gap-x-3">
                                 <a href="{{ route('quiz.show',$data->id) }}" class="block my-1 text-base font-semibold text-indigo-600 transition hover:text-indigo-800">Lihat</a>
+                                <a href="{{ route('quiz.answer.list',$data->id) }}" class="block my-1 text-base font-semibold text-orange-600 transition hover:text-orange-800">Hasil</a>
                                 @if (!$data->status)
                                 <form action="{{ route('quiz.change_status',$data->id) }}" method="post">
                                     @csrf
