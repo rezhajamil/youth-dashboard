@@ -26,7 +26,7 @@
                             <td class="p-4 text-gray-700 border-b">{{ $data->nama }}</td>
                             <td class="p-4 text-gray-700 border-b">{{ $data->telp }}</td>
                             <td class="p-4 text-gray-700 border-b">{{ $data->hasil }}/{{ count(json_decode($quiz->soal)) }}</td>
-                            <td class="p-4 border-b font-bold text-sekunder">{{ number_format($data->hasil/count(json_decode($quiz->soal)*100),0,".",",") }}</td>
+                            <td class="p-4 border-b font-bold text-sekunder">{{ number_format(($data->hasil/count(json_decode($quiz->soal))*100),0,".",",") }}</td>
                         </tr>
                         @endforeach
                     </tbody>
