@@ -35,22 +35,6 @@
                         <span class="inline-block p-4 border-r-2 {{ json_decode($quiz->jawaban)[$key]=='E'?'border-green-800':'' }}">E</span>
                         <span class="inline-block w-full p-4">{{ array_chunk(json_decode($quiz->opsi),5)[$key][4] }}</span>
                     </div>
-                    {{-- <div class="flex w-full font-semibold border-2">
-                        <span class="inline-block p-4 border-r-2">B</span>
-                        <span class="inline-block w-full p-4">1</span>
-                    </div>
-                    <div class="flex w-full font-semibold border-2">
-                        <span class="inline-block p-4 border-r-2">C</span>
-                        <span class="inline-block w-full p-4">3</span>
-                    </div>
-                    <div class="flex w-full font-semibold border-2">
-                        <span class="inline-block p-4 border-r-2">D</span>
-                        <span class="inline-block w-full p-4">4</span>
-                    </div>
-                    <div class="flex w-full font-semibold border-2">
-                        <span class="inline-block p-4 border-r-2">E</span>
-                        <span class="inline-block w-full p-4">5</span>
-                    </div> --}}
                 </div>
                 @endforeach
             </div>

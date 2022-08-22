@@ -35,6 +35,9 @@
         }
 
     </style>
+    @if (isset($plain))
+    @yield('body')
+    @else
     <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-gray-200 font-roboto">
         @include('layouts.dashboard.sidebar')
 
@@ -48,6 +51,7 @@
             </main>
         </div>
     </div>
+    @endif
     @yield('script')
     <script>
         document.addEventListener('trix-file-accept', function(event) {

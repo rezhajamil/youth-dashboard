@@ -112,6 +112,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('quiz', QuizController::class);
     Route::put('/change_status/quiz/{id}', [QuizController::class, 'change_status'])->name('quiz.change_status');
+    Route::get('/answer/quiz/{id}', [QuizController::class, 'answer'])->name('quiz.answer.create');
+    Route::get('/start/quiz/{id}', [QuizController::class, 'start'])->name('quiz.answer.start');
 });
 
 require __DIR__ . '/auth.php';

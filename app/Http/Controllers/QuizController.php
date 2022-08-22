@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 
 class QuizController extends Controller
 {
@@ -49,6 +50,7 @@ class QuizController extends Controller
             'soal' => json_encode($request->soal),
             'opsi' => json_encode($request->opsi),
             'jawaban' => json_encode($request->jawaban),
+            'status' => '0'
         ]);
 
         return redirect()->route('quiz.index');
@@ -118,7 +120,28 @@ class QuizController extends Controller
         return back();
     }
 
-    public function answer($id)
+    public function answer(Request $request, $id)
     {
+        $plain = true;
+        $quiz = DB::table('quiz_session')->find($id);
+        $answer = DB::table('quiz_answer')->where('session', $id)->where('telp', $request->telp)->first();
+        $user = DB::table('data_user')->where('telp', $request->telp)->first();
+        return view('directUser.quiz.answer', compact('quiz', 'answer', 'id', 'plain', 'user'));
+    }
+
+    public function start(Request $request, $id)
+    {
+        $plain = true;
+        $quiz = DB::table('quiz_session')->find($id);
+        $answer = DB::table('quiz_answer')->where('session', $id)->where('telp', $request->telp)->first();
+
+        DB::table('quiz_answer')->insert([
+            'session' => $id,
+            'telp' => $request->telp,
+            'time_start' => date('Y-m-d H:i:s'),
+            'hasil' => '0'
+        ]);
+
+        return redirect(URL::to('/answer/quiz/' . $id . '?telp=' . $request->telp));
     }
 }
