@@ -42,6 +42,7 @@ Route::name('sekolah.')->group(function () {
 
 Route::get('/answer/quiz/{id}', [QuizController::class, 'answer'])->name('quiz.answer.create');
 Route::get('/start/quiz/{id}', [QuizController::class, 'start'])->name('quiz.answer.start');
+Route::post('/store_answer/quiz/', [QuizController::class, 'store_answer'])->name('quiz.answer.store');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index']);

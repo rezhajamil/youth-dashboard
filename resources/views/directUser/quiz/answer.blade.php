@@ -11,41 +11,43 @@
             <span class="block w-full text-center font-bold text-2xl text-white py-2">{{ number_format(($answer->hasil/count(json_decode($quiz->soal)))*100,0,".",",") }}</span>
         </div>
         @else
-        <form action="" method="post">
+        <form action="{{ route('quiz.answer.store') }}" method="post" id="form-quiz">
             @csrf
+            <input type="hidden" name="telp" value="{{ request()->get('telp') }}">
+            <input type="hidden" name="session" value="{{ $id }}">
             @foreach (json_decode($quiz->soal) as $key=>$data)
             <div class="flex flex-col py-4 border-b-4 gap-y-3">
                 <span class="font-semibold">{{ $key+1 }}) {{ $data }}</span>
                 <label>
-                    <input type="radio" name="pilihan{{ $key }}[]" value="A" class="hidden peer">
+                    <input type="radio" name="pilihan{{ $key }}" value="A" class="hidden peer">
                     <div class="flex w-full font-semibold border-2 peer-checked:text-white peer-checked:bg-green-600 peer-checked:border-green-800">
                         <span class="inline-block p-4 border-r-2">A</span>
                         <span class="inline-block w-full p-4">{{ array_chunk(json_decode($quiz->opsi),5)[$key][0] }}</span>
                     </div>
                 </label>
                 <label>
-                    <input type="radio" name="pilihan{{ $key }}[]" value="B" class="hidden peer">
+                    <input type="radio" name="pilihan{{ $key }}" value="B" class="hidden peer">
                     <div class="flex w-full font-semibold border-2 peer-checked:text-white peer-checked:bg-green-600 peer-checked:border-green-800">
                         <span class="inline-block p-4 border-r-2">B</span>
                         <span class="inline-block w-full p-4">{{ array_chunk(json_decode($quiz->opsi),5)[$key][1] }}</span>
                     </div>
                 </label>
                 <label>
-                    <input type="radio" name="pilihan{{ $key }}[]" value="C" class="hidden peer">
+                    <input type="radio" name="pilihan{{ $key }}" value="C" class="hidden peer">
                     <div class="flex w-full font-semibold border-2 peer-checked:text-white peer-checked:bg-green-600 peer-checked:border-green-800">
                         <span class="inline-block p-4 border-r-2">C</span>
                         <span class="inline-block w-full p-4">{{ array_chunk(json_decode($quiz->opsi),5)[$key][2] }}</span>
                     </div>
                 </label>
                 <label>
-                    <input type="radio" name="pilihan{{ $key }}[]" value="D" class="hidden peer">
+                    <input type="radio" name="pilihan{{ $key }}" value="D" class="hidden peer">
                     <div class="flex w-full font-semibold border-2 peer-checked:text-white peer-checked:bg-green-600 peer-checked:border-green-800">
                         <span class="inline-block p-4 border-r-2">D</span>
                         <span class="inline-block w-full p-4">{{ array_chunk(json_decode($quiz->opsi),5)[$key][3] }}</span>
                     </div>
                 </label>
                 <label>
-                    <input type="radio" name="pilihan{{ $key }}[]" value="E" class="hidden peer">
+                    <input type="radio" name="pilihan{{ $key }}" value="E" class="hidden peer">
                     <div class="flex w-full font-semibold border-2 peer-checked:text-white peer-checked:bg-green-600 peer-checked:border-green-800">
                         <span class="inline-block p-4 border-r-2">E</span>
                         <span class="inline-block w-full p-4">{{ array_chunk(json_decode($quiz->opsi),5)[$key][4] }}</span>
@@ -53,7 +55,7 @@
                 </label>
             </div>
             @endforeach
-            <button type="submit" class="bg-sekunder rounded text-white font-semibold px-6 py-2 my-4 w-full">Selesai</button>
+            <button type="submit" id="btn-submit" class="bg-sekunder rounded text-white font-semibold px-6 py-2 my-4 w-full">Selesai</button>
         </form>
         <div class="fixed bottom-2 bg-tersier mx-auto text-white text-xs inset-x-0 w-fit rounded-full px-4 py-2">
             <i class="fa-regular fa-clock"></i>
@@ -82,12 +84,14 @@
         // var count_start = new Date(`${time_start}`).getTime();
         var count_end = new Date(`${time_end}`).getTime();
         // Update the count down every 1 second
-        function timer() {
+
+        var timer = setInterval(function() {
 
             // Get today's date and time
             var now = new Date().getTime();
 
             // Find the distance between now and the count down date
+            // var distance = count_end - now;
             var distance = count_end - now;
             console.log(now, count_end);
             console.log(distance);
@@ -103,13 +107,15 @@
             // If the count down is over, write some text
             if (distance < 0) {
                 clearInterval(timer);
-                $("#timer").html("EXPIRED");
+                $("#timer").html("Waktu Habis");
+                // $("#form-quiz").submit(function() {
+                //     location.reload();
+                // });
+                $("#btn-submit").click();
             }
-        };
 
-        window.setInterval(timer, 1000);
-
-    })
+        }, 1000);
+    });
 
 </script>
 @endsection

@@ -144,4 +144,24 @@ class QuizController extends Controller
 
         return redirect(URL::to('/answer/quiz/' . $id . '?telp=' . $request->telp));
     }
+
+    public function store_answer(Request $request)
+    {
+        $quiz = DB::table('quiz_session')->find($request->session);
+        $jawaban = json_decode($quiz->jawaban);
+        $hasil = 0;
+
+        foreach ($jawaban as $key => $data) {
+            if ($data == $request['pilihan' . $key]) {
+                $hasil++;
+            }
+        }
+
+        DB::table('quiz_answer')->where('session', $request->session)->where('telp', $request->telp)->update([
+            'hasil' => $hasil,
+            'finish' => '1'
+        ]);
+
+        return redirect(URL::to('/answer/quiz/' . $request->session . '?telp=' . $request->telp));
+    }
 }
