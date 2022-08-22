@@ -117,4 +117,8 @@ class QuizController extends Controller
 
         return back();
     }
+
+    public function answer($id)
+    {
+    }
 }
