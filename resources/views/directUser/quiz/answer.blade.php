@@ -68,7 +68,7 @@
         <span class="block w-full font-bold text-sekunder">Selamat Datang {{ $user->nama }} | {{ $user->telp }}</span>
         <span class="block w-full my-2 font-semibold text-tersier">Waktu Mengerjakan Quiz : {{ $quiz->time }} Menit</span>
         {!! $quiz->deskripsi !!}
-        <a href="{{ URL::to('/start/quiz/'.$quiz->id.'?telp='.request()->get('telp')) }}" class="bg-sekunder rounded my-6 block w-fit hover:bg-black transition-all text-white font-semibold mx-auto px-4 py-2">
+        <a href="{{ URL::to('/start/quiz?telp='.request()->get('telp')) }}" class="bg-sekunder rounded my-6 block w-fit hover:bg-black transition-all text-white font-semibold mx-auto px-4 py-2">
             Mulai Quiz
         </a>
         @endif
