@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DirectSalesContoller;
 use App\Http\Controllers\DirectUserController;
 use App\Http\Controllers\OutletController;
+use App\Http\Controllers\QuizController;
 use App\Http\Controllers\SalesContoller;
 use App\Http\Controllers\SekolahController;
 use App\Http\Controllers\WilayahController;
@@ -108,6 +109,9 @@ Route::middleware(['auth'])->group(function () {
     Route::put('direct_user/change_status/{direct_user}', [DirectUserController::class, 'changeStatus'])->name('direct_user.change_status');
     Route::get('absensi', [DirectUserController::class, 'absensi'])->name('direct_user.absensi');
     Route::get('absensi/show/{telp}', [DirectUserController::class, 'show_absensi'])->name('direct_user.absensi.show');
+
+    Route::resource('quiz', QuizController::class);
+    Route::put('/change_status/quiz/{id}', [QuizController::class, 'change_status'])->name('quiz.change_status');
 });
 
 require __DIR__ . '/auth.php';
