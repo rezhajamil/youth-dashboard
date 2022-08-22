@@ -142,7 +142,7 @@ class QuizController extends Controller
             'hasil' => '0'
         ]);
 
-        return redirect(URL::to('/qns/' . $quiz->id . '?telp=' . $request->telp));
+        return redirect(URL::to('/qns?telp=' . $request->telp));
     }
 
     public function store_answer(Request $request)
@@ -162,6 +162,6 @@ class QuizController extends Controller
             'finish' => '1'
         ]);
 
-        return redirect(URL::to('/qns/' . $request->session . '?telp=' . $request->telp));
+        return redirect(URL::to('/qns?telp=' . $request->telp));
     }
 }
