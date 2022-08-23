@@ -236,7 +236,7 @@ class BroadCastController extends Controller
                         'cluster' => $request->cluster,
                         'msisdn' => $row[0],
                         'telp' => 'no',
-                        'status' => '1',
+                        'status' => '0',
                         'program' => $request->program
                     ];
 

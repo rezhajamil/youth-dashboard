@@ -1,14 +1,14 @@
 @extends('layouts.dashboard.app')
 @section('body')
-<section class="w-full h-full py-4 px-4 flex justify-center min-h-screen bg-premier">
-    <div class="bg-white rounded-lg shadow-xl px-4 py-2 w-full h-fit sm:w-3/4 ">
-        <span class="block w-full text-center font-bold text-2xl mb-2 text-sekunder py-2 border-b-2">{{ $quiz->nama }}</span>
+<section class="flex justify-center w-full h-full min-h-screen px-4 py-4 bg-premier">
+    <div class="w-full px-4 py-2 bg-white rounded-lg shadow-xl h-fit sm:w-3/4 ">
+        <span class="block w-full py-2 mb-2 text-2xl font-bold text-center border-b-2 text-sekunder">{{ $quiz->nama }}</span>
         @if ($answer)
         @if (strtotime(date('Y-m-d H:i:s'))-strtotime($answer->time_start)>($quiz->time*60) || $answer->finish)
-        <span class="block w-full mt-4 mb-2 font-bold text-xl text-center text-tersier">Quiz Telah Selesai</span>
+        <span class="block w-full mt-4 mb-2 text-xl font-bold text-center text-tersier">Quiz Telah Selesai</span>
         <span class="block w-full font-bold text-center text-tersier">Hasil Quiz Anda : {{ $answer->hasil }}/{{ count(json_decode($quiz->soal)) }}</span>
-        <div class="bg-sekunder rounded-full p-4 px-8 my-8 w-fit mx-auto">
-            <span class="block w-full text-center font-bold text-2xl text-white py-2">{{ number_format(($answer->hasil/count(json_decode($quiz->soal)))*100,0,".",",") }}</span>
+        <div class="p-4 px-8 mx-auto my-8 rounded-full bg-sekunder w-fit">
+            <span class="block w-full py-2 text-2xl font-bold text-center text-white">{{ number_format(($answer->hasil/count(json_decode($quiz->soal)))*100,0,".",",") }}</span>
         </div>
         @else
         <form action="{{ route('quiz.answer.store') }}" method="post" id="form-quiz">
@@ -55,9 +55,9 @@
                 </label>
             </div>
             @endforeach
-            <button type="submit" id="btn-submit" class="bg-sekunder rounded text-white font-semibold px-6 py-2 my-4 w-full">Selesai</button>
+            <button type="submit" id="btn-submit" class="w-full px-6 py-2 my-4 font-semibold text-white rounded bg-sekunder">Selesai</button>
         </form>
-        <div class="fixed bottom-2 bg-tersier mx-auto text-white text-xs inset-x-0 w-fit rounded-full px-4 py-2">
+        <div class="fixed inset-x-0 px-4 py-2 mx-auto text-xs text-white rounded-full bottom-2 bg-tersier w-fit">
             <i class="fa-regular fa-clock"></i>
             <span id="timer"></span>
         </div>
@@ -68,9 +68,28 @@
         <span class="block w-full font-bold text-sekunder">Selamat Datang {{ $user->nama }} | {{ $user->telp }}</span>
         <span class="block w-full my-2 font-semibold text-tersier">Waktu Mengerjakan Quiz : {{ $quiz->time }} Menit</span>
         {!! $quiz->deskripsi !!}
-        <a href="{{ URL::to('/start/quiz?telp='.request()->get('telp')) }}" class="bg-sekunder rounded my-6 block w-fit hover:bg-black transition-all text-white font-semibold mx-auto px-4 py-2">
+        <a href="{{ URL::to('/start/quiz?telp='.request()->get('telp')) }}" class="block px-4 py-2 mx-auto my-6 font-semibold text-white transition-all rounded bg-sekunder w-fit hover:bg-black">
             Mulai Quiz
         </a>
+        <div class="my-8">
+            <span class="block w-full mb-2 font-bold text-center text-sekunder">Riwayat Quiz Bulan Ini</span>
+            <table class="mx-auto overflow-auto text-left border-collapse w-fit">
+                <thead class="border-b">
+                    <tr>
+                        <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-tersier">Tanggal</th>
+                        <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-tersier">Nama Quiz</th>
+                        <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-tersier">Hasil</th>
+                    </tr>
+                </thead>
+                <tbody class="overflow-auto max-h-36">
+                    <tr class="hover:bg-gray-200">
+                        <td class="p-4 font-bold text-gray-700 border-b">12 Aug 2022</td>
+                        <td class="p-4 font-bold text-gray-700 border-b">12 Aug 2022</td>
+                        <td class="p-4 font-bold text-gray-700 border-b">12 Aug 2022</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         @endif
     </div>
 </section>
@@ -113,7 +132,6 @@
                 // });
                 $("#btn-submit").click();
             }
-
         }, 1000);
     });
 
