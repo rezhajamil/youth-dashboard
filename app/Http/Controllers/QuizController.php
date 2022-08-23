@@ -53,7 +53,7 @@ class QuizController extends Controller
         ]);
 
         $quiz = DB::table('quiz_session')->insert([
-            'nama' => $request->nama,
+            'nama' => ucwords($request->nama),
             'time' => $request->time,
             'date' => date('Y-m-d'),
             'deskripsi' => $request->deskripsi,
@@ -139,7 +139,9 @@ class QuizController extends Controller
         $quiz = DB::table('quiz_session')->where('status', '1')->first();
         $answer = DB::table('quiz_answer')->where('session', $quiz->id)->where('telp', $request->telp)->first();
         $user = DB::table('data_user')->where('telp', $request->telp)->first();
-        return view('directUser.quiz.answer', compact('quiz', 'answer', 'plain', 'user'));
+        $history = DB::select("SELECT * FROM quiz_answer a JOIN quiz_session b ON a.session=b.id where a.telp='" . $request->telp . "' and MONTH(b.date)=" . date('m') . " order BY b.date");
+
+        return view('directUser.quiz.answer', compact('quiz', 'answer', 'plain', 'user', 'history'));
     }
 
     public function start(Request $request)

@@ -73,7 +73,7 @@
         </a>
         <div class="my-8">
             <span class="block w-full mb-2 font-bold text-center text-sekunder">Riwayat Quiz Bulan Ini</span>
-            <table class="mx-auto overflow-auto text-left border-collapse w-fit">
+            <table class="mx-auto overflow-auto text-left border border-collapse w-fit">
                 <thead class="border-b">
                     <tr>
                         <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-tersier">Tanggal</th>
@@ -82,11 +82,13 @@
                     </tr>
                 </thead>
                 <tbody class="overflow-auto max-h-36">
+                    @foreach ($history as $data)
                     <tr class="hover:bg-gray-200">
-                        <td class="p-4 font-bold text-gray-700 border-b">12 Aug 2022</td>
-                        <td class="p-4 font-bold text-gray-700 border-b">12 Aug 2022</td>
-                        <td class="p-4 font-bold text-gray-700 border-b">12 Aug 2022</td>
+                        <td class="p-4 font-bold text-gray-700 border-b">{{ date('d-M-Y',strtotime($data->date)) }}</td>
+                        <td class="p-4 font-bold text-gray-700 border-b">{{ $data->nama }}</td>
+                        <td class="p-4 font-bold text-gray-700 border-b">{{ $data->hasil }}/{{ count(json_decode($data->soal)) }}</td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
