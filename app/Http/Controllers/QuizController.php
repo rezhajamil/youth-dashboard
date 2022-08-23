@@ -121,7 +121,7 @@ class QuizController extends Controller
         $active = DB::table('quiz_session')->where('status', '1')->first();
 
         if ($active) {
-            $active->update([
+            DB::table('quiz_session')->where('status', '1')->update([
                 'status' => '0'
             ]);
         }
