@@ -57,7 +57,7 @@
             @endforeach
             <button type="submit" id="btn-submit" class="w-full px-6 py-2 my-4 font-semibold text-white rounded bg-sekunder">Selesai</button>
         </form>
-        <div class="fixed inset-x-0 px-4 py-2 mx-auto text-xs text-white rounded-full bottom-2 bg-tersier w-fit">
+        <div class="fixed inset-x-0 px-4 py-2 mx-auto text-xs text-white rounded-full top-1 bg-tersier w-fit">
             <i class="fa-regular fa-clock"></i>
             <span id="timer"></span>
         </div>
