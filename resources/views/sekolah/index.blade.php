@@ -78,8 +78,6 @@
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Regional</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Branch</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Cluster</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Longitude</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Latitude</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">PJP</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">FREKUENSI</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Action</th>
@@ -100,8 +98,6 @@
                             <td class="p-4 text-gray-700 border-b regional">{{ $data->REGIONAL }}</td>
                             <td class="p-4 text-gray-700 border-b branch">{{ $data->BRANCH }}</td>
                             <td class="p-4 text-gray-700 border-b cluster">{{ $data->CLUSTER }}</td>
-                            <td class="p-4 text-gray-700 border-b cluster">{{ $data->LONGITUDE }}</td>
-                            <td class="p-4 text-gray-700 border-b cluster">{{ $data->LATITUDE }}</td>
                             <td class="p-4 text-gray-700 border-b cluster">{{ $data->PJP }}</td>
                             <td class="p-4 text-gray-700 border-b cluster">{{ $data->FREKUENSI }}</td>
                             <td class="p-4 text-gray-700 border-b">

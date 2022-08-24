@@ -83,10 +83,10 @@
                             <label class="block text-gray-700" for="frekuensi">Frekuensi Kunjungan</label>
                             <select name="frekuensi" id="frekuensi" class="w-full rounded-md" required>
                                 <option value="" selected disabled>Pilih Frekuensi</option>
-                                <option value="Frekuensi 1">Frekuensi 1</option>
-                                <option value="Frekuensi 2">Frekuensi 2</option>
-                                <option value="Frekuensi 3">Frekuensi 3</option>
-                                <option value="Frekuensi 4">Frekuensi 4</option>
+                                <option value="F1">F1</option>
+                                <option value="F2">F2</option>
+                                <option value="F3">F3</option>
+                                <option value="F4">F4</option>
                             </select>
                             @error('frekuensi')
                             <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
