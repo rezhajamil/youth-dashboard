@@ -10,6 +10,7 @@
                 <form action="{{ route('sekolah.update',$sekolah->NPSN) }}" method="POST" class="">
                     @csrf
                     @method('put')
+                    <input type="hidden" name="url" value="{{ Request::url() }}">
                     <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
                         <div class="w-full">
                             <label class="block text-gray-700" for="kabupaten">Kabupaten</label>
@@ -64,6 +65,30 @@
                                 <option value="" selected disabled>Pilih Cluster</option>
                             </select>
                             @error('cluster')
+                            <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="w-full">
+                            <label class="block text-gray-700" for="pjp">PJP</label>
+                            <select name="pjp" id="pjp" class="w-full rounded-md" required>
+                                <option value="" selected disabled>Pilih PJP</option>
+                                <option value="PJP">PJP</option>
+                                <option value="NON PJP">NON PJP</option>
+                            </select>
+                            @error('pjp')
+                            <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="w-full">
+                            <label class="block text-gray-700" for="frekuensi">Frekuensi Kunjungan</label>
+                            <select name="frekuensi" id="frekuensi" class="w-full rounded-md" required>
+                                <option value="" selected disabled>Pilih Frekuensi</option>
+                                <option value="Frekuensi 1">Frekuensi 1</option>
+                                <option value="Frekuensi 2">Frekuensi 2</option>
+                                <option value="Frekuensi 3">Frekuensi 3</option>
+                                <option value="Frekuensi 4">Frekuensi 4</option>
+                            </select>
+                            @error('frekuensi')
                             <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                             @enderror
                         </div>

@@ -85,7 +85,7 @@ class SekolahController extends Controller
             // $kabupaten = [(object)['kabupaten' => $sekolah->KAB_KOTA]];
             $kabupaten = [(object)['kabupaten' => $sekolah->KAB_KOTA]];
         } else {
-            $kabupaten = DB::table('territory')->select('kabupaten')->distinct()->where('area', 'SUMATERA')->orderBy('kabupaten')->get();
+            $kabupaten = DB::table('territory')->select('kabupaten')->distinct()->where('region', $regional[1])->orderBy('kabupaten')->get();
         }
 
         if ($sekolah->KECAMATAN) {
@@ -118,6 +118,8 @@ class SekolahController extends Controller
             'kecamatan' => 'required',
             'branch' => 'required',
             'cluster' => 'required',
+            'pjp' => 'required',
+            'frekuensi' => 'required',
         ]);
 
         $sekolah = Sekolah::find($npsn);
@@ -126,6 +128,8 @@ class SekolahController extends Controller
         $sekolah->KECAMATAN = $request->kecamatan;
         $sekolah->BRANCH = $request->branch;
         $sekolah->CLUSTER = $request->cluster;
+        $sekolah->PJP = $request->pjp;
+        $sekolah->FREKUENSI = $request->frekuensi;
 
         $sekolah->save();
 
