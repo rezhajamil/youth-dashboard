@@ -2,7 +2,13 @@
 @section('body')
 <section class="flex justify-center w-full h-full min-h-screen px-4 py-4 bg-premier">
     <div class="w-full px-4 py-2 bg-white rounded-lg shadow-xl h-fit sm:w-3/4 ">
-        <span class="block w-full py-2 mb-2 text-2xl font-bold text-center border-b-2 text-sekunder">{{ $quiz->nama }}</span>
+        <div class="relative flex items-center justify-center py-2 border-b-2 ">
+            <div class="px-4 py-2 mr-auto text-xs text-white rounded-full h-fit whitespace-nowrap bottom-2 bg-tersier w-fit">
+                <i class="fa-regular fa-clock"></i>
+                <span id="timer"></span>
+            </div>
+            <span class="absolute inline-block w-1/2 mb-2 text-2xl font-bold text-center text-sekunder">{{ $quiz->nama }}</span>
+        </div>
         @if ($answer)
         @if (strtotime(date('Y-m-d H:i:s'))-strtotime($answer->time_start)>($quiz->time*60) || $answer->finish)
         <span class="block w-full mt-4 mb-2 text-xl font-bold text-center text-tersier">Quiz Telah Selesai</span>
@@ -57,10 +63,6 @@
             @endforeach
             <button type="submit" id="btn-submit" class="w-full px-6 py-2 my-4 font-semibold text-white rounded bg-sekunder">Selesai</button>
         </form>
-        <div class="fixed inset-x-0 px-4 py-2 mx-auto text-xs text-white rounded-full bottom-2 bg-tersier w-fit">
-            <i class="fa-regular fa-clock"></i>
-            <span id="timer"></span>
-        </div>
         {{-- <input type="hidden" id="time-start" value="{{ date('M d, Y H:i:s', strtotime($answer->time_start)) }}"> --}}
         <input type="hidden" id="time-end" value="{{ date('M d, Y H:i:s', strtotime("+".$quiz->time." minutes", strtotime($answer->time_start))) }}">
         @endif
