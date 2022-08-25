@@ -23,7 +23,7 @@ class OutletController extends Controller
         if (file_exists('D:/Telkomsel/4g_list_site.csv')) {
             $file_site = fopen('D:/Telkomsel/4g_list_site.csv', "r");
             $idx = 0;
-            while (($row = fgetcsv($file_site, 10000, "|")) !== FALSE) {
+            while (($row = fgetcsv($file_site, 100000, "|")) !== FALSE) {
 
                 $data = [
                     'site_id' => $row[1],

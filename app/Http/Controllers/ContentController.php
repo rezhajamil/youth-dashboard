@@ -279,4 +279,64 @@ class ContentController extends Controller
 
         return back();
     }
+
+    public function news()
+    {
+        $news = DB::table('berita')->orderBy('date', 'desc')->get();
+        return view('content.news.index', compact('news'));
+    }
+
+    public function create_news()
+    {
+        $user_type = DB::table('user_type')->select('user_type')->distinct()->where('status', '1')->orderBy('user_type')->get();
+        $event = DB::table('daftar_pertemuan')->select('judul')->where('jenis', 'Event')->distinct()->orderBy('judul')->get();
+        $meeting = DB::table('daftar_pertemuan')->select('judul')->where('jenis', 'Pertemuan')->distinct()->orderBy('judul')->get();
+        $challenge = DB::table('daftar_challege')->select('judul')->distinct()->orderBy('judul')->get();
+        return view('content.news.create', compact('user_type', 'event', 'meeting', 'challenge'));
+    }
+
+    public function store_news(Request $request)
+    {
+        $request->validate([
+            'role' => 'required',
+            'judul' => 'required',
+            'type' => 'required',
+            'link_meeting' => 'required',
+            'alamat' => 'required',
+            'gambar' => 'required|image',
+        ]);
+
+        $type = $request->type == 'IMAGE' ? 'gambar' : 'video';
+
+        if ($request->hasFile('gambar')) {
+            $gambar = $request->file('gambar');
+            $url = $gambar->storeAs('news', $gambar->getClientOriginalName());
+            $news = DB::table('berita')->insert([
+                'role' => $request->role,
+                'judul' => $request->judul,
+                'link_meeting' => $request->link_meeting,
+                'alamat' => $request->alamat,
+                'keterangan' => $request->keterangan,
+                'type' => $type,
+                'nama' => Auth::user()->name,
+                'branch' => Auth::user()->branch,
+                'status' => '1',
+                'date' => date("Y-m-d"),
+                'gambar' => $url,
+                'jenis' => ucwords($request->jenis),
+            ]);
+        }
+
+        return redirect()->route('news.index');
+    }
+
+    public function destroy_news($id)
+    {
+        $news = DB::table('berita')->find($id);
+        $gambar = $news->gambar;
+        Storage::disk('public')->delete($gambar);
+        DB::table('berita')->delete($id);
+
+        return back();
+    }
 }

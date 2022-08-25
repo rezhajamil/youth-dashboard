@@ -103,6 +103,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('content/category', [ContentController::class, 'store_category'])->name('category.store');
     Route::get('content/category/create', [ContentController::class, 'create_category'])->name('category.create');
     Route::delete('content/category/{id}', [ContentController::class, 'destroy_category'])->name('category.destroy');
+
+    Route::get('content/news', [ContentController::class, 'news'])->name('news.index');
+    Route::post('content/news', [ContentController::class, 'store_news'])->name('news.store');
+    Route::get('content/news/create', [ContentController::class, 'create_news'])->name('news.create');
+    Route::delete('content/news/{id}', [ContentController::class, 'destroy_news'])->name('news.destroy');
     // Route::get('sales', function () {
     //     return redirect()->route('sales.migrasi');
     // });
