@@ -3,8 +3,14 @@
 <div class="w-full mx-4">
     <div class="flex flex-col">
         <div class="mt-4">
-            <h4 class="text-xl font-bold text-gray-600 align-baseline">Data Sekolah</h4>
-
+            <div class="flex justify-between mb-4">
+                <h4 class="text-xl font-bold text-gray-600 align-baseline">Data Sekolah</h4>
+                <div class="flex mr-4 gap-x-4">
+                    <a href="" class="px-4 py-2 font-bold text-white transition bg-green-600 rounded-lg hover:bg-green-800"><i class="mr-2 fa-solid fa-square-up-right"></i>PJP</a>
+                    <a href="" class="px-4 py-2 font-bold text-white transition bg-green-600 rounded-lg hover:bg-green-800"><i class="mr-2 fa-solid fa-square-up-right"></i>OSS</a>
+                    <a href="" class="px-4 py-2 font-bold text-white transition bg-green-600 rounded-lg hover:bg-green-800"><i class="mr-2 fa-solid fa-square-up-right"></i>OSK</a>
+                </div>
+            </div>
             <div class="flex justify-between">
                 <form class="flex flex-wrap items-center my-3 gap-x-4 gap-y-2" action="{{ route('sekolah.index') }}" method="get">
                     <select name="provinsi" id="provinsi" class="px-8 rounded-lg">
