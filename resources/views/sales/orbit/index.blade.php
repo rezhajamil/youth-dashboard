@@ -118,7 +118,7 @@
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">IMEI</th>
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Tanggal Aktif</th>
                             {{-- <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">MOM</th> --}}
-                            @if (!Auth::user()->privilege=='cluster')
+                            @if (Auth::user()->privilege!='cluster')
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Action</th>
                             @endif
                         </tr>
@@ -133,7 +133,7 @@
                             <td class="p-4 text-gray-700 uppercase border-b msisdn">{{ $data->msisdn }}</td>
                             <td class="p-4 text-gray-700 uppercase border-b msisdn">{{ $data->serial }}</td>
                             <td class="p-4 text-gray-700 uppercase border-b aktif">{{ $data->date }}</td>
-                            @if (!Auth::user()->privilege=='cluster')
+                            @if (Auth::user()->privilege!='cluster')
                             <td class="p-4 text-gray-700 border-b">
                                 <form action="{{ route('sales.orbit.destroy',$data->msisdn) }}" method="post">
                                     @csrf

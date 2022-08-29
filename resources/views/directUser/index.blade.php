@@ -22,7 +22,7 @@
             </div>
 
             {{-- <span class="inline-block mt-6 mb-2 text-lg font-semibold text-gray-600">Direct Sales By Region</span> --}}
-            @if (!Auth::user()->privilege=='cluster')
+            @if (Auth::user()->privilege!='cluster')
             <a href="{{ route('direct_user.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-800"><i class="mr-2 fa-solid fa-plus"></i> Data User Baru</a>
             @endif
 
@@ -39,7 +39,7 @@
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Telp</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Role</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Status</th>
-                            @if (!Auth::user()->privilege=='cluster')
+                            @if (Auth::user()->privilege!='cluster')
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Action</th>
                             @endif
                         </tr>
@@ -74,7 +74,7 @@
                                 </span> --}}
                                 @endif
                             </td>
-                            @if (!Auth::user()->privilege=='cluster')
+                            @if (Auth::user()->privilege!='cluster')
                             <td class="p-3 text-gray-700 border-b">
                                 <a href="{{ route('direct_user.edit',$data->id) }}" class="block my-1 text-base font-semibold text-indigo-600 transition hover:text-indigo-800">Edit</a>
                                 <form action="{{ route('direct_user.change_status',$data->id) }}" method="post">

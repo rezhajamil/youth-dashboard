@@ -86,7 +86,7 @@
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Cluster</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">PJP</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">FREKUENSI</th>
-                            @if (!Auth::user()->privilege=='cluster')
+                            @if (Auth::user()->privilege!='cluster')
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Action</th>
                             @endif
                         </tr>
@@ -108,7 +108,7 @@
                             <td class="p-4 text-gray-700 border-b cluster">{{ $data->CLUSTER }}</td>
                             <td class="p-4 text-gray-700 border-b cluster">{{ $data->PJP }}</td>
                             <td class="p-4 text-gray-700 border-b cluster">{{ $data->FREKUENSI }}</td>
-                            @if (!Auth::user()->privilege=='cluster')
+                            @if (Auth::user()->privilege!='cluster')
                             <td class="p-4 text-gray-700 border-b">
                                 @if (!$data->KAB_KOTA||!$data->KECAMATAN||!$data->BRANCH||!$data->CLUSTER)
                                 <a href="{{ route('sekolah.edit',$data->NPSN) }}" class="block my-1 text-base font-semibold text-indigo-600 transition hover:text-indigo-800">Edit</a>

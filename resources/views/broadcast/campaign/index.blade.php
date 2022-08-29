@@ -4,7 +4,7 @@
     <div class="flex flex-col">
         <div class="mt-4">
             <h4 class="text-xl font-bold text-gray-600 align-baseline">Campaign</h4>
-            @if (!Auth::user()->privilege=='cluster')
+            @if (Auth::user()->privilege!='cluster')
             <a href="{{ route('campaign.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-800"><i class="mr-2 fa-solid fa-plus"></i> Data Campaign Baru</a>
             @endif
 
@@ -32,7 +32,7 @@
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-premier">PROGRAM</th>
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-premier">POSISI</th>
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-premier">CAMPAIGN</th>
-                            @if(!Auth::user()->privilege=='cluster')
+                            @if(Auth::user()->privilege!='cluster')
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-premier">ACTION</th>
                             @endif
 
@@ -48,7 +48,7 @@
                             <td class="p-4 text-gray-700 uppercase program">{{ $data->program }}</td>
                             <td class="p-4 text-gray-700 uppercase posisi">{{ $data->posisi }}</td>
                             <td class="p-4 text-gray-700 keterangan">{!! $data->campain !!}</td>
-                            @if(!Auth::user()->privilege=='cluster')
+                            @if(Auth::user()->privilege!='cluster')
                             <td class="p-4 text-gray-700 uppercase ">
                                 <form action="{{ route('campaign.destroy',$data->id) }}" method="post">
                                     @csrf
