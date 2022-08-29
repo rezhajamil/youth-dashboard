@@ -37,11 +37,17 @@
                     <span class="text-sm text-gray-700">Username</span>
                     <input type="text" class="block w-full mt-1 rounded-md form-input focus:border-sky-600" name="username">
                 </label>
+                @error('username')
+                <span class="text-sm italic text-premier">{{ $message }}</span>
+                @enderror
 
                 <label class="block mt-3">
                     <span class="text-sm text-gray-700">Password</span>
                     <input type="password" class="block w-full mt-1 rounded-md form-input focus:border-sky-600" name="password">
                 </label>
+                @error('password')
+                <span class="text-sm italic text-premier">{{ $message }}</span>
+                @enderror
 
                 <div class="flex items-center justify-between mt-4">
                     <div>

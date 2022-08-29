@@ -97,7 +97,7 @@ class SalesContoller extends Controller
             $last_m1 = date('Y-m-01', strtotime($this->convDate($mtd)));
             // ddd(date('Y-m-01', strtotime($this->convDate($mtd))));
             $last_mtd = $this->convDate($mtd);
-            $where_branch = Auth::user()->privilege == "branch" ? "and branch='" . Auth::user()->branch . "'" : '';
+            $where_branch = Auth::user()->privilege == "branch" ? "and branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "and b.cluster='" . Auth::user()->cluster . "'" : '');
 
             $query = "
             SELECT b.`cluster`, b.tap, b.nama,COUNT(b.id_digipos) as digipos,
@@ -177,9 +177,9 @@ class SalesContoller extends Controller
             $mtd = date('Y-m-d', strtotime($request->date));
             $last_m1 = date('Y-m-01', strtotime($this->convDate($mtd)));
             $last_mtd = $this->convDate($mtd);
-            $branch = Auth::user()->privilege == "branch" ? "branch='" . Auth::user()->branch . "'" : '';
-            $where = Auth::user()->privilege == "branch" ? "where" : "";
-            $and = Auth::user()->privilege == "branch" ? "and" : "";
+            $branch = Auth::user()->privilege == "branch" ? "branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "b.cluster='" . Auth::user()->cluster . "'" : '');
+            $where = Auth::user()->privilege == "branch" || Auth::user()->privilege == "cluster" ? "where" : "";
+            $and = Auth::user()->privilege == "branch" || Auth::user()->privilege == "cluster" ? "and" : "";
 
             $query_branch = "SELECT b.regional, b.branch ,c.status,
                     COUNT(CASE WHEN a.`date` BETWEEN '" . $m1 . "' AND '" . $mtd . "' THEN a.msisdn END) mtd,
@@ -233,7 +233,7 @@ class SalesContoller extends Controller
 
     public function digipos()
     {
-        $branch = Auth::user()->privilege == 'branch' ? "WHERE a.branch='" . Auth::user()->branch . "'" : '';
+        $branch = Auth::user()->privilege == 'branch' ? "WHERE a.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == 'cluster' ? "WHERE a.cluster='" . Auth::user()->cluster . "'" : '');
         $query = "SELECT a.`cluster`,a.outlet_id,a.fisik,b.nama,b.role,
                 SUM(omset_jun22) as omset_last_mtd,
                 SUM(rech_reg_jun22) as rech_reg_last_mtd,

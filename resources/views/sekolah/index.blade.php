@@ -6,9 +6,9 @@
             <div class="flex justify-between mb-4">
                 <h4 class="text-xl font-bold text-gray-600 align-baseline">Data Sekolah</h4>
                 <div class="flex mr-4 gap-x-4">
-                    <a href="" class="px-4 py-2 font-bold text-white transition bg-green-600 rounded-lg hover:bg-green-800"><i class="mr-2 fa-solid fa-square-up-right"></i>PJP</a>
-                    <a href="" class="px-4 py-2 font-bold text-white transition bg-green-600 rounded-lg hover:bg-green-800"><i class="mr-2 fa-solid fa-square-up-right"></i>OSS</a>
-                    <a href="" class="px-4 py-2 font-bold text-white transition bg-green-600 rounded-lg hover:bg-green-800"><i class="mr-2 fa-solid fa-square-up-right"></i>OSK</a>
+                    {{-- <a href="" class="px-4 py-2 font-bold text-white transition bg-green-600 rounded-lg hover:bg-green-800"><i class="mr-2 fa-solid fa-square-up-right"></i>PJP</a> --}}
+                    {{-- <a href="" class="px-4 py-2 font-bold text-white transition bg-green-600 rounded-lg hover:bg-green-800"><i class="mr-2 fa-solid fa-square-up-right"></i>OSS</a> --}}
+                    {{-- <a href="" class="px-4 py-2 font-bold text-white transition bg-green-600 rounded-lg hover:bg-green-800"><i class="mr-2 fa-solid fa-square-up-right"></i>OSK</a> --}}
                 </div>
             </div>
             <div class="flex justify-between">
@@ -86,7 +86,9 @@
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Cluster</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">PJP</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">FREKUENSI</th>
+                            @if (!Auth::user()->privilege=='cluster')
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Action</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody class="max-h-screen overflow-y-auto">
@@ -106,6 +108,7 @@
                             <td class="p-4 text-gray-700 border-b cluster">{{ $data->CLUSTER }}</td>
                             <td class="p-4 text-gray-700 border-b cluster">{{ $data->PJP }}</td>
                             <td class="p-4 text-gray-700 border-b cluster">{{ $data->FREKUENSI }}</td>
+                            @if (!Auth::user()->privilege=='cluster')
                             <td class="p-4 text-gray-700 border-b">
                                 @if (!$data->KAB_KOTA||!$data->KECAMATAN||!$data->BRANCH||!$data->CLUSTER)
                                 <a href="{{ route('sekolah.edit',$data->NPSN) }}" class="block my-1 text-base font-semibold text-indigo-600 transition hover:text-indigo-800">Edit</a>
@@ -115,6 +118,7 @@
                                 @method('put')
                                 <button class="block my-1 text-base font-semibold text-left text-red-600 transition hover:text-red-800">Ubah Status</button>
                                 </form> --}}
+                                @endif
                             </td>
                         </tr>
                         @endforeach

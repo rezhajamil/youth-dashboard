@@ -199,9 +199,12 @@ class DirectUserController extends Controller
     {
         if (Auth::user()->privilege == 'branch') {
             $cluster = DB::table('wilayah')->select('cluster')->distinct()->where('branch', Auth::user()->branch)->whereNotNull('cluster')->get();
+        } else if (Auth::user()->privilege == 'cluster') {
+            $cluster = DB::table('wilayah')->select('cluster')->where('cluster', Auth::user()->cluster)->get();
         } else {
             $cluster = DB::table('wilayah')->select('cluster')->distinct()->whereNotNull('cluster')->get();
         }
+
         if ($request->month && $request->year) {
             $month = $request->month;
             $year = $request->year;

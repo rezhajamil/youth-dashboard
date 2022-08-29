@@ -22,8 +22,8 @@ class BroadCastController extends Controller
         $last_mtd = $this->convDate($mtd);
         $program = $request->program;
         $dataProgram = DB::table('new_after_broadcast')->select('program')->distinct()->get();
-        $branch_broadcast = Auth::user()->privilege == "branch" ? "and data_user.branch='" . Auth::user()->branch . "'" : '';
-        $branch_program = Auth::user()->privilege == "branch" ? "data_user.branch ='" . Auth::user()->branch . "' AND" : '';
+        $branch_broadcast = Auth::user()->privilege == "branch" ? "and data_user.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "and data_user.cluster='" . Auth::user()->cluster . "'" : '');
+        $branch_program = Auth::user()->privilege == "branch" ? "data_user.branch ='" . Auth::user()->branch . "' AND" : (Auth::user()->privilege == "branch" ? "data_user.branch ='" . Auth::user()->branch . "' AND" : '');
         $broadcast = DB::select("SELECT 
             `data_user`.nama, `data_user`.cluster, `data_user`.role,
             COUNT(`new_after_broadcast`.msisdn) As 'total', 
@@ -65,7 +65,7 @@ class BroadCastController extends Controller
 
     public function campaign()
     {
-        $branch_campaign = Auth::user()->privilege == "branch" ? "Where new_list_campain.branch ='" . Auth::user()->branch . "'" : '';
+        $branch_campaign = Auth::user()->privilege == "branch" || Auth::user()->privilege == "cluster" ? "Where new_list_campain.branch ='" . Auth::user()->branch . "'" : '';
 
         $campaign = DB::select("SELECT
                     new_list_campain.id,
@@ -140,7 +140,7 @@ class BroadCastController extends Controller
     {
         $program = $request->program;
         $dataProgram = DB::table('new_after_broadcast')->select('program')->distinct()->get();
-        $branch = Auth::user()->privilege == "branch" ? "AND data_user.branch='" . Auth::user()->branch . "'" : '';
+        $branch = Auth::user()->privilege == "branch" ? "AND data_user.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "AND data_user.cluster='" . Auth::user()->cluster . "'" : '');
 
         $whitelist = DB::select("SELECT 
                     
