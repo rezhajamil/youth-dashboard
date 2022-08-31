@@ -147,6 +147,18 @@ class SekolahController extends Controller
         //
     }
 
+    public function resume()
+    {
+        $sekolah = DB::select("SELECT BRANCH,`CLUSTER`,
+                        COUNT(CASE WHEN LATITUDE is NOT NULL AND LONGITUDE is NOT NULL and BRANCH is NOT NULL and CLUSTER is NOT NULL THEN NPSN END) total
+                        FROM Data_Sekolah_Sumatera
+                        WHERE CLUSTER is NOT NULL and NOT CLUSTER=''
+                        GROUP BY 1,2
+                        ORDER BY 1,2");
+
+        return view('sekolah.resume', compact('sekolah'));
+    }
+
     public function getKabupaten(Request $request)
     {
         $provinsi = $request->provinsi;
