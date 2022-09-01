@@ -182,7 +182,7 @@ class QuizController extends Controller
 
     public function answer_list($id)
     {
-        $answer = DB::table('quiz_answer')->join('data_user', 'data_user.telp', '=', 'quiz_answer.telp')->where('session', $id)->orderBy('cluster')->orderBy('nama')->get();
+        $answer = DB::table('quiz_answer')->join('data_user', 'data_user.telp', '=', 'quiz_answer.telp')->where('session', $id)->orderBy('cluster')->orderBy('hasil', 'desc')->get();
         $quiz = DB::table('quiz_session')->find($id);
         return view('directUser.quiz.result', compact('answer', 'quiz'));
     }
