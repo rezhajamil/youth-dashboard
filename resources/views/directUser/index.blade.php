@@ -19,6 +19,14 @@
                         <option value="role">Role</option>
                     </select>
                 </div>
+                <div class="flex flex-col">
+                    <span class="font-bold text-gray-600">Status</span>
+                    <select name="filter_status" id="filter_status" class="rounded-lg">
+                        <option value="">All</option>
+                        <option value="Aktif">Aktif</option>
+                        <option value="Tidak Aktif">Tidak Aktif</option>
+                    </select>
+                </div>
             </div>
 
             {{-- <span class="inline-block mt-6 mb-2 text-lg font-semibold text-gray-600">Direct Sales By Region</span> --}}
@@ -58,7 +66,7 @@
                             <td class="p-3 text-gray-700 border-b">
                                 @if ($data->status)
                                 <div class="flex items-center justify-center px-3 py-1 rounded-full bg-green-200/50">
-                                    <span class="text-sm font-semibold text-green-900">Aktif</span>
+                                    <span class="text-sm font-semibold text-green-900 status">Aktif</span>
                                 </div>
                                 {{-- <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-green-900">
                                     <span aria-hidden class="absolute inset-0 bg-green-200 rounded-full opacity-50"></span>
@@ -66,7 +74,7 @@
                                 </span> --}}
                                 @else
                                 <div class="flex items-center justify-center px-3 py-1 rounded-full bg-red-200/50">
-                                    <span class="text-sm font-semibold text-red-900 whitespace-nowrap">Tidak Aktif</span>
+                                    <span class="text-sm font-semibold text-red-900 whitespace-nowrap status">Tidak Aktif</span>
                                 </div>
                                 {{-- <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-red-900">
                                     <span aria-hidden class="absolute inset-0 bg-red-200 rounded-full opacity-50"></span>
@@ -80,7 +88,7 @@
                                 <form action="{{ route('direct_user.change_status',$data->id) }}" method="post">
                                     @csrf
                                     @method('put')
-                                    <button class="block my-1 text-base font-semibold text-left text-red-600 transition hover:text-red-800">Ubah Status</button>
+                                    <button class="block my-1 text-base font-semibold text-left text-red-600 transition hover:text-red-800 whitespace-nowrap">Ubah Status</button>
                                 </form>
                             </td>
                             @endif
@@ -106,6 +114,10 @@
             find();
         });
 
+        $("#filter_status").on("input", function() {
+            filter_status();
+        });
+
         const find = () => {
             let search = $("#search").val();
             let searchBy = $('#search_by').val();
@@ -118,6 +130,23 @@
                     $(this).parent().hide();
                 }
             });
+        }
+
+        const filter_status = () => {
+            let filter_status = $('#filter_status').val();
+            $(`.status`).each(function() {
+                let label = $(this).text();
+                if (filter_status == '') {
+                    $(this).parent().parent().parent().show();
+                } else {
+                    if (filter_status == label) {
+                        $(this).parent().parent().parent().show();
+                    } else {
+                        $(this).parent().parent().parent().hide();
+                    }
+                }
+            });
+
         }
     })
 
