@@ -24,7 +24,7 @@
                             {{-- {{ ddd($data) }} --}}
                             <td class="p-4 font-bold text-gray-700 border-b">{{ $key+1 }}</td>
                             <td class="p-4 text-gray-700 border-b">{{ $data->cluster }}</td>
-                            <td class="p-4 text-gray-700 border-b">{{ $data->nama }}</td>
+                            <td class="p-4 text-gray-700 border-b">{{ ucwords(strtolower($data->nama)) }}</td>
                             <td class="p-4 text-gray-700 border-b">{{ $data->telp }}</td>
                             <td class="p-4 text-gray-700 border-b">{{ $data->hasil }}/{{ count(json_decode($quiz->soal)) }}</td>
                             <td class="p-4 font-bold border-b text-sekunder">{{ number_format(($data->hasil/count(json_decode($quiz->soal))*100),0,".",",") }}</td>
