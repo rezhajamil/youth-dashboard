@@ -6,7 +6,34 @@
             <a href="{{ url()->previous() }}" class="block px-4 py-2 my-2 font-bold text-white bg-indigo-600 rounded-md w-fit hover:bg-indigo-800"><i class="mr-2 fa-solid fa-arrow-left"></i> Kembali</a>
             <h4 class="inline-block mb-2 text-xl font-bold text-gray-600 align-baseline" id="title">{{ $quiz->nama }}</h4>
             <button class="px-2 py-1 ml-2 text-lg text-white transition bg-green-600 rounded-md hover:bg-green-800" id="capture"><i class="fa-regular fa-circle-down"></i></button>
-            <div class="overflow-auto bg-white rounded-md shadow w-fit" id="table-container">
+            <div class="my-4 overflow-auto bg-white rounded-md shadow w-fit" id="resume-container">
+                <table class="overflow-auto text-left bg-white border-collapse w-fit resume">
+                    <thead class="border-b resume">
+                        <tr>
+                            <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-red-600 resume">No</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600 resume">Regional</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600 resume">Branch</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600 resume">Cluster</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600 resume">Partisipan</th>
+                        </tr>
+                    </thead>
+                    <tbody class="max-h-screen overflow-y-auto resume">
+                        @foreach ($resume as $key=>$data)
+                        @if ($data->cluster!='test')
+                        <tr>
+                            {{-- {{ ddd($data) }} --}}
+                            <td class="p-4 font-bold text-gray-700 border-b resume">{{ $key }}</td>
+                            <td class="p-4 text-gray-700 border-b resume">{{ $data->regional }}</td>
+                            <td class="p-4 text-gray-700 border-b resume">{{ $data->branch }}</td>
+                            <td class="p-4 text-gray-700 border-b resume">{{ $data->cluster }}</td>
+                            <td class="p-4 text-gray-700 border-b resume">{{ $data->partisipan }}/{{ $data->total }}</td>
+                        </tr>
+                        @endif
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="overflow-auto bg-white rounded-md shadow w-fit" id="result-container">
                 <table class="overflow-auto text-left bg-white border-collapse w-fit">
                     <thead class="border-b">
                         <tr>
@@ -44,11 +71,13 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 <script>
     function createPDF() {
-        var sTable = document.getElementById('table-container').innerHTML;
+        var resumeTable = document.getElementById('resume-container').innerHTML;
+        var resultTable = document.getElementById('result-container').innerHTML;
 
         var style = "<style>";
         style = style + "table {width: 100%;font: 17px Calibri;}";
-        style = style + "table, th, td {border: solid 1px #DDD; border-collapse: collapse;";
+        style = style + "table.resume, th.resume, td.resume {border: solid 1px #B90027; border-collapse: collapse;}";
+        style = style + "table, th, td {border: solid 1px #ccc; border-collapse: collapse;";
         style = style + "padding: 2px 3px;text-align: center;}";
         style = style + "</style>";
 
@@ -60,7 +89,10 @@
         win.document.write(style); // ADD STYLE INSIDE THE HEAD TAG.
         win.document.write('</head>');
         win.document.write('<body>');
-        win.document.write(sTable); // THE TABLE CONTENTS INSIDE THE BODY TAG.
+        win.document.write('<body><h4>Resume Quiz</h4>');
+        win.document.write(resumeTable); // THE TABLE CONTENTS INSIDE THE BODY TAG.
+        win.document.write('<h4>Skor Quiz</h4>');
+        win.document.write(resultTable); // THE TABLE CONTENTS INSIDE THE BODY TAG.
         win.document.write('</body> </html > ');
 
         win.document.close(); // CLOSE THE CURRENT WINDOW.
