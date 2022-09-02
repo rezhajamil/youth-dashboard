@@ -192,7 +192,7 @@ class QuizController extends Controller
                         ON b.`cluster`=d.`cluster`
                         GROUP BY 1,2,3
                         ORDER BY b.regional desc,b.branch,b.`cluster`;");
-        $answer = DB::table('quiz_answer')->join('data_user', 'data_user.telp', '=', 'quiz_answer.telp')->distinct('nama')->where('session', $id)->orderBy('cluster')->orderBy('nama', 'desc')->get();
+        $answer = DB::table('quiz_answer')->join('data_user', 'data_user.telp', '=', 'quiz_answer.telp')->distinct('nama')->where('session', $id)->orderBy('cluster')->orderBy('nama')->get();
         $quiz = DB::table('quiz_session')->find($id);
         return view('directUser.quiz.result', compact('answer', 'quiz', 'resume'));
     }
