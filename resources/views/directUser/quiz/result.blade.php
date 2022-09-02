@@ -15,6 +15,7 @@
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600 resume">Branch</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600 resume">Cluster</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600 resume">Partisipan</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600 resume">Dari</th>
                         </tr>
                     </thead>
                     <tbody class="max-h-screen overflow-y-auto resume">
@@ -26,7 +27,8 @@
                             <td class="p-4 text-gray-700 border-b resume">{{ $data->regional }}</td>
                             <td class="p-4 text-gray-700 border-b resume">{{ $data->branch }}</td>
                             <td class="p-4 text-gray-700 border-b resume">{{ $data->cluster }}</td>
-                            <td class="p-4 text-gray-700 border-b resume">{{ $data->partisipan }}/{{ $data->total }}</td>
+                            <td class="p-4 text-gray-700 border-b resume">{{ $data->partisipan }}</td>
+                            <td class="p-4 text-gray-700 border-b resume">{{ $data->total }}</td>
                         </tr>
                         @endif
                         @endforeach
@@ -37,12 +39,16 @@
                 <table class="overflow-auto text-left bg-white border-collapse w-fit">
                     <thead class="border-b">
                         <tr>
-                            <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-red-600">No</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Cluster</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Nama</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Telp</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Hasil</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Skor</th>
+                            <th rowspan="2" class="p-3 text-sm font-bold text-gray-100 uppercase bg-red-600">No</th>
+                            <th rowspan="2" class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Cluster</th>
+                            <th rowspan="2" class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Nama</th>
+                            <th rowspan="2" class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Telp</th>
+                            <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Hasil</th>
+                            <th rowspan="2" class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Skor</th>
+                        </tr>
+                        <tr>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Benar</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Soal</th>
                         </tr>
                     </thead>
                     <tbody class="max-h-screen overflow-y-auto">
@@ -53,7 +59,8 @@
                             <td class="p-4 text-gray-700 border-b">{{ $data->cluster }}</td>
                             <td class="p-4 text-gray-700 border-b">{{ ucwords(strtolower($data->nama)) }}</td>
                             <td class="p-4 text-gray-700 border-b">{{ $data->telp }}</td>
-                            <td class="p-4 text-gray-700 border-b">{{ $data->hasil }}/{{ count(json_decode($quiz->soal)) }}</td>
+                            <td class="p-4 text-gray-700 border-b">{{ $data->hasil }}</td>
+                            <td class="p-4 text-gray-700 border-b">{{ count(json_decode($quiz->soal)) }}</td>
                             <td class="p-4 font-bold border-b text-sekunder">{{ number_format(($data->hasil/count(json_decode($quiz->soal))*100),0,".",",") }}</td>
                         </tr>
                         @endforeach
