@@ -99,6 +99,8 @@
                         <option value="cluster">Cluster</option>
                         <option value="msisdn">MSISDN</option>
                         <option value="nama">Nama</option>
+                        <option value="telp">Telp</option>
+                        <option value="reff">Reff Code</option>
                         <option value="status">Status</option>
                         <option value="aktif">Tanggal Aktif</option>
                     </select>
@@ -113,7 +115,9 @@
                             <th class="p-4 text-sm font-bold text-gray-100 uppercase bg-red-600">No</th>
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Cluster</th>
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Nama</th>
+                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Telp</th>
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Role</th>
+                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Reff Code</th>
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Status</th>
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Jenis</th>
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Detail</th>
@@ -132,7 +136,9 @@
                             <td class="p-4 font-bold text-gray-700 border-b">{{ $key+1 }}</td>
                             <td class="p-4 text-gray-700 uppercase border-b cluster">{{ $data->cluster }}</td>
                             <td class="p-4 text-gray-700 uppercase border-b nama">{{ $data->nama }}</td>
+                            <td class="p-4 text-gray-700 uppercase border-b telp">{{ $data->telp }}</td>
                             <td class="p-4 text-gray-700 uppercase border-b role">{{ $data->role }}</td>
+                            <td class="p-4 text-gray-700 uppercase border-b reff">{{ $data->reff_code }}</td>
                             <td class="p-4 text-gray-700 uppercase border-b status">{{ $data->status }}</td>
                             <td class="p-4 text-gray-700 uppercase border-b whitespace-nowrap jenis">{{ $data->jenis }}</td>
                             <td class="p-4 text-gray-700 uppercase border-b whitespace-nowrap status">{{ $data->detail }}</td>
