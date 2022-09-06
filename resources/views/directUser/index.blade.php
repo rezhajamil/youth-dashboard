@@ -45,6 +45,8 @@
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">TAP</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Nama</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Telp</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Digipos</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Reff Orbit</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Role</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Status</th>
                             @if (Auth::user()->privilege!='cluster')
@@ -62,6 +64,8 @@
                             <td class="p-3 text-gray-700 uppercase border-b tap">{{ $data->tap }}</td>
                             <td class="p-3 text-gray-700 uppercase border-b nama">{{ $data->nama }}</td>
                             <td class="p-3 text-gray-700 border-b telp">{{ $data->telp }}</td>
+                            <td class="p-3 text-gray-700 border-b telp">{{ $data->id_digipos }}</td>
+                            <td class="p-3 text-gray-700 border-b telp">{{ $data->reff_code }}</td>
                             <td class="p-3 text-gray-700 border-b role">{{ $data->role }}</td>
                             <td class="p-3 text-gray-700 border-b">
                                 @if ($data->status)
