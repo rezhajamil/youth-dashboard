@@ -83,6 +83,7 @@
                             <td class="p-2 text-center text-gray-700 border-2 ">
                                 @foreach ($absensi as $absen)
                                 @if (date('Y-m-d',strtotime($item))==$absen->date)
+                                <span class="block whitespace-nowrap">{{ $absen->time_out }}</span>
                                 <span class="block whitespace-nowrap">{{ date('H:i:s',strtotime($absen->time_out)) }}</span>
                                 @endif
                                 @endforeach
@@ -97,11 +98,12 @@
                             <td class="p-2 text-center text-gray-700 border-2 ">
                                 @foreach ($absensi as $absen)
                                 @if (date('Y-m-d',strtotime($item))==$absen->date)
-                                @if ($absen->time_out!='0')
-                                <span class="block whitespace-nowrap">{{ gmdate("H:i:s",strtotime($absen->time_out)-strtotime($absen->time_in)) }}</span>
-                                @else
+                                {{-- @if ($absen->time_out=='0')
                                 <span class="block whitespace-nowrap">-</span>
-                                @endif
+                                @else
+                                <span class="block whitespace-nowrap">{{ $absen->time_out!='0' }}</span>
+                                @endif --}}
+                                <span class="block whitespace-nowrap">{{ gmdate("H:i:s",strtotime($absen->time_out)-strtotime($absen->time_in)) }}</span>
                                 @endif
                                 @endforeach
                             </td>
