@@ -7,7 +7,7 @@
         </div>
     </div>
 
-    <nav class="mt-10" x-data="{sales:false,direct:false,school:false,broadcast:false,content:false}">
+    <nav class="mt-10" x-data="{sales:false,direct:false,school:false,broadcast:false,content:false,event:false}">
         <a class="flex items-center px-6 py-2 mt-4 text-gray-100 bg-gray-700 bg-opacity-25" href="{{ URL::to('/dashboard') }}">
             <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
@@ -81,11 +81,19 @@
             <a href="{{ route('campaign.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Campaign</span></a>
             <a href="{{ route('whitelist.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Whitelist</span></a>
         </div>
-        <a href="{{ route('outlet.index') }}" class="flex items-center hidden px-6 py-2 mt-4 text-gray-500 transition-all cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" x-on:click="outlet=!outlet">
-            <i class="w-6 h-6 fa-solid fa-shop"></i>
-            <span class="mx-3 text-white">Outlet</span>
-            <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right" :class="{'rotate-90': outlet, 'rotate-0': !outlet}"></i>
+        <a class="flex items-center px-6 py-2 mt-4 text-gray-500 transition-all cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" x-on:click="event=!event">
+            <i class="w-6 h-6 fa-solid fa-calendar"></i>
+            <span class="mx-3 text-white">Event</span>
+            <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right" :class="{'rotate-90': event, 'rotate-0': !event}"></i>
         </a>
+        <div class="flex flex-col w-3/4 mx-6 mt-2 ml-auto overflow-hidden bg-gray-700 rounded-md" x-show="event" x-transition>
+            <a href="{{ route('event.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Peserta</span></a>
+        </div>
+        {{-- <a href="{{ route('outlet.index') }}" class="flex items-center hidden px-6 py-2 mt-4 text-gray-500 transition-all cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" x-on:click="outlet=!outlet">
+        <i class="w-6 h-6 fa-solid fa-shop"></i>
+        <span class="mx-3 text-white">Outlet</span>
+        <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right" :class="{'rotate-90': outlet, 'rotate-0': !outlet}"></i>
+        </a> --}}
 
 
         {{-- <a href="{{ route('direct_user.index') }}" class="flex items-center px-6 py-2 mt-4 text-gray-500 transition-all cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100">
@@ -93,11 +101,5 @@
         <span class="mx-3 text-white">Database Direct User</span>
         </a> --}}
 
-        {{-- <a class="flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" href="{{ route('jumat.index') }}">
-        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
-        </svg>
-        <span class="mx-3">Jadwal Jumat</span>
-        </a> --}}
     </nav>
 </div>
