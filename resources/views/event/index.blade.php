@@ -48,7 +48,7 @@
                         <tr class="hover:bg-gray-200">
                             <td class="p-4 font-bold text-gray-700 border-b">{{ $key+1 }}</td>
                             <td class="p-4 text-gray-700 border-b kategori">{{ $data->kategori }}</td>
-                            <td class="p-4 text-gray-700 border-b jenis">{{ $data->jenis }}</td>
+                            <td class="p-4 text-gray-700 border-b whitespace-nowrap jenis">{{ $data->jenis }}</td>
                             <td class="p-4 text-gray-700 border-b kabupaten">{{ $data->KAB_KOTA }}</td>
                             <td class="p-4 text-gray-700 border-b kecamatan">{{ $data->KECAMATAN }}</td>
                             <td class="p-4 text-gray-700 border-b npsn">{{ $data->npsn }}</td>

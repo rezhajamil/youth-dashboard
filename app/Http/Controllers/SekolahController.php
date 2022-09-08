@@ -184,5 +184,8 @@ class SekolahController extends Controller
 
     public function pjp()
     {
+        $pjp = DB::select("SELECT BRANCH,CLUSTER,PJP,COUNT(PJP) as jumlah FROM Data_Sekolah_Sumatera WHERE PJP IS NOT NULL GROUP BY 1,2,3 ORDER BY 1,2,3;");
+
+        return view('sekolah.pjp', compact('pjp'));
     }
 }
