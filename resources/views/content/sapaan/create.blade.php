@@ -15,8 +15,8 @@
                                 <option value="" selected disabled>Pilih Role</option>
                                 @foreach ($user_type as $item)
                                 <option value="{{ $item->user_type }}" {{ old('role')==$item->user_type?'selected':'' }}>{{ $item->user_type }}</option>
-
                                 @endforeach
+                                <option value="ALL" {{ old('role')=='ALL'?'selected':'' }}>ALL</option>
                             </select>
                             @error('role')
                             <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
