@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DataUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -18,7 +19,10 @@ class DashboardController extends Controller
         $userEO = DataUser::where('role', 'EO')->count();
         $userYBA = DataUser::where('role', 'YBA')->count();
         $userMOGI = DataUser::where('role', 'MOGI')->count();
-        return view('dashboard', compact('userAO', 'userEO', 'userYBA', 'userMOGI'));
+        $pjp = DB::table('Data_Sekolah_Sumatera')->where('PJP', 'PJP')->count();
+        $nonPjp = DB::table('Data_Sekolah_Sumatera')->where('PJP', 'NON PJP')->count();
+        $oss_osk = DB::table('data_oss_osk')->count();
+        return view('dashboard', compact('userAO', 'userEO', 'userYBA', 'userMOGI', 'pjp', 'nonPjp', 'oss_osk'));
     }
 
     /**

@@ -49,9 +49,7 @@
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Reff Orbit</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Role</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Status</th>
-                            @if (Auth::user()->privilege!='cluster')
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Action</th>
-                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -89,6 +87,14 @@
                             @if (Auth::user()->privilege!='cluster')
                             <td class="p-3 text-gray-700 border-b">
                                 <a href="{{ route('direct_user.edit',$data->id) }}" class="block my-1 text-base font-semibold text-indigo-600 transition hover:text-indigo-800">Edit</a>
+                                <form action="{{ route('direct_user.change_status',$data->id) }}" method="post">
+                                    @csrf
+                                    @method('put')
+                                    <button class="block my-1 text-base font-semibold text-left text-red-600 transition hover:text-red-800 whitespace-nowrap">Ubah Status</button>
+                                </form>
+                            </td>
+                            @else
+                            <td class="p-3 text-gray-700 border-b">
                                 <form action="{{ route('direct_user.change_status',$data->id) }}" method="post">
                                     @csrf
                                     @method('put')

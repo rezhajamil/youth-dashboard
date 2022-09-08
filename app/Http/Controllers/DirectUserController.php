@@ -21,8 +21,10 @@ class DirectUserController extends Controller
     {
         if (Auth::user()->privilege == "superadmin") {
             $users = DataUser::whereRaw("role=? or role=? or role=? or role=? ", array('EO', 'AO', 'MOGI', 'YBA'))->orderBy('regional')->orderBy('branch')->orderBy('cluster')->orderBy('nama')->get();
-        } else {
+        } else if (Auth::user()->privilege == "branch") {
             $users = DataUser::whereRaw("branch=? and (role=? or role=? or role=? or role=?) ", array(Auth::user()->branch, 'EO', 'AO', 'MOGI', 'YBA'))->orderBy('regional')->orderBy('branch')->orderBy('cluster')->orderBy('nama')->get();
+        } else {
+            $users = DataUser::whereRaw("cluster=? and (role=? or role=? or role=? or role=?) ", array(Auth::user()->cluster, 'EO', 'AO', 'MOGI', 'YBA'))->orderBy('regional')->orderBy('branch')->orderBy('cluster')->orderBy('nama')->get();
         }
 
         // ddd(DataUser::whereRaw("branch='?' and role=? or role=? or role=? or role=? ", array(Auth::user()->branch, 'EO', 'AO', 'MOGI', 'YBA')));
