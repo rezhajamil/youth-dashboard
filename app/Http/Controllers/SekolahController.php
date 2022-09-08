@@ -174,4 +174,11 @@ class SekolahController extends Controller
 
         return response()->json($kecamatan);
     }
+
+    public function oss_osk()
+    {
+        $sekolah = DB::select("SELECT * FROM data_oss_osk JOIN Data_Sekolah_Sumatera ON data_oss_osk.npsn=Data_Sekolah_Sumatera.NPSN ORDER BY `CLUSTER`,data_oss_osk.kecamatan");
+
+        return view('sekolah.oss_osk', compact('sekolah'));
+    }
 }

@@ -73,6 +73,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('sekolah/{npsn}', [SekolahController::class, 'show'])->name('sekolah.show');
     Route::get('sekolah/{npsn}/edit', [SekolahController::class, 'edit'])->name('sekolah.edit');
     Route::get('resume/sekolah', [SekolahController::class, 'resume'])->name('sekolah.resume');
+    Route::get('oss_osk/sekolah', [SekolahController::class, 'oss_osk'])->name('sekolah.oss_osk');
 
     Route::get('content/sapaan', [ContentController::class, 'sapaan'])->name('sapaan.index');
     Route::post('content/sapaan', [ContentController::class, 'store_sapaan'])->name('sapaan.store');

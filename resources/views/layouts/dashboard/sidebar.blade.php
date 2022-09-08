@@ -68,8 +68,7 @@
             <a href="{{ route('sekolah.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Database</span></a>
             <a href="{{ route('sekolah.resume') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Resume</span></a>
             <a href="{{ route('sekolah.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">PJP</span></a>
-            <a href="{{ route('sekolah.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">OSS</span></a>
-            <a href="{{ route('sekolah.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">OSK</span></a>
+            <a href="{{ route('sekolah.oss_osk') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">OSS OSK</span></a>
             {{-- <a href="{{ route('sales.orbit') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Orbit</span></a> --}}
         </div>
         <a class="flex items-center px-6 py-2 mt-4 text-gray-500 transition-all cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" x-on:click="broadcast=!broadcast">
