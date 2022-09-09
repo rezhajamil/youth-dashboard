@@ -35,6 +35,18 @@
                     </tbody>
                 </table>
             </div>
+            <div class="flex flex-wrap items-end my-3 gap-x-4">
+                <input type="text" name="search" id="search" placeholder="Search..." class="px-4 rounded-lg">
+                <div class="flex flex-col">
+                    {{-- <span class="font-bold text-gray-600">Berdasarkan</span> --}}
+                    <select name="search_by" id="search_by" class="rounded-lg">
+                        <option value="nama">Berdasarkan Nama</option>
+                        <option value="telp">Berdasarkan Telepon</option>
+                        <option value="role">Berdasarkan Role</option>
+                    </select>
+                </div>
+            </div>
+
             <div class="overflow-auto bg-white rounded-md shadow w-fit" id="result-container">
                 <table class="overflow-auto text-left bg-white border-collapse w-fit">
                     <thead class="border-b">
@@ -43,6 +55,7 @@
                             <th rowspan="2" class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Cluster</th>
                             <th rowspan="2" class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Nama</th>
                             <th rowspan="2" class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Telp</th>
+                            <th rowspan="2" class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Role</th>
                             <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Hasil</th>
                             <th rowspan="2" class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Skor</th>
                         </tr>
@@ -56,9 +69,10 @@
                         <tr>
                             {{-- {{ ddd($data) }} --}}
                             <td class="p-4 font-bold text-gray-700 border-b">{{ $key+1 }}</td>
-                            <td class="p-4 text-gray-700 border-b">{{ $data->cluster }}</td>
-                            <td class="p-4 text-gray-700 border-b">{{ ucwords(strtolower($data->nama)) }}</td>
-                            <td class="p-4 text-gray-700 border-b">{{ $data->telp }}</td>
+                            <td class="p-4 text-gray-700 border-b cluster">{{ $data->cluster }}</td>
+                            <td class="p-4 text-gray-700 border-b nama">{{ ucwords(strtolower($data->nama)) }}</td>
+                            <td class="p-4 text-gray-700 border-b telp">{{ $data->telp }}</td>
+                            <td class="p-4 text-gray-700 border-b role">{{ $data->role }}</td>
                             <td class="p-4 text-gray-700 border-b">{{ $data->hasil }}</td>
                             <td class="p-4 text-gray-700 border-b">{{ count(json_decode($quiz->soal)) }}</td>
                             <td class="p-4 font-bold border-b text-sekunder">{{ number_format(($data->hasil/count(json_decode($quiz->soal))*100),0,".",",") }}</td>
@@ -113,6 +127,29 @@
         $('#capture').click(function() {
             createPDF()
         })
+
+        $("#search").on("input", function() {
+            find();
+        });
+
+        $("#search_by").on("input", function() {
+            find();
+        });
+
+        const find = () => {
+            let search = $("#search").val();
+            let searchBy = $('#search_by').val();
+            let pattern = new RegExp(search, "i");
+            $(`.${searchBy}`).each(function() {
+                let label = $(this).text();
+                if (pattern.test(label)) {
+                    $(this).parent().show();
+                } else {
+                    $(this).parent().hide();
+                }
+            });
+        }
+
 
     })
 

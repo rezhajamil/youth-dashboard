@@ -15,15 +15,16 @@ class DirectSalesContoller extends Controller
      */
     public function index()
     {
-        $branch = Auth::user()->privilege == "branch" ? "where branch='" . Auth::user()->branch . "'" : '';
+        $branch = Auth::user()->privilege == "branch" ? "and branch='" . Auth::user()->branch . "'" : '';
         $dataUsersCluster = DB::select(
             "select cluster,
             count(if(role='AO',1,NULL)) as 'ao',
             count(if(role='EO',1,NULL)) as 'eo',
             count(if(role='MOGI',1,NULL)) as 'mogi',
             count(if(role='YBA',1,NULL)) as 'yba',
-            count(cluster) as 'jumlah'
+            count(role) as 'jumlah'
             from data_user
+            where not role='' 
             " . $branch . "
             GROUP by 1
             Order by cluster DESC
@@ -37,8 +38,9 @@ class DirectSalesContoller extends Controller
             count(if(role='EO',1,NULL)) as 'eo',
             count(if(role='MOGI',1,NULL)) as 'mogi',
             count(if(role='YBA',1,NULL)) as 'yba',
-            count(cluster) as 'jumlah'
+            count(role) as 'jumlah'
             from data_user
+            where not role='' 
             " . $branch . "
             GROUP by 1,2
             Order by regional,branch
