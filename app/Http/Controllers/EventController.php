@@ -18,6 +18,17 @@ class EventController extends Controller
         return view('event.index', compact('peserta'));
     }
 
+    public function resume()
+    {
+        $peserta = DB::select("SELECT kategori,jenis,COUNT(telp) jumlah FROM peserta_event GROUP BY 1,2 ORDER BY 1,2;");
+        $total = 0;
+
+        foreach ($peserta as $data) {
+            $total += $data->jumlah;
+        }
+        return view('event.resume', compact('peserta', 'total'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

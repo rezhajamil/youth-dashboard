@@ -88,6 +88,7 @@
         </a>
         <div class="flex flex-col w-3/4 mx-6 mt-2 ml-auto overflow-hidden bg-gray-700 rounded-md" x-show="event" x-transition>
             <a href="{{ route('event.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Peserta</span></a>
+            <a href="{{ route('event.resume') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Resume Peserta</span></a>
         </div>
         {{-- <a href="{{ route('outlet.index') }}" class="items-center hidden px-6 py-2 mt-4 text-gray-500 transition-all cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" x-on:click="outlet=!outlet">
         <i class="w-6 h-6 fa-solid fa-shop"></i>

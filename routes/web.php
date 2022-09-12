@@ -124,8 +124,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('absensi', [DirectUserController::class, 'absensi'])->name('direct_user.absensi');
     Route::get('absensi/show/{telp}', [DirectUserController::class, 'show_absensi'])->name('direct_user.absensi.show');
 
-    Route::resource('quiz', QuizController::class);
     Route::resource('event', EventController::class);
+    Route::get('resume/event', [EventController::class, 'resume'])->name('event.resume');
+
+    Route::resource('quiz', QuizController::class);
     Route::put('/change_status/quiz/{id}', [QuizController::class, 'change_status'])->name('quiz.change_status');
 });
 
