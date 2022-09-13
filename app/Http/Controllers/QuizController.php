@@ -19,7 +19,7 @@ class QuizController extends Controller
         if (Auth::user()->privilege == 'branch') {
             abort(403);
         }
-        $session = DB::table('quiz_session')->orderBy('status', 'desc')->orderBy('date')->get();
+        $session = DB::table('quiz_session')->orderBy('date', 'desc')->get();
         return view('directUser.quiz.index', compact('session'));
     }
 
@@ -118,16 +118,17 @@ class QuizController extends Controller
 
     public function change_status($id)
     {
-        $active = DB::table('quiz_session')->where('status', '1')->first();
+        // $active = DB::table('quiz_session')->where('status', '1')->first();
 
-        if ($active) {
-            DB::table('quiz_session')->where('status', '1')->update([
-                'status' => '0'
-            ]);
-        }
+        // if ($active) {
+        //     DB::table('quiz_session')->where('status', '1')->update([
+        //         'status' => '0'
+        //     ]);
+        // }
 
+        $quiz = DB::table('quiz_session')->find($id);
         DB::table('quiz_session')->where('id', $id)->update([
-            'status' => '1'
+            'status' => !$quiz->status
         ]);
 
         return back();
@@ -136,8 +137,12 @@ class QuizController extends Controller
     public function answer(Request $request)
     {
         $plain = true;
-        $quiz = DB::table('quiz_session')->where('status', '1')->first();
-        $answer = DB::table('quiz_answer')->where('session', $quiz->id)->where('telp', $request->telp)->first();
+        $quiz = DB::table('quiz_session')->where('status', '1')->where('jenis', 'Youth Apps')->orderBy('date', 'desc')->first();
+        if ($quiz) {
+            $answer = DB::table('quiz_answer')->where('session', $quiz->id)->where('telp', $request->telp)->first();
+        } else {
+            $answer = [];
+        }
         $user = DB::table('data_user')->where('telp', $request->telp)->first();
         $history = DB::select("SELECT * FROM quiz_answer a JOIN quiz_session b ON a.session=b.id where a.telp='" . $request->telp . "' and MONTH(b.date)=" . date('m') . " order BY b.date");
 
@@ -147,7 +152,7 @@ class QuizController extends Controller
     public function start(Request $request)
     {
         $plain = true;
-        $quiz = DB::table('quiz_session')->where('status', '1')->first();
+        $quiz = DB::table('quiz_session')->where('status', '1')->where('jenis', 'Youth Apps')->first();
         $answer = DB::table('quiz_answer')->where('session', $quiz->id)->where('telp', $request->telp)->first();
 
         DB::table('quiz_answer')->insert([

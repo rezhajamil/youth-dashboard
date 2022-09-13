@@ -23,14 +23,14 @@
                     </thead>
                     <tbody class="max-h-screen overflow-y-auto">
                         @foreach ($session as $key=>$data)
-                        <tr class="hover:bg-gray-200">
+                        <tr class="border-b hover:bg-gray-200">
                             {{-- {{ ddd($data) }} --}}
-                            <td class="p-4 font-bold text-gray-700 border-b">{{ $key+1 }}</td>
-                            <td class="p-4 text-gray-700 border-b">{{ date('d-M-Y',strtotime($data->date)) }}</td>
-                            <td class="p-4 text-gray-700 border-b">{{ $data->nama }}</td>
-                            <td class="p-4 text-gray-700 border-b">{{ $data->time }} Menit</td>
-                            <td class="p-4 text-gray-700 border-b">{!! $data->deskripsi !!}</td>
-                            <td class="p-4 text-gray-700 border-b">
+                            <td class="p-4 font-bold text-gray-700">{{ $key+1 }}</td>
+                            <td class="p-4 text-gray-700">{{ date('d-M-Y',strtotime($data->date)) }}</td>
+                            <td class="p-4 text-gray-700">{{ $data->nama }}</td>
+                            <td class="p-4 text-gray-700">{{ $data->time }} Menit</td>
+                            <td class="p-4 text-gray-700">{!! $data->deskripsi !!}</td>
+                            <td class="p-4 text-gray-700">
                                 @if ($data->status)
                                 <div class="flex items-center justify-center px-3 py-1 rounded-full bg-green-200/50">
                                     <span class="text-sm font-semibold text-green-900">Aktif</span>
@@ -42,16 +42,16 @@
                                 @endif
                             </td>
 
-                            <td class="p-4 text-gray-700 border-b flex gap-x-3">
-                                <a href="{{ route('quiz.show',$data->id) }}" class="block my-1 text-base font-semibold text-indigo-600 transition hover:text-indigo-800">Lihat</a>
-                                <a href="{{ route('quiz.answer.list',$data->id) }}" class="block my-1 text-base font-semibold text-orange-600 transition hover:text-orange-800">Hasil</a>
-                                @if (!$data->status)
-                                <form action="{{ route('quiz.change_status',$data->id) }}" method="post">
-                                    @csrf
-                                    @method('put')
-                                    <button class="block my-1 text-base font-semibold text-left text-green-600 transition hover:text-green-800">Aktifkan</button>
-                                </form>
-                                @endif
+                            <td class="p-4 text-gray-700 gap-x-3">
+                                <div class="">
+                                    <a href="{{ route('quiz.show',$data->id) }}" class="block my-1 text-base font-semibold text-indigo-600 transition hover:text-indigo-800">Lihat</a>
+                                    <a href="{{ route('quiz.answer.list',$data->id) }}" class="block my-1 text-base font-semibold text-orange-600 transition hover:text-orange-800">Hasil</a>
+                                    <form action="{{ route('quiz.change_status',$data->id) }}" method="post">
+                                        @csrf
+                                        @method('put')
+                                        <button class="block my-1 text-base font-semibold text-left text-green-600 transition whitespace-nowrap hover:text-green-800">Ubah Status</button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                         @endforeach

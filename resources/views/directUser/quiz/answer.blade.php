@@ -2,7 +2,7 @@
 @section('body')
 <section class="flex justify-center w-full h-full min-h-screen px-4 py-4 bg-premier">
     <div class="w-full px-4 py-2 bg-white rounded-lg shadow-xl h-fit sm:w-3/4 ">
-        <span class="block w-full py-2 mb-2 text-2xl font-bold text-center border-b-2 text-sekunder">{{ $quiz->nama }}</span>
+        <span class="block w-full py-2 mb-2 text-2xl font-bold text-center border-b-2 text-sekunder">{{ $quiz?$quiz->nama:'' }}</span>
         @if ($answer)
         @if (strtotime(date('Y-m-d H:i:s'))-strtotime($answer->time_start)>($quiz->time*60) || $answer->finish)
         <span class="block w-full mt-4 mb-2 text-xl font-bold text-center text-tersier">Quiz Telah Selesai</span>
@@ -61,16 +61,17 @@
             <i class="fa-regular fa-clock"></i>
             <span id="timer"></span>
         </div>
-        {{-- <input type="hidden" id="time-start" value="{{ date('M d, Y H:i:s', strtotime($answer->time_start)) }}"> --}}
         <input type="hidden" id="time-end" value="{{ date('M d, Y H:i:s', strtotime("+".$quiz->time." minutes", strtotime($answer->time_start))) }}">
         @endif
         @else
         <span class="block w-full font-bold text-sekunder">Selamat Datang {{ $user->nama }} | {{ $user->telp }}</span>
+        @if($quiz)
         <span class="block w-full my-2 font-semibold text-tersier">Waktu Mengerjakan Quiz : {{ $quiz->time }} Menit</span>
         {!! $quiz->deskripsi !!}
         <a href="{{ URL::to('/start/quiz?telp='.request()->get('telp')) }}" class="block px-4 py-2 mx-auto my-6 font-semibold text-white transition-all rounded bg-sekunder w-fit hover:bg-black">
             Mulai Quiz
         </a>
+        @endif
         <div class="my-8">
             <span class="block w-full mb-2 font-bold text-center text-sekunder">Riwayat Quiz Bulan Ini</span>
             <table class="mx-auto overflow-auto text-left border border-collapse w-fit">
