@@ -41,6 +41,7 @@
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Nama Peserta</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Telp</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Tim</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Action</th>
                         </tr>
                     </thead>
                     <tbody class="max-h-screen overflow-y-auto">
@@ -56,6 +57,11 @@
                             <td class="p-4 text-gray-700 border-b whitespace-nowrap nama">{{ ucwords(strtolower($data->nama))}}</td>
                             <td class="p-4 text-gray-700 border-b telp">{{ $data->telp }}</td>
                             <td class="p-4 text-gray-700 border-b tim">{{ $data->nama_tim }}</td>
+                            @if($data->kategori=='The Stage')
+                            <td class="p-4 text-gray-700 border-b tim"><a href="{{ $data->youtube }}" class="px-3 py-2 text-white transition bg-green-600 rounded hover:bg-green-800 whitespace-nowrap" target="_blank">Buka Video</a></td>
+                            @else
+                            <td class="p-4 text-gray-700 border-b tim"></td>
+                            @endif
                         </tr>
                         @endforeach
                     </tbody>

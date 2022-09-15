@@ -9,19 +9,32 @@
                 <form action="{{ route('quiz.store') }}" method="POST" class="">
                     @csrf
                     <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2" id="soal-container">
-                        <div>
-                            <label class="text-gray-700" for="nama">Nama Quiz</label>
-                            <input class="w-full rounded-md form-input focus:border-indigo-600" type="text" name="nama" value="{{ old('nama') }}" required>
-                            @error('nama')
-                            <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div>
-                            <label class="text-gray-700" for="time">Waktu (Menit)</label>
-                            <input class="w-full rounded-md form-input focus:border-indigo-600" type="number" name="time" value="{{ old('time') }}" required>
-                            @error('time')
-                            <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
-                            @enderror
+                        <div class="grid grid-cols-1 gap-6 sm:grid-cols-3 col-span-full">
+                            <div>
+                                <label class="text-gray-700" for="nama">Nama Quiz</label>
+                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="text" name="nama" value="{{ old('nama') }}" required>
+                                @error('nama')
+                                <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div>
+                                <label class="text-gray-700" for="time">Waktu (Menit)</label>
+                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="number" name="time" value="{{ old('time') }}" required>
+                                @error('time')
+                                <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div>
+                                <label class="text-gray-700" for="jenis">Jenis</label>
+                                <select class="w-full rounded-md form-input focus:border-indigo-600" name="jenis" required>
+                                    <option value="" selected disabled>Pilih Jenis</option>
+                                    <option value="Youth Apps">Youth Apps</option>
+                                    <option value="Event">Event</option>
+                                </select>
+                                @error('jenis')
+                                <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
                         <div class="flex flex-col col-span-full">
                             <label class="block text-gray-700" for="deskripsi">Deskripsi</label>

@@ -49,12 +49,14 @@ class QuizController extends Controller
         }
         $request->validate([
             'nama' => 'required',
-            'time' => 'required|numeric'
+            'time' => 'required|numeric',
+            'jenis' => 'required',
         ]);
 
         $quiz = DB::table('quiz_session')->insert([
             'nama' => ucwords($request->nama),
             'time' => $request->time,
+            'jenis' => $request->jenis,
             'date' => date('Y-m-d'),
             'deskripsi' => $request->deskripsi,
             'soal' => json_encode($request->soal),
@@ -197,7 +199,11 @@ class QuizController extends Controller
                         ON b.`cluster`=d.`cluster`
                         GROUP BY 1,2,3
                         ORDER BY b.regional desc,b.branch,b.`cluster`;");
-        $answer = DB::table('quiz_answer')->join('data_user', 'data_user.telp', '=', 'quiz_answer.telp')->distinct('nama')->where('session', $id)->orderBy('cluster')->orderBy('nama')->get();
+        if (request()->get('jenis') == 'event') {
+            $answer = DB::table('quiz_answer')->join('user_event', 'user_event.telp', '=', 'quiz_answer.telp')->distinct('nama')->where('session', $id)->orderBy('nama')->get();
+        } else {
+            $answer = DB::table('quiz_answer')->join('data_user', 'data_user.telp', '=', 'quiz_answer.telp')->distinct('nama')->where('session', $id)->orderBy('cluster')->orderBy('nama')->get();
+        }
         $quiz = DB::table('quiz_session')->find($id);
         return view('directUser.quiz.result', compact('answer', 'quiz', 'resume'));
     }
