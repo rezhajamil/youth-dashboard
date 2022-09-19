@@ -155,14 +155,16 @@ class QuizController extends Controller
     {
         $plain = true;
         $quiz = DB::table('quiz_session')->where('status', '1')->where('jenis', 'Youth Apps')->first();
-        $answer = DB::table('quiz_answer')->where('session', $quiz->id)->where('telp', $request->telp)->first();
+        $answer = DB::table('quiz_answer')->where('session', $quiz->id)->where('telp', $request->telp)->count();
 
-        DB::table('quiz_answer')->insert([
-            'session' => $quiz->id,
-            'telp' => $request->telp,
-            'time_start' => date('Y-m-d H:i:s'),
-            'hasil' => '0'
-        ]);
+        if ($answer < 1) {
+            DB::table('quiz_answer')->insert([
+                'session' => $quiz->id,
+                'telp' => $request->telp,
+                'time_start' => date('Y-m-d H:i:s'),
+                'hasil' => '0'
+            ]);
+        }
 
         return redirect(URL::to('/qns?telp=' . $request->telp));
     }
