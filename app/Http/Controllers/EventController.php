@@ -103,4 +103,17 @@ class EventController extends Controller
 
         return back();
     }
+    public function add_keterangan(Request $request)
+    {
+        $request->validate([
+            'id' => 'required',
+            'keterangan' => 'required'
+        ]);
+
+        DB::table('peserta_event')->where('id', $request->id)->update([
+            'keterangan' => $request->keterangan
+        ]);
+
+        return back();
+    }
 }

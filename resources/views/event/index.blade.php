@@ -42,6 +42,7 @@
                             <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Telp</th>
                             <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Tim</th>
                             <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Kelayakan</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Keterangan</th>
                             <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Action</th>
                         </tr>
                     </thead>
@@ -70,15 +71,17 @@
                                 </div>
                                 @endif
                             </td>
+                            <td class="p-2 text-sm text-gray-700 border-r tim">{{ $data->keterangan }}</td>
                             @if($data->kategori=='The Stage')
                             <td class="flex p-2 text-sm text-gray-700 border-l border-r gap-x-2">
                                 <a href="{{ $data->youtube }}" class="px-3 py-2 text-white transition bg-blue-600 rounded hover:bg-blue-800 whitespace-nowrap" target="_blank">Buka Video</a>
                                 @if($data->layak!='1')
-                                <a href="{{ URL::to('/layak/event/'.$data->id.'?layak=1') }}" class="px-3 py-2 text-white transition-all bg-green-600 rounded hover:bg-green-800 ">Layak</a>
+                                <a href="{{ URL::to('/layak/event/'.$data->id.'?layak=1') }}" class="px-3 py-2 text-white transition-all bg-green-600 rounded hover:bg-green-800">Layak</a>
                                 @endif
                                 @if($data->layak!='0')
                                 <a href="{{ URL::to('/layak/event/'.$data->id.'?layak=0') }}" class="px-3 py-2 text-white transition-all bg-red-600 rounded whitespace-nowrap hover:bg-red-800 ">Tidak Layak</a>
                                 @endif
+                                <button class="px-3 py-2 text-white transition-all bg-orange-600 rounded whitespace-nowrap hover:bg-orange-800 btn-keterangan" data-id="{{ $data->id }}">Beri Keterangan</button>
                             </td>
                             @else
                             <td class="p-2 text-sm text-gray-700 border-l"></td>
@@ -88,125 +91,24 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
     </div>
-
+</div>
+<div class="fixed inset-0 flex items-center justify-center bg-black/50" id="modal-keterangan" style="display: none">
+    <div class="px-4 py-2 bg-white rounded-md w-fit">
+        <form action="{{ route("event.keterangan") }}" method="post" class="flex flex-col items-center gap-y-2">
+            @csrf
+            <input type="hidden" name="id" id="id-peserta" value="">
+            <textarea class="rounded" name="keterangan"></textarea>
+            <button type="submit" class="w-full px-3 py-2 text-white transition bg-blue-600 rounded hover:bg-blue-800">Submit</button>
+            <a class="w-full px-3 py-2 text-center text-white transition bg-red-600 rounded hover:bg-red-800" id="cancel">Batal</a>
+        </form>
+    </div>
 </div>
 @endsection
 @section('script')
 <script>
     $(document).ready(function() {
-        $("#provinsi").on('input', () => {
-            var provinsi = $("#provinsi").val();
-            $.ajax({
-                url: "{{ route('sekolah.get_kabupaten') }}"
-                , method: "POST"
-                , dataType: "JSON"
-                , data: {
-                    provinsi: provinsi
-                    , _token: "{{ csrf_token() }}"
-                }
-
-                , success: (data) => {
-                    console.log(data)
-                    $("#kabupaten").html(
-                        `<option value="" selected disabled>Pilih Kabupaten/Kota</option> ` +
-                        data.map((item) => {
-                            return `
-                            <option value="${item.kabupaten}">${item.kabupaten}</option>
-                            `
-                        })
-                    )
-                }
-                , error: (e) => {
-                    console.log(e)
-                }
-            })
-        })
-
-        $("#kabupaten").on('input', () => {
-            var kabupaten = $("#kabupaten").val();
-            $.ajax({
-                url: "{{ route('sekolah.get_kecamatan') }}"
-                , method: "POST"
-                , dataType: "JSON"
-                , data: {
-                    kabupaten: kabupaten
-                    , _token: "{{ csrf_token() }}"
-                }
-
-                , success: (data) => {
-                    console.log(data)
-                    $("#kecamatan").html(
-                        `<option value="" selected disabled>Pilih Kecamatan</option> ` +
-                        data.map((item) => {
-                            return `
-                            <option value="${item.kecamatan}">${item.kecamatan}</option>
-                            `
-                        })
-                    )
-                }
-                , error: (e) => {
-                    console.log(e)
-                }
-            })
-        })
-
-        $("#branch").on('input', () => {
-            var branch = $("#branch").val();
-            console.log(branch)
-            $.ajax({
-                url: "{{ route('wilayah.get_cluster') }}"
-                , method: "POST"
-                , dataType: "JSON"
-                , data: {
-                    branch: branch
-                    , _token: "{{ csrf_token() }}"
-                }
-                , success: (data) => {
-                    $("#cluster").html(
-                        `<option value="" selected>Pilih Cluster</option> ` +
-                        data.map((item) => {
-                            return `
-                            <option value="${item.cluster}">${item.cluster}</option>
-                            `
-                        })
-
-                    )
-
-                }
-                , error: (e) => {
-                    console.log(e)
-                }
-            })
-
-            let search = $("#branch").val();
-            let pattern = new RegExp(search, "i");
-            $(`.branch`).each(function() {
-                let label = $(this).text();
-                if (pattern.test(label)) {
-                    $(this).parent().show();
-                } else {
-                    $(this).parent().hide();
-                }
-            });
-        })
-
-        $("#cluster").on("input", function() {
-            let search = $("#cluster").val();
-            let pattern = new RegExp(search, "i");
-            $(`.cluster`).each(function() {
-                let label = $(this).text();
-                if (pattern.test(label)) {
-                    $(this).parent().show();
-                } else {
-                    $(this).parent().hide();
-                }
-            });
-
-        })
-
         $("#search").on("input", function() {
             find();
         });
@@ -228,6 +130,15 @@
                 }
             });
         }
+
+        $(".btn-keterangan").on("click", function() {
+            $("#modal-keterangan").show();
+            $("#id-peserta").val($(this).attr("data-id"))
+        })
+
+        $("#cancel").on("click", function() {
+            $("#modal-keterangan").hide();
+        })
     })
 
 </script>
