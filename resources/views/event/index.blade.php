@@ -31,36 +31,57 @@
                 <table class="overflow-auto text-left border-collapse w-fit">
                     <thead class="border-b">
                         <tr>
-                            <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-red-600">No</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Kategori</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Jenis</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Kabupaten</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Kecamatan</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">NPSN</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Nama Sekolah</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Nama Peserta</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Telp</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Tim</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Action</th>
+                            <th class="p-2 text-sm font-bold text-center text-gray-100 uppercase bg-red-600">No</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Kategori</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Jenis</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Kabupaten</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Kecamatan</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">NPSN</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Nama Sekolah</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Nama Peserta</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Telp</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Tim</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Kelayakan</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Action</th>
                         </tr>
                     </thead>
                     <tbody class="max-h-screen overflow-y-auto">
                         @foreach ($peserta as $key=>$data)
-                        <tr class="hover:bg-gray-200">
-                            <td class="p-4 font-bold text-gray-700 border-b">{{ $key+1 }}</td>
-                            <td class="p-4 text-gray-700 border-b kategori">{{ $data->kategori }}</td>
-                            <td class="p-4 text-gray-700 border-b whitespace-nowrap jenis">{{ $data->jenis }}</td>
-                            <td class="p-4 text-gray-700 border-b kabupaten">{{ $data->KAB_KOTA }}</td>
-                            <td class="p-4 text-gray-700 border-b kecamatan">{{ $data->KECAMATAN }}</td>
-                            <td class="p-4 text-gray-700 border-b npsn">{{ $data->npsn }}</td>
-                            <td class="p-4 text-gray-700 border-b whitespace-nowrap nama_sekolah">{{ $data->NAMA_SEKOLAH }}</td>
-                            <td class="p-4 text-gray-700 border-b whitespace-nowrap nama">{{ ucwords(strtolower($data->nama))}}</td>
-                            <td class="p-4 text-gray-700 border-b telp">{{ $data->telp }}</td>
-                            <td class="p-4 text-gray-700 border-b tim">{{ $data->nama_tim }}</td>
+                        <tr class="border-b hover:bg-gray-200">
+                            <td class="p-2 text-sm font-bold text-gray-700 border-r">{{ $key+1 }}</td>
+                            <td class="p-2 text-sm text-gray-700 border-r kategori">{{ $data->kategori }}</td>
+                            <td class="p-2 text-sm text-gray-700 border-r whitespace-nowrap jenis">{{ $data->jenis }}</td>
+                            <td class="p-2 text-sm text-gray-700 border-r kabupaten">{{ $data->KAB_KOTA }}</td>
+                            <td class="p-2 text-sm text-gray-700 border-r kecamatan">{{ $data->KECAMATAN }}</td>
+                            <td class="p-2 text-sm text-gray-700 border-r npsn">{{ $data->npsn }}</td>
+                            <td class="p-2 text-sm text-gray-700 border-r whitespace-nowrap nama_sekolah">{{ $data->NAMA_SEKOLAH }}</td>
+                            <td class="p-2 text-sm text-gray-700 border-r whitespace-nowrap nama">{{ ucwords(strtolower($data->nama))}}</td>
+                            <td class="p-2 text-sm text-gray-700 border-r telp">{{ $data->telp }}</td>
+                            <td class="p-2 text-sm text-gray-700 border-r tim">{{ $data->nama_tim }}</td>
+                            <td class="p-2 text-sm text-gray-700 border-r tim">
+                                @if ($data->layak=='1')
+                                <div class="flex items-center justify-center px-3 py-1 rounded-full bg-green-200/50">
+                                    <span class="text-sm font-semibold text-green-900 status">Layak</span>
+                                </div>
+                                @endif
+                                @if ($data->layak=='0')
+                                <div class="flex items-center justify-center px-3 py-1 rounded-full bg-red-200/50">
+                                    <span class="text-sm font-semibold text-red-900 whitespace-nowrap status">Tidak Layak</span>
+                                </div>
+                                @endif
+                            </td>
                             @if($data->kategori=='The Stage')
-                            <td class="p-4 text-gray-700 border-b tim"><a href="{{ $data->youtube }}" class="px-3 py-2 text-white transition bg-green-600 rounded hover:bg-green-800 whitespace-nowrap" target="_blank">Buka Video</a></td>
+                            <td class="flex p-2 text-sm text-gray-700 border-l border-r gap-x-2">
+                                <a href="{{ $data->youtube }}" class="px-3 py-2 text-white transition bg-blue-600 rounded hover:bg-blue-800 whitespace-nowrap" target="_blank">Buka Video</a>
+                                @if($data->layak!='1')
+                                <a href="{{ URL::to('/layak/event/'.$data->id.'?layak=1') }}" class="px-3 py-2 text-white transition-all bg-green-600 rounded hover:bg-green-800 ">Layak</a>
+                                @endif
+                                @if($data->layak!='0')
+                                <a href="{{ URL::to('/layak/event/'.$data->id.'?layak=0') }}" class="px-3 py-2 text-white transition-all bg-red-600 rounded whitespace-nowrap hover:bg-red-800 ">Tidak Layak</a>
+                                @endif
+                            </td>
                             @else
-                            <td class="p-4 text-gray-700 border-b tim"></td>
+                            <td class="p-2 text-sm text-gray-700 border-l"></td>
                             @endif
                         </tr>
                         @endforeach

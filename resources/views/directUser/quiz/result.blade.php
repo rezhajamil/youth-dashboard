@@ -6,7 +6,7 @@
             <a href="{{ url()->previous() }}" class="block px-4 py-2 my-2 font-bold text-white bg-indigo-600 rounded-md w-fit hover:bg-indigo-800"><i class="mr-2 fa-solid fa-arrow-left"></i> Kembali</a>
             <h4 class="inline-block mb-2 text-xl font-bold text-gray-600 align-baseline" id="title">{{ $quiz->nama }}</h4>
             <button class="px-2 py-1 ml-2 text-lg text-white transition bg-green-600 rounded-md hover:bg-green-800" id="capture"><i class="fa-regular fa-circle-down"></i></button>
-            @if (request()->get('jenis')&&request()->get('jenis')!='event')
+            @if (!request()->get('jenis')&&request()->get('jenis')!='event')
             <div class="my-4 overflow-auto bg-white rounded-md shadow w-fit" id="resume-container">
                 <table class="overflow-auto text-left bg-white border-collapse w-fit resume">
                     <thead class="border-b resume">

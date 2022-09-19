@@ -126,6 +126,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('event', EventController::class);
     Route::get('resume/event', [EventController::class, 'resume'])->name('event.resume');
+    Route::get('layak/event/{id}', [EventController::class, 'layak'])->name('event.layak');
 
     Route::resource('quiz', QuizController::class);
     Route::put('/change_status/quiz/{id}', [QuizController::class, 'change_status'])->name('quiz.change_status');

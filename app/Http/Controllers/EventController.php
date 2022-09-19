@@ -94,4 +94,13 @@ class EventController extends Controller
     {
         //
     }
+
+    public function layak(Request $request, $id)
+    {
+        $layak = DB::table('peserta_event')->where('id', $id)->update([
+            'layak' => $request->layak
+        ]);
+
+        return back();
+    }
 }

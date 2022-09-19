@@ -102,7 +102,7 @@
                         <option value="telp">Telp</option>
                         <option value="reff">Reff Code</option>
                         <option value="status">Status</option>
-                        <option value="aktif">Tanggal Aktif</option>
+                        <option value="aktif">Tanggal Lapor</option>
                     </select>
                 </div>
             </div>

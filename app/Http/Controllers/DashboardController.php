@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataUser;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,6 +16,18 @@ class DashboardController extends Controller
      */
     public function index()
     {
+
+        // $data = [
+        //     "username" => "vivi",
+        //     "password" => \bcrypt("vivi123"),
+        //     "id_branch" => "",
+        //     "name" => "Vivi",
+        //     "privilege" => "superadmin",
+        //     "branch" => "",
+        //     "regional" => "SUMBAGUT"
+        // ];
+
+        // User::create($data);
         $userAO = DataUser::where('role', 'AO')->count();
         $userEO = DataUser::where('role', 'EO')->count();
         $userYBA = DataUser::where('role', 'YBA')->count();
