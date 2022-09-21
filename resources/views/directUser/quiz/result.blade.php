@@ -68,6 +68,7 @@
                             @endif
                             <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Hasil</th>
                             <th rowspan="2" class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Skor</th>
+                            <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Action</th>
                         </tr>
                         <tr>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Benar</th>
@@ -77,7 +78,6 @@
                     <tbody class="max-h-screen overflow-y-auto">
                         @foreach ($answer as $key=>$data)
                         <tr>
-                            {{-- {{ ddd($data) }} --}}
                             <td class="p-4 font-bold text-gray-700 border-b">{{ $key+1 }}</td>
                             @if(request()->get('jenis')=='event')
                             {{-- <td class="p-4 text-gray-700 border-b cluster">{{ $data->npsn }}</td> --}}
@@ -94,6 +94,9 @@
                             <td class="p-4 text-gray-700 border-b">{{ $data->hasil }}</td>
                             <td class="p-4 text-gray-700 border-b">{{ count(json_decode($quiz->soal)) }}</td>
                             <td class="p-4 font-bold border-b text-sekunder">{{ number_format(($data->hasil/count(json_decode($quiz->soal))*100),0,".",",") }}</td>
+                            @if($data->pilihan)
+                            <td class="p-4 font-bold border-b text-sekunder"><a href="{{ route('quiz.show_answer',$data->id) }}" class="px-3 py-2 font-semibold text-white transition-all bg-orange-600 rounded whitespace-nowrap hover:bg-orange-800">Lihat Jawaban</a></td>
+                            @endif
                         </tr>
                         @endforeach
                     </tbody>

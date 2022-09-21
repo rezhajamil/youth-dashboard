@@ -130,6 +130,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('keterangan/event', [EventController::class, 'add_keterangan'])->name('event.keterangan');
 
     Route::resource('quiz', QuizController::class);
+    Route::get('/show_answer/quiz/{id}', [QuizController::class, 'show_answer'])->name('quiz.show_answer');
+
     Route::put('/change_status/quiz/{id}', [QuizController::class, 'change_status'])->name('quiz.change_status');
 });
 

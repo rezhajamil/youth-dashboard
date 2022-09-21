@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -174,16 +175,19 @@ class QuizController extends Controller
         $quiz = DB::table('quiz_session')->find($request->session);
         $jawaban = json_decode($quiz->jawaban);
         $hasil = 0;
+        $pilihan = [];
 
         foreach ($jawaban as $key => $data) {
             if ($data == $request['pilihan' . $key]) {
                 $hasil++;
             }
+            array_push($pilihan, $request['pilihan' . $key]);
         }
 
         DB::table('quiz_answer')->where('session', $request->session)->where('telp', $request->telp)->update([
             'hasil' => $hasil,
-            'finish' => '1'
+            'finish' => '1',
+            'pilihan' => json_encode($pilihan)
         ]);
 
         return redirect(URL::to('/qns?telp=' . $request->telp));
@@ -204,9 +208,24 @@ class QuizController extends Controller
         if (request()->get('jenis') == 'event') {
             $answer = DB::table('quiz_answer')->join('user_event', 'user_event.telp', '=', 'quiz_answer.telp')->distinct('nama')->where('session', $id)->orderBy('nama')->get();
         } else {
-            $answer = DB::table('quiz_answer')->join('data_user', 'data_user.telp', '=', 'quiz_answer.telp')->distinct('nama')->where('session', $id)->orderBy('cluster')->orderBy('nama')->get();
+            $answer = DB::table('quiz_answer')->select(["quiz_answer.id", "cluster", "nama", "quiz_answer.telp", "role", "session", "hasil", "pilihan"])->join('data_user', 'data_user.telp', '=', 'quiz_answer.telp')->distinct('nama')->where('session', $id)->orderBy('cluster')->orderBy('nama')->get();
         }
         $quiz = DB::table('quiz_session')->find($id);
         return view('directUser.quiz.result', compact('answer', 'quiz', 'resume'));
+    }
+
+    public function show_answer(Request $request, $id)
+    {
+        $answer = DB::table('quiz_answer')->find($id);
+        $quiz = DB::table('quiz_session')->find($answer->session);
+
+        if ($request->jenis != 'event') {
+            $user = DataUser::where('telp', $answer->telp)->first();
+        } else {
+            $user = [];
+        }
+        // ddd(json_decode($answer->pilihan));
+
+        return view('directUser.quiz.show_answer', compact('answer', 'quiz', 'user'));
     }
 }

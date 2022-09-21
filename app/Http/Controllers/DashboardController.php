@@ -28,13 +28,23 @@ class DashboardController extends Controller
         // ];
 
         // User::create($data);
-        $userAO = DataUser::where('role', 'AO')->count();
-        $userEO = DataUser::where('role', 'EO')->count();
-        $userYBA = DataUser::where('role', 'YBA')->count();
-        $userMOGI = DataUser::where('role', 'MOGI')->count();
-        $pjp = DB::table('Data_Sekolah_Sumatera')->where('PJP', 'PJP')->count();
-        $nonPjp = DB::table('Data_Sekolah_Sumatera')->where('PJP', 'NON PJP')->count();
-        $oss_osk = DB::table('data_oss_osk')->count();
+        if (auth()->user()->privilege == 'superadmin') {
+            $userAO = DataUser::where('role', 'AO')->count();
+            $userEO = DataUser::where('role', 'EO')->count();
+            $userYBA = DataUser::where('role', 'YBA')->count();
+            $userMOGI = DataUser::where('role', 'MOGI')->count();
+            $pjp = DB::table('Data_Sekolah_Sumatera')->where('PJP', 'PJP')->count();
+            $nonPjp = DB::table('Data_Sekolah_Sumatera')->where('PJP', 'NON PJP')->count();
+            $oss_osk = DB::table('data_oss_osk')->count();
+        } else if (auth()->user()->privilege == 'branch') {
+            $userAO = DataUser::where('role', 'AO')->where('branch', auth()->user()->branch)->count();
+            $userEO = DataUser::where('role', 'EO')->where('branch', auth()->user()->branch)->count();
+            $userYBA = DataUser::where('role', 'YBA')->where('branch', auth()->user()->branch)->count();
+            $userMOGI = DataUser::where('role', 'MOGI')->where('branch', auth()->user()->branch)->count();
+            $pjp = DB::table('Data_Sekolah_Sumatera')->where('PJP', 'PJP')->where('branch', auth()->user()->branch)->count();
+            $nonPjp = DB::table('Data_Sekolah_Sumatera')->where('PJP', 'NON PJP')->where('branch', auth()->user()->branch)->count();
+            $oss_osk = DB::table('data_oss_osk')->join('Data_Sekolah_Sumatera', "Data_Sekolah_Sumatera.NPSN", "=", "data_oss_osk.npsn")->where('branch', auth()->user()->branch)->count();
+        }
         return view('dashboard', compact('userAO', 'userEO', 'userYBA', 'userMOGI', 'pjp', 'nonPjp', 'oss_osk'));
     }
 
