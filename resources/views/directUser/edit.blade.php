@@ -125,35 +125,45 @@
 
                         </div>
 
-                        <div class="grid grid-cols-3 gap-x-3 col-span-full">
-                            <div>
-                                <label class="text-gray-700" for="telp">Telepon</label>
-                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="number" name="telp" value="{{ old('telp',$user->telp) }}">
+                        <div>
+                            <label class="text-gray-700" for="telp">Telepon</label>
+                            <input class="w-full rounded-md form-input focus:border-indigo-600" type="number" name="telp" value="{{ old('telp',$user->telp) }}">
 
-                                @error('telp')
-                                <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
-                                @enderror
+                            @error('telp')
+                            <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                            @enderror
 
-                            </div>
-                            <div>
-                                <label class="text-gray-700" for="mkios">MKios</label>
-                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="number" name="mkios" value="{{ old('mkios',$user->mkios) }}">
-
-                                @error('mkios')
-                                <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
-                                @enderror
-
-                            </div>
-                            <div>
-                                <label class="text-gray-700" for="id_digipos">ID Digipos</label>
-                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="number" name="id_digipos" value="{{ old('id_digipos',$user->id_digipos) }}">
-
-                                @error('id_digipos')
-                                <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
-                                @enderror
-
-                            </div>
                         </div>
+                        <div>
+                            <label class="text-gray-700" for="mkios">MKios</label>
+                            <input class="w-full rounded-md form-input focus:border-indigo-600" type="number" name="mkios" value="{{ old('mkios',$user->mkios) }}">
+
+                            @error('mkios')
+                            <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                            @enderror
+
+                        </div>
+                        <div>
+                            <label class="text-gray-700" for="link_aja">LinkAja</label>
+                            <input class="w-full rounded-md form-input focus:border-indigo-600" type="number" name="link_aja" value="{{ old('link_aja',$user->link_aja) }}">
+
+                            @error('link_aja')
+                            <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                            @enderror
+
+                        </div>
+                        <div>
+                            <label class="text-gray-700" for="id_digipos">ID Digipos</label>
+                            <input class="w-full rounded-md form-input focus:border-indigo-600" type="number" name="id_digipos" value="{{ old('id_digipos',$user->id_digipos) }}">
+
+                            @error('id_digipos')
+                            <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                            @enderror
+
+                        </div>
+
+                        {{-- <div class="grid grid-cols-3 gap-x-3 col-span-full">
+                        </div> --}}
 
                         <div>
                             <label class="text-gray-700" for="user_calista">User Calista</label>

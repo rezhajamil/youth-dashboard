@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataUser;
+use App\Rules\TelkomselNumber;
 use DateInterval;
 use DatePeriod;
 use DateTime;
@@ -72,7 +73,7 @@ class DirectUserController extends Controller
             'panggilan' => 'required',
             'kampus' => 'required',
             'tgl_lahir' => 'required',
-            'telp' => 'required',
+            'telp' => ['required', new TelkomselNumber],
             'mkios' => 'required',
             'id_digipos' => 'required',
             'user_calista' => 'required',
@@ -148,9 +149,9 @@ class DirectUserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Htp\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Respotnse
      */
     public function update(Request $request, $id)
     {
@@ -164,8 +165,9 @@ class DirectUserController extends Controller
             'panggilan' => 'required',
             'kampus' => 'required',
             'tgl_lahir' => 'required',
-            'telp' => 'required',
+            'telp' => ['required', new TelkomselNumber],
             'mkios' => 'required',
+            'link_aja' => 'required',
             'id_digipos' => 'required',
             'user_calista' => 'required',
             'password' => 'required',
@@ -187,6 +189,7 @@ class DirectUserController extends Controller
         $user->tgl_lahir = $request->tgl_lahir;
         $user->telp = $request->telp;
         $user->mkios = $request->mkios;
+        $user->link_aja = $request->link_aja;
         $user->id_digipos = $request->id_digipos;
         $user->user_calista = $request->user_calista;
         $user->password = $request->password;

@@ -127,7 +127,7 @@
                         <div class="grid grid-cols-3 gap-x-3 col-span-full">
                             <div>
                                 <label class="text-gray-700" for="telp">Telepon</label>
-                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="number" name="telp" value="{{ old('telp') }}">
+                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="number" name="telp" placeholder="081234567890" value="{{ old('telp') }}">
 
                                 @error('telp')
                                 <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
