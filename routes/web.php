@@ -10,6 +10,7 @@ use App\Http\Controllers\OutletController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\SalesContoller;
 use App\Http\Controllers\SekolahController;
+use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\WilayahController;
 use Illuminate\Support\Facades\Route;
 
@@ -130,7 +131,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('keterangan/event', [EventController::class, 'add_keterangan'])->name('event.keterangan');
 
     Route::resource('quiz', QuizController::class);
+    Route::resource('survey', SurveyController::class);
     Route::get('/show_answer/quiz/{id}', [QuizController::class, 'show_answer'])->name('quiz.show_answer');
+    Route::get('/show_answer/survey/{id}', [SurveyController::class, 'show_answer'])->name('survey.show_answer');
 
     Route::put('/change_status/quiz/{id}', [QuizController::class, 'change_status'])->name('quiz.change_status');
 });

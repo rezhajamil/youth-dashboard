@@ -3,35 +3,17 @@
 <div class="w-full mx-4">
     <div class="flex flex-col">
         <div class="mt-4">
-            <h4 class="text-xl font-bold text-gray-600 align-baseline">Tambah Data Quiz</h4>
+            <h4 class="text-xl font-bold text-gray-600 align-baseline">Tambah Data Survey</h4>
 
             <div class="px-6 py-4 mx-auto overflow-auto bg-white rounded-md shadow sm:mx-0 w-fit">
-                <form action="{{ route('quiz.store') }}" method="POST" class="">
+                <form action="{{ route('survey.store') }}" method="POST" class="">
                     @csrf
                     <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2" id="soal-container">
                         <div class="grid grid-cols-1 gap-6 sm:grid-cols-3 col-span-full">
                             <div>
-                                <label class="text-gray-700" for="nama">Nama Quiz</label>
+                                <label class="text-gray-700" for="nama">Nama Survey</label>
                                 <input class="w-full rounded-md form-input focus:border-indigo-600" type="text" name="nama" value="{{ old('nama') }}" required>
                                 @error('nama')
-                                <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div>
-                                <label class="text-gray-700" for="time">Waktu (Menit)</label>
-                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="number" name="time" value="{{ old('time') }}" required>
-                                @error('time')
-                                <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div>
-                                <label class="text-gray-700" for="jenis">Jenis</label>
-                                <select class="w-full rounded-md form-input focus:border-indigo-600" name="jenis" required>
-                                    <option value="" selected disabled>Pilih Jenis</option>
-                                    <option value="Youth Apps">Youth Apps</option>
-                                    <option value="Event">Event</option>
-                                </select>
-                                @error('jenis')
                                 <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -50,20 +32,9 @@
                                 <span class="font-bold text-black underline transition-all cursor-pointer counter-soal">Jumlah Soal : </span>
                             </div>
                             <div class="grid grid-cols-4 gap-x-4 col-span-full">
-                                <div class="col-span-3">
+                                <div class="col-span-full">
                                     <label class="text-gray-700" for="soal">Soal</label>
                                     <input class="w-full rounded-md form-input focus:border-indigo-600" type="text" name="soal[]" required>
-                                </div>
-                                <div class="col-span-1">
-                                    <label class="text-gray-700" for="jawaban">Jawaban</label>
-                                    <select name="jawaban[]" id="jawaban" class="w-full rounded-md" required>
-                                        <option value="" selected disabled>Pilih Jawaban</option>
-                                        <option value="A">A</option>
-                                        <option value="B">B</option>
-                                        <option value="C">C</option>
-                                        <option value="D">D</option>
-                                        <option value="E">E</option>
-                                    </select>
                                 </div>
                             </div>
                             <div class="my-2 col-span-full">
@@ -128,20 +99,9 @@
                     <span class="font-bold text-red-600 underline transition-all cursor-pointer delete-soal">- Hapus Soal</span>
                 </div>
                 <div class="grid grid-cols-4 gap-x-4 col-span-full">
-                    <div class="col-span-3">
+                    <div class="col-span-full">
                         <label class="text-gray-700" for="soal">Soal</label>
                         <input class="w-full rounded-md form-input focus:border-indigo-600 first-letter:uppercase" type="text" name="soal[]" required>
-                    </div>
-                    <div class="col-span-1">
-                        <label class="text-gray-700" for="jawaban">Jawaban</label>
-                        <select name="jawaban[]" id="jawaban" class="w-full rounded-md" required>
-                            <option value="" selected disabled>Pilih Jawaban</option>
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                            <option value="D">D</option>
-                            <option value="E">E</option>
-                        </select>
                     </div>
                 </div>
                 <div class="my-2 col-span-full">
