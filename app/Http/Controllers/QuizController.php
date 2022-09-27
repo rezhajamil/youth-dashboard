@@ -201,8 +201,10 @@ class QuizController extends Controller
                         FROM quiz_answer as a  
                         right JOIN data_user as b
                         ON a.telp=b.telp
-                        JOIN (SELECT c.`cluster`,COUNT(c.telp) as total FROM data_user as c GROUP BY 1) as d
+                        JOIN (SELECT c.`cluster`,COUNT(c.telp) as total FROM data_user as c 
+                        WHERE c.status='1' and NOT c.role='' GROUP BY 1) as d
                         ON b.`cluster`=d.`cluster`
+                        WHERE NOT b.`branch`='ALL'
                         GROUP BY 1,2,3
                         ORDER BY b.regional desc,b.branch,b.`cluster`;");
         if (request()->get('jenis') == 'event') {

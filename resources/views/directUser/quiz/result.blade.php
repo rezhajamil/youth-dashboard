@@ -24,7 +24,7 @@
                         @if ($data->cluster!='test')
                         <tr>
                             {{-- {{ ddd($data) }} --}}
-                            <td class="p-4 font-bold text-gray-700 border-b resume">{{ $key }}</td>
+                            <td class="p-4 font-bold text-gray-700 border-b resume">{{ $key+1 }}</td>
                             <td class="p-4 text-gray-700 border-b resume">{{ $data->regional }}</td>
                             <td class="p-4 text-gray-700 border-b resume">{{ $data->branch }}</td>
                             <td class="p-4 text-gray-700 border-b resume">{{ $data->cluster }}</td>
@@ -134,6 +134,7 @@
         win.document.write('<body>');
         win.document.write('<body><h4>Resume Quiz</h4>');
         win.document.write(resumeTable); // THE TABLE CONTENTS INSIDE THE BODY TAG.
+        win.document.write('<br/>');
         win.document.write('<br/>');
         win.document.write('<br/>');
         win.document.write('<br/>');
