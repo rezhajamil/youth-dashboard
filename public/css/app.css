@@ -854,6 +854,12 @@ select {
 .left-0 {
   left: 0px;
 }
+.top-5 {
+  top: 1.25rem;
+}
+.right-10 {
+  right: 2.5rem;
+}
 .z-0 {
   z-index: 0;
 }
@@ -1057,6 +1063,9 @@ select {
 }
 .h-24 {
   height: 6rem;
+}
+.h-64 {
+  height: 16rem;
 }
 .h-10 {
   height: 2.5rem;
@@ -1457,6 +1466,9 @@ select {
 .bg-gray-700 {
   --tw-bg-opacity: 1;
   background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+}
+.bg-black\/80 {
+  background-color: rgb(0 0 0 / 0.8);
 }
 .bg-pink-600 {
   --tw-bg-opacity: 1;
@@ -1930,6 +1942,9 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
+.hover\:bg-gray-500\/50:hover {
+  background-color: rgb(107 114 128 / 0.5);
+}
 .hover\:bg-gray-100:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
@@ -1969,10 +1984,6 @@ select {
   --tw-text-opacity: 1;
   color: rgb(22 101 52 / var(--tw-text-opacity));
 }
-.hover\:text-indigo-600:hover {
-  --tw-text-opacity: 1;
-  color: rgb(79 70 229 / var(--tw-text-opacity));
-}
 .hover\:text-white:hover {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -1984,6 +1995,14 @@ select {
 .hover\:text-gray-700:hover {
   --tw-text-opacity: 1;
   color: rgb(55 65 81 / var(--tw-text-opacity));
+}
+.hover\:text-black:hover {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+.hover\:text-premier:hover {
+  --tw-text-opacity: 1;
+  color: rgb(185 0 39 / var(--tw-text-opacity));
 }
 .hover\:text-blue-800:hover {
   --tw-text-opacity: 1;

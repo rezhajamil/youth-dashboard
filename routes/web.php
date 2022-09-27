@@ -47,6 +47,13 @@ Route::get('/start/quiz/', [QuizController::class, 'start'])->name('quiz.answer.
 Route::get('/answer_list/quiz/{id}', [QuizController::class, 'answer_list'])->name('quiz.answer.list');
 Route::post('/store_answer/quiz/', [QuizController::class, 'store_answer'])->name('quiz.answer.store');
 
+Route::get('/qns/survey', [SurveyController::class, 'answer'])->name('survey.answer.create');
+Route::get('/start/survey/', [SurveyController::class, 'start'])->name('survey.answer.start');
+Route::get('/answer_list/survey/{id}', [SurveyController::class, 'answer_list'])->name('survey.answer.list');
+Route::post('/store_answer/survey/', [SurveyController::class, 'store_answer'])->name('survey.answer.store');
+
+Route::post('/find_school', [SurveyController::class, 'find_school']);
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index']);
     Route::resource('dashboard', DashboardController::class);
@@ -136,6 +143,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/show_answer/survey/{id}', [SurveyController::class, 'show_answer'])->name('survey.show_answer');
 
     Route::put('/change_status/quiz/{id}', [QuizController::class, 'change_status'])->name('quiz.change_status');
+    Route::put('/change_status/survey/{id}', [SurveyController::class, 'change_status'])->name('survey.change_status');
 });
 
 require __DIR__ . '/auth.php';

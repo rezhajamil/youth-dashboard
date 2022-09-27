@@ -68,7 +68,7 @@
                             @endif
                             <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Hasil</th>
                             <th rowspan="2" class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Skor</th>
-                            <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Action</th>
+                            <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 action">Action</th>
                         </tr>
                         <tr>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Benar</th>
@@ -95,7 +95,7 @@
                             <td class="p-4 text-gray-700 border-b">{{ count(json_decode($quiz->soal)) }}</td>
                             <td class="p-4 font-bold border-b text-sekunder">{{ number_format(($data->hasil/count(json_decode($quiz->soal))*100),0,".",",") }}</td>
                             @if($data->pilihan)
-                            <td class="p-4 font-bold border-b text-sekunder"><a href="{{ route('quiz.show_answer',$data->id) }}" class="px-3 py-2 font-semibold text-white transition-all bg-orange-600 rounded whitespace-nowrap hover:bg-orange-800">Lihat Jawaban</a></td>
+                            <td class="p-4 font-bold border-b text-sekunder action"><a href="{{ route('quiz.show_answer',$data->id) }}" class="px-3 py-2 font-semibold text-white transition-all bg-orange-600 rounded whitespace-nowrap hover:bg-orange-800">Lihat Jawaban</a></td>
                             @endif
                         </tr>
                         @endforeach
@@ -116,6 +116,7 @@
         var resumeTable = document.getElementById('resume-container').innerHTML;
         var resultTable = document.getElementById('result-container').innerHTML;
 
+
         var style = "<style>";
         style = style + "table {width: 100%;font: 17px Calibri;}";
         style = style + "table.resume, th.resume, td.resume {border: solid 1px #B90027; border-collapse: collapse;}";
@@ -133,6 +134,11 @@
         win.document.write('<body>');
         win.document.write('<body><h4>Resume Quiz</h4>');
         win.document.write(resumeTable); // THE TABLE CONTENTS INSIDE THE BODY TAG.
+        win.document.write('<br/>');
+        win.document.write('<br/>');
+        win.document.write('<br/>');
+        win.document.write('<br/>');
+        win.document.write('<br/>');
         win.document.write('<h4>Skor Quiz</h4>');
         win.document.write(resultTable); // THE TABLE CONTENTS INSIDE THE BODY TAG.
         win.document.write('</body> </html > ');
@@ -146,7 +152,9 @@
 <script>
     $(document).ready(function() {
         $('#capture').click(function() {
+            $(".action").hide();
             createPDF()
+            $(".action").show();
         })
 
         $("#search").on("input", function() {

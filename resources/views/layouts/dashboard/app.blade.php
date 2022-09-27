@@ -8,6 +8,7 @@
     {{-- <link rel="canonical" href="{{ $page->getUrl() }}"> --}}
 
     <meta name="description" content="DASHBOARD YOUTH JAWARA">
+    <meta name="csrf-token" content="{{ csrf_token()  }}">
 
     <title>DASHBOARD YOUTH JAWARA</title>
 

@@ -49,19 +49,14 @@ class SurveyController extends Controller
         }
         $request->validate([
             'nama' => 'required',
-            'time' => 'required|numeric',
-            'jenis' => 'required',
         ]);
 
         $survey = DB::table('survey_session')->insert([
             'nama' => ucwords($request->nama),
-            'time' => $request->time,
-            'jenis' => $request->jenis,
             'date' => date('Y-m-d'),
             'deskripsi' => $request->deskripsi,
             'soal' => json_encode($request->soal),
             'opsi' => json_encode($request->opsi),
-            'jawaban' => json_encode($request->jawaban),
             'status' => '0'
         ]);
 
@@ -120,14 +115,6 @@ class SurveyController extends Controller
 
     public function change_status($id)
     {
-        // $active = DB::table('survey_session')->where('status', '1')->first();
-
-        // if ($active) {
-        //     DB::table('survey_session')->where('status', '1')->update([
-        //         'status' => '0'
-        //     ]);
-        // }
-
         $survey = DB::table('survey_session')->find($id);
         DB::table('survey_session')->where('id', $id)->update([
             'status' => !$survey->status
@@ -139,14 +126,14 @@ class SurveyController extends Controller
     public function answer(Request $request)
     {
         $plain = true;
-        $survey = DB::table('survey_session')->where('status', '1')->where('jenis', 'Youth Apps')->orderBy('date', 'desc')->first();
+        $survey = DB::table('survey_session')->where('status', '1')->orderBy('date', 'desc')->first();
         if ($survey) {
-            $answer = DB::table('survey_answer')->where('session', $survey->id)->where('telp', $request->telp)->first();
+            $answer = DB::table('survey_answer')->where('session', $survey->id)->where('telp', $request->telp)->where('telp_siswa', $request->telp_siswa)->first();
         } else {
             $answer = [];
         }
         $user = DB::table('data_user')->where('telp', $request->telp)->first();
-        $history = DB::select("SELECT * FROM survey_answer a JOIN survey_session b ON a.session=b.id where a.telp='" . $request->telp . "' and MONTH(b.date)=" . date('m') . " order BY b.date");
+        $history = DB::table('survey_answer')->where('session', $survey->id)->where('telp', $request->telp)->orderBy('npsn')->orderBy('kelas')->orderBy('telp_siswa')->get();
 
         return view('directUser.survey.answer', compact('survey', 'answer', 'plain', 'user', 'history'));
     }
@@ -154,42 +141,40 @@ class SurveyController extends Controller
     public function start(Request $request)
     {
         $plain = true;
-        $survey = DB::table('survey_session')->where('status', '1')->where('jenis', 'Youth Apps')->first();
-        $answer = DB::table('survey_answer')->where('session', $survey->id)->where('telp', $request->telp)->count();
+        $survey = DB::table('survey_session')->where('status', '1')->first();
+        $answer = DB::table('survey_answer')->where('session', $survey->id)->where('telp', $request->telp)->where('telp_siswa', $request->telp_siswa)->count();
 
         if ($answer < 1) {
             DB::table('survey_answer')->insert([
                 'session' => $survey->id,
                 'telp' => $request->telp,
+                'npsn' => $request->npsn,
+                'kelas' => $request->kelas,
+                'telp_siswa' => $request->telp_siswa,
                 'time_start' => date('Y-m-d H:i:s'),
-                'hasil' => '0'
+                'finish' => '0',
             ]);
         }
 
-        return redirect(URL::to('/qns?telp=' . $request->telp));
+        return redirect(URL::to('/qns/survey?telp=' . $request->telp));
     }
 
     public function store_answer(Request $request)
     {
         $survey = DB::table('survey_session')->find($request->session);
         $jawaban = json_decode($survey->jawaban);
-        $hasil = 0;
         $pilihan = [];
 
         foreach ($jawaban as $key => $data) {
-            if ($data == $request['pilihan' . $key]) {
-                $hasil++;
-            }
             array_push($pilihan, $request['pilihan' . $key]);
         }
 
-        DB::table('survey_answer')->where('session', $request->session)->where('telp', $request->telp)->update([
-            'hasil' => $hasil,
+        DB::table('survey_answer')->where('session', $request->session)->where('telp', $request->telp)->where('telp_siswa', $request->telp_siswa)->update([
             'finish' => '1',
             'pilihan' => json_encode($pilihan)
         ]);
 
-        return redirect(URL::to('/qns?telp=' . $request->telp));
+        return redirect(URL::to('/qns/survey?telp=' . $request->telp));
     }
 
     public function answer_list($id)
@@ -207,7 +192,7 @@ class SurveyController extends Controller
         if (request()->get('jenis') == 'event') {
             $answer = DB::table('survey_answer')->join('user_event', 'user_event.telp', '=', 'survey_answer.telp')->distinct('nama')->where('session', $id)->orderBy('nama')->get();
         } else {
-            $answer = DB::table('survey_answer')->select(["survey_answer.id", "cluster", "nama", "survey_answer.telp", "role", "session", "hasil", "pilihan"])->join('data_user', 'data_user.telp', '=', 'survey_answer.telp')->distinct('nama')->where('session', $id)->orderBy('cluster')->orderBy('nama')->get();
+            $answer = DB::table('survey_answer')->select(["survey_answer.id", "cluster", "nama", "survey_answer.telp", "role", "session", "pilihan"])->join('data_user', 'data_user.telp', '=', 'survey_answer.telp')->distinct('nama')->where('session', $id)->orderBy('cluster')->orderBy('nama')->get();
         }
         $survey = DB::table('survey_session')->find($id);
         return view('directUser.survey.result', compact('answer', 'survey', 'resume'));
@@ -226,5 +211,14 @@ class SurveyController extends Controller
         // ddd(json_decode($answer->pilihan));
 
         return view('directUser.survey.show_answer', compact('answer', 'survey', 'user'));
+    }
+
+
+    public function find_school(Request $request)
+    {
+        $name = $request->name;
+        $sekolah = DB::table('Data_Sekolah_Sumatera')->select(['NPSN', 'NAMA_SEKOLAH'])->where('PROVINSI', 'Sumatera Utara')->where('NAMA_SEKOLAH', 'like', '%' . $name . '%')->orderBy('NAMA_SEKOLAH')->limit('10')->get();
+
+        return response()->json($sekolah);
     }
 }

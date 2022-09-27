@@ -21,7 +21,6 @@
                     </thead>
                     <tbody class="max-h-screen overflow-y-auto">
                         @foreach ($session as $key=>$data)
-                        @if($data->jenis=='Youth Apps')
                         <tr class="border-b hover:bg-gray-200">
                             {{-- {{ ddd($data) }} --}}
                             <td class="p-4 font-bold text-gray-700">{{ $key+1 }}</td>
@@ -52,7 +51,6 @@
                                 </div>
                             </td>
                         </tr>
-                        @endif
                         @endforeach
                     </tbody>
                 </table>
