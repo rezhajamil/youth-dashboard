@@ -187,7 +187,8 @@ class QuizController extends Controller
         DB::table('quiz_answer')->where('session', $request->session)->where('telp', $request->telp)->update([
             'hasil' => $hasil,
             'finish' => '1',
-            'pilihan' => json_encode($pilihan)
+            'time_end' => date('Y-m-d H:i:s'),
+            'pilihan' => json_encode($pilihan),
         ]);
 
         return redirect(URL::to('/qns?telp=' . $request->telp));

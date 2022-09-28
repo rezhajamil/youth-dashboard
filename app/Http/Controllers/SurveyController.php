@@ -189,12 +189,10 @@ class SurveyController extends Controller
                         ON b.`cluster`=d.`cluster`
                         GROUP BY 1,2,3
                         ORDER BY b.regional desc,b.branch,b.`cluster`;");
-        if (request()->get('jenis') == 'event') {
-            $answer = DB::table('survey_answer')->join('user_event', 'user_event.telp', '=', 'survey_answer.telp')->distinct('nama')->where('session', $id)->orderBy('nama')->get();
-        } else {
-            $answer = DB::table('survey_answer')->select(["survey_answer.id", "cluster", "nama", "survey_answer.telp", "role", "session", "pilihan"])->join('data_user', 'data_user.telp', '=', 'survey_answer.telp')->distinct('nama')->where('session', $id)->orderBy('cluster')->orderBy('nama')->get();
-        }
+        $answer = DB::table('survey_answer')->join('data_user', 'data_user.telp', '=', 'survey_answer.telp')->join('Data_Sekolah_Sumatera', 'survey_answer.npsn', '=', 'Data_Sekolah_Sumatera.NPSN')->where('session', $id)->orderBy('data_user.cluster')->orderBy('nama')->get();
         $survey = DB::table('survey_session')->find($id);
+
+        ddd($answer);
         return view('directUser.survey.result', compact('answer', 'survey', 'resume'));
     }
 

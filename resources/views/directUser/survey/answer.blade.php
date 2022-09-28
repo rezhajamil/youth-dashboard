@@ -65,7 +65,29 @@
             <span class="inline-block mt-1 text-sm underline transition-all cursor-pointer text-sekunder hover:text-black" x-on:click="search=true"><i class="mr-1 text-sm fa-solid fa-magnifying-glass text-sekunder"></i>Cari Sekolah</span>
             <input class="w-full mt-4 rounded-md form-input focus:border-indigo-600" type="number" name="telp_siswa" id="telp_siswa" placeholder="Telepon Siswa" value="{{ old('telp_siswa') }}" required>
             <span class="inline-block mt-1 text-sm transition-all cursor-pointer text-sekunder hover:text-black">Format : 081234567890</span>
-            <input class="w-full mt-4 rounded-md form-input focus:border-indigo-600" type="text" name="kelas" id="kelas" placeholder="Kelas Siswa" value="{{ old('kelas') }}" required>
+
+            <select name="kelas" id="kelas" class="w-full mt-4 rounded-md form-input focus:border-indigo-600">
+                <option value="" selected disabled>Pilih Kelas</option>
+                <optgroup label="SD">
+                    <option value="I">I</option>
+                    <option value="II">II</option>
+                    <option value="III">III</option>
+                    <option value="IV">IV</option>
+                    <option value="V">V</option>
+                    <option value="VI">VI</option>
+                </optgroup>
+                <optgroup label="SMP">
+                    <option value="VII">VII</option>
+                    <option value="VIII">VIII</option>
+                    <option value="IX">IX</option>
+                </optgroup>
+                <optgroup label="SMA">
+                    <option value="X">X</option>
+                    <option value="XI">XI</option>
+                    <option value="XII">XII</option>
+                </optgroup>
+            </select>
+            {{-- <input class="w-full mt-4 rounded-md form-input focus:border-indigo-600" type="text" name="kelas" id="kelas" placeholder="Kelas Siswa" value="{{ old('kelas') }}" required> --}}
             <button class="block px-4 py-2 mx-auto my-6 font-semibold text-white transition-all rounded bg-sekunder w-fit hover:bg-black">
                 Mulai Survey
             </button>

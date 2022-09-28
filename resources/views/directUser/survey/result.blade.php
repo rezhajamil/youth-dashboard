@@ -22,13 +22,14 @@
             <div class="overflow-auto bg-white rounded-md shadow w-fit" id="result-container">
                 <table class="overflow-auto text-left bg-white border-collapse w-fit">
                     <thead class="border-b">
-                        <tr>
+                        <tr class="border-b">
                             <th rowspan="2" class="p-3 text-sm font-bold text-gray-100 uppercase bg-red-600">No</th>
-                            <th rowspan="2" class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Cluster</th>
-                            <th rowspan="2" class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Nama</th>
-                            <th rowspan="2" class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Telp</th>
-                            <th rowspan="2" class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Role</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">DS</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Siswa</th>
                             <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Action</th>
+                        </tr>
+                        <tr class="">
+
                         </tr>
                     </thead>
                     <tbody class="max-h-screen overflow-y-auto">
