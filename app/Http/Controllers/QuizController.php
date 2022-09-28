@@ -202,7 +202,7 @@ class QuizController extends Controller
                         right JOIN data_user as b
                         ON a.telp=b.telp
                         JOIN (SELECT c.`cluster`,COUNT(c.telp) as total FROM data_user as c 
-                        WHERE c.status='1' and NOT c.role='' GROUP BY 1) as d
+                        WHERE c.status='1' GROUP BY 1) as d
                         ON b.`cluster`=d.`cluster`
                         WHERE NOT b.`branch`='ALL'
                         GROUP BY 1,2,3
