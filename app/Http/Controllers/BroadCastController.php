@@ -202,15 +202,14 @@ class BroadCastController extends Controller
         } else {
             $cluster = DB::table('wilayah')->select('cluster')->distinct()->whereNotNull('cluster')->where('branch', Auth::user()->branch)->get();
         }
-        $dataProgram = DB::select("select program from new_list_program where status='1'
-            " . $branch . "
-        ");
+        $dataProgram = DB::select("select program from new_list_program where status='1'" . $branch . "");
+        $dataProgramCall = DB::select("select program from new_list_program_call where status='1'" . $branch . "");
 
         // ddd("select program from new_list_program where status='1'
         //     " . $branch . "
         // ");
         // ddd(Auth::user()->privilege);
-        return view('broadcast.whitelist.create', compact('cluster', 'dataProgram'));
+        return view('broadcast.whitelist.create', compact('cluster', 'dataProgram', 'dataProgramCall'));
     }
 
     public function store_whitelist(Request $request)
@@ -242,7 +241,11 @@ class BroadCastController extends Controller
 
                     if ($idx > 0 && $idx < 501) {
                         // echo '<pre>' . $idx . var_export($data, true) . '</pre>';
-                        DB::table('new_data_broadcast')->insert($data);
+                        if ($request->jenis == 'broadcast') {
+                            DB::table('new_data_broadcast')->insert($data);
+                        } else if ($request->jenis == 'call') {
+                            DB::table('new_data_broadcast_call')->insert($data);
+                        }
                     } else if ($idx > 501) {
                         break;
                     }

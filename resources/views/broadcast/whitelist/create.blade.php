@@ -8,7 +8,7 @@
             <div class="px-6 py-4 mx-auto overflow-auto bg-white rounded-md shadow sm:mx-0 w-fit">
                 <form action="{{ route('whitelist.store') }}" method="POST" class="" enctype="multipart/form-data">
                     @csrf
-                    <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+                    <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-3">
                         <div class="w-full">
                             <label class="block text-gray-700" for="cluster">Cluster</label>
                             <select name="cluster" id="cluster" class="w-full rounded-md" required>
@@ -23,14 +23,29 @@
                         </div>
 
                         <div class="w-full">
+                            <label class="block text-gray-700" for="program">Jenis</label>
+                            <select name="jenis" id="jenis" class="w-full rounded-md" required>
+                                <option value="" selected disabled>Pilih Jenis</option>
+                                <option value="broadcast">Broadcast</option>
+                                <option value="call">Call</option>
+                            </select>
+                            @error('jenis')
+                            <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="w-full">
                             <label class="block text-gray-700" for="program">Program</label>
                             <select name="program" id="program" class="w-full rounded-md" required>
                                 <option value="" selected disabled>Pilih Program</option>
                                 @foreach ($dataProgram as $item)
-                                <option value="{{ $item->program }}" {{ old('program')==$item->program?'selected':'' }}>{{ $item->program }}</option>
+                                <option value="{{ $item->program }}" {{ old('program')==$item->program?'selected':'' }} class="program" style="display:none">{{ $item->program }}</option>
+                                @endforeach
+                                @foreach ($dataProgramCall as $item)
+                                <option value="{{ $item->program }}" {{ old('program')==$item->program?'selected':'' }} class="program_call" style="display:none">{{ $item->program }}</option>
                                 @endforeach
                             </select>
-                            @error('cluster')
+                            @error('program')
                             <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                             @enderror
                         </div>
@@ -87,7 +102,8 @@
                 , error: (e) => {
                     console.log(e)
                 }
-            })
+            });
+
         })
 
         $("#branch").on('input', () => {
@@ -146,6 +162,22 @@
                 }
             })
         })
+
+        $("select[name=jenis]").on("change", function() {
+            let value = $(this).val();
+
+            if (value == 'broadcast') {
+                $(".program").show();
+                $(".program_call").hide();
+            } else if (value == 'call') {
+                $(".program").hide();
+                $(".program_call").show();
+            } else {
+                $(".program").hide();
+                $(".program_call").hide();
+            }
+        })
+
     })
 
 </script>
