@@ -4,13 +4,13 @@
     <div class="w-full px-4 py-2 bg-white rounded-lg shadow-xl h-fit sm:w-3/4 ">
         @if($survey)
         <span class="block w-full py-2 mb-2 text-2xl font-bold text-center border-b-2 text-sekunder">{{ $survey?$survey->nama:'' }}</span>
-        @if ($answer)
+        @if ($answer && $answer->finish)
         <span class="block w-full mt-4 mb-2 text-xl font-bold text-center text-tersier">Survey Telah Selesai</span>
-        @else
-        @if(request()->get('npsn')&&request()->get('kelas')&&request()->get('telp_siswa')&& !$answer->finish)
+        @elseif(request()->get('npsn')&&request()->get('kelas')&&request()->get('telp_siswa')&& !$answer->finish)
         <form action="{{ route('survey.answer.store') }}" method="post" id="form-survey">
             @csrf
             <input type="hidden" name="telp" value="{{ request()->get('telp') }}">
+            <input type="hidden" name="telp_siswa" value="{{ request()->get('telp_siswa') }}">
             <input type="hidden" name="session" value="{{ $survey->id }}">
             @foreach (json_decode($survey->soal) as $key=>$data)
             <div class="flex flex-col py-4 border-b-4 gap-y-3">
@@ -54,10 +54,8 @@
             @endforeach
             <button type="submit" id="btn-submit" class="w-full px-6 py-2 my-4 font-semibold text-white rounded bg-sekunder">Selesai</button>
         </form>
-        @endif
-        @endif
+        @else
         <span class="block w-full font-bold text-sekunder">Selamat Datang {{ $user->nama }} | {{ $user->telp }}</span>
-        @if($survey)
         {!! $survey->deskripsi !!}
         <form action="{{ URL::to("/start/survey") }}" method="get" class="my-4" x-data="{search:false}">
             <input type="hidden" name="telp" value="{{ request()->get('telp') }}">
@@ -102,7 +100,6 @@
                 </div>
             </div>
         </form>
-        @endif
         <div class="my-8">
             <span class="block w-full mb-2 font-bold text-center text-sekunder">Riwayat Survey</span>
             <div class="overflow-auto rounded-sm">
@@ -126,6 +123,7 @@
                 </table>
             </div>
         </div>
+        @endif
         @else
         <span class="block w-full py-2 mb-2 text-2xl font-bold text-center text-premier">Tidak Ada Survey Aktif</span>
         @endif

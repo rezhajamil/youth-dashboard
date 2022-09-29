@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -154,6 +155,8 @@ class SurveyController extends Controller
                 'time_start' => date('Y-m-d H:i:s'),
                 'finish' => '0',
             ]);
+
+            return redirect(URL::to('/qns/survey?telp=' . $request->telp . '&npsn=' . $request->npsn . '&kelas=' . $request->kelas . '&telp_siswa=' . $request->telp_siswa));
         }
 
         return redirect(URL::to('/qns/survey?telp=' . $request->telp));
@@ -162,10 +165,10 @@ class SurveyController extends Controller
     public function store_answer(Request $request)
     {
         $survey = DB::table('survey_session')->find($request->session);
-        $jawaban = json_decode($survey->jawaban);
+        $soal = json_decode($survey->soal);
         $pilihan = [];
 
-        foreach ($jawaban as $key => $data) {
+        foreach ($soal as $key => $data) {
             array_push($pilihan, $request['pilihan' . $key]);
         }
 
@@ -189,10 +192,9 @@ class SurveyController extends Controller
                         ON b.`cluster`=d.`cluster`
                         GROUP BY 1,2,3
                         ORDER BY b.regional desc,b.branch,b.`cluster`;");
-        $answer = DB::table('survey_answer')->join('data_user', 'data_user.telp', '=', 'survey_answer.telp')->join('Data_Sekolah_Sumatera', 'survey_answer.npsn', '=', 'Data_Sekolah_Sumatera.NPSN')->where('session', $id)->orderBy('data_user.cluster')->orderBy('nama')->get();
+        $answer = DB::table('survey_answer')->select(['survey_answer.*', 'data_user.cluster', 'nama', 'NAMA_SEKOLAH'])->join('data_user', 'data_user.telp', '=', 'survey_answer.telp')->join('Data_Sekolah_Sumatera', 'survey_answer.npsn', '=', 'Data_Sekolah_Sumatera.NPSN')->where('session', $id)->orderBy('data_user.cluster')->orderBy('nama')->get();
         $survey = DB::table('survey_session')->find($id);
 
-        ddd($answer);
         return view('directUser.survey.result', compact('answer', 'survey', 'resume'));
     }
 

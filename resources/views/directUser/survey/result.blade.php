@@ -23,36 +23,32 @@
                 <table class="overflow-auto text-left bg-white border-collapse w-fit">
                     <thead class="border-b">
                         <tr class="border-b">
-                            <th rowspan="2" class="p-3 text-sm font-bold text-gray-100 uppercase bg-red-600">No</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">DS</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Siswa</th>
-                            <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Action</th>
+                            <th rowspan="2" class="p-3 text-sm font-bold text-center text-gray-100 uppercase bg-red-600 border">No</th>
+                            <th colspan="3" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">DS</th>
+                            <th colspan="3" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Siswa</th>
+                            <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Action</th>
                         </tr>
                         <tr class="">
-
+                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Cluster</th>
+                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Telp</th>
+                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Nama</th>
+                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Sekolah</th>
+                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Kelas</th>
+                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Telp</th>
                         </tr>
                     </thead>
                     <tbody class="max-h-screen overflow-y-auto">
                         @foreach ($answer as $key=>$data)
                         <tr>
-                            <td class="p-4 font-bold text-gray-700 border-b">{{ $key+1 }}</td>
-                            @if(request()->get('jenis')=='event')
-                            {{-- <td class="p-4 text-gray-700 border-b cluster">{{ $data->npsn }}</td> --}}
-                            @else
-                            <td class="p-4 text-gray-700 border-b cluster">{{ $data->cluster }}</td>
-                            @endif
-                            <td class="p-4 text-gray-700 border-b nama">{{ ucwords(strtolower($data->nama)) }}</td>
-                            <td class="p-4 text-gray-700 border-b telp">{{ $data->telp }}</td>
-                            @if(request()->get('jenis')=='event')
-                            <td class="p-4 text-gray-700 border-b cluster">{{ $data->email }}</td>
-                            @else
-                            <td class="p-4 text-gray-700 border-b cluster">{{ $data->role }}</td>
-                            @endif
-                            <td class="p-4 text-gray-700 border-b">{{ $data->hasil }}</td>
-                            <td class="p-4 text-gray-700 border-b">{{ count(json_decode($survey->soal)) }}</td>
-                            <td class="p-4 font-bold border-b text-sekunder">{{ number_format(($data->hasil/count(json_decode($survey->soal))*100),0,".",",") }}</td>
+                            <td class="p-4 font-bold text-gray-700 border border-b">{{ $key+1 }}</td>
+                            <td class="p-4 text-gray-700 border border-b">{{ $data->cluster }}</td>
+                            <td class="p-4 text-gray-700 border border-b">{{ $data->telp }}</td>
+                            <td class="p-4 text-gray-700 border border-b">{{ $data->nama }}</td>
+                            <td class="p-4 text-gray-700 border border-b">{{ $data->NAMA_SEKOLAH }}</td>
+                            <td class="p-4 text-gray-700 border border-b">{{ $data->kelas }}</td>
+                            <td class="p-4 text-gray-700 border border-b">{{ $data->telp_siswa }}</td>
                             @if($data->pilihan)
-                            <td class="p-4 font-bold border-b text-sekunder"><a href="{{ route('survey.show_answer',$data->id) }}" class="px-3 py-2 font-semibold text-white transition-all bg-orange-600 rounded whitespace-nowrap hover:bg-orange-800">Lihat Jawaban</a></td>
+                            <td class="p-4 font-bold border border-b text-sekunder"><a href="{{ route('survey.show_answer',$data->id) }}" class="px-3 py-2 font-semibold text-white transition-all bg-orange-600 rounded whitespace-nowrap hover:bg-orange-800">Lihat Jawaban</a></td>
                             @endif
                         </tr>
                         @endforeach
