@@ -244,7 +244,7 @@ class BroadCastController extends Controller
                         if ($request->jenis == 'broadcast') {
                             DB::table('new_data_broadcast')->insert($data);
                         } else if ($request->jenis == 'call') {
-                            DB::table('new_data_broadcast_call')->insert($data);
+                            DB::table('new_data_call')->insert($data);
                         }
                     } else if ($idx > 501) {
                         break;
