@@ -139,7 +139,9 @@ class BroadCastController extends Controller
     public function whitelist(Request $request)
     {
         $program = $request->program;
-        $dataProgram = DB::table('new_after_broadcast')->select('program')->distinct()->get();
+        $program_call = $request->program_call;
+        $dataProgram = DB::table('new_list_program')->select('program')->distinct()->get();
+        $dataProgramCall = DB::table('new_list_program_call')->select('program')->distinct()->get();
         $branch = Auth::user()->privilege == "branch" ? "AND data_user.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "AND data_user.cluster='" . Auth::user()->cluster . "'" : '');
 
         $whitelist = DB::select("SELECT 
@@ -151,12 +153,27 @@ class BroadCastController extends Controller
                     count(if(`new_data_broadcast`.status='0',1,NULL)) as 'belum',
                     count(if(`new_data_broadcast`.telp='no',1,NULL)) as 'sisa'
                    
-                    
                     FROM `new_data_broadcast`
                     JOIN data_user ON data_user.telp=new_data_broadcast.telp
                     
-                    
                     Where new_data_broadcast.program='$program' 
+					" . $branch . "
+                    GROUP by 1,2,3,4
+                    order by 3,4,2");
+
+        $whitelist_call = DB::select("SELECT 
+                    
+                    new_data_call.telp, data_user.nama,data_user.branch,new_data_call.cluster,
+                    count(`new_data_call`.msisdn) as 'wl',
+                    count(if(`new_data_call`.telp!='no',1,NULL)) as 'diambil',
+                    count(if(`new_data_call`.status='1',1,NULL)) as 'sudah' ,
+                    count(if(`new_data_call`.status='0',1,NULL)) as 'belum',
+                    count(if(`new_data_call`.telp='no',1,NULL)) as 'sisa'
+                   
+                    FROM `new_data_call`
+                    JOIN data_user ON data_user.telp=new_data_call.telp
+                    
+                    Where new_data_call.program='$program_call' 
 					" . $branch . "
                     GROUP by 1,2,3,4
                     order by 3,4,2");
@@ -169,17 +186,31 @@ class BroadCastController extends Controller
                     count(if(`new_data_broadcast`.status='0',1,NULL)) as 'belum',
                     count(if(`new_data_broadcast`.telp='no',1,NULL)) as 'sisa'
                    
-                    
                     FROM `new_data_broadcast`
                     JOIN data_user ON data_user.telp=new_data_broadcast.telp
-                    
                     
                     Where new_data_broadcast.program='$program' 
 					" . $branch . "
                     GROUP by 1,2
                     order by 1,2");
 
-        return view('broadcast.whitelist.index', compact('whitelist', 'whitelist_branch', 'dataProgram'));
+        $whitelist_branch_call = DB::select("SELECT 
+                    data_user.branch,new_data_call.cluster,
+                    count(`new_data_call`.msisdn) as 'wl',
+                    count(if(`new_data_call`.telp!='no',1,NULL)) as 'diambil',
+                    count(if(`new_data_call`.status='1',1,NULL)) as 'sudah' ,
+                    count(if(`new_data_call`.status='0',1,NULL)) as 'belum',
+                    count(if(`new_data_call`.telp='no',1,NULL)) as 'sisa'
+                   
+                    FROM `new_data_call`
+                    JOIN data_user ON data_user.telp=new_data_call.telp
+                    
+                    Where new_data_call.program='$program_call' 
+					" . $branch . "
+                    GROUP by 1,2
+                    order by 1,2");
+
+        return view('broadcast.whitelist.index', compact('whitelist', 'whitelist_branch', 'whitelist_call', 'whitelist_branch_call', 'dataProgram', 'dataProgramCall'));
     }
 
     public function release_whitelist(Request $request, $telp)
