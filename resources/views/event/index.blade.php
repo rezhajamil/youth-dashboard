@@ -9,9 +9,9 @@
 
             <div class="flex justify-between">
                 <form class="flex flex-wrap items-center my-3 gap-x-4 gap-y-2" action="{{ route('event.index') }}" method="get">
-                    <select name="kategori" id="kategori" class="px-8 rounded-lg">
+                    <select name="kategori" id="kategori" class="px-4 rounded-lg">
                         <option value="" selected disabled>Pilih Kategori</option>
-                        <option value="All">Semua</option>
+                        <option value="All" {{ 'All'==request()->get('kategori')?'selected':'' }}>Semua</option>
                         @foreach ($kategori as $item)
                         <option value="{{ $item->kategori }}" {{ $item->kategori==request()->get('kategori')?'selected':'' }}>{{ $item->kategori }}</option>
                         @endforeach
