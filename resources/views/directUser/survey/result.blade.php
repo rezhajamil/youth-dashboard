@@ -23,18 +23,14 @@
                         </tr>
                     </thead>
                     <tbody class="max-h-screen overflow-y-auto">
-                        @foreach ($answer as $key=>$data)
+                        @foreach ($hasil as $key=>$data)
                         <tr>
                             <td class="p-4 font-bold text-gray-700 border border-b">{{ $key+1 }}</td>
-                            <td class="p-4 text-gray-700 border border-b">{{ $data->cluster }}</td>
-                            <td class="p-4 text-gray-700 border border-b">{{ $data->telp }}</td>
-                            <td class="p-4 text-gray-700 border border-b">{{ $data->nama }}</td>
-                            <td class="p-4 text-gray-700 border border-b">{{ $data->NAMA_SEKOLAH }}</td>
-                            <td class="p-4 text-gray-700 border border-b">{{ $data->kelas }}</td>
-                            <td class="p-4 text-gray-700 border border-b">{{ $data->telp_siswa }}</td>
-                            @if($data->pilihan)
-                            <td class="p-4 font-bold border border-b text-sekunder"><a href="{{ route('survey.show_answer',$data->id) }}" class="px-3 py-2 font-semibold text-white transition-all bg-orange-600 rounded whitespace-nowrap hover:bg-orange-800">Lihat Jawaban</a></td>
-                            @endif
+                            <td class="p-4 text-gray-700 border border-b">{{ $data['A'] }}</td>
+                            <td class="p-4 text-gray-700 border border-b">{{ $data['B'] }}</td>
+                            <td class="p-4 text-gray-700 border border-b">{{ $data['C'] }}</td>
+                            <td class="p-4 text-gray-700 border border-b">{{ $data['D'] }}</td>
+                            <td class="p-4 text-gray-700 border border-b">{{ $data['E'] }}</td>
                         </tr>
                         @endforeach
                     </tbody>

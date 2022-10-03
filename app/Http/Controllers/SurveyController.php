@@ -128,11 +128,13 @@ class SurveyController extends Controller
     {
         $plain = true;
         $survey = DB::table('survey_session')->where('status', '1')->orderBy('date', 'desc')->first();
+
         if ($survey) {
             $answer = DB::table('survey_answer')->where('session', $survey->id)->where('telp', $request->telp)->where('telp_siswa', $request->telp_siswa)->first();
         } else {
             $answer = [];
         }
+        // ddd($survey);
         $user = DB::table('data_user')->where('telp', $request->telp)->first();
         $history = DB::table('survey_answer')->where('session', $survey->id)->where('telp', $request->telp)->orderBy('npsn')->orderBy('kelas')->orderBy('telp_siswa')->get();
 
@@ -142,7 +144,7 @@ class SurveyController extends Controller
     public function start(Request $request)
     {
         $plain = true;
-        $survey = DB::table('survey_session')->where('status', '1')->first();
+        $survey = DB::table('survey_session')->where('status', '1')->orderBy('date', 'desc')->first();
         $answer = DB::table('survey_answer')->where('session', $survey->id)->where('telp', $request->telp)->where('telp_siswa', $request->telp_siswa)->count();
 
         if ($answer < 1) {
@@ -190,7 +192,11 @@ class SurveyController extends Controller
 
         foreach ($resume as $idx => $resume) {
             foreach (json_decode($resume->pilihan) as $soal => $pilihan) {
-                $hasil[$soal]['A'] = 0;
+                $hasil[$soal]['A'] = $hasil[$soal]['A'] ?? 0;
+                $hasil[$soal]['B'] = $hasil[$soal]['B'] ?? 0;
+                $hasil[$soal]['C'] = $hasil[$soal]['C'] ?? 0;
+                $hasil[$soal]['D'] = $hasil[$soal]['D'] ?? 0;
+                $hasil[$soal]['E'] = $hasil[$soal]['E'] ?? 0;
                 switch ($pilihan) {
                     case 'A':
                         $hasil[$soal]['A'] += 1;
@@ -215,9 +221,9 @@ class SurveyController extends Controller
             }
         }
 
-        ddd($hasil);
+        // ddd($hasil);
 
-        return view('directUser.survey.result', compact('answer', 'survey', 'resume'));
+        return view('directUser.survey.result', compact('answer', 'survey', 'resume', 'hasil'));
     }
 
     public function show_answer(Request $request, $id)
