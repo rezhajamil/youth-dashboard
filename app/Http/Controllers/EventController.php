@@ -14,7 +14,11 @@ class EventController extends Controller
      */
     public function index()
     {
-        $peserta = DB::select("SELECT * FROM peserta_event a LEFT JOIN Data_Sekolah_Sumatera b ON a.npsn=b.NPSN ORDER BY kategori,jenis,KAB_KOTA,KECAMATAN,a.npsn,NAMA_SEKOLAH,nama;");
+        if (!request()->get('kategori') || request()->get('kategori') == 'All') {
+            $peserta = DB::select("SELECT * FROM peserta_event a LEFT JOIN Data_Sekolah_Sumatera b ON a.npsn=b.NPSN ORDER BY kategori,jenis,KAB_KOTA,KECAMATAN,a.npsn,NAMA_SEKOLAH,nama;");
+        } else {
+            $peserta = DB::select("SELECT * FROM peserta_event a LEFT JOIN Data_Sekolah_Sumatera b ON a.npsn=b.NPSN WHERE a.kategori='" . request()->get('kategori') . "' ORDER BY kategori,jenis,KAB_KOTA,KECAMATAN,a.npsn,NAMA_SEKOLAH,nama;");
+        }
         $kategori = DB::table('peserta_event')->select('kategori')->distinct()->orderBy('kategori')->get();
         return view('event.index', compact('peserta', 'kategori'));
     }

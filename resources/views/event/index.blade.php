@@ -7,6 +7,25 @@
                 <h4 class="text-xl font-bold text-gray-600 align-baseline">Data Peserta Event</h4>
             </div>
 
+            <div class="flex justify-between">
+                <form class="flex flex-wrap items-center my-3 gap-x-4 gap-y-2" action="{{ route('event.index') }}" method="get">
+                    <select name="kategori" id="kategori" class="px-8 rounded-lg">
+                        <option value="" selected disabled>Pilih Kategori</option>
+                        <option value="All">Semua</option>
+                        @foreach ($kategori as $item)
+                        <option value="{{ $item->kategori }}" {{ $item->kategori==request()->get('kategori')?'selected':'' }}>{{ $item->kategori }}</option>
+                        @endforeach
+                    </select>
+                    <div class="flex gap-x-3">
+                        <button class="px-4 py-2 font-bold text-white transition bg-indigo-600 rounded-lg hover:bg-indigo-800"><i class="mr-2 fa-solid fa-magnifying-glass"></i>Cari</button>
+                        @if (request()->get('kategori'))
+                        <a href="{{ route('event.index') }}" class="px-4 py-2 font-bold text-white transition bg-gray-600 rounded-lg hover:bg-gray-800"><i class="mr-2 fa-solid fa-circle-xmark"></i>Reset</a>
+                        @endif
+                    </div>
+                </form>
+            </div>
+
+
             {{-- <span class="inline-block mt-6 mb-2 text-lg font-semibold text-gray-600">Direct Sales By Region</span> --}}
             {{-- <a href="{{ route('direct_user.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-800"><i class="mr-2 fa-solid fa-plus"></i> Data User Baru</a> --}}
             <div class="flex flex-wrap items-end my-3 gap-x-4 gap-y-2">
