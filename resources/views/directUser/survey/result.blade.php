@@ -7,6 +7,41 @@
             <h4 class="inline-block mb-2 text-xl font-bold text-gray-600 align-baseline" id="title">{{ $survey->nama }}</h4>
             {{-- <button class="px-2 py-1 ml-2 text-lg text-white transition bg-green-600 rounded-md hover:bg-green-800" id="capture"><i class="fa-regular fa-circle-down"></i></button> --}}
 
+            <div class="mb-8 overflow-auto bg-white rounded-md shadow w-fit" id="result-container">
+                <table class="overflow-auto text-left bg-white border-collapse w-fit">
+                    <thead class="border-b">
+                        <tr class="border-b">
+                            <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Soal</th>
+                            <th colspan="5" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Opsi</th>
+                        </tr>
+                        <tr class="border-b">
+                            <th class="p-3 text-sm font-bold text-center text-gray-100 uppercase bg-red-600 border">A</th>
+                            <th class="p-3 text-sm font-bold text-center text-gray-100 uppercase bg-red-600 border">B</th>
+                            <th class="p-3 text-sm font-bold text-center text-gray-100 uppercase bg-red-600 border">C</th>
+                            <th class="p-3 text-sm font-bold text-center text-gray-100 uppercase bg-red-600 border">D</th>
+                            <th class="p-3 text-sm font-bold text-center text-gray-100 uppercase bg-red-600 border">E</th>
+                        </tr>
+                    </thead>
+                    <tbody class="max-h-screen overflow-y-auto">
+                        @foreach ($answer as $key=>$data)
+                        <tr>
+                            <td class="p-4 font-bold text-gray-700 border border-b">{{ $key+1 }}</td>
+                            <td class="p-4 text-gray-700 border border-b">{{ $data->cluster }}</td>
+                            <td class="p-4 text-gray-700 border border-b">{{ $data->telp }}</td>
+                            <td class="p-4 text-gray-700 border border-b">{{ $data->nama }}</td>
+                            <td class="p-4 text-gray-700 border border-b">{{ $data->NAMA_SEKOLAH }}</td>
+                            <td class="p-4 text-gray-700 border border-b">{{ $data->kelas }}</td>
+                            <td class="p-4 text-gray-700 border border-b">{{ $data->telp_siswa }}</td>
+                            @if($data->pilihan)
+                            <td class="p-4 font-bold border border-b text-sekunder"><a href="{{ route('survey.show_answer',$data->id) }}" class="px-3 py-2 font-semibold text-white transition-all bg-orange-600 rounded whitespace-nowrap hover:bg-orange-800">Lihat Jawaban</a></td>
+                            @endif
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
+
             <div class="flex flex-wrap items-end my-3 gap-x-4">
                 <input type="text" name="search" id="search" placeholder="Search..." class="px-4 rounded-lg">
                 <div class="flex flex-col">

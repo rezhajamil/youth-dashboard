@@ -182,18 +182,40 @@ class SurveyController extends Controller
 
     public function answer_list($id)
     {
-        $resume = DB::select("SELECT b.regional,b.branch,b.`cluster`,
-                        COUNT(CASE WHEN a.`session`='$id' THEN a.telp END) as partisipan,
-                        d.total
-                        FROM survey_answer as a  
-                        right JOIN data_user as b
-                        ON a.telp=b.telp
-                        JOIN (SELECT c.`cluster`,COUNT(c.telp) as total FROM data_user as c GROUP BY 1) as d
-                        ON b.`cluster`=d.`cluster`
-                        GROUP BY 1,2,3
-                        ORDER BY b.regional desc,b.branch,b.`cluster`;");
+        $resume = DB::table('survey_answer')->where('session', $id)->get();
         $answer = DB::table('survey_answer')->select(['survey_answer.*', 'data_user.cluster', 'nama', 'NAMA_SEKOLAH'])->join('data_user', 'data_user.telp', '=', 'survey_answer.telp')->join('Data_Sekolah_Sumatera', 'survey_answer.npsn', '=', 'Data_Sekolah_Sumatera.NPSN')->where('session', $id)->orderBy('data_user.cluster')->orderBy('nama')->get();
         $survey = DB::table('survey_session')->find($id);
+
+        $hasil = [];
+
+        foreach ($resume as $idx => $resume) {
+            foreach (json_decode($resume->pilihan) as $soal => $pilihan) {
+                $hasil[$soal]['A'] = 0;
+                switch ($pilihan) {
+                    case 'A':
+                        $hasil[$soal]['A'] += 1;
+                        break;
+                    case 'B':
+                        $hasil[$soal]['B'] += 1;
+                        break;
+                    case 'C':
+                        $hasil[$soal]['C'] += 1;
+                        break;
+                    case 'D':
+                        $hasil[$soal]['D'] += 1;
+                        break;
+                    case 'E':
+                        $hasil[$soal]['E'] += 1;
+                        break;
+
+                    default:
+                        # code...
+                        break;
+                }
+            }
+        }
+
+        ddd($hasil);
 
         return view('directUser.survey.result', compact('answer', 'survey', 'resume'));
     }
@@ -208,7 +230,6 @@ class SurveyController extends Controller
         } else {
             $user = [];
         }
-        // ddd(json_decode($answer->pilihan));
 
         return view('directUser.survey.show_answer', compact('answer', 'survey', 'user'));
     }

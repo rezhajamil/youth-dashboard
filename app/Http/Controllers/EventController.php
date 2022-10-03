@@ -15,7 +15,8 @@ class EventController extends Controller
     public function index()
     {
         $peserta = DB::select("SELECT * FROM peserta_event a LEFT JOIN Data_Sekolah_Sumatera b ON a.npsn=b.NPSN ORDER BY kategori,jenis,KAB_KOTA,KECAMATAN,a.npsn,NAMA_SEKOLAH,nama;");
-        return view('event.index', compact('peserta'));
+        $kategori = DB::table('peserta_event')->select('kategori')->distinct()->orderBy('kategori')->get();
+        return view('event.index', compact('peserta', 'kategori'));
     }
 
     public function resume()
@@ -107,10 +108,11 @@ class EventController extends Controller
     {
         $request->validate([
             'id' => 'required',
-            'keterangan' => 'required'
+            'layak' => 'required',
         ]);
 
         DB::table('peserta_event')->where('id', $request->id)->update([
+            'layak' => $request->layak,
             'keterangan' => $request->keterangan
         ]);
 

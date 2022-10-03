@@ -9,12 +9,12 @@
 
             {{-- <span class="inline-block mt-6 mb-2 text-lg font-semibold text-gray-600">Direct Sales By Region</span> --}}
             {{-- <a href="{{ route('direct_user.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-800"><i class="mr-2 fa-solid fa-plus"></i> Data User Baru</a> --}}
-            <div class="flex flex-wrap items-end my-3 gap-x-4">
+            <div class="flex flex-wrap items-end my-3 gap-x-4 gap-y-2">
                 <input type="text" name="search" id="search" placeholder="Search..." class="px-4 rounded-lg">
                 <div class="flex flex-col">
                     {{-- <span class="font-bold text-gray-600">Berdasarkan</span> --}}
                     <select name="search_by" id="search_by" class="rounded-lg">
-                        <option value="kategori">Berdasarkan Kategori</option>
+                        {{-- <option value="kategori">Berdasarkan Kategori</option> --}}
                         <option value="jenis">Berdasarkan Jenis</option>
                         <option value="kabupaten">Berdasarkan Kabupaten</option>
                         <option value="kecamatan">Berdasarkan Kecamatan</option>
@@ -25,6 +25,15 @@
                         <option value="tim">Berdasarkan Nama Tim</option>
                     </select>
                 </div>
+                <div class="flex gap-x-3">
+                    @foreach ($kategori as $key=>$item)
+                    <div class="p-2 bg-white rounded w-fit h-fit">
+                        <label class="mr-1 font-semibold select-none text-slate-600" for="filter{{ $key }}">{{ $item->kategori }}</label>
+                        <input type="checkbox" class="filter" id="filter{{ $key }}" value="{{ $item->kategori }}" checked>
+                    </div>
+                    @endforeach
+                </div>
+
             </div>
 
             <div class="overflow-auto bg-white rounded-md shadow w-fit">
@@ -75,12 +84,12 @@
                             @if($data->kategori=='The Stage')
                             <td class="flex p-2 text-sm text-gray-700 border-l border-r gap-x-2">
                                 <a href="{{ $data->youtube }}" class="px-3 py-2 text-white transition bg-blue-600 rounded hover:bg-blue-800 whitespace-nowrap" target="_blank">Buka Video</a>
-                                @if($data->layak!='1')
+                                {{-- @if($data->layak!='1')
                                 <a href="{{ URL::to('/layak/event/'.$data->id.'?layak=1') }}" class="px-3 py-2 text-white transition-all bg-green-600 rounded hover:bg-green-800">Layak</a>
                                 @endif
                                 @if($data->layak!='0')
                                 <a href="{{ URL::to('/layak/event/'.$data->id.'?layak=0') }}" class="px-3 py-2 text-white transition-all bg-red-600 rounded whitespace-nowrap hover:bg-red-800 ">Tidak Layak</a>
-                                @endif
+                                @endif --}}
                                 <button class="px-3 py-2 text-white transition-all bg-orange-600 rounded whitespace-nowrap hover:bg-orange-800 btn-keterangan" data-id="{{ $data->id }}">Beri Keterangan</button>
                             </td>
                             @else
@@ -99,6 +108,11 @@
         <form action="{{ route("event.keterangan") }}" method="post" class="flex flex-col items-center gap-y-2">
             @csrf
             <input type="hidden" name="id" id="id-peserta" value="">
+            <select name="layak" id="layak" class="w-full rounded">
+                <option value="" selected disabled>Pilih Kelayakan</option>
+                <option value="1">Layak</option>
+                <option value="0">Tidak Layak</option>
+            </select>
             <textarea class="rounded" name="keterangan"></textarea>
             <button type="submit" class="w-full px-3 py-2 text-white transition bg-blue-600 rounded hover:bg-blue-800">Submit</button>
             <a class="w-full px-3 py-2 text-center text-white transition bg-red-600 rounded hover:bg-red-800" id="cancel">Batal</a>
@@ -111,10 +125,12 @@
     $(document).ready(function() {
         $("#search").on("input", function() {
             find();
+            $(".filter").prop('checked', true);
         });
 
         $("#search_by").on("input", function() {
             find();
+            $(".filter").prop('checked', true);
         });
 
         const find = () => {
@@ -138,6 +154,16 @@
 
         $("#cancel").on("click", function() {
             $("#modal-keterangan").hide();
+        })
+
+        $(".filter").on("change", function() {
+            let value = $(this).val();
+            console.log(value)
+            $(".kategori").each(function() {
+                if ($(this).text() == value) {
+                    $(this).parent().toggle();
+                }
+            })
         })
     })
 
