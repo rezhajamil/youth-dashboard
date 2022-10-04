@@ -25,7 +25,7 @@ class TelkomselNumber implements Rule
      */
     public function passes($attribute, $value)
     {
-        if (substr($value, 0, 4) == '0811' || substr($value, 0, 4) == '0812' || substr($value, 0, 4) == '0813' || substr($value, 0, 4) == '0821' || substr($value, 0, 4) == '0822' || substr($value, 0, 4) == '0851' || substr($value, 0, 4) == '0852' || substr($value, 0, 4) == '0853') {
+        if (substr($value, 0, 4) == '0811' || substr($value, 0, 4) == '0812' || substr($value, 0, 4) == '0813' || substr($value, 0, 4) == '0821' || substr($value, 0, 4) == '0822' || substr($value, 0, 4) == '0823' || substr($value, 0, 4) == '0851' || substr($value, 0, 4) == '0852' || substr($value, 0, 4) == '0853') {
             return true;
         }
 
