@@ -90,16 +90,16 @@
                             <td class="p-2 text-sm text-gray-700 border-r tim">
                                 @if ($data->layak=='1')
                                 <div class="flex items-center justify-center px-3 py-1 rounded-full bg-green-200/50">
-                                    <span class="text-sm font-semibold text-green-900 status">Layak</span>
+                                    <span class="text-sm font-semibold text-green-900 status" id="layak{{ $data->id }}">Layak</span>
                                 </div>
                                 @endif
                                 @if ($data->layak=='0')
                                 <div class="flex items-center justify-center px-3 py-1 rounded-full bg-red-200/50">
-                                    <span class="text-sm font-semibold text-red-900 whitespace-nowrap status">Tidak Layak</span>
+                                    <span class="text-sm font-semibold text-red-900 whitespace-nowrap" id="layak{{ $data->id }}">Tidak Layak</span>
                                 </div>
                                 @endif
                             </td>
-                            <td class="p-2 text-sm text-gray-700 border-r tim">{{ $data->keterangan }}</td>
+                            <td class="p-2 text-sm text-gray-700 border-r keterangan" id="keterangan{{ $data->id }}">{{ $data->keterangan }}</td>
                             @if($data->kategori=='The Stage')
                             <td class="flex p-2 text-sm text-gray-700 border-l border-r gap-x-2">
                                 <a href="{{ $data->youtube }}" class="px-3 py-2 text-white transition bg-blue-600 rounded hover:bg-blue-800 whitespace-nowrap" target="_blank">Buka Video</a>
@@ -123,7 +123,7 @@
     </div>
 </div>
 <div class="fixed inset-0 flex items-center justify-center bg-black/50" id="modal-keterangan" style="display: none">
-    <div class="px-4 py-2 bg-white rounded-md w-fit">
+    <div class="w-1/2 px-4 py-2 bg-white rounded-md">
         <form action="{{ route("event.keterangan") }}" method="post" class="flex flex-col items-center gap-y-2">
             @csrf
             <input type="hidden" name="id" id="id-peserta" value="">
@@ -132,7 +132,7 @@
                 <option value="1">Layak</option>
                 <option value="0">Tidak Layak</option>
             </select>
-            <textarea class="rounded" name="keterangan"></textarea>
+            <textarea class="w-full rounded" placeholder="Keterangan" name="keterangan"></textarea>
             <button type="submit" class="w-full px-3 py-2 text-white transition bg-blue-600 rounded hover:bg-blue-800">Submit</button>
             <a class="w-full px-3 py-2 text-center text-white transition bg-red-600 rounded hover:bg-red-800" id="cancel">Batal</a>
         </form>
@@ -167,8 +167,23 @@
         }
 
         $(".btn-keterangan").on("click", function() {
+            let id = $(this).attr("data-id")
+            let layak = $(`#layak${id}`).text();
+            let keterangan = $(`#keterangan${id}`).text();
             $("#modal-keterangan").show();
-            $("#id-peserta").val($(this).attr("data-id"))
+            $("#id-peserta").val(id);
+
+            if (layak == 'Layak') {
+                console.log('a')
+                $("select[name=layak]").val('1').change();
+            } else if (layak == 'Tidak Layak') {
+                console.log('b')
+                $("select[name=layak]").val('0').change();
+            } else {
+                $("select[name=layak]").val('').change();
+            }
+
+            $("textarea").text(keterangan);
         })
 
         $("#cancel").on("click", function() {
