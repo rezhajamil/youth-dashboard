@@ -125,8 +125,9 @@ Route::middleware(['auth'])->group(function () {
     // });
     Route::get('migrasi/sales', [SalesContoller::class, 'migrasi'])->name('sales.migrasi');
     Route::get('orbit/sales', [SalesContoller::class, 'orbit'])->name('sales.orbit');
-    Route::get('digipos/sales', [SalesContoller::class, 'digipos'])->name('sales.digipos');
     Route::delete('orbit/sales/destroy/{msisdn}', [SalesContoller::class, 'destroy_orbit'])->name('sales.orbit.destroy');
+    Route::get('digipos/sales', [SalesContoller::class, 'digipos'])->name('sales.digipos');
+
     Route::resource('direct_user', DirectUserController::class);
     Route::put('direct_user/change_status/{direct_user}', [DirectUserController::class, 'changeStatus'])->name('direct_user.change_status');
     Route::get('absensi', [DirectUserController::class, 'absensi'])->name('direct_user.absensi');
@@ -136,6 +137,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('resume/event', [EventController::class, 'resume'])->name('event.resume');
     Route::get('layak/event/{id}', [EventController::class, 'layak'])->name('event.layak');
     Route::post('keterangan/event', [EventController::class, 'add_keterangan'])->name('event.keterangan');
+    Route::get('absen/event', [EventController::class, 'absen'])->name('event.absen');
+    Route::get('challenge/event', [EventController::class, 'challenge'])->name('event.challenge');
 
     Route::resource('quiz', QuizController::class);
     Route::resource('survey', SurveyController::class);

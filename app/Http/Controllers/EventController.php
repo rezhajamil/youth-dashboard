@@ -100,6 +100,22 @@ class EventController extends Controller
         //
     }
 
+    public function absen()
+    {
+        $absen = DB::table('absen')->orderBy('judul')->orderBy('nama')->get();
+        $judul = DB::table('absen')->select('judul')->distinct()->get();
+
+        return view('event.absen', compact('absen', 'judul'));
+    }
+
+    public function challenge()
+    {
+        $challenge = DB::table('sosmed')->orderBy('challenge')->orderBy('nama')->get();
+        $judul = DB::table('sosmed')->select('challenge')->distinct()->get();
+
+        return view('event.challenge', compact('challenge', 'judul'));
+    }
+
     public function layak(Request $request, $id)
     {
         $layak = DB::table('peserta_event')->where('id', $id)->update([
@@ -108,6 +124,7 @@ class EventController extends Controller
 
         return back();
     }
+
     public function add_keterangan(Request $request)
     {
         $request->validate([
