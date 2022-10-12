@@ -24,7 +24,7 @@ class DirectSalesContoller extends Controller
             count(if(role='YBA',1,NULL)) as 'yba',
             count(role) as 'jumlah'
             from data_user
-            where not role='' 
+            where not role='' AND NOT role='TYES' AND NOT role='Pilih Type User' 
             " . $branch . "
             and status='1'
             GROUP by 1
@@ -41,7 +41,7 @@ class DirectSalesContoller extends Controller
             count(if(role='YBA',1,NULL)) as 'yba',
             count(role) as 'jumlah'
             from data_user
-            where not role='' 
+            where not role='' AND NOT role='TYES' AND NOT role='Pilih Type User'
             " . $branch . "
             and status='1'
             GROUP by 1,2

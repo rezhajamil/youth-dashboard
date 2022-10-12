@@ -139,4 +139,11 @@ class EventController extends Controller
 
         return back();
     }
+
+    public function poin_history()
+    {
+        $poin = DB::table('poin_history')->join('user_event', 'user_event.email', "=", "poin_history.email")->orderBy('jenis')->orderBy('keterangan')->get();
+        $jenis = DB::table('poin_history')->select('jenis')->distinct()->get();
+        return view('event.poin_history', compact('poin', 'jenis'));
+    }
 }
