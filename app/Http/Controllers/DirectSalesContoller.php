@@ -26,6 +26,7 @@ class DirectSalesContoller extends Controller
             from data_user
             where not role='' 
             " . $branch . "
+            and status='1'
             GROUP by 1
             Order by cluster DESC
             ",
@@ -42,6 +43,7 @@ class DirectSalesContoller extends Controller
             from data_user
             where not role='' 
             " . $branch . "
+            and status='1'
             GROUP by 1,2
             Order by regional,branch
             ",
