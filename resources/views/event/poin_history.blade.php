@@ -42,7 +42,7 @@
                             <td class="p-2 text-sm text-gray-700 border-r whitespace-nowrap nama">{{ ucwords(strtolower($data->nama)) }}</td>
                             <td class="p-2 text-sm text-gray-700 border-r email">{{ $data->email }}</td>
                             <td class="p-2 text-sm text-gray-700 border-r telp">{{ $data->telp }}</td>
-                            <td class="p-2 text-sm text-gray-700 border-r poin">{{ $data->poin }}</td>
+                            <td class="p-2 text-sm text-gray-700 border-r poin">{{ $data->jumlah }}</td>
                         </tr>
                         @endforeach
                     </tbody>

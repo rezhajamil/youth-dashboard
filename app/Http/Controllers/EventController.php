@@ -146,4 +146,24 @@ class EventController extends Controller
         $jenis = DB::table('poin_history')->select('jenis')->distinct()->get();
         return view('event.poin_history', compact('poin', 'jenis'));
     }
+
+    public function approve($id)
+    {
+        $challenge = DB::table('sosmed')->where('id', $id)->update([
+            'approver' => auth()->user()->name
+        ]);
+
+        return back();
+    }
+
+    public function challenge_status($id)
+    {
+        $challenge = DB::table('sosmed')->find($id);
+
+        DB::table('sosmed')->where('id', $id)->update([
+            'status' => !$challenge->status
+        ]);
+
+        return back();
+    }
 }

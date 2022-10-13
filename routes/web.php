@@ -140,6 +140,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('absen/event', [EventController::class, 'absen'])->name('event.absen');
     Route::get('challenge/event', [EventController::class, 'challenge'])->name('event.challenge');
     Route::get('poin_history/event', [EventController::class, 'poin_history'])->name('event.poin_history');
+    Route::get('challenge/approve/event/{id}', [EventController::class, 'approve'])->name('event.approve');
+    Route::get('challenge/status/event/{id}', [EventController::class, 'challenge_status'])->name('event.challenge_status');
 
     Route::resource('quiz', QuizController::class);
     Route::resource('survey', SurveyController::class);
