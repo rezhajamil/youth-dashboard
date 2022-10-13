@@ -166,4 +166,19 @@ class EventController extends Controller
 
         return back();
     }
+
+    public function add_keterangan_challenge(Request $request)
+    {
+        $request->validate([
+            'id' => 'required',
+            'approver' => 'required',
+        ]);
+
+        DB::table('sosmed')->where('id', $request->id)->update([
+            'approver' => $request->approver,
+            'keterangan' => $request->keterangan
+        ]);
+
+        return back();
+    }
 }

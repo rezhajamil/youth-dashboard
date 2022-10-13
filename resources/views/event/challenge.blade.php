@@ -29,7 +29,7 @@
                             <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Poin</th>
                             <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Tanggal</th>
                             <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Approver</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Status</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Keterangan</th>
                             <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Link</th>
                             <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Action</th>
                         </tr>
@@ -43,26 +43,25 @@
                             <td class="p-2 text-sm text-gray-700 border-r telp">{{ $data->telp }}</td>
                             <td class="p-2 text-sm text-gray-700 border-r poin">{{ $data->poin }}</td>
                             <td class="p-2 text-sm text-gray-700 border-r date">{{ $data->date }}</td>
-                            <td class="p-2 text-sm text-gray-700 border-r approver">{{ $data->approver }}</td>
                             <td class="p-3 text-gray-700 border-r">
-                                @if ($data->status)
+                                @if ($data->approver=='1')
                                 <div class="flex items-center justify-center px-3 py-1 rounded-full bg-green-200/50">
-                                    <span class="text-sm font-semibold text-green-900 status">Aktif</span>
+                                    <span class="text-sm font-semibold text-green-900 approver">Diterima</span>
+                                </div>
+                                @elseif($data->approver=='0')
+                                <div class="flex items-center justify-center px-3 py-1 rounded-full bg-red-200/50">
+                                    <span class="text-sm font-semibold text-red-900 whitespace-nowrap approver">Ditolak</span>
                                 </div>
                                 @else
-                                <div class="flex items-center justify-center px-3 py-1 rounded-full bg-red-200/50">
-                                    <span class="text-sm font-semibold text-red-900 whitespace-nowrap status">Tidak Aktif</span>
-                                </div>
+                                -
                                 @endif
                             </td>
+                            <td class="p-2 text-sm text-gray-700 border-r keterangan">{{ $data->keterangan }}</td>
                             <td class="p-2 text-sm border-r">
                                 <a href="{{ $data->link }}" target="_blank" rel="noopener noreferrer" class="font-semibold text-orange-600 underline transition hover:text-orange-800 hover:underline">Buka Link</a>
                             </td>
-                            <td class="p-2 text-sm border-r">
-                                @if (!$data->approver)
-                                <a href="{{ route('event.approve',$data->id) }}" class="px-3 py-2 text-white transition bg-blue-600 rounded hover:bg-blue-800 whitespace-nowrap">Approve</a>
-                                @endif
-                                <a href="{{ route('event.challenge_status',$data->id) }}" class="px-3 py-2 text-white transition rounded bg-emerald-600 hover:bg-emerald-800 whitespace-nowrap">Ubah Status</a>
+                            <td class="flex p-2 text-sm text-gray-700 border-l border-r gap-x-2">
+                                <button class="px-3 py-2 text-white transition-all bg-orange-600 rounded whitespace-nowrap hover:bg-orange-800 btn-keterangan" data-id="{{ $data->id }}">Beri Approval</button>
                             </td>
                         </tr>
                         @endforeach
@@ -70,6 +69,22 @@
                 </table>
             </div>
         </div>
+    </div>
+</div>
+<div class="fixed inset-0 flex items-center justify-center bg-black/50" id="modal-keterangan" style="display: none">
+    <div class="w-1/2 px-4 py-2 bg-white rounded-md">
+        <form action="{{ route("event.keterangan_challenge") }}" method="post" class="flex flex-col items-center gap-y-2">
+            @csrf
+            <input type="hidden" name="id" id="id-peserta" value="">
+            <select name="approver" id="approver" class="w-full rounded">
+                <option value="" selected disabled>Pilih Approval</option>
+                <option value="1">Diterima</option>
+                <option value="0">Ditolak</option>
+            </select>
+            <textarea class="w-full rounded" placeholder="Keterangan" name="keterangan"></textarea>
+            <button type="submit" class="w-full px-3 py-2 text-white transition bg-blue-600 rounded hover:bg-blue-800">Submit</button>
+            <a class="w-full px-3 py-2 text-center text-white transition bg-red-600 rounded hover:bg-red-800" id="cancel">Batal</a>
+        </form>
     </div>
 </div>
 @endsection
@@ -97,6 +112,31 @@
                 }
             });
         }
+
+        $(".btn-keterangan").on("click", function() {
+            let id = $(this).attr("data-id")
+            let layak = $(`#layak${id}`).text();
+            let keterangan = $(`#keterangan${id}`).text();
+            $("#modal-keterangan").show();
+            $("#id-peserta").val(id);
+
+            if (layak == 'Layak') {
+                console.log('a')
+                $("select[name=layak]").val('1').change();
+            } else if (layak == 'Tidak Layak') {
+                console.log('b')
+                $("select[name=layak]").val('0').change();
+            } else {
+                $("select[name=layak]").val('').change();
+            }
+
+            $("textarea").text(keterangan);
+        })
+
+        $("#cancel").on("click", function() {
+            $("#modal-keterangan").hide();
+        })
+
     })
 
 </script>

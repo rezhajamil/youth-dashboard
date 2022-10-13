@@ -142,6 +142,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('poin_history/event', [EventController::class, 'poin_history'])->name('event.poin_history');
     Route::get('challenge/approve/event/{id}', [EventController::class, 'approve'])->name('event.approve');
     Route::get('challenge/status/event/{id}', [EventController::class, 'challenge_status'])->name('event.challenge_status');
+    Route::post('challenge/keterangan/event', [EventController::class, 'add_keterangan_challenge'])->name('event.keterangan_challenge');
 
     Route::resource('quiz', QuizController::class);
     Route::resource('survey', SurveyController::class);
