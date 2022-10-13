@@ -61,7 +61,7 @@
                                 <a href="{{ $data->link }}" target="_blank" rel="noopener noreferrer" class="font-semibold text-orange-600 underline transition hover:text-orange-800 hover:underline">Buka Link</a>
                             </td>
                             <td class="flex p-2 text-sm text-gray-700 border-l border-r gap-x-2">
-                                @if($data->approver!='1'||$data->approver!='0')
+                                @if($data->approver!='1'&& $data->approver!='0')
                                 <button class="px-3 py-2 text-white transition-all bg-orange-600 rounded whitespace-nowrap hover:bg-orange-800 btn-keterangan" data-id="{{ $data->id }}" data-telp="{{ $data->telp }}" data-poin="{{ $data->poin }}" data-judul="{{ $data->challenge }}">Beri Approval</button>
                                 @endif
                             </td>
