@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Poin;
 
 class EventController extends Controller
 {
@@ -171,6 +172,9 @@ class EventController extends Controller
     {
         $request->validate([
             'id' => 'required',
+            'telp' => 'required',
+            'poin' => 'required',
+            'judul' => 'required',
             'approver' => 'required',
         ]);
 
@@ -178,6 +182,25 @@ class EventController extends Controller
             'approver' => $request->approver,
             'keterangan' => $request->keterangan
         ]);
+
+        if($request->approver=='1'){
+            $user=DB::table('user_event')->where('telp', $request->telp)->first();
+    
+            DB::table('user_event')->where('telp', $request->telp)->update([
+                'poin' => $user->poin + $request->poin
+            ]);
+
+            
+        Poin::add_poin([
+            'email' => $user->email,
+            'telp' => $user->telp,
+            'jenis' => 'Challenge',
+            'keterangan' => $request->judul,
+            'jumlah' => $request->poin,
+            'tanggal' => date('Y-m-d H:i:s')
+        ]);
+        }
+
 
         return back();
     }

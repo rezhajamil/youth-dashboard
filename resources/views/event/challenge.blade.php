@@ -61,7 +61,7 @@
                                 <a href="{{ $data->link }}" target="_blank" rel="noopener noreferrer" class="font-semibold text-orange-600 underline transition hover:text-orange-800 hover:underline">Buka Link</a>
                             </td>
                             <td class="flex p-2 text-sm text-gray-700 border-l border-r gap-x-2">
-                                <button class="px-3 py-2 text-white transition-all bg-orange-600 rounded whitespace-nowrap hover:bg-orange-800 btn-keterangan" data-id="{{ $data->id }}">Beri Approval</button>
+                                <button class="px-3 py-2 text-white transition-all bg-orange-600 rounded whitespace-nowrap hover:bg-orange-800 btn-keterangan" data-id="{{ $data->id }}" data-telp="{{ $data->telp }}" data-poin="{{ $data->poin }}" data-judul="{{ $data->challenge }}">Beri Approval</button>
                             </td>
                         </tr>
                         @endforeach
@@ -76,6 +76,9 @@
         <form action="{{ route("event.keterangan_challenge") }}" method="post" class="flex flex-col items-center gap-y-2">
             @csrf
             <input type="hidden" name="id" id="id-peserta" value="">
+            <input type="hidden" name="telp" id="telp" value="">
+            <input type="hidden" name="poin" id="poin" value="">
+            <input type="hidden" name="judul" id="judul" value="">
             <select name="approver" id="approver" class="w-full rounded">
                 <option value="" selected disabled>Pilih Approval</option>
                 <option value="1">Diterima</option>
@@ -115,10 +118,16 @@
 
         $(".btn-keterangan").on("click", function() {
             let id = $(this).attr("data-id")
+            let telp = $(this).attr("data-telp")
+            let poin = $(this).attr("data-poin")
+            let judul = $(this).attr("data-judul")
             let layak = $(`#layak${id}`).text();
             let keterangan = $(`#keterangan${id}`).text();
             $("#modal-keterangan").show();
             $("#id-peserta").val(id);
+            $("#telp").val(telp);
+            $("#poin").val(poin);
+            $("#judul").val(judul);
 
             if (layak == 'Layak') {
                 console.log('a')
