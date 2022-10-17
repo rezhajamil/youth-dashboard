@@ -3,7 +3,7 @@
 <section class="flex justify-center w-full h-full min-h-screen px-4 py-4 bg-premier">
     <div class="w-full px-4 py-2 bg-white rounded-lg shadow-xl h-fit sm:w-3/4 ">
         <span class="block w-full py-2 mb-2 text-2xl font-bold text-center text-sekunder">{{ $quiz?$quiz->nama:'' }}</span>
-        <span class="block w-full mb-2 text-lg font-bold text-center border-b-2 text-tersier">{{ date('d-M-Y',strtotime($quiz->date)) }}</span>
+        <span class="block w-full mb-2 text-lg font-bold text-center border-b-2 text-tersier">{{ $quiz?date('d-M-Y',strtotime($quiz->date)):'' }}</span>
         @if ($answer)
         @if (strtotime(date('Y-m-d H:i:s'))-strtotime($answer->time_start)>($quiz->time*60) || $answer->finish)
         <span class="block w-full mt-4 mb-2 text-xl font-bold text-center text-tersier">Quiz Telah Selesai</span>
