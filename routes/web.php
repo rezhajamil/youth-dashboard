@@ -138,6 +138,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('layak/event/{id}', [EventController::class, 'layak'])->name('event.layak');
     Route::post('keterangan/event', [EventController::class, 'add_keterangan'])->name('event.keterangan');
     Route::get('absen/event', [EventController::class, 'absen'])->name('event.absen');
+    Route::get('create/absen/event', [EventController::class, 'create_absen'])->name('event.absen.create');
+    Route::post('store/absen/event', [EventController::class, 'store_absen'])->name('event.absen.store');
     Route::get('challenge/event', [EventController::class, 'challenge'])->name('event.challenge');
     Route::get('poin_history/event', [EventController::class, 'poin_history'])->name('event.poin_history');
     Route::get('challenge/approve/event/{id}', [EventController::class, 'approve'])->name('event.approve');

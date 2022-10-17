@@ -6,6 +6,7 @@
             <div class="flex justify-between mb-4">
                 <h4 class="text-xl font-bold text-gray-600 align-baseline">Absensi Digisquad</h4>
             </div>
+            <a href="{{ route('event.absen.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-800"><i class="mr-2 fa-solid fa-plus"></i> Data Absensi</a>
             <div class="flex flex-wrap items-end my-3 gap-x-4 gap-y-2">
                 <div class="flex flex-col">
                     {{-- <span class="font-bold text-gray-600">Berdasarkan</span> --}}

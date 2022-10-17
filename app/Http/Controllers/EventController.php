@@ -106,7 +106,53 @@ class EventController extends Controller
         $absen = DB::table('absen')->orderBy('judul')->orderBy('nama')->get();
         $judul = DB::table('absen')->select('judul')->distinct()->get();
 
-        return view('event.absen', compact('absen', 'judul'));
+        return view('event.absen.index', compact('absen', 'judul'));
+    }
+
+    public function create_absen()
+    {
+        $pertemuan = DB::table('daftar_pertemuan')->where('status', '1')->get();
+        return view('event.absen.create', compact('pertemuan'));
+    }
+
+    public function store_absen(Request $request)
+    {
+        $request->validate([
+            'pertemuan' => ['required'],
+            'email' => ['required', 'email', 'exists:user_event'],
+            'telp' => ['required', 'exists:user_event'],
+        ]);
+
+        $user = DB::table('user_event')->where('email', $request->email)->first();
+        $pertemuan = DB::table('daftar_pertemuan')->where('judul', $request->pertemuan)->first();
+
+        DB::table('absen')->insert([
+            'nama' => $user->nama,
+            'telp' => $request->telp,
+            'id_digipos' => $request->telp,
+            'judul' => $request->pertemuan,
+            'pembicara' => $pertemuan->pembicara,
+            'poin' => $pertemuan->poin,
+            'time_in' => date('H:i:s'),
+            'date' => date('Y-m-d'),
+            'status' => 0,
+        ]);
+
+        DB::table('poin_history')->insert([
+            'email' => $request->email,
+            'telp' => $request->telp,
+            'jenis' => 'Absen',
+            'keterangan' => $request->pertemuan,
+            'jumlah' => $pertemuan->poin,
+            'tanggal' => date('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('user_event')->where('email', $request->email)->update([
+            'poin' => $user->poin + $pertemuan->poin
+        ]);
+
+
+        return back();
     }
 
     public function challenge()
@@ -183,22 +229,22 @@ class EventController extends Controller
             'keterangan' => $request->keterangan
         ]);
 
-        if($request->approver=='1'){
-            $user=DB::table('user_event')->where('telp', $request->telp)->first();
-    
+        if ($request->approver == '1') {
+            $user = DB::table('user_event')->where('telp', $request->telp)->first();
+
             DB::table('user_event')->where('telp', $request->telp)->update([
                 'poin' => $user->poin + $request->poin
             ]);
 
-            
-        Poin::add_poin([
-            'email' => $user->email,
-            'telp' => $user->telp,
-            'jenis' => 'Challenge',
-            'keterangan' => $request->judul,
-            'jumlah' => $request->poin,
-            'tanggal' => date('Y-m-d H:i:s')
-        ]);
+
+            Poin::add_poin([
+                'email' => $user->email,
+                'telp' => $user->telp,
+                'jenis' => 'Challenge',
+                'keterangan' => $request->judul,
+                'jumlah' => $request->poin,
+                'tanggal' => date('Y-m-d H:i:s')
+            ]);
         }
 
 
