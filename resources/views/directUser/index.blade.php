@@ -86,24 +86,26 @@
                                 </span> --}}
                                 @endif
                             </td>
-                            @if (Auth::user()->privilege!='cluster')
                             <td class="p-3 text-gray-700 border-b">
+                                <a href="{{ route('direct_user.show',$data->id) }}" class="block my-1 text-base font-semibold transition text-emerald-600 hover:text-emerald-800">Quiz</a>
+                                @if (Auth::user()->privilege!='cluster')
                                 <a href="{{ route('direct_user.edit',$data->id) }}" class="block my-1 text-base font-semibold text-indigo-600 transition hover:text-indigo-800">Edit</a>
+                                @endif
                                 <form action="{{ route('direct_user.change_status',$data->id) }}" method="post">
                                     @csrf
                                     @method('put')
                                     <button class="block my-1 text-base font-semibold text-left text-red-600 transition hover:text-red-800 whitespace-nowrap">Ubah Status</button>
                                 </form>
                             </td>
-                            @else
+                            {{-- @else
                             <td class="p-3 text-gray-700 border-b">
                                 <form action="{{ route('direct_user.change_status',$data->id) }}" method="post">
-                                    @csrf
-                                    @method('put')
-                                    <button class="block my-1 text-base font-semibold text-left text-red-600 transition hover:text-red-800 whitespace-nowrap">Ubah Status</button>
-                                </form>
+                            @csrf
+                            @method('put')
+                            <button class="block my-1 text-base font-semibold text-left text-red-600 transition hover:text-red-800 whitespace-nowrap">Ubah Status</button>
+                            </form>
                             </td>
-                            @endif
+                            @endif --}}
                         </tr>
                         @endforeach
                     </tbody>
