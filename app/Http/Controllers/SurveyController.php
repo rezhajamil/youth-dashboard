@@ -294,14 +294,14 @@ class SurveyController extends Controller
         }
 
         if ($request->npsn) {
-            $answer = DB::table('survey_answer')->where('telp_siswa', $request->jawaban_1[0])->count();
+            $answer = DB::table('survey_answer')->where('telp_siswa', $request->jawaban_0[0])->count();
             if ($answer < 1) {
                 DB::table('survey_answer')->insert([
                     'session' => $request->session,
                     'npsn' => $request->npsn,
                     'kelas' => $request->kelas,
                     'pilihan' => json_encode($pilihan),
-                    'telp_siswa' => $request->jawaban_1[0],
+                    'telp_siswa' => $request->jawaban_0[0],
                     'time_start' => date('Y-m-d H:i:s'),
                     'finish' => '1'
                 ]);
