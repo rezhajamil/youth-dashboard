@@ -80,7 +80,7 @@
         </form>
 
         @elseif(request()->get('finish'))
-        <div class="flex flex-col gap-y-4">
+        <div class="flex flex-col my-4 gap-y-4">
             <span class="block w-full py-2 mb-2 text-4xl font-bold text-center text-green-800">Survey Telah Selesai</span>
             <i class="text-6xl text-center text-green-800 fa-solid fa-circle-check"></i>
         </div>
