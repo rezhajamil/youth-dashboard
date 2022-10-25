@@ -127,7 +127,23 @@ class SurveyController extends Controller
     public function answer(Request $request)
     {
         $plain = true;
-        // ddd(json_encode(["telp", "", "", "nama", "", "", "telp", "", "", "", "", "", "", "", ""]));
+        // ddd(json_encode([
+        //     "Isian",
+        //     "Pilgan",
+        //     "Pilgan",
+        //     "Isian",
+        //     "Pilgan",
+        //     "Pilgan",
+        //     "Isian",
+        //     "Prioritas",
+        //     "Pilgan",
+        //     "Pilgan",
+        //     "Prioritas",
+        //     "Pilgan",
+        //     "Pilgan & Isian",
+        //     "Pilgan",
+        //     "Pilgan & Isian",
+        // ]));
         if ($request->npsn) {
             $survey = DB::table('survey_session')->where('status', '1')->where('tipe', 'Siswa')->orderBy('date', 'desc')->first();
             $survey->soal = json_decode($survey->soal);
@@ -316,10 +332,20 @@ class SurveyController extends Controller
     {
         $plain = true;
         $survey = DB::table('survey_session')->where('status', '1')->where('tipe', 'Siswa')->orderBy('date', 'desc')->first();
-        $sekolah = DB::table('survey_answer', 'a')->where('session', $survey->id)->select('b.NAMA_SEKOLAH')->join('Data_Sekolah_Sumatera as b', 'a.npsn', '=', 'b.NPSN')->distinct()->get();
+        $sekolah = DB::table('survey_answer', 'a')->where('session', $survey->id)->select(['b.NAMA_SEKOLAH', 'b.NPSN'])->join('Data_Sekolah_Sumatera as b', 'a.npsn', '=', 'b.NPSN')->distinct()->orderBy('b.NAMA_SEKOLAH')->get();
         return view('directUser.survey.lucky_draw', compact('survey', 'sekolah', 'plain'));
     }
 
+
+    public function telp_list(Request $request)
+    {
+        $survey = $request->survey;
+        $npsn = $request->npsn;
+        $jumlah = $request->jumlah;
+        $telp = DB::table('survey_answer')->select('telp_siswa')->where('npsn', $npsn)->where('session', $survey)->orderBy('time_start')->get();
+
+        return response()->json($telp);
+    }
 
     public function find_school(Request $request)
     {

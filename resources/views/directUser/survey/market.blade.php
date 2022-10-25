@@ -58,14 +58,14 @@
                             @endfor
                             @elseif($survey->jenis_soal[$key]=="Prioritas")
                             <div class="grid grid-cols-2 gap-4">
-                                @for ($i = 0; $i < 8; $i++) <label class="flex flex-col col-span-1 gap-y-2">
-                                    <span class="font-bold">Favorit Ke-{{ $i+1 }}</span>
-                                    <select name="jawaban_{{ $key }}[]" data-soal="{{ $key }}" class="prioritas" id="prior_{{ $key.'_'.$i }}">
-                                        <option value="" selected disabled class="opt-title">Pilih Urutan No.{{ $i+1 }}</option>
-                                        @for ($j = 0; $j < $survey->jumlah_opsi[$key]; $j++)
-                                            <option value="{{ $survey->opsi[$opsi+$j] }}">{{ $survey->opsi[$opsi+$j] }}</option>
-                                            @endfor
-                                    </select>
+                                @for ($i = 0; $i < $survey->jumlah_opsi[$key]; $i++) <label class="flex flex-col col-span-1 gap-y-2">
+                                        <span class="font-bold">Favorit Ke-{{ $i+1 }}</span>
+                                        <select name="jawaban_{{ $key }}[]" data-soal="{{ $key }}" class="prioritas" id="prior_{{ $key.'_'.$i }}">
+                                            <option value="" selected disabled class="opt-title">Pilih Urutan No.{{ $i+1 }}</option>
+                                            @for ($j = 0; $j < $survey->jumlah_opsi[$key]; $j++)
+                                                <option value="{{ $survey->opsi[$opsi+$j] }}">{{ $survey->opsi[$opsi+$j] }}</option>
+                                                @endfor
+                                        </select>
 
                                     </label>
 

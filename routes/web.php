@@ -49,7 +49,7 @@ Route::post('/store_answer/quiz/', [QuizController::class, 'store_answer'])->nam
 
 Route::get('/qns/survey', [SurveyController::class, 'answer'])->name('survey.answer.create');
 Route::get('/qns/survey/lucky_draw', [SurveyController::class, 'lucky_draw'])->name('survey.lucky_draw');
-Route::get('/qns/survey/telp_list', [SurveyController::class, 'telp_list'])->name('survey.telp_list');
+Route::post('/qns/survey/telp_list', [SurveyController::class, 'telp_list'])->name('survey.telp_list');
 Route::get('/start/survey/', [SurveyController::class, 'start'])->name('survey.answer.start');
 Route::get('/answer_list/survey/{id}', [SurveyController::class, 'answer_list'])->name('survey.answer.list');
 Route::post('/store_answer/survey/', [SurveyController::class, 'store_answer'])->name('survey.answer.store');

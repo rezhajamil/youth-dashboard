@@ -1,64 +1,57 @@
 @extends('layouts.dashboard.app')
 @section('body')
 <section class="w-full h-full min-h-screen px-4 py-8 bg-premier">
-    <span class="block mx-auto mb-12 text-5xl text-white font-batik">LUCKY DRAW</span>
-    <form action="" method="get" class="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-3">
+    <span class="block w-full mb-12 text-5xl text-center text-white font-batik">LUCKY DRAW</span>
+    <form action="" method="get" class="grid grid-cols-1 sm:grid-cols-3 gap-x-3 gap-y-3">
         @csrf
-        <select name="sekolah" class="font-bold text-white border-2 border-white focus:border-white focus:ring-white focus:outline-white bg-premier prioritas accent-white">
+        <input type="hidden" name="session" id="session" value="{{ $survey->id }}">
+        <select name="sekolah" id="sekolah" class="font-bold text-white border-2 border-white focus:border-white focus:ring-white focus:outline-white bg-premier prioritas accent-white">
             <option value="" selected disabled class="font-semibold bg-white text-tersier opacity-60">Pilih Sekolah</option>
             @foreach ($sekolah as $item)
-            <option value="{{ $item->NAMA_SEKOLAH }}" class="font-semibold bg-white text-premier">{{ $item->NAMA_SEKOLAH }}</option>
+            <option value="{{ $item->NPSN }}" class="font-semibold bg-white text-premier">{{ $item->NAMA_SEKOLAH }}</option>
             @endforeach
         </select>
         <input type="number" name="jumlah" id="jumlah" placeholder="Jumlah Pemenang" class="font-bold border-2 border-white text-slate-300 placeholder:text-white focus:border-white focus:ring-white focus:outline-white bg-premier prioritas accent-white">
+        <button type="submit" class="px-4 py-2 font-bold transition-all bg-white border-2 border-white text-premier hover:bg-premier hover:text-white"><i class="mr-2 fa-solid fa-shuffle"></i>Acak Pemenang</button>
     </form>
 </section>
 @endsection
 @section('script')
 <script>
     $(document).ready(function() {
-        $('#loading').hide();
-        var prioritas = [];
+        $('form').on('submit', function() {
+            event.preventDefault();
+            // $('#loading').show();
 
-        $(document).on('change', '.pi', function() {
-            let soal = $(this).attr('data-soal');
-            if ($(this).hasClass('other')) {
-                $(`input.other-isian[data-soal=${soal}]`).prop('disabled', (i, v) => v = false);
-            } else {
-                $(`input.other-isian[data-soal=${soal}]`).prop('disabled', (i, v) => v = true);
-            }
-            $(`input.other-isian[data-soal=${soal}]`).val("");
-        })
+            let _token = $('meta[name="csrf-token"]').attr('content');
+            let sekolah = $('#sekolah').val();
+            let jumlah = $('#jumlah').val();
+            let session = $('#session').val();
 
-        $('.prioritas').each(function() {
-            var theValue = $(this).val();
-            $(this).data("value", theValue);
-        });
-
-        $(document).on('change', '.prioritas', function() {
-            let id = $(this).attr('id');
-            let soal = $(this).attr('data-soal');
-            let value = $(this).val();
-            let previousValue = $(this).data("value");
-            prioritas.push(value + `_${soal}`);
-            prioritas = prioritas.filter(e => e != previousValue + `_${soal}`);
-            $(this).data("value", value);
-
-            console.log(prioritas);
-            $(`.prioritas[data-soal=${soal}] option`).each(function() {
-                if ($(this).id != id) {
-                    if (prioritas.includes($(this).val() + `_${soal}`)) {
-                        // $(this).prop('disabled', (i, v) => v = true);
-                        $(this).hide();
-                    } else {
-                        // $(this).prop('disabled', (i, v) => v = false);
-                        $(this).show();
+            let telp = [];
+            $.ajax({
+                url: "{{ URL::to('/qns/survey/telp_list') }}"
+                , method: "POST"
+                , dataType: "JSON"
+                , data: {
+                    npsn: sekolah
+                    , jumlah: jumlah
+                    , survey: session
+                    , _token: _token
+                }
+                , success: (data) => {
+                    telp = data.map(d => d.telp_siswa);
+                    if (jumlah > telp.length) {
+                        alert(`Nomor Telepon tidak mencukupi. Maksimal sebanyak ${telp.length}`)
                     }
+
+                }
+                , error: (e) => {
+                    console.log('error', e);
                 }
             })
         })
-
-    });
+    })
 
 </script>
 @endsection
