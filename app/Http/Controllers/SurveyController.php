@@ -127,18 +127,33 @@ class SurveyController extends Controller
     public function answer(Request $request)
     {
         $plain = true;
-        $survey = DB::table('survey_session')->where('status', '1')->orderBy('date', 'desc')->first();
+        if ($request->npsn) {
+            $survey = DB::table('survey_session')->where('status', '1')->where('tipe', 'Siswa')->orderBy('date', 'desc')->first();
+            $survey->soal = json_decode($survey->soal);
+            $survey->jenis_soal = json_decode($survey->jenis_soal);
+            $survey->opsi = json_decode($survey->opsi);
+            $survey->jumlah_opsi = json_decode($survey->jumlah_opsi);
+
+            $sekolah = DB::table('Data_Sekolah_Sumatera')->where('NPSN', $request->npsn)->first();
+        } else {
+            $survey = DB::table('survey_session')->where('status', '1')->where('tipe', 'DS')->orderBy('date', 'desc')->first();
+        }
 
         if ($survey) {
             $answer = DB::table('survey_answer')->where('session', $survey->id)->where('telp', $request->telp)->where('telp_siswa', $request->telp_siswa)->first();
+            $history = DB::table('survey_answer')->where('session', $survey->id)->where('telp', $request->telp)->orderBy('npsn')->orderBy('kelas')->orderBy('telp_siswa')->get();
         } else {
             $answer = [];
+            $history = [];
         }
         // ddd($survey);
         $user = DB::table('data_user')->where('telp', $request->telp)->first();
-        $history = DB::table('survey_answer')->where('session', $survey->id)->where('telp', $request->telp)->orderBy('npsn')->orderBy('kelas')->orderBy('telp_siswa')->get();
 
-        return view('directUser.survey.answer', compact('survey', 'answer', 'plain', 'user', 'history'));
+        if ($request->npsn) {
+            return view('directUser.survey.market', compact('survey', 'plain', 'user', 'sekolah'));
+        } else {
+            return view('directUser.survey.answer', compact('survey', 'answer', 'plain', 'user', 'history'));
+        }
     }
 
     public function start(Request $request)
@@ -168,10 +183,58 @@ class SurveyController extends Controller
     {
         $survey = DB::table('survey_session')->find($request->session);
         $soal = json_decode($survey->soal);
+        $jenis_soal = json_decode($survey->jenis_soal);
+        $opsi = json_decode($survey->opsi);
+        $jumlah_opsi = json_decode($survey->jumlah_opsi);
         $pilihan = [];
 
-        foreach ($soal as $key => $data) {
-            array_push($pilihan, $request['pilihan' . $key]);
+        if ($survey->tipe == 'DS') {
+            foreach ($soal as $key => $data) {
+                array_push($pilihan, $request['pilihan' . $key]);
+            }
+        } else if ($survey->tipe == 'Siswa') {
+            $posisi = 0;
+            $others = [];
+            foreach ($soal as $key => $data) {
+                $other = '';
+                switch ($jenis_soal[$key]) {
+                        // case 'Isian':
+                        //     $isian = [];
+                        //     foreach ($request['jawaban_' . $key] as $idx => $value) {
+                        //         array_push($isian, $request['jawaban_' . $key]);
+                        //     }
+                        //     array_push($pilihan, $isian);
+                        //     break;
+                    case 'Isian':
+                        array_push($pilihan, $request['jawaban_' . $key]);
+                        break;
+                    case 'Pilgan':
+                        array_push($pilihan, $request['jawaban_' . $key]);
+                        break;
+                    case 'Pilgan & Isian':
+                        for ($i = 0; $i < $jumlah_opsi[$key]; $i++) {
+                            if ($opsi[$posisi + $i] == $request['jawaban_' . $key]) {
+                                array_push($pilihan, $request['jawaban_' . $key]);
+                            } else {
+                                array_push($pilihan, "Lainnya");
+                                $other = $request['jawaban_' . $key];
+                            }
+                        }
+                        break;
+                    case 'Checklist':
+                        array_push($pilihan, $request['jawaban_' . $key]);
+                        break;
+                    case 'Prioritas':
+                        ddd('jawaban_' . $key);
+                        array_push($pilihan, $request['jawaban_' . $key]);
+                        break;
+                    default:
+                        break;
+                }
+                array_push($others, $other);
+            }
+
+            ddd($pilihan);
         }
 
         DB::table('survey_answer')->where('session', $request->session)->where('telp', $request->telp)->where('telp_siswa', $request->telp_siswa)->update([
