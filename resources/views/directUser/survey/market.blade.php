@@ -2,7 +2,7 @@
 @section('body')
 <section class="flex justify-center w-full h-full min-h-screen px-4 py-4 bg-premier">
     <div class="w-full px-4 py-2 bg-white rounded-lg shadow-xl h-fit sm:w-3/4 ">
-        @if($survey)
+        @if($survey && !request()->get('finish'))
         <span class="block w-full py-2 text-2xl font-bold text-center text-sekunder">{{ $survey?$survey->nama:'' }}</span>
         <span class="block w-full py-2 mb-2 text-lg font-bold text-center border-b-2 text-tersier">{{ $sekolah?$sekolah->NAMA_SEKOLAH:'' }}</span>
         <form action="{{ route('survey.answer.store') }}" method="post" id="form-survey">
@@ -59,7 +59,7 @@
                             <div class="grid grid-cols-2 gap-4">
                                 @for ($i = 0; $i < 8; $i++) <label class="flex flex-col col-span-1 gap-y-2">
                                     <span class="font-bold">Favorit Ke-{{ $i+1 }}</span>
-                                    <select name="jawaban_{{ $key }}[]" data-soal="{{ $key }}" class="prioritas">
+                                    <select name="jawaban_{{ $key }}[]" data-soal="{{ $key }}" class="prioritas" id="prior_{{ $key.'_'.$i }}">
                                         <option value="" selected disabled class="opt-title">Pilih Urutan No.{{ $i+1 }}</option>
                                         @for ($j = 0; $j < $survey->jumlah_opsi[$key]; $j++)
                                             <option value="{{ $survey->opsi[$opsi+$j] }}">{{ $survey->opsi[$opsi+$j] }}</option>
@@ -79,6 +79,11 @@
             <button type="submit" id="btn-submit" class="w-full px-6 py-2 my-4 font-semibold text-white rounded bg-sekunder">Selesai</button>
         </form>
 
+        @elseif(request()->get('finish'))
+        <div class="flex flex-col gap-y-4">
+            <span class="block w-full py-2 mb-2 text-4xl font-bold text-center text-green-800">Survey Telah Selesai</span>
+            <i class="text-6xl text-center text-green-800 fa-solid fa-circle-check"></i>
+        </div>
         @else
         <span class="block w-full py-2 mb-2 text-2xl font-bold text-center text-premier">Tidak Ada Survey Aktif</span>
         @endif
@@ -107,6 +112,7 @@
         });
 
         $(document).on('change', '.prioritas', function() {
+            let id = $(this).attr('id');
             let soal = $(this).attr('data-soal');
             let value = $(this).val();
             let previousValue = $(this).data("value");
@@ -116,10 +122,14 @@
 
             console.log(prioritas);
             $(`.prioritas[data-soal=${soal}] option`).each(function() {
-                if (prioritas.includes($(this).val() + `_${soal}`)) {
-                    $(this).prop('disabled', (i, v) => v = true);
-                } else {
-                    $(this).prop('disabled', (i, v) => v = false);
+                if ($(this).id != id) {
+                    if (prioritas.includes($(this).val() + `_${soal}`)) {
+                        // $(this).prop('disabled', (i, v) => v = true);
+                        $(this).hide();
+                    } else {
+                        // $(this).prop('disabled', (i, v) => v = false);
+                        $(this).show();
+                    }
                 }
             })
         })

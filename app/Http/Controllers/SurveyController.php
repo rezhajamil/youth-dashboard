@@ -144,13 +144,18 @@ class SurveyController extends Controller
             $history = DB::table('survey_answer')->where('session', $survey->id)->where('telp', $request->telp)->orderBy('npsn')->orderBy('kelas')->orderBy('telp_siswa')->get();
         } else {
             $answer = [];
+            $answer = [];
             $history = [];
         }
         // ddd($survey);
         $user = DB::table('data_user')->where('telp', $request->telp)->first();
 
         if ($request->npsn) {
-            return view('directUser.survey.market', compact('survey', 'plain', 'user', 'sekolah'));
+            if ($request->finish) {
+                return view('directUser.survey.market', compact('survey', 'plain', 'sekolah'));
+            } else {
+                return view('directUser.survey.market', compact('survey', 'plain', 'user', 'sekolah'));
+            }
         } else {
             return view('directUser.survey.answer', compact('survey', 'answer', 'plain', 'user', 'history'));
         }
@@ -198,13 +203,6 @@ class SurveyController extends Controller
             foreach ($soal as $key => $data) {
                 $other = '';
                 switch ($jenis_soal[$key]) {
-                        // case 'Isian':
-                        //     $isian = [];
-                        //     foreach ($request['jawaban_' . $key] as $idx => $value) {
-                        //         array_push($isian, $request['jawaban_' . $key]);
-                        //     }
-                        //     array_push($pilihan, $isian);
-                        //     break;
                     case 'Isian':
                         array_push($pilihan, $request['jawaban_' . $key]);
                         break;
@@ -212,20 +210,12 @@ class SurveyController extends Controller
                         array_push($pilihan, $request['jawaban_' . $key]);
                         break;
                     case 'Pilgan & Isian':
-                        for ($i = 0; $i < $jumlah_opsi[$key]; $i++) {
-                            if ($opsi[$posisi + $i] == $request['jawaban_' . $key]) {
-                                array_push($pilihan, $request['jawaban_' . $key]);
-                            } else {
-                                array_push($pilihan, "Lainnya");
-                                $other = $request['jawaban_' . $key];
-                            }
-                        }
+                        array_push($pilihan, $request['jawaban_' . $key]);
                         break;
                     case 'Checklist':
                         array_push($pilihan, $request['jawaban_' . $key]);
                         break;
                     case 'Prioritas':
-                        ddd('jawaban_' . $key);
                         array_push($pilihan, $request['jawaban_' . $key]);
                         break;
                     default:
@@ -233,16 +223,34 @@ class SurveyController extends Controller
                 }
                 array_push($others, $other);
             }
-
-            ddd($pilihan);
         }
 
-        DB::table('survey_answer')->where('session', $request->session)->where('telp', $request->telp)->where('telp_siswa', $request->telp_siswa)->update([
-            'finish' => '1',
-            'pilihan' => json_encode($pilihan)
-        ]);
+        if ($request->npsn) {
+            $answer = DB::table('survey_answer')->where('telp_siswa', $request->jawaban_1[0])->count();
+            if ($answer < 1) {
+                DB::table('survey_answer')->insert([
+                    'session' => $request->session,
+                    'npsn' => $request->npsn,
+                    'kelas' => $request->kelas,
+                    'pilihan' => json_encode($pilihan),
+                    'telp_siswa' => $request->jawaban_1[0],
+                    'time_start' => date('Y-m-d H:i:s'),
+                    'finish' => '1'
+                ]);
+            }
+        } else {
+            DB::table('survey_answer')->where('session', $request->session)->where('telp', $request->telp)->where('telp_siswa', $request->telp_siswa)->update([
+                'finish' => '1',
+                'pilihan' => json_encode($pilihan)
+            ]);
+        }
 
-        return redirect(URL::to('/qns/survey?telp=' . $request->telp));
+
+        if ($request->npsn) {
+            return redirect(URL::to("/qns/survey?npsn=$request->npsn&finish=1"));
+        } else {
+            return redirect(URL::to('/qns/survey?telp=' . $request->telp));
+        }
     }
 
     public function answer_list($id)
