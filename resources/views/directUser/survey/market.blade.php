@@ -42,7 +42,7 @@
                     @elseif($survey->jenis_soal[$key]=="Isian")
                     @for ($i = 0; $i < $survey->jumlah_opsi[$key]; $i++)
                         <label>
-                            <input type="text" name="jawaban_{{ $key }}[]" required placeholder="{{ $data }}" class="flex w-full font-semibold border-2 placeholder:opacity-70 placeholder:text-sm peer-checked:text-white peer-checked:bg-green-600 peer-checked:border-green-800">
+                            <input type="{{ $survey->validasi[$key]=='telp'?'number':'text' }}" name="jawaban_{{ $key }}[]" required placeholder="{{ $data }}" data-validasi="{{ $survey->validasi[$key] }}" class="flex w-full font-semibold border-2 placeholder:opacity-70 placeholder:text-sm peer-checked:text-white peer-checked:bg-green-600 peer-checked:border-green-800">
                         </label>
                         @endfor
                         @elseif($survey->jenis_soal[$key]=="Checklist")
@@ -161,9 +161,16 @@
             for (let index = 0; index < soal; index++) {
                 let name = `jawaban_${index}[]`;
                 let fill = false;
+                let valid = false;
+                let validasi = $(`input[name='${name}']`).attr('data-validasi');
+                let value = $(`input[name='${name}']`).val();
+
                 $('form').serializeArray().map(data => {
                     if (data.name == name) {
                         fill = true;
+                        if (!validasi) {
+                            valid = true;
+                        }
                     }
                 })
 
@@ -171,6 +178,28 @@
                     event.preventDefault();
                     alert('Harap menjawab semua pertanyaan sebelum mengirim jawaban');
                     break;
+                } else if (!valid) {
+                    if (validasi == 'telp') {
+                        if (value.slice(0, 2) != '08') {
+                            event.preventDefault();
+                            alert('Format Nomor Telepon Salah (Awalan Bukan 08)');
+                            break;
+                        } else if (value.length < 10 || value.length > 13) {
+                            event.preventDefault();
+                            alert('Nomor Telepon harus berisi 10-13 digit angka');
+                            break;
+                        }
+                    } else if (validasi == 'nama') {
+                        var letters = /^[A-Za-z]+$/;
+                        console.log(value.match(letters))
+
+                        event.preventDefault();
+                        if (!value.match(letters)) {
+                            alert('Nama harus berisikan huruf saja');
+                            break;
+                        }
+                    }
+
                 }
             }
 
