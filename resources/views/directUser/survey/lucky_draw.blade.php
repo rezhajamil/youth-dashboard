@@ -1,5 +1,8 @@
 @extends('layouts.dashboard.app')
 @section('body')
+<div class="fixed inset-0 flex items-center justify-center w-full min-h-screen bg-white" id="loading">
+    <img src="{{ asset('images/loading.svg') }}" alt="" class="w-40 h-40 mx-auto my-4">
+</div>
 <section class="w-full h-full min-h-screen px-4 py-8 bg-premier">
     <span class="block w-full mb-12 text-3xl text-center text-white sm:text-5xl font-batik">LUCKY DRAW</span>
     <form action="" method="get" class="grid grid-cols-1 sm:grid-cols-3 gap-x-3 gap-y-3">
@@ -25,6 +28,7 @@
 @section('script')
 <script>
     $(document).ready(function() {
+        $('#loading').hide();
         $('form').on('submit', function() {
             event.preventDefault();
             $('.draw').show();
