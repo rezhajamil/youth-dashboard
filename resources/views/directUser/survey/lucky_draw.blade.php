@@ -70,7 +70,7 @@
                                     $(this).text('0' + Math.ceil(now));
                                 }
                                 , complete: function() {
-                                    $('.winner').append(`<div class="py-3 text-lg font-bold text-center bg-white text-premier">${$(this).prop('Counter')}</div>`);
+                                    $('.winner').append(`<div class="py-3 text-lg font-bold text-center bg-white text-premier">${'0'+$(this).prop('Counter')}</div>`);
                                     telp = telp.filter(e => e != telp[pos]);
                                     console.log(telp)
                                     $(this).prop('Counter', 0)
