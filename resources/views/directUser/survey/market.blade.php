@@ -190,12 +190,23 @@
                             break;
                         }
                     } else if (validasi == 'nama') {
-                        var letters = /^[A-Za-z]+$/;
-                        console.log(value.match(letters))
+                        let valid = false;
+                        // var letters = /^[A-Za-z]+$/;
+                        // console.log($(`input[name='${name}']`))
+                        // console.log(/[0-9]/.test(value))
 
-                        event.preventDefault();
-                        if (!value.match(letters)) {
-                            alert('Nama harus berisikan huruf saja');
+                        $(`input[name='${name}']`).each(function() {
+                            if (/[0-9]/.test($(this).val())) {
+                                event.preventDefault();
+                                alert('Nama harus berisikan huruf saja');
+                                return false;
+                                // break;
+                            } else {
+                                valid = true;
+                            }
+                        })
+
+                        if (!valid) {
                             break;
                         }
                     }
