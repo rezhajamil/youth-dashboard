@@ -31,6 +31,17 @@
 </head>
 <body>
     <style>
+        @font-face {
+            font-family: 'Telkomsel Batik';
+            /*memberikan nama bebas untuk font*/
+            src: url("{{ asset('font/TelkomselBatikSans-Bold.otf') }}");
+            /*memanggil file font eksternalnya di folder nexa*/
+        }
+
+        .font-batik {
+            font-family: 'Telkomsel Batik';
+        }
+
         trix-toolbar [data-trix-button-group="file-tools"] {
             display: none;
         }

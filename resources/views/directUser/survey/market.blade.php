@@ -10,6 +10,7 @@
             <input type="hidden" name="npsn" value="{{ request()->get('npsn') }}">
             <input type="hidden" name="kelas" value="{{ request()->get('kelas') }}">
             <input type="hidden" name="session" value="{{ $survey->id }}">
+            <input type="hidden" name="jumlah_soal" value="{{ count($survey->soal) }}">
             @php
             $opsi=0;
             @endphp
@@ -41,7 +42,7 @@
                     @elseif($survey->jenis_soal[$key]=="Isian")
                     @for ($i = 0; $i < $survey->jumlah_opsi[$key]; $i++)
                         <label>
-                            <input type="text" name="jawaban_{{ $key }}[]" required placeholder="{{ $data }}" class="flex w-full font-semibold border-2 placeholder:opacity-70 peer-checked:text-white peer-checked:bg-green-600 peer-checked:border-green-800">
+                            <input type="text" name="jawaban_{{ $key }}[]" required placeholder="{{ $data }}" class="flex w-full font-semibold border-2 placeholder:opacity-70 placeholder:text-sm peer-checked:text-white peer-checked:bg-green-600 peer-checked:border-green-800">
                         </label>
                         @endfor
                         @elseif($survey->jenis_soal[$key]=="Checklist")
@@ -81,7 +82,8 @@
 
         @elseif(request()->get('finish'))
         <div class="flex flex-col my-4 gap-y-4">
-            <span class="block w-full py-2 mb-2 text-4xl font-bold text-center text-green-800">Survey Telah Selesai</span>
+            <span class="block w-full py-2 mb-2 text-4xl font-bold text-center text-green-800">Survey Sudah Selesai</span>
+            <span class="block w-full py-2 mb-2 text-xl font-bold text-center text-green-800">Makasih yaa sudah mengikuti survey kami :)</span>
             <i class="text-6xl text-center text-green-800 fa-solid fa-circle-check"></i>
         </div>
         @else
@@ -132,6 +134,50 @@
                     }
                 }
             })
+        })
+
+
+        $('#btn-submit').on('click', function() {
+            let soal = $('input[name=jumlah_soal]').val();
+
+            // for (let index = 0; index < soal; index++) {
+            //     let value = $(`input[name='jawaban_${index}[]']`).val();
+            //     console.log($(`input[name='jawaban_${index}[]']`))
+            //     if (!value) {
+            //         alert('Harap menjawab semua pertanyaan sebelum mengirim jawaban');
+            //         break;
+            //     }
+            // }
+
+            // for (let index = 0; index < 16; index++) {
+            //     let value = $(`input[name='jawaban_${index}[]' ]`).val();
+            //     // console.log($(`input[name='jawaban_${index}[]' ]`)); 
+            //     if (!value) {
+            //         console.log($(`input[name=jawaban_${index}]`));
+            //         alert('Harap menjawab semua pertanyaan sebelum mengirim jawaban');
+            //         break;
+            //     }
+            // }
+            for (let index = 0; index < soal; index++) {
+                let name = `jawaban_${index}[]`;
+                let fill = false;
+                $('form').serializeArray().map(data => {
+                    if (data.name == name) {
+                        fill = true;
+                    }
+                })
+
+                if (!fill) {
+                    event.preventDefault();
+                    alert('Harap menjawab semua pertanyaan sebelum mengirim jawaban');
+                    break;
+                }
+            }
+
+            // console.log($('form').serializeArray())
+
+
+
         })
 
     });

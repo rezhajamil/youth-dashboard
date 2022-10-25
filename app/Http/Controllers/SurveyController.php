@@ -127,6 +127,74 @@ class SurveyController extends Controller
     public function answer(Request $request)
     {
         $plain = true;
+        ddd(json_encode([
+            "",
+            "Pensi",
+            "Olahraga",
+            "Game Competition",
+            "Knowledge Seminar",
+            "Visit Artis Favorit",
+            "Pulsa",
+            "Kuota Internet",
+            "Peralatan Sekolah",
+            "Uang Saku",
+            "Hape",
+            "",
+            "",
+            "",
+            "Telkomsel",
+            "Indosat dan Tri",
+            "XL",
+            "Axis",
+            "ByU",
+            "Telkomsel",
+            "Indosat dan Tri",
+            "XL",
+            "Axis",
+            "ByU",
+            "",
+            "Nelpon Jernih",
+            "Internetan Cepat",
+            "Harga Paket Internetan Murah",
+            "Kuota Besar",
+            "Masa Aktif Panjang",
+            "Dibawah 10 ribu",
+            "10 ribu - 20 ribu",
+            "20 ribu - 30 ribu",
+            "30 ribu - 50 ribu",
+            "Diatas 50 ribu",
+            "Dibawah 2 GB",
+            "2 GB - 5 GB",
+            "5 GB - 10 GB",
+            "10 GB - 15 GB",
+            "Diatas 15 GB",
+            "Instagram",
+            "Facebook",
+            "Twitter",
+            "Linkedin",
+            "Youtube",
+            "TikTok",
+            "Whatsapp",
+            "Line",
+            "Streaming Musik",
+            "Streaming Video",
+            "Streaming Film",
+            "Streaming Youtube",
+            "Semuanya",
+            "Netflix",
+            "Disney Hotstar",
+            "Maxstream",
+            "Vidio",
+            "Lainnya",
+            "Data",
+            "Wifi",
+            "Keduanya",
+            "Free Fire",
+            "Mobile Legend",
+            "PUBG Mobile",
+            "Tidak Suka Main Game",
+            "Lainnya",
+        ]));
         if ($request->npsn) {
             $survey = DB::table('survey_session')->where('status', '1')->where('tipe', 'Siswa')->orderBy('date', 'desc')->first();
             $survey->soal = json_decode($survey->soal);
@@ -245,7 +313,6 @@ class SurveyController extends Controller
             ]);
         }
 
-
         if ($request->npsn) {
             return redirect(URL::to("/qns/survey?npsn=$request->npsn&finish=1"));
         } else {
@@ -309,6 +376,14 @@ class SurveyController extends Controller
         }
 
         return view('directUser.survey.show_answer', compact('answer', 'survey', 'user'));
+    }
+
+    public function lucky_draw()
+    {
+        $plain = true;
+        $survey = DB::table('survey_session')->where('status', '1')->where('tipe', 'Siswa')->orderBy('date', 'desc')->first();
+        $sekolah = DB::table('survey_answer', 'a')->where('session', $survey->id)->select('b.NAMA_SEKOLAH')->join('Data_Sekolah_Sumatera as b', 'a.npsn', '=', 'b.NPSN')->distinct()->get();
+        return view('directUser.survey.lucky_draw', compact('survey', 'sekolah', 'plain'));
     }
 
 
