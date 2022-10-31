@@ -93,7 +93,6 @@
             data.pilihan = data.pilihan.filter((f, f_i) => survey.jenis_soal[f_i] != 'Isian');
         });
 
-        console.log(resume);
         survey.jenis_soal = survey.jenis_soal.filter((data, i) => data != 'Isian');
         // console.log(survey.opsi)
 
@@ -107,7 +106,7 @@
             let pattern = new RegExp(filter, "i");
             sekolah.map((data, key) => {
                 let answer = resume.filter(res => res.npsn == data.NPSN);
-                console.log(answer)
+                // console.log(answer);
                 // school = key;
                 if (pattern.test(data.NAMA_SEKOLAH)) {
                     pos = 0;
@@ -130,6 +129,7 @@
                     <td rowspan="${row}" class="p-4 font-bold text-center text-gray-700 border border-b whitespace-nowrap">${data.NAMA_SEKOLAH}</td>
                     `;
                     survey.soal.map((soal, i_soal) => {
+                        let choice = [];
                         for (let index = pos; index < pos + parseInt(survey.jumlah_opsi[i_soal]); index++) {
                             if (survey.jenis_soal[i_soal] == 'Prioritas') {
                                 pr += 1;
@@ -143,23 +143,43 @@
                         <td rowspan="${survey.jenis_soal[i_soal] != 'Prioritas'?parseInt(survey.jumlah_opsi[i_soal]):parseInt(survey.jumlah_opsi[i_soal])*pr}" class="p-4 text-gray-700 border border-t-${i_soal>0?4:2} whitespace-nowrap">${soal}</td>
                         `;
 
+                        answer.map((d_answer, i_answer) => {
+                            // console.log(i_answer, d_answer.pilihan[i_soal]);
+                            // d_answer.pilihan[i_soal].map((d_pil, i_pil) => {
+                            //     console.log(d_pil);
+                            //     choice.push(d_pil);
+                            // })
+                            choice.push(d_answer.pilihan[i_soal]);
+                        })
+                        // console.log(i_soal, choice);
+
+
                         for (let index = pos; index < pos + parseInt(survey.jumlah_opsi[i_soal]); index++) {
+                            let res = 0;
                             if (survey.jenis_soal[i_soal] != 'Prioritas') {
+                                let count = choice.filter(data => data == survey.opsi[index]).length;
                                 pr = 0;
+
                                 html += `
                                 ${index>pos?'<tr>':''}
                                 <td colspan="2" class="p-4 text-white border border-b whitespace-nowrap bg-tersier">${survey.opsi[index]}</td>
-                                <td class="p-4 text-gray-700 border border-b whitespace-nowrap">1</td>
+                                <td class="p-4 text-gray-700 border border-b whitespace-nowrap">${count}</td>
                                 </tr>
                                 `;
                             } else {
                                 html += `
-                                ${index>pos?'<tr>':''}
+                                    ${index>pos?'<tr>':''}
                                     <td colspan="1" rowspan="${pr}" class="p-4 text-white border border-b whitespace-nowrap bg-sekunder">${survey.opsi[index]}</td>`;
-                                for (let index = 1; index <= pr; index++) {
+                                for (let i = 1; i <= pr; i++) {
+                                    let count = choice.filter(data => {
+                                        console.log('data', data);
+                                        console.log('opsi', survey.opsi[index]);
+                                        return data[i - 1] == survey.opsi[index];
+                                    }).length;
+
                                     html += `
-                                    <td colspan="1" class="p-2 text-center text-white border border-b bg-sekunder whitespace-nowrap">${index}</td>
-                                    <td class="p-4 text-gray-700 border border-b whitespace-nowrap">1</td>
+                                    <td colspan="1" class="p-2 text-center text-white border border-b bg-sekunder whitespace-nowrap">${i}</td>
+                                    <td class="p-4 text-gray-700 border border-b whitespace-nowrap">${count}</td>
                                     </tr>
                                     `;
                                 }
