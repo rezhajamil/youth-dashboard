@@ -273,45 +273,62 @@ class SurveyController extends Controller
     public function answer_list($id)
     {
         $resume = DB::table('survey_answer')->where('session', $id)->get();
-        $answer = DB::table('survey_answer')->select(['survey_answer.*', 'data_user.cluster', 'nama', 'NAMA_SEKOLAH'])->join('data_user', 'data_user.telp', '=', 'survey_answer.telp')->join('Data_Sekolah_Sumatera', 'survey_answer.npsn', '=', 'Data_Sekolah_Sumatera.NPSN')->where('session', $id)->orderBy('data_user.cluster')->orderBy('nama')->get();
+
         $survey = DB::table('survey_session')->find($id);
 
         $hasil = [];
 
-        foreach ($resume as $idx => $resume) {
-            foreach (json_decode($resume->pilihan) as $soal => $pilihan) {
-                $hasil[$soal]['A'] = $hasil[$soal]['A'] ?? 0;
-                $hasil[$soal]['B'] = $hasil[$soal]['B'] ?? 0;
-                $hasil[$soal]['C'] = $hasil[$soal]['C'] ?? 0;
-                $hasil[$soal]['D'] = $hasil[$soal]['D'] ?? 0;
-                $hasil[$soal]['E'] = $hasil[$soal]['E'] ?? 0;
-                switch ($pilihan) {
-                    case 'A':
-                        $hasil[$soal]['A'] += 1;
-                        break;
-                    case 'B':
-                        $hasil[$soal]['B'] += 1;
-                        break;
-                    case 'C':
-                        $hasil[$soal]['C'] += 1;
-                        break;
-                    case 'D':
-                        $hasil[$soal]['D'] += 1;
-                        break;
-                    case 'E':
-                        $hasil[$soal]['E'] += 1;
-                        break;
+        if ($survey->tipe == 'DS') {
+            $answer = DB::table('survey_answer')->select(['survey_answer.*', 'data_user.cluster', 'nama', 'NAMA_SEKOLAH'])->join('data_user', 'data_user.telp', '=', 'survey_answer.telp')->join('Data_Sekolah_Sumatera', 'survey_answer.npsn', '=', 'Data_Sekolah_Sumatera.NPSN')->where('session', $id)->orderBy('data_user.cluster')->orderBy('nama')->get();
+            foreach ($resume as $idx => $resume) {
+                foreach (json_decode($resume->pilihan) as $soal => $pilihan) {
+                    $hasil[$soal]['A'] = $hasil[$soal]['A'] ?? 0;
+                    $hasil[$soal]['B'] = $hasil[$soal]['B'] ?? 0;
+                    $hasil[$soal]['C'] = $hasil[$soal]['C'] ?? 0;
+                    $hasil[$soal]['D'] = $hasil[$soal]['D'] ?? 0;
+                    $hasil[$soal]['E'] = $hasil[$soal]['E'] ?? 0;
+                    switch ($pilihan) {
+                        case 'A':
+                            $hasil[$soal]['A'] += 1;
+                            break;
+                        case 'B':
+                            $hasil[$soal]['B'] += 1;
+                            break;
+                        case 'C':
+                            $hasil[$soal]['C'] += 1;
+                            break;
+                        case 'D':
+                            $hasil[$soal]['D'] += 1;
+                            break;
+                        case 'E':
+                            $hasil[$soal]['E'] += 1;
+                            break;
 
-                    default:
-                        # code...
-                        break;
+                        default:
+                            # code...
+                            break;
+                    }
                 }
             }
+
+            return view('directUser.survey.result', compact('answer', 'survey', 'resume', 'hasil'));
+        } else if ($survey->tipe == 'Siswa') {
+            $answer = DB::table('survey_answer')->where('session', $id)->get();
+            $sekolah = DB::table('survey_answer')->select(['Data_Sekolah_Sumatera.NPSN', 'NAMA_SEKOLAH'])->join('Data_Sekolah_Sumatera', 'survey_answer.npsn', '=', 'Data_Sekolah_Sumatera.NPSN')->where('session', $id)->distinct()->get();
+
+            $survey->soal = json_decode($survey->soal);
+            $survey->jenis_soal = json_decode($survey->jenis_soal);
+            $survey->opsi = json_decode($survey->opsi);
+            $survey->jumlah_opsi = json_decode($survey->jumlah_opsi);
+
+            // ddd($survey);
+
+            return view('directUser.survey.result_market', compact('answer', 'survey', 'resume', 'hasil', 'sekolah'));
         }
 
         // ddd($hasil);
 
-        return view('directUser.survey.result', compact('answer', 'survey', 'resume', 'hasil'));
+
     }
 
     public function show_answer(Request $request, $id)
