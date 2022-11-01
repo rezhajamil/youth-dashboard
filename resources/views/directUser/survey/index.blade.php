@@ -42,7 +42,7 @@
                             <td class="p-4 text-gray-700 gap-x-3">
                                 <div class="">
                                     <a href="{{ route('survey.show',$data->id) }}" class="block my-1 text-base font-semibold text-indigo-600 transition hover:text-indigo-800">Lihat</a>
-                                    <a href="{{ route('survey.answer.list',$data->id) }}" class="block my-1 text-base font-semibold text-orange-600 transition hover:text-orange-800">Hasil</a>
+                                    <a href="{{ route('survey.answer.resume',$data->id) }}" class="block my-1 text-base font-semibold text-orange-600 transition hover:text-orange-800">Hasil</a>
                                     <form action="{{ route('survey.change_status',$data->id) }}" method="post">
                                         @csrf
                                         @method('put')

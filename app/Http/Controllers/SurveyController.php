@@ -270,7 +270,7 @@ class SurveyController extends Controller
         }
     }
 
-    public function answer_list($id)
+    public function resume($id)
     {
         $resume = DB::table('survey_answer')->where('session', $id)->get();
 
@@ -321,14 +321,25 @@ class SurveyController extends Controller
             $survey->opsi = json_decode($survey->opsi);
             $survey->jumlah_opsi = json_decode($survey->jumlah_opsi);
 
-            // ddd($survey);
-
             return view('directUser.survey.result_market', compact('answer', 'survey', 'resume', 'hasil', 'sekolah'));
         }
+    }
 
-        // ddd($hasil);
+    public function answer_list(Request $request)
+    {
+        $survey = DB::table('survey_session')->find($request->session);
 
+        $hasil = [];
 
+        $answer = DB::table('survey_answer')->where('session', $request->session)->where('npsn', $request->npsn)->get();
+        $sekolah = DB::table('survey_answer')->select(['Data_Sekolah_Sumatera.NPSN', 'NAMA_SEKOLAH'])->join('Data_Sekolah_Sumatera', 'survey_answer.npsn', '=', 'Data_Sekolah_Sumatera.NPSN')->where('session', $request->session)->distinct()->get();
+
+        $survey->soal = json_decode($survey->soal);
+        $survey->jenis_soal = json_decode($survey->jenis_soal);
+        $survey->opsi = json_decode($survey->opsi);
+        $survey->jumlah_opsi = json_decode($survey->jumlah_opsi);
+
+        return view('directUser.survey.result_list_market', compact('answer', 'survey', 'resume', 'hasil', 'sekolah'));
     }
 
     public function show_answer(Request $request, $id)

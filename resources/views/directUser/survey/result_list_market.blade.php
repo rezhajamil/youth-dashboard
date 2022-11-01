@@ -145,7 +145,7 @@
                                     }).length;
 
                                     html += `
-                                    <td colspan="1" class="p-2 text-center text-white border border-b bg-sekunder whitespace-nowrap">#${i}</td>
+                                    <td colspan="1" class="p-2 text-center text-white border border-b bg-sekunder whitespace-nowrap">${i}</td>
                                     <td class="p-4 text-center text-gray-700 border border-b whitespace-nowrap">${count}</td>
                                     </tr>
                                     `;
