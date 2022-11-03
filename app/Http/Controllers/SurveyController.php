@@ -128,21 +128,22 @@ class SurveyController extends Controller
     {
         $plain = true;
         // ddd(json_encode([
-        //     "Isian",
-        //     "Pilgan",
-        //     "Pilgan",
-        //     "Isian",
-        //     "Pilgan",
-        //     "Pilgan",
-        //     "Isian",
-        //     "Prioritas",
-        //     "Pilgan",
-        //     "Pilgan",
-        //     "Prioritas",
-        //     "Pilgan",
-        //     "Pilgan & Isian",
-        //     "Pilgan",
-        //     "Pilgan & Isian",
+        //     "1",
+        //     "5",
+        //     "5",
+        //     "3",
+        //     "5",
+        //     "5",
+        //     "1",
+        //     "5",
+        //     "5",
+        //     "5",
+        //     "8",
+        //     "5",
+        //     "5",
+        //     "3",
+        //     "5",
+        //     "5",
         // ]));
         if ($request->npsn) {
             $survey = DB::table('survey_session')->where('status', '1')->where('tipe', 'Siswa')->orderBy('date', 'desc')->first();
@@ -190,7 +191,7 @@ class SurveyController extends Controller
                 'session' => $survey->id,
                 'telp' => $request->telp,
                 'npsn' => $request->npsn,
-                'kelas' => $request->kelas,
+                'kelas' => $request->kelas ?? 'All',
                 'telp_siswa' => $request->telp_siswa,
                 'time_start' => date('Y-m-d H:i:s'),
                 'finish' => '0',
@@ -249,7 +250,7 @@ class SurveyController extends Controller
                 DB::table('survey_answer')->insert([
                     'session' => $request->session,
                     'npsn' => $request->npsn,
-                    'kelas' => $request->kelas,
+                    'kelas' => $request->kelas ?? 'All',
                     'pilihan' => json_encode($pilihan),
                     'telp_siswa' => $request->jawaban_0[0],
                     'time_start' => date('Y-m-d H:i:s'),
@@ -339,7 +340,7 @@ class SurveyController extends Controller
         $survey->opsi = json_decode($survey->opsi);
         $survey->jumlah_opsi = json_decode($survey->jumlah_opsi);
 
-        return view('directUser.survey.result_list_market', compact('answer', 'survey', 'resume', 'hasil', 'sekolah'));
+        return view('directUser.survey.result_list_market', compact('answer', 'survey', 'hasil', 'sekolah'));
     }
 
     public function show_answer(Request $request, $id)

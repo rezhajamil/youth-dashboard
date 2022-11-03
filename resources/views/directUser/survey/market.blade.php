@@ -4,7 +4,8 @@
     <div class="w-full px-4 py-2 bg-white rounded-lg shadow-xl h-fit sm:w-3/4 ">
         @if($survey && !request()->get('finish'))
         <span class="block w-full py-2 text-2xl font-bold text-center text-sekunder">{{ $survey?$survey->nama:'' }}</span>
-        <span class="block w-full py-2 mb-2 text-lg font-bold text-center border-b-2 text-tersier">{{ $sekolah?$sekolah->NAMA_SEKOLAH:'' }}</span>
+        <span class="block w-full py-2 mb-1 text-lg font-bold text-center border-b-2 text-tersier">{{ $sekolah?$sekolah->NAMA_SEKOLAH:'' }}</span>
+        <span class="block w-full py-2 mb-2 text-base font-bold text-center border-b-2 text-tersier">{{ request()->get('kelas')?'Kelas '.request()->get('kelas'):'' }}</span>
         <form action="{{ route('survey.answer.store') }}" method="post" id="form-survey">
             @csrf
             <input type="hidden" name="npsn" value="{{ request()->get('npsn') }}">
