@@ -371,7 +371,13 @@ class SurveyController extends Controller
         $survey = $request->survey;
         $npsn = $request->npsn;
         $jumlah = $request->jumlah;
-        $telp = DB::table('survey_answer')->select('telp_siswa')->where('npsn', $npsn)->where('session', $survey)->orderBy('time_start')->get();
+        $kelas = $request->kelas;
+
+        if ($kelas == '') {
+            $telp = DB::table('survey_answer')->select('telp_siswa')->where('npsn', $npsn)->where('session', $survey)->orderBy('time_start')->get();
+        } else {
+            $telp = DB::table('survey_answer')->select('telp_siswa')->where('npsn', $npsn)->where('kelas', $kelas)->where('session', $survey)->orderBy('time_start')->get();
+        }
 
         return response()->json($telp);
     }
