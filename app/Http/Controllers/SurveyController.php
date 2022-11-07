@@ -128,23 +128,23 @@ class SurveyController extends Controller
     {
         $plain = true;
         // ddd(json_encode([
-        //     "1",
-        //     "5",
-        //     "5",
-        //     "3",
-        //     "5",
-        //     "5",
-        //     "1",
-        //     "5",
-        //     "5",
-        //     "5",
-        //     "8",
-        //     "5",
-        //     "5",
-        //     "3",
-        //     "5",
-        //     "5",
+        //     "Boleh dong sebutkan Nomor hape kamu.. (Awalan '08')",
+        //     "Kamu di sekolah lebih suka kegiatan apa",
+        //     "Kamu lebih sukanya hadiahnya apa nih.",
+        //     "Siapa Nama Guru Favoritmu (Hanya Nama, Tanpa Title Pak/Bu)",
+        //     "Kalo telponan dan sms kamu pakai kartu apa yah",
+        //     "Trus kalau internetan kartu apa nih?",
+        //     "Boleh dong sebutkan nomor kartu internetan kamu (Awalan '08')",
+        //     "Alasan kamu menggunakan kartu internetan tersebut ?",
+        //     "Biasanya berapa sih paket internet yang dibeli dalam seminggu",
+        //     "Kebutuhan paket internetan kamu berapa dalam seminggu",
+        //     "Bole kepo dong sosmed yang aktif kamu gunain ? Boleh lebih dari 1 pilihan dan urutkan mulai dari yang terfavorit ya (1 s.d 8)",
+        //     "Streaming apa yang biasa kamu buka ?",
+        //     "Kamu lebih sering nonton streaming apa ?",
+        //     "Yang mana nih game favorit kamu ?",
+        //     "Kamu beli pulsa atau paket data di mana nih ?",
         // ]));
+
         if ($request->npsn) {
             $survey = DB::table('survey_session')->where('status', '1')->where('tipe', 'Siswa')->orderBy('date', 'desc')->first();
             $survey->soal = json_decode($survey->soal);

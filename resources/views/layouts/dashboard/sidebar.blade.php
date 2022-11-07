@@ -7,7 +7,7 @@
         </div>
     </div>
 
-    <nav class="mt-10" x-data="{sales:false,direct:false,school:false,broadcast:false,content:false,event:false}">
+    <nav class="mt-10" x-data="{sales:false,direct:false,school:false,broadcast:false,content:false,event:false,market:false}">
         <a class="flex items-center px-6 py-2 mt-4 text-gray-100 bg-gray-700 bg-opacity-25" href="{{ URL::to('/dashboard') }}">
             <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
@@ -47,6 +47,16 @@
             <a href="{{ route('quiz.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Quiz</span></a>
             <a href="{{ route('survey.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Survey</span></a>
             @endif
+        </div>
+
+        <a class="flex items-center px-6 py-2 mt-4 text-gray-500 transition-all cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" x-on:click="market=!market">
+            <i class="w-6 h-6 fa-solid fa-shop"></i>
+            <span class="mx-3 text-white">Market</span>
+            <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right" :class="{'rotate-90': market, 'rotate-0': !market}"></i>
+        </a>
+        <div class="flex flex-col w-3/4 mx-6 mt-2 ml-auto overflow-hidden bg-gray-700 rounded-md" x-show="market" x-transition>
+            <a href="{{ route('survey.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Survey</span></a>
+            <a href="{{ route('survey.lucky_draw') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Lucky Draw</span></a>
         </div>
 
         <a class="flex items-center px-6 py-2 mt-4 text-gray-500 transition-all cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" x-on:click="sales=!sales">

@@ -2,7 +2,7 @@
 @section('body')
 <div class="w-full mx-4">
     <div class="flex flex-col">
-        <div class="mt-4">
+        <div class="mt-4 overflow-y-auto">
             <a href="{{ url()->previous() }}" class="block px-4 py-2 my-2 font-bold text-white bg-indigo-600 rounded-md w-fit hover:bg-indigo-800"><i class="mr-2 fa-solid fa-arrow-left"></i> Kembali</a>
             <h4 class="inline-block mb-2 text-xl font-bold text-gray-600 align-baseline" id="title">{{ $survey->nama }}</h4>
             {{-- <button class="px-2 py-1 ml-2 text-lg text-white transition bg-green-600 rounded-md hover:bg-green-800" id="capture"><i class="fa-regular fa-circle-down"></i></button> --}}
@@ -15,6 +15,7 @@
                     @endforeach
                 </select>
                 {{-- <button id="btn-excel" class="px-2 py-3 text-white transition-all bg-green-600 rounded hover:bg-green-800">Download as Excel</button> --}}
+                <button id="btn-grafik" class="px-4 py-2 text-white transition-all bg-red-600 rounded hover:bg-red-800"><i class="mr-2 fa-solid fa-chart-column"></i>Grafik</button>
             </div>
             <input type="hidden" name="sekolah" id="sekolah" value="{{ json_encode($sekolah) }}">
             <input type="hidden" name="survey" id="survey" value="{{ json_encode($survey) }}">
@@ -23,19 +24,34 @@
                 <table class="overflow-auto text-left bg-white border-collapse w-fit" id="table-data">
                     <thead class="border-b">
                         <tr class="border-b">
-                            <th rowspan="3" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">No</th>
-                            <th rowspan="3" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Sekolah</th>
-                            <th rowspan="3" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Soal</th>
-                            <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Opsi</th>
-                            <th colspan="1" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Jumlah</th>
+                            <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">No</th>
+                            <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Sekolah</th>
+                            <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Soal</th>
+                            <th rowspan="2" colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Opsi</th>
+                            <th rowspan="2" colspan="1" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Jumlah</th>
+                            <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Persentase</th>
+                        </tr>
+                        <tr>
+                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Per Sekolah</th>
+                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Per Keseluruhan</th>
                         </tr>
                     </thead>
                     <tbody class="max-h-screen overflow-y-auto" id="tbody">
                         <tr id="load" class="font-semibold text-center text-white bg-tersier">
-                            <td colspan="6">Memuat Data...</td>
+                            <td colspan="8">Memuat Data...</td>
                         </tr>
                     </tbody>
                 </table>
+            </div>
+
+            <div id="grafik-container" class="absolute inset-0 z-30 flex items-center justify-center p-4 overflow-auto h-fit bg-black/70" style="display: none">
+                <div class="w-full p-4 overflow-auto bg-white rounded-lg">
+                    <div class="flex justify-end">
+                        <button class="text-xl font-bold transition-all text-premier hover:text-red-900">X</button>
+                    </div>
+                    <div class="grid min-w-full grid-cols-2 gap-6" id="grafik-grid">
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -46,6 +62,81 @@
 @section('script')
 <script>
     $(document).ready(function() {
+        $("#btn-excel").click(function() {
+            exportTableToExcel('table-data', `${title}`);
+        });
+
+        $("#btn-grafik").click(function() {
+            $("#grafik-container").show();
+        });
+
+        $("#grafik-container button").click(function() {
+            $("#grafik-container").hide();
+        });
+
+        const createChart = (canvas, title, label, data) => {
+            console.log(data);
+            let chartBar = new Chart(canvas, {
+                type: 'bar'
+                , data: {
+                    labels: label
+                    , datasets: data
+                }
+                , options: {
+                    responsive: true
+                    , backgroundColor: [
+                        , 'rgba(255, 99, 132, 0.4)'
+                        , 'rgba(54, 162, 235, 1)'
+                        , 'rgba(255, 206, 86, 0.4)'
+                        , 'rgba(75, 192, 192, 0.4)'
+                        , 'rgba(153, 102, 255, 0.4)'
+                        , 'rgba(255, 159, 64, 0.4)'
+                    ]
+                    , borderColor: [
+                        , 'rgba(255, 99, 132, 1)'
+                        , 'rgba(54, 162, 235, 1)'
+                        , 'rgba(255, 206, 86, 1)'
+                        , 'rgba(75, 192, 192, 1)'
+                        , 'rgba(153, 102, 255, 1)'
+                        , 'rgba(255, 159, 64, 1)'
+                    ]
+                    , borderWidth: 1
+                    , scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                    , plugins: {
+                        title: {
+                            display: true
+                            , text: title
+                        }
+                        , legend: {
+                            display: false
+                        }
+                        // , subtitle: {
+                        // display: true
+                        // , text: date
+                        // , }
+                        // , datalabels: {
+                        // display: true
+                        // , backgroundColor: 'rgba(255,255,255,.6)'
+                        // , borderRadius: 3
+                        // , font: {
+                        // weight: 'bold'
+                        // , size: 10
+                        // , }
+                        // , formatter: function(value, context) {
+                        // return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                        // }
+                        // }
+                    }
+                , }
+                // , plugins: [ChartDataLabels]
+            , });
+        }
+
+
         let title = $("#title").val();
         let filter = $("#filter").val();
         let resume = JSON.parse($('#resume').val());
@@ -71,6 +162,7 @@
 
         const getResume = (filter) => {
             $("#tbody").html('');
+            $("#grafik-grid").html('');
             html = '';
             $("#load").show();
             let pattern = new RegExp(filter, "i");
@@ -105,6 +197,15 @@
                     `;
                     survey.soal.map((soal, i_soal) => {
                         let choice = [];
+                        let choice_all = [];
+                        let dataset = [{
+                            // label: []
+                            data: []
+                        }];
+                        let label = [];
+                        $("#grafik-grid").append(`<div class="col-span-1"><canvas id="grafik-${i_soal}"></canvas></div>`);
+
+
                         for (let index = pos; index < pos + parseInt(survey.jumlah_opsi[i_soal]); index++) {
                             if (survey.jenis_soal[i_soal] == 'Prioritas') {
                                 pr += 1;
@@ -120,19 +221,33 @@
 
                         answer.map((d_answer, i_answer) => {
                             choice.push(d_answer.pilihan[i_soal]);
-                        })
+                        });
+
+                        resume.map((d_answer, i_answer) => {
+                            choice_all.push(d_answer.pilihan[i_soal]);
+                        });
 
 
                         for (let index = pos; index < pos + parseInt(survey.jumlah_opsi[i_soal]); index++) {
                             let res = 0;
                             if (survey.jenis_soal[i_soal] != 'Prioritas') {
                                 let count = choice.filter(data => data == survey.opsi[index]).length;
+                                let count_all = choice_all.filter(data => data == survey.opsi[index]).length;
+
+                                if (count > 0) {
+                                    label.push(survey.opsi[index]);
+                                    // dataset[0].label.push(survey.opsi[index]);
+                                    dataset[0].data.push(count);
+                                }
+
                                 pr = 0;
 
                                 html += `
                                 ${index>pos?'<tr>':''}
                                 <td colspan="2" class="p-4 text-white border border-b whitespace-nowrap bg-tersier">${survey.opsi[index]}</td>
-                                <td class="p-4 text-center text-gray-700 border border-b whitespace-nowrap">${count}</td>
+                                <td class="p-4 font-bold text-center text-gray-700 border border-b whitespace-nowrap">${count}</td>
+                                <td class="p-4 text-center text-gray-700 border border-b whitespace-nowrap">${((count/choice.length)*100).toFixed(1)}%</td>
+                                <td class="p-4 text-center text-gray-700 border border-b whitespace-nowrap">${((count_all/choice_all.length)*100).toFixed(1)}%</td>
                                 </tr>
                                 `;
                             } else {
@@ -144,15 +259,23 @@
                                         return data[i - 1] == survey.opsi[index];
                                     }).length;
 
+                                    let count_all = choice_all.filter(data => {
+                                        return data[i - 1] == survey.opsi[index];
+                                    }).length;
+
                                     html += `
                                     <td colspan="1" class="p-2 text-center text-white border border-b bg-sekunder whitespace-nowrap">#${i}</td>
-                                    <td class="p-4 text-center text-gray-700 border border-b whitespace-nowrap">${count}</td>
+                                    <td class="p-4 font-bold text-center text-gray-700 border border-b whitespace-nowrap">${count}</td>
+                                    <td class="p-4 text-center text-gray-700 border border-b whitespace-nowrap">${((count/choice.length)*100).toFixed(1)}%</td>
+                                    <td class="p-4 text-center text-gray-700 border border-b whitespace-nowrap">${((count_all/choice_all.length)*100).toFixed(1)}%</td>
                                     </tr>
                                     `;
                                 }
                             }
                         }
                         pos += parseInt(survey.jumlah_opsi[i_soal]);
+
+                        createChart($(`#grafik-${i_soal}`), soal, label, dataset);
 
                     })
 
@@ -195,9 +318,7 @@
             }
         }
 
-        $("#btn-excel").click(function() {
-            exportTableToExcel('table-data', `${title}`);
-        })
+
 
     });
 
