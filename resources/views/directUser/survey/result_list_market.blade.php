@@ -41,7 +41,7 @@
         let answer = JSON.parse($('#answer').val());
         let sekolah = JSON.parse($('#sekolah').val());
         let survey = JSON.parse($('#survey').val());
-        let school, html;
+        let header, body;
         let pos_head = 0;
 
         answer.map(data => data.pilihan = JSON.parse(data.pilihan));
@@ -67,7 +67,7 @@
 
             header += '<tr>';
             survey.jenis_soal.map((data, i) => {
-                if (data == 'Prioritas' || (data == 'Isian' && survey.jumlah_opsi[i] > 1)) {
+                if (data == 'Prioritas') {
                     for (let index = 1; index <= survey.jumlah_opsi[i]; index++) {
                         header += `
                         <th class="p-3 text-sm font-bold text-center text-gray-100 border bg-tersier">#${index}</th>
@@ -159,6 +159,37 @@
             //     // })
 
             // });
+
+            answer.map((data, key) => {
+                console.log(data)
+                body += `<tr>
+                <td class="p-4 font-bold text-center text-gray-700 border border-b-2 border-r-2">${key+1}</td>
+                <td class="p-4 font-bold text-center text-gray-700 border border-b-2 border-r-2">${data.telp_siswa}</td>
+                `;
+                data.pilihan.map((pil, i_pil) => {
+                    if (survey.jenis_soal[i_pil] != 'Prioritas') {
+                        if (survey.jenis_soal[i_pil] == 'Pilgan & Isian' && pil.length > 1) {
+                            body += `
+                            <td class="p-4 text-gray-700 border border-b-2 border-r-2">
+                                <p class="mb-2">${pil[0]}</p>
+                                <p class="font-bold">${pil[1]}</p>
+                            </td>
+                            `;
+                        } else {
+                            body += `
+                            <td class="p-4 text-gray-700 border border-b-2 border-r-2">${pil.join(",")}</td>
+                            `;
+                        }
+                    } else {
+                        for (let index = 0; index < survey.jumlah_opsi[i_pil]; index++) {
+                            body += `
+                            <td class="p-4 text-gray-700 border border-b-2 border-r-2">${pil[index]??''}</td>
+                            `;
+                        }
+                    }
+                });
+                body += "</tr>";
+            })
 
             $("#thead").html(header)
             $("#tbody").html(body)
