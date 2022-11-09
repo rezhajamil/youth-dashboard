@@ -20,6 +20,7 @@
             <input type="hidden" name="sekolah" id="sekolah" value="{{ json_encode($sekolah) }}">
             <input type="hidden" name="survey" id="survey" value="{{ json_encode($survey) }}">
             <input type="hidden" name="resume" id="resume" value="{{ json_encode($resume) }}">
+
             <div class="mb-8 overflow-auto bg-white rounded-md shadow w-fit" id="result-container">
                 <table class="overflow-auto text-left bg-white border-collapse w-fit" id="table-data">
                     <thead class="border-b">
@@ -190,7 +191,7 @@
                     <tr>
                     <td rowspan="${row}" class="p-4 font-bold text-center text-gray-700 border border-b-2 border-r-2">${key+1}</td>
                     <td rowspan="${row}" class="p-4 font-bold text-center text-gray-700 border border-b-2 whitespace-nowrap">
-                    <a href="${url}" target="_blank" class="block w-full h-full">
+                    <a href="${url}" target="_blank">
                         ${data.NAMA_SEKOLAH}
                     </a>    
                     </td>
@@ -254,6 +255,11 @@
                                 html += `
                                     ${index>pos?'<tr>':''}
                                     <td colspan="1" rowspan="${pr}" class="p-4 text-white border border-b whitespace-nowrap bg-sekunder">${survey.opsi[index]}</td>`;
+
+                                for (let j = 1; j <= survey.jumlah_opsi[i_soal]; j++) {
+                                    label.push(j);
+                                }
+
                                 for (let i = 1; i <= pr; i++) {
                                     let count = choice.filter(data => {
                                         return data[i - 1] == survey.opsi[index];
@@ -262,6 +268,14 @@
                                     let count_all = choice_all.filter(data => {
                                         return data[i - 1] == survey.opsi[index];
                                     }).length;
+
+                                    // dataset[0].label = [];
+                                    if (count > 0) {
+                                        // label.push(`#${i}`);
+                                        // dataset[0].label.push(survey.opsi[index]);
+                                        // dataset[0].label.push(survey.opsi[index]);
+                                        dataset[0].data.push(count);
+                                    }
 
                                     html += `
                                     <td colspan="1" class="p-2 text-center text-white border border-b bg-sekunder whitespace-nowrap">#${i}</td>

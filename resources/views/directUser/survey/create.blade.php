@@ -43,29 +43,40 @@
                                 <span class="font-bold text-black underline transition-all cursor-pointer counter-soal">Jumlah Soal : </span>
                             </div>
                             <div class="grid grid-cols-4 gap-x-4 col-span-full">
-                                <div class="col-span-3">
+                                <div class="col-span-2">
                                     <label class="text-gray-700" for="soal">Soal</label>
                                     <input class="w-full rounded-md form-input focus:border-indigo-600" type="text" name="soal[]" required>
                                 </div>
                                 <div class="flex flex-col col-span-1">
                                     <label class="text-gray-700" for="jenis_soal">Jenis Soal</label>
-                                    <select name="jenis_soal[]" class="w-full rounded-md form-input focus:border-indigo-600">
-                                        <option value="pilihan_ganda">Pilihan Ganda</option>
-                                        <option value="checklist">Checklist</option>
-                                        <option value="prioritas">Prioritas</option>
+                                    <select name="jenis_soal[]" class="w-full rounded-md form-input select-jenis focus:border-indigo-600">
+                                        <option value="Pilgan">Pilihan Ganda</option>
+                                        <option value="Isian">Isian</option>
+                                        <option value="Pilgan & Isian">Pilihan Ganda & Isian</option>
+                                        <option value="Checklist">Checklist</option>
+                                        <option value="Prioritas">Prioritas</option>
+                                    </select>
+                                </div>
+                                <div class="flex flex-col col-span-1">
+                                    <label class="text-gray-700" for="validasi">Jenis Validasi</label>
+                                    <select name="validasi[]" class="w-full rounded-md form-input focus:border-indigo-600">
+                                        <option value="">Tidak Ada</option>
+                                        <option value="telp">Nomor Telepon</option>
+                                        <option value="nama">Nama (Bukan Angka)</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="option-container col-span-full">
+                                <input type="hidden" name="jumlah_opsi[]" value="1">
                                 <div class="my-4">
-                                    <input type="hidden" name="jumlah_opsi" value="1">
                                     <div class="flex justify-end gap-x-4">
-                                        <span class="inline-block font-bold text-right text-green-600 underline transition-all cursor-pointer add-checklist">+ Tambah Checklist</span>
+                                        <span class="inline-block font-bold text-right text-green-600 underline transition-all cursor-pointer add-opsi">+ Tambah Opsi</span>
                                     </div>
                                     <div class="flex">
-                                        <input class="w-full border-2 border-gray-400 form-input focus:border-indigo-600 first-letter:uppercase" type="text" name="checklist[]" required>
+                                        <input class="w-full border-2 border-gray-400 form-input focus:border-indigo-600 first-letter:uppercase" type="text" name="opsi[]" required>
                                     </div>
                                 </div>
+
                                 {{-- <div class="my-2">
                                     <div class="flex">
                                         <label class="p-2 font-bold text-center text-white bg-gray-400 border-2 border-gray-400" for="opsi">A</label>
@@ -116,71 +127,73 @@
     $(document).ready(function() {
         var jumlah = 1;
 
-        let pilgan = `
+        let soal = `
         <div class="grid grid-cols-1 border-b-4 sm:grid-cols-2 col-span-full">
             <div class="flex gap-x-4">
                 <span class="font-bold text-blue-600 underline transition-all cursor-pointer add-soal">+ Tambah Soal</span>
                 <span class="font-bold text-red-600 underline transition-all cursor-pointer delete-soal">- Hapus Soal</span>
             </div>
             <div class="grid grid-cols-4 gap-x-4 col-span-full">
-                <div class="col-span-3">
+                <div class="col-span-2">
                     <label class="text-gray-700" for="soal">Soal</label>
-                    <input class="w-full rounded-md form-input focus:border-indigo-600 first-letter:uppercase" type="text" name="soal[]" required>
+                    <input class="w-full rounded-md form-input focus:border-indigo-600" type="text" name="soal[]" required>
                 </div>
                 <div class="flex flex-col col-span-1">
                     <label class="text-gray-700" for="jenis_soal">Jenis Soal</label>
-                    <select name="jenis_soal[]" class="w-full rounded-md form-input focus:border-indigo-600">
-                        <option value="pilihan_ganda">Pilihan Ganda</option>
-                        <option value="checklist">Checklist</option>
-                        <option value="prioritas">Prioritas</option>
+                    <select name="jenis_soal[]" class="w-full rounded-md select-jenis form-input focus:border-indigo-600">
+                        <option value="Pilgan">Pilihan Ganda</option>
+                        <option value="Isian">Isian</option>
+                        <option value="Pilgan & Isian">Pilihan Ganda & Isian</option>
+                        <option value="Checklist">Checklist</option>
+                        <option value="Prioritas">Prioritas</option>
+                    </select>
+                </div>
+                <div class="flex flex-col col-span-1">
+                    <label class="text-gray-700" for="validasi">Jenis Validasi</label>
+                    <select name="validasi[]" class="w-full rounded-md form-input focus:border-indigo-600">
+                        <option value="">Tidak Ada</option>
+                        <option value="telp">Nomor Telepon</option>
+                        <option value="nama">Nama (Bukan Angka)</option>
                     </select>
                 </div>
             </div>
-            <div class="option-container">
-                <div class="my-2 col-span-full">
+            <div class="option-container col-span-full">
+                <input type="hidden" name="jumlah_opsi[]" value="1">
+                <div class="my-4">
+                    <div class="flex justify-end gap-x-4">
+                        <span class="inline-block font-bold text-right text-green-600 underline transition-all cursor-pointer add-opsi">+ Tambah Opsi</span>
+                    </div>
                     <div class="flex">
-                        <label class="p-2 font-bold text-center text-white bg-gray-400 border-2 border-gray-400" for="opsi">A</label>
                         <input class="w-full border-2 border-gray-400 form-input focus:border-indigo-600 first-letter:uppercase" type="text" name="opsi[]" required>
                     </div>
                 </div>
-                <div class="my-2 col-span-full">
-                    <div class="flex">
-                        <label class="p-2 font-bold text-center text-white bg-gray-400 border-2 border-gray-400" for="opsi">B</label>
-                        <input class="w-full border-2 border-gray-400 form-input focus:border-indigo-600 first-letter:uppercase" type="text" name="opsi[]" required>
-                    </div>
-                </div>
-                <div class="my-2 col-span-full">
-                    <div class="flex">
-                        <label class="p-2 font-bold text-center text-white bg-gray-400 border-2 border-gray-400" for="opsi">C</label>
-                        <input class="w-full border-2 border-gray-400 form-input focus:border-indigo-600 first-letter:uppercase" type="text" name="opsi[]" required>
-                    </div>
-                </div>
-                <div class="my-2 col-span-full">
-                    <div class="flex">
-                        <label class="p-2 font-bold text-center text-white bg-gray-400 border-2 border-gray-400" for="opsi">D</label>
-                        <input class="w-full border-2 border-gray-400 form-input focus:border-indigo-600 first-letter:uppercase" type="text" name="opsi[]" required>
-                    </div>
-                </div>
-                <div class="my-2 col-span-full">
-                    <div class="flex">
-                        <label class="p-2 font-bold text-center text-white bg-gray-400 border-2 border-gray-400" for="opsi">E</label>
-                        <input class="w-full border-2 border-gray-400 form-input focus:border-indigo-600 first-letter:uppercase" type="text" name="opsi[]" required>
-                    </div>
-                </div>
+
             </div>
         </div>
         `;
 
-        let checklist = `
+        let opsi = `
         <div class="my-4">
             <div class="flex justify-end gap-x-4">
-                <span class="inline-block font-bold text-right text-green-600 underline transition-all cursor-pointer add-checklist">+ Tambah Checklist</span>
-                <span class="inline-block font-bold text-right text-red-600 underline transition-all cursor-pointer delete-checklist">- Hapus Checklist</span>
+                <span class="inline-block font-bold text-right text-green-600 underline transition-all cursor-pointer add-opsi">+ Tambah Opsi</span>
+                <span class="inline-block font-bold text-right text-red-600 underline transition-all cursor-pointer delete-opsi">- Hapus Opsi</span>
             </div>
             <div class="flex">
-                <input class="w-full border-2 border-gray-400 form-input focus:border-indigo-600 first-letter:uppercase" type="text" name="checklist[]" required>
+                <input class="w-full border-2 border-gray-400 form-input focus:border-indigo-600 first-letter:uppercase" type="text" name="opsi[]" required>
             </div>
         </div>`;
+
+        let opsi_disable = `
+        <div class="my-4">
+            <div class="flex justify-end gap-x-4">
+                <span class="inline-block font-bold text-right text-green-600 underline transition-all cursor-pointer add-opsi">+ Tambah Opsi</span>
+                <span class="inline-block font-bold text-right text-red-600 underline transition-all cursor-pointer delete-opsi">- Hapus Opsi</span>
+            </div>
+            <div class="flex">
+                <input class="w-full border-2 border-gray-400 form-input focus:border-indigo-600 first-letter:uppercase" type="text" name="opsi[]" disabled required>
+            </div>
+        </div>`;
+
 
 
         $(document).on('change', "select[name='jenis_soal[]']", function() {
@@ -206,7 +219,7 @@
 
         countSoal();
         $(document).on('click', '.add-soal', function() {
-            $('#soal-container').append(pilgan);
+            $('#soal-container').append(soal);
             jumlah += 1;
             countSoal();
         })
@@ -217,12 +230,31 @@
             countSoal();
         })
 
-        $(document).on('click', '.add-checklist', function() {
-            $(this).parent().parent().append(checklist);
+        $(document).on('click', '.add-opsi', function() {
+            let jumlah_opsi = $(this).parent().parent().siblings("input").val();
+            if ($(this).closest('.option-container').siblings('div.grid').find('.select-jenis').val() == 'Isian') {
+                $(this).parent().parent().parent().append(opsi_disable);
+            } else {
+                $(this).parent().parent().parent().append(opsi);
+            }
+            $(this).parent().parent().siblings("input").val(parseInt(jumlah_opsi) + 1);
+            console.log($(this).closest('.option-container').siblings('div.grid').find('.select-jenis'));
         })
 
-        $(document).on('click', '.delete-checklist', function() {
+        $(document).on('click', '.delete-opsi', function() {
+            let jumlah_opsi = $(this).parent().parent().siblings("input").val();
+            $(this).parent().parent().siblings("input").val(parseInt(jumlah_opsi) - 1);
+            console.log($(this).parent().parent().siblings("input").val());
             $(this).parent().parent().remove();
+        })
+
+        $(document).on('change', '.select-jenis', function() {
+            if ($(this).val() == 'Isian') {
+                $(this).parent().parent().siblings("div").children("div").children().children("input").prop('disabled', true).val('')
+            } else {
+                $(this).parent().parent().siblings("div").children("div").children().children("input").prop('disabled', false).val('')
+            }
+            console.log();
         })
 
 

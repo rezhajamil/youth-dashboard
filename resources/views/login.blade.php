@@ -52,7 +52,7 @@
                 <div class="flex items-center justify-between mt-4">
                     <div>
                         <label class="inline-flex items-center">
-                            <input type="checkbox" class="text-sky-600 form-checkbox">
+                            <input type="checkbox" checked class="text-sky-600 form-checkbox">
                             <span class="mx-2 text-sm text-gray-600">Remember me</span>
                         </label>
                     </div>

@@ -55,9 +55,13 @@ class SurveyController extends Controller
         $survey = DB::table('survey_session')->insert([
             'nama' => ucwords($request->nama),
             'date' => date('Y-m-d'),
+            'tipe' => $request->tipe,
             'deskripsi' => $request->deskripsi,
             'soal' => json_encode($request->soal),
             'opsi' => json_encode($request->opsi),
+            'jumlah_opsi' => json_encode($request->jumlah_opsi),
+            'jenis_soal' => json_encode($request->jenis_soal),
+            'validasi' => json_encode($request->validasi),
             'status' => '0'
         ]);
 

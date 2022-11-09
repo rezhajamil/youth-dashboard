@@ -45,7 +45,7 @@
             <a href="{{ route('direct_user.absensi') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Absensi</span></a>
             @if (Auth::user()->privilege=='superadmin')
             <a href="{{ route('quiz.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Quiz</span></a>
-            <a href="{{ route('survey.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Survey</span></a>
+            {{-- <a href="{{ route('survey.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Survey</span></a> --}}
             @endif
         </div>
 
