@@ -53,7 +53,7 @@
                                         <option value="Pilgan">Pilihan Ganda</option>
                                         <option value="Isian">Isian</option>
                                         <option value="Pilgan & Isian">Pilihan Ganda & Isian</option>
-                                        <option value="Checklist">Checklist</option>
+                                        {{-- <option value="Checklist">Checklist</option> --}}
                                         <option value="Prioritas">Prioritas</option>
                                     </select>
                                 </div>
@@ -144,7 +144,6 @@
                         <option value="Pilgan">Pilihan Ganda</option>
                         <option value="Isian">Isian</option>
                         <option value="Pilgan & Isian">Pilihan Ganda & Isian</option>
-                        <option value="Checklist">Checklist</option>
                         <option value="Prioritas">Prioritas</option>
                     </select>
                 </div>
@@ -183,18 +182,16 @@
             </div>
         </div>`;
 
-        let opsi_disable = `
+        let opsi_read = `
         <div class="my-4">
             <div class="flex justify-end gap-x-4">
                 <span class="inline-block font-bold text-right text-green-600 underline transition-all cursor-pointer add-opsi">+ Tambah Opsi</span>
                 <span class="inline-block font-bold text-right text-red-600 underline transition-all cursor-pointer delete-opsi">- Hapus Opsi</span>
             </div>
             <div class="flex">
-                <input class="w-full border-2 border-gray-400 form-input focus:border-indigo-600 first-letter:uppercase" type="text" name="opsi[]" disabled required>
+                <input class="w-full border-2 border-gray-400 form-input focus:border-indigo-600 first-letter:uppercase" type="text" name="opsi[]" readonly required>
             </div>
         </div>`;
-
-
 
         $(document).on('change', "select[name='jenis_soal[]']", function() {
             switch ($(this).val()) {
@@ -233,7 +230,7 @@
         $(document).on('click', '.add-opsi', function() {
             let jumlah_opsi = $(this).parent().parent().siblings("input").val();
             if ($(this).closest('.option-container').siblings('div.grid').find('.select-jenis').val() == 'Isian') {
-                $(this).parent().parent().parent().append(opsi_disable);
+                $(this).parent().parent().parent().append(opsi_read);
             } else {
                 $(this).parent().parent().parent().append(opsi);
             }
@@ -250,15 +247,12 @@
 
         $(document).on('change', '.select-jenis', function() {
             if ($(this).val() == 'Isian') {
-                $(this).parent().parent().siblings("div").children("div").children().children("input").prop('disabled', true).val('')
+                $(this).parent().parent().siblings("div").children("div").children().children("input").prop('readonly', true).val('')
             } else {
-                $(this).parent().parent().siblings("div").children("div").children().children("input").prop('disabled', false).val('')
+                $(this).parent().parent().siblings("div").children("div").children().children("input").prop('readonly', false).val('')
             }
             console.log();
         })
-
-
-
 
     })
 

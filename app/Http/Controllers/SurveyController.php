@@ -250,6 +250,7 @@ class SurveyController extends Controller
 
         if ($request->npsn) {
             $answer = DB::table('survey_answer')->where('telp_siswa', $request->jawaban_0[0])->count();
+            // ddd($request->session);
             if ($answer < 1) {
                 DB::table('survey_answer')->insert([
                     'session' => $request->session,

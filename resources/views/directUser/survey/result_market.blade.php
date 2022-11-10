@@ -149,7 +149,7 @@
         survey.validasi = JSON.parse(survey.validasi);
         survey.soal = survey.soal.filter((data, i) => survey.jenis_soal[i] != 'Isian');
         survey.jumlah_opsi = survey.jumlah_opsi.filter((data, i) => survey.jenis_soal[i] != 'Isian');
-        survey.opsi = survey.opsi.filter((data, i) => data != '');
+        survey.opsi = survey.opsi.filter((data, i) => data != '' && data != null);
 
         resume.map((data, i) => {
             data.pilihan = data.pilihan.filter((f, f_i) => survey.jenis_soal[f_i] != 'Isian');
