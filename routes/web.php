@@ -56,6 +56,7 @@ Route::get('/answer_list/survey', [SurveyController::class, 'answer_list'])->nam
 Route::post('/store_answer/survey/', [SurveyController::class, 'store_answer'])->name('survey.answer.store');
 
 Route::post('/find_school', [SurveyController::class, 'find_school']);
+Route::get('/test', [SurveyController::class, 'test']);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index']);

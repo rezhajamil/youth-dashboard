@@ -394,4 +394,12 @@ class SurveyController extends Controller
 
         return response()->json($sekolah);
     }
+
+    public function test(Request $request)
+    {
+        $name = $request->name;
+        $sekolah = DB::table('Data_Sekolah_Sumatera')->select(['NPSN', 'NAMA_SEKOLAH'])->where('PROVINSI', 'Sumatera Utara')->where('NAMA_SEKOLAH', 'like', '%' . $name . '%')->orderBy('NAMA_SEKOLAH')->limit('10')->get();
+
+        return response()->json($sekolah);
+    }
 }
