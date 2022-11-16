@@ -5,7 +5,7 @@
         @if($survey && !request()->get('finish'))
         <span class="block w-full py-2 text-2xl font-bold text-center text-sekunder">{{ $survey?$survey->nama:'' }}</span>
         <span class="block w-full py-2 mb-1 text-lg font-bold text-center border-b-2 text-tersier">{{ $sekolah?$sekolah->NAMA_SEKOLAH:'' }}</span>
-        <span class="block w-full py-2 mb-2 text-base font-bold text-center border-b-2 text-tersier">{{ request()->get('kelas')?'Kelas '.request()->get('kelas'):'' }}</span>
+        <span class="block w-full py-2 mb-2 text-base font-bold text-center {{ request()->get('kelas')?'border-b-2':'' }} text-tersier">{{ request()->get('kelas')?'Kelas '.request()->get('kelas'):'' }}</span>
         <form action="{{ route('survey.answer.store') }}" method="post" id="form-survey">
             @csrf
             <input type="hidden" name="npsn" value="{{ request()->get('npsn') }}">
@@ -52,7 +52,7 @@
                                 <input type="checkbox" name="jawaban_{{ $key }}[]" value="{{ $survey->opsi[$opsi+$i] }}" class="hidden peer">
                                 <div class="flex w-full font-semibold border-2 peer-checked:text-white peer-checked:bg-teal-600 peer-checked:border-teal-800">
                                     <span class="inline-block p-4 border-r-2"><i class="fa-solid fa-check"></i></span>
-                                    <span class="inline-block w-full p-4">{{ $survey->opsi[$opsi+$i] }}</span>
+                                    <span class="inline-block w-full p-4 ">{{ $survey->opsi[$opsi+$i] }}</span>
                                 </div>
                                 {{-- <span class="inline-block w-full p-4">{{ $survey->opsi[$opsi+$i] }}</span> --}}
                             </label>

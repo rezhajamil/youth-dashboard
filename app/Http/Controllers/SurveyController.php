@@ -132,21 +132,79 @@ class SurveyController extends Controller
     {
         $plain = true;
         // ddd(json_encode([
-        //     "Boleh dong sebutkan Nomor hape kamu.. (Awalan '08')",
-        //     "Kamu di sekolah lebih suka kegiatan apa",
-        //     "Kamu lebih sukanya hadiahnya apa nih.",
-        //     "Siapa Nama Guru Favoritmu (Hanya Nama, Tanpa Title Pak/Bu)",
-        //     "Kalo telponan dan sms kamu pakai kartu apa yah",
-        //     "Trus kalau internetan kartu apa nih?",
-        //     "Boleh dong sebutkan nomor kartu internetan kamu (Awalan '08')",
-        //     "Alasan kamu menggunakan kartu internetan tersebut ?",
-        //     "Biasanya berapa sih paket internet yang dibeli dalam seminggu",
-        //     "Kebutuhan paket internetan kamu berapa dalam seminggu",
-        //     "Bole kepo dong sosmed yang aktif kamu gunain ? Boleh lebih dari 1 pilihan dan urutkan mulai dari yang terfavorit ya (1 s.d 8)",
-        //     "Streaming apa yang biasa kamu buka ?",
-        //     "Kamu lebih sering nonton streaming apa ?",
-        //     "Yang mana nih game favorit kamu ?",
-        //     "Kamu beli pulsa atau paket data di mana nih ?",
+        //     "",
+        //     "Pensi",
+        //     "Olahraga",
+        //     "Game Competition",
+        //     "Knowledge Seminar",
+        //     "Visit Artis Favorit",
+        //     "Pulsa",
+        //     "Kuota Internet",
+        //     "Peralatan Sekolah",
+        //     "Uang Saku",
+        //     "Hape",
+        //     "",
+        //     "",
+        //     "",
+        //     "Telkomsel",
+        //     "Indosat",
+        //     "Tri",
+        //     "XL",
+        //     "Axis",
+        //     "Smartfren",
+        //     "ByU",
+        //     "Telkomsel",
+        //     "Indosat",
+        //     "Tri",
+        //     "XL",
+        //     "Axis",
+        //     "Smartfren",
+        //     "ByU",
+        //     "",
+        //     "Nelpon Jernih",
+        //     "Internetan Cepat",
+        //     "Harga Paket Internetan Murah",
+        //     "Kuota Besar",
+        //     "Masa Aktif Panjang",
+        //     "Dibawah 10 ribu",
+        //     "10 ribu - 20 ribu",
+        //     "20 ribu - 30 ribu",
+        //     "30 ribu - 50 ribu",
+        //     "Diatas 50 ribu",
+        //     "Dibawah 2 GB",
+        //     "2 GB - 5 GB",
+        //     "5 GB - 10 GB",
+        //     "10 GB - 15 GB",
+        //     "Diatas 15 GB",
+        //     "Instagram",
+        //     "Facebook",
+        //     "Twitter",
+        //     "Linkedin",
+        //     "Youtube",
+        //     "TikTok",
+        //     "Whatsapp",
+        //     "Line",
+        //     "Streaming Musik",
+        //     "Streaming Video",
+        //     "Streaming Film",
+        //     "Streaming Youtube",
+        //     "Semuanya",
+        //     "Netflix",
+        //     "Disney Hotstar",
+        //     "Maxstream",
+        //     "Vidio",
+        //     "Lainnya",
+        //     "Free Fire",
+        //     "Mobile Legend",
+        //     "PUBG Mobile",
+        //     "Tidak Suka Main Game",
+        //     "Lainnya",
+        //     "Kantin / Koperasi sekolah",
+        //     "Outlet Sekitar Sekolah",
+        //     "Outlet Sekitar Rumah",
+        //     "Indomaret / Alfamart dan sejenisnya",
+        //     "MyTelkomsel / MyXL / MyCare / MySmartfren dan sejenisnya",
+        //     "Bank / E-Wallet / Tokopedia dan sejenisnya",
         // ]));
 
         if ($request->npsn) {
@@ -172,12 +230,13 @@ class SurveyController extends Controller
         }
         // ddd($survey);
         $user = DB::table('data_user')->where('telp', $request->telp)->first();
+        $title = $survey->nama;
 
         if ($request->npsn) {
             if ($request->finish) {
                 return view('directUser.survey.market', compact('survey', 'plain', 'sekolah'));
             } else {
-                return view('directUser.survey.market', compact('survey', 'plain', 'user', 'sekolah'));
+                return view('directUser.survey.market', compact('survey', 'plain', 'user', 'sekolah', 'title'));
             }
         } else {
             return view('directUser.survey.answer', compact('survey', 'answer', 'plain', 'user', 'history'));

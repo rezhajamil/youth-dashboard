@@ -10,7 +10,7 @@
     <meta name="description" content="DASHBOARD YOUTH JAWARA">
     <meta name="csrf-token" content="{{ csrf_token()  }}">
 
-    <title>DASHBOARD YOUTH JAWARA</title>
+    <title>{{ $title??'DASHBOARD YOUTH JAWARA' }}</title>
 
     <link rel="icon" href="{{ asset("images/logo-shape-text.png") }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">

@@ -20,11 +20,14 @@
             @for ($i = 1; $i <= 12; $i++) <option value="{{ $i }}" class="font-semibold bg-white text-premier">{{ $i }}</option>@endfor
         </select>
         <input type="number" name="jumlah" id="jumlah" placeholder="Jumlah Pemenang" class="font-bold border-2 border-white text-slate-300 placeholder:text-white focus:border-white focus:ring-white focus:outline-white bg-premier prioritas accent-white" required>
+        {{-- <div class="flex flex-col">
+        </div> --}}
         <button type="submit" class="px-4 py-2 font-bold transition-all bg-white border-2 border-white text-premier hover:bg-premier hover:text-white"><i class="mr-2 fa-solid fa-shuffle"></i>Acak Pemenang</button>
     </form>
+    <span class="inline-block my-2 font-semibold text-white">Jumlah Partisipan : <span id="partisipan"></span></span>
     <img src="{{ asset('images/draw.svg') }}" alt="" class="w-40 h-40 mx-auto my-4 draw" style="display: none">
     <span class="block w-full mt-12 mb-8 text-3xl font-semibold text-center text-white random-title" style="display: none">Pemenangnya adalah...</span>
-    <span class="block w-full mt-12 mb-8 text-4xl font-semibold text-center text-white sm:text-6xl random-number font-batik" style="display: none">081269863028</span>
+    <span class="block w-full mt-12 mb-8 text-4xl font-semibold text-center text-white sm:text-6xl random-number font-batik" style="display: none"></span>
     <div class="grid grid-cols-2 gap-4 pt-2 border-t-4 border-t-white winner" style="display: none">
 
     </div>
@@ -34,70 +37,120 @@
 <script>
     $(document).ready(function() {
         $('#loading').hide();
-        $('form').on('submit', function() {
-            event.preventDefault();
+        var telp;
+        let _token;
+        let sekolah;
+        let kelas;
+        let jumlah;
+        let session;
+
+
+        const getNumber = (d_sekolah, d_kelas, d_jumlah, d_session, d_token) => {
             $('.draw').show();
-            $('.winner').html('');
+            console.log({
+                npsn: d_sekolah
+                , kelas: d_kelas
+                , jumlah: d_jumlah
+                , survey: d_session
+                , _token: d_token
+            })
 
-            let _token = $('meta[name="csrf-token"]').attr('content');
-            let sekolah = $('#sekolah').val();
-            let kelas = $('#kelas').val();
-            let jumlah = $('#jumlah').val();
-            let session = $('#session').val();
-
-            let telp = [];
             $.ajax({
                 url: "{{ URL::to('/qns/survey/telp_list') }}"
                 , method: "POST"
                 , dataType: "JSON"
                 , data: {
-                    npsn: sekolah
-                    , kelas: kelas
-                    , jumlah: jumlah
-                    , survey: session
-                    , _token: _token
+                    npsn: d_sekolah
+                    , kelas: d_kelas
+                    , jumlah: d_jumlah
+                    , survey: d_session
+                    , _token: d_token
                 }
                 , success: (data) => {
                     $('.draw').hide();
                     telp = data.map(d => d.telp_siswa);
-                    console.log(telp);
-                    if (jumlah > telp.length) {
-                        alert(`Nomor Telepon tidak mencukupi. Maksimal sebanyak ${telp.length}`)
-                    } else {
-                        let pos = 0;
-                        $('.random-title').show();
-                        $('.random-number').show();
-                        $('.winner').show();
-                        for (let index = 0; index < jumlah; index++) {
-                            pos = Math.floor(Math.random() * telp.length);
-                            console.log(telp[pos]);
-
-                            $('.random-number').prop('Counter', 0).animate({
-                                Counter: telp[pos]
-                            }, {
-                                duration: 2000
-                                , easing: 'swing'
-                                , step: function(now) {
-                                    $(this).text('0' + Math.ceil(now));
-                                }
-                                , complete: function() {
-                                    $('.winner').append(`<div class="py-3 text-lg font-bold text-center bg-white text-premier">${'0'+$(this).prop('Counter')}</div>`);
-                                    telp = telp.filter(e => e != telp[pos]);
-                                    console.log(telp)
-                                    $(this).prop('Counter', 0)
-
-                                }
-                            });
-                        }
-
-                    }
-
+                    // console.log(data)
+                    $("#partisipan").text(telp.length);
                 }
                 , error: (e) => {
                     $('.draw').hide();
                     console.log('error', e);
                 }
-            })
+            });
+        }
+
+        $("select").change(function() {
+            _token = $('meta[name="csrf-token"]').attr('content');
+            sekolah = $('#sekolah').val();
+            kelas = $('#kelas').val();
+            session = $('#session').val();
+            $('.winner').html('').hide();
+            $('.random-title').hide();
+            $('.random-number').hide();
+
+            // console.log(sekolah)
+            getNumber(sekolah, kelas, jumlah, session, _token);
+        })
+
+        $('form').on('submit', function() {
+            event.preventDefault();
+            $('.winner').html('');
+            jumlah = $('#jumlah').val();
+
+            if (jumlah > telp.length) {
+                alert(`Nomor Telepon tidak mencukupi. Maksimal sebanyak ${telp.length}`)
+            } else {
+                let pos = 0;
+                $('.random-title').show();
+                $('.random-number').show();
+                $('.winner').show();
+                for (let index = 0; index < jumlah; index++) {
+                    pos = Math.floor(Math.random() * telp.length);
+                    console.log(telp[pos]);
+                    $('.random-number').prop('Counter', 0).animate({
+                        Counter: telp[pos]
+                    }, {
+                        duration: 2000
+                        , easing: 'swing'
+                        , step: function(now) {
+                            $(this).text('0' + Math.ceil(now));
+                        }
+                        , complete: function() {
+                            $('.winner').append(`<div class="py-3 text-lg font-bold text-center bg-white text-premier">${'0'+$(this).prop('Counter')}</div>`);
+                            telp = telp.filter(e => e != telp[pos]);
+                            console.log(telp)
+                            $(this).prop('Counter', 0)
+
+                        }
+                    });
+                }
+
+            }
+
+
+            // $.ajax({
+            //     url: "{{ URL::to('/qns/survey/telp_list') }}"
+            //     , method: "POST"
+            //     , dataType: "JSON"
+            //     , data: {
+            //         npsn: sekolah
+            //         , kelas: kelas
+            //         , jumlah: jumlah
+            //         , survey: session
+            //         , _token: _token
+            //     }
+            //     , success: (data) => {
+            //         $('.draw').hide();
+            //         telp = data.map(d => d.telp_siswa);
+            //         console.log(telp);
+
+
+            //     }
+            //     , error: (e) => {
+            //         $('.draw').hide();
+            //         console.log('error', e);
+            //     }
+            // })
         })
     })
 
