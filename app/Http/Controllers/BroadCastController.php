@@ -145,7 +145,6 @@ class BroadCastController extends Controller
         $branch = Auth::user()->privilege == "branch" ? "AND data_user.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "AND data_user.cluster='" . Auth::user()->cluster . "'" : '');
 
         $whitelist = DB::select("SELECT 
-                    
                     new_data_broadcast.telp, data_user.nama,data_user.branch,new_data_broadcast.cluster,
                     count(`new_data_broadcast`.msisdn) as 'wl',
                     count(if(`new_data_broadcast`.telp!='no',1,NULL)) as 'diambil',
@@ -229,9 +228,9 @@ class BroadCastController extends Controller
     {
         $branch = Auth::user()->privilege == 'branch' ? "and branch='ALL' OR branch='" . Auth::user()->branch . "'" : '';
         if (Auth::user()->privilege == "superadmin") {
-            $cluster = DB::table('wilayah')->select('cluster')->distinct()->whereNotNull('cluster')->get();
+            $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->get();
         } else {
-            $cluster = DB::table('wilayah')->select('cluster')->distinct()->whereNotNull('cluster')->where('branch', Auth::user()->branch)->get();
+            $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->where('branch', Auth::user()->branch)->get();
         }
         $dataProgram = DB::select("select program from new_list_program where status='1'" . $branch . "");
         $dataProgramCall = DB::select("select program from new_list_program_call where status='1'" . $branch . "");
