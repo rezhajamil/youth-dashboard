@@ -145,7 +145,7 @@ class BroadCastController extends Controller
         $branch = Auth::user()->privilege == "branch" ? "AND data_user.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "AND data_user.cluster='" . Auth::user()->cluster . "'" : '');
 
         $whitelist = DB::select("SELECT 
-                    new_data_broadcast.telp, data_user.nama,data_user.branch,new_data_broadcast.cluster,
+                    new_data_broadcast.telp, data_user.nama,data_user.branch,data_user.cluster,
                     count(`new_data_broadcast`.msisdn) as 'wl',
                     count(if(`new_data_broadcast`.telp!='no',1,NULL)) as 'diambil',
                     count(if(`new_data_broadcast`.status='1',1,NULL)) as 'sudah' ,
@@ -162,7 +162,7 @@ class BroadCastController extends Controller
 
         $whitelist_call = DB::select("SELECT 
                     
-                    new_data_call.telp, data_user.nama,data_user.branch,new_data_call.cluster,
+                    new_data_call.telp, data_user.nama,data_user.branch,data_user.cluster,
                     count(`new_data_call`.msisdn) as 'wl',
                     count(if(`new_data_call`.telp!='no',1,NULL)) as 'diambil',
                     count(if(`new_data_call`.status='1',1,NULL)) as 'sudah' ,
