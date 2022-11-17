@@ -178,7 +178,7 @@ class BroadCastController extends Controller
                     order by 3,4,2");
 
         $whitelist_branch = DB::select("SELECT 
-                    data_user.branch,new_data_broadcast.cluster,
+                    data_user.branch,data_user.cluster,
                     count(`new_data_broadcast`.msisdn) as 'wl',
                     count(if(`new_data_broadcast`.telp!='no',1,NULL)) as 'diambil',
                     count(if(`new_data_broadcast`.status='1',1,NULL)) as 'sudah' ,
@@ -194,7 +194,7 @@ class BroadCastController extends Controller
                     order by 1,2");
 
         $whitelist_branch_call = DB::select("SELECT 
-                    data_user.branch,new_data_call.cluster,
+                    data_user.branch,data_user.cluster,
                     count(`new_data_call`.msisdn) as 'wl',
                     count(if(`new_data_call`.telp!='no',1,NULL)) as 'diambil',
                     count(if(`new_data_call`.status='1',1,NULL)) as 'sudah' ,
