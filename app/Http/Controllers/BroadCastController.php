@@ -23,7 +23,9 @@ class BroadCastController extends Controller
         $program = $request->program;
         $dataProgram = DB::table('new_after_broadcast')->select('program')->distinct()->get();
         $branch_broadcast = Auth::user()->privilege == "branch" ? "and data_user.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "and data_user.cluster='" . Auth::user()->cluster . "'" : '');
+        $branch_broadcast_cluster = Auth::user()->privilege == "branch" ? "WHERE b.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "WHERE b.branch='" . Auth::user()->cluster . "'" : '');
         $branch_program = Auth::user()->privilege == "branch" ? "data_user.branch ='" . Auth::user()->branch . "' AND" : (Auth::user()->privilege == "branch" ? "data_user.branch ='" . Auth::user()->branch . "' AND" : '');
+
         $broadcast = DB::select("SELECT 
             `data_user`.nama, `data_user`.cluster, `data_user`.role,
             COUNT(`new_after_broadcast`.msisdn) As 'total', 
@@ -41,6 +43,20 @@ class BroadCastController extends Controller
             AND `new_after_broadcast`.date BETWEEN '" . $m1 . "' AND '" . $mtd . "'
             GROUP BY  1,2,3
             ORDER BY `data_user`.cluster,`data_user`.role,`data_user`.nama  ;");
+
+        $broadcast_cluster = DB::select(
+            "SELECT a.cluster,
+            count(a.msisdn) as 'wl',
+            count(if(a.telp!='no',1,NULL)) as 'diambil',
+            count(if(a.status='1',1,NULL)) as 'sudah' ,
+            count(if(a.status='0',1,NULL)) as 'belum',
+            count(if(a.telp='no',1,NULL)) as 'sisa'
+
+            FROM `new_data_broadcast` a join
+            territory_new b ON b.cluster=a.cluster
+            $branch_broadcast_cluster
+            GROUP by 1;"
+        );
 
         $program_list = DB::select("SELECT 
             new_after_broadcast.`program`,
@@ -60,7 +76,7 @@ class BroadCastController extends Controller
             GROUP BY  1
             ORDER BY 1  ;");
 
-        return view('broadcast.index', compact('dataProgram', 'broadcast', 'update_broadcast', 'program_list'));
+        return view('broadcast.index', compact('dataProgram', 'broadcast', 'broadcast_cluster', 'update_broadcast', 'program_list'));
     }
 
     public function campaign()
