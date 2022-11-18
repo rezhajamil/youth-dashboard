@@ -98,9 +98,9 @@
                             <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_read }}</td>
                             <td class="p-2 text-gray-700 uppercase border-2">{{ $data->reply }}</td>
                             <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_reply }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->sent/$data->total)*100,2).' %' }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format((($data->not_sent+$data->not_wa)/$data->total)*100,2).' %' }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->read/$data->sent)*100,2).' %' }}</td>
+                            <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ $data->total>0?number_format(($data->sent/$data->total)*100,2).' %':'0%' }}</td>
+                            <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ $data->total>0?number_format((($data->not_sent+$data->not_wa)/$data->total)*100,2).' %':'0%' }}</td>
+                            <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ $data->sent>0?number_format(($data->read/$data->sent)*100,2).' %':'0%' }}</td>
                             @if ($data->reply>0&&$data->read>0)
                             <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->reply/$data->read)*100,2).' %' }}</td>
                             @else
