@@ -23,7 +23,6 @@ class BroadCastController extends Controller
         $program = $request->program;
         $dataProgram = DB::table('new_after_broadcast')->select('program')->distinct()->get();
         $branch_broadcast = Auth::user()->privilege == "branch" ? "and data_user.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "and data_user.cluster='" . Auth::user()->cluster . "'" : '');
-        $branch_broadcast_cluster = Auth::user()->privilege == "branch" ? "WHERE b.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "WHERE b.branch='" . Auth::user()->cluster . "'" : '');
         $branch_program = Auth::user()->privilege == "branch" ? "data_user.branch ='" . Auth::user()->branch . "' AND" : (Auth::user()->privilege == "branch" ? "data_user.branch ='" . Auth::user()->branch . "' AND" : '');
 
         $broadcast = DB::select("SELECT 
@@ -44,20 +43,6 @@ class BroadCastController extends Controller
             GROUP BY  1,2,3
             ORDER BY `data_user`.cluster,`data_user`.role,`data_user`.nama  ;");
 
-        $broadcast_cluster = DB::select(
-            "SELECT a.cluster,
-            count(a.msisdn) as 'wl',
-            count(if(a.telp!='no',1,NULL)) as 'diambil',
-            count(if(a.status='1',1,NULL)) as 'sudah' ,
-            count(if(a.status='0',1,NULL)) as 'belum',
-            count(if(a.telp='no',1,NULL)) as 'sisa'
-
-            FROM `new_data_broadcast` a join
-            territory_new b ON b.cluster=a.cluster
-            $branch_broadcast_cluster
-            GROUP by 1;"
-        );
-
         $program_list = DB::select("SELECT 
             new_after_broadcast.`program`,
             COUNT(`new_after_broadcast`.msisdn) As 'total', 
@@ -76,7 +61,7 @@ class BroadCastController extends Controller
             GROUP BY  1
             ORDER BY 1  ;");
 
-        return view('broadcast.index', compact('dataProgram', 'broadcast', 'broadcast_cluster', 'update_broadcast', 'program_list'));
+        return view('broadcast.index', compact('dataProgram', 'broadcast', 'update_broadcast', 'program_list'));
     }
 
     public function campaign()
@@ -159,6 +144,7 @@ class BroadCastController extends Controller
         $dataProgram = DB::table('new_list_program')->select('program')->distinct()->get();
         $dataProgramCall = DB::table('new_list_program_call')->select('program')->distinct()->get();
         $branch = Auth::user()->privilege == "branch" ? "AND data_user.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "AND data_user.cluster='" . Auth::user()->cluster . "'" : '');
+        $branch_whitelist_cluster = Auth::user()->privilege == "branch" ? "WHERE b.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "WHERE b.branch='" . Auth::user()->cluster . "'" : '');
 
         $whitelist = DB::select("SELECT 
                     new_data_broadcast.telp, data_user.nama,data_user.branch,data_user.cluster,
@@ -193,6 +179,20 @@ class BroadCastController extends Controller
                     GROUP by 1,2,3,4
                     order by 3,4,2");
 
+        $whitelist_cluster = DB::select(
+            "SELECT a.cluster,
+            count(a.msisdn) as 'wl',
+            count(if(a.telp!='no',1,NULL)) as 'diambil',
+            count(if(a.status='1',1,NULL)) as 'sudah' ,
+            count(if(a.status='0',1,NULL)) as 'belum',
+            count(if(a.telp='no',1,NULL)) as 'sisa'
+
+            FROM `new_data_broadcast` a join
+            territory_new b ON b.cluster=a.cluster
+            $branch_whitelist_cluster
+            GROUP by 1;"
+        );
+
         $whitelist_branch = DB::select("SELECT 
                     data_user.branch,data_user.cluster,
                     count(`new_data_broadcast`.msisdn) as 'wl',
@@ -225,7 +225,7 @@ class BroadCastController extends Controller
                     GROUP by 1,2
                     order by 1,2");
 
-        return view('broadcast.whitelist.index', compact('whitelist', 'whitelist_branch', 'whitelist_call', 'whitelist_branch_call', 'dataProgram', 'dataProgramCall'));
+        return view('broadcast.whitelist.index', compact('whitelist', 'whitelist_branch', 'whitelist_cluster', 'whitelist_call', 'whitelist_branch_call', 'dataProgram', 'dataProgramCall'));
     }
 
     public function release_whitelist(Request $request, $telp)
