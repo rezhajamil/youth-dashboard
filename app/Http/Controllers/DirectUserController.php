@@ -206,11 +206,11 @@ class DirectUserController extends Controller
     public function absensi(Request $request)
     {
         if (Auth::user()->privilege == 'branch') {
-            $cluster = DB::table('wilayah')->select('cluster')->distinct()->where('branch', Auth::user()->branch)->whereNotNull('cluster')->get();
+            $cluster = DB::table('territory_new')->select('cluster')->distinct()->where('branch', Auth::user()->branch)->whereNotNull('cluster')->orderBy('cluster')->get();
         } else if (Auth::user()->privilege == 'cluster') {
-            $cluster = DB::table('wilayah')->select('cluster')->where('cluster', Auth::user()->cluster)->get();
+            $cluster = DB::table('territory_new')->select('cluster')->where('cluster', Auth::user()->cluster)->orderBy('cluster')->get();
         } else {
-            $cluster = DB::table('wilayah')->select('cluster')->distinct()->whereNotNull('cluster')->get();
+            $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->orderBy('cluster')->get();
         }
 
         if ($request->month && $request->year) {
