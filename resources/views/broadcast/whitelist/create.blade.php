@@ -8,7 +8,7 @@
             <div class="px-6 py-4 mx-auto overflow-auto bg-white rounded-md shadow sm:mx-0 w-fit">
                 <form action="{{ route('whitelist.store') }}" method="POST" class="" enctype="multipart/form-data">
                     @csrf
-                    <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-3">
+                    <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
                         <div class="w-full">
                             <label class="block text-gray-700" for="cluster">Cluster</label>
                             <select name="cluster" id="cluster" class="w-full rounded-md" required>
@@ -22,7 +22,7 @@
                             @enderror
                         </div>
 
-                        <div class="w-full">
+                        {{-- <div class="w-full">
                             <label class="block text-gray-700" for="program">Jenis</label>
                             <select name="jenis" id="jenis" class="w-full rounded-md" required>
                                 <option value="" selected disabled>Pilih Jenis</option>
@@ -31,45 +31,42 @@
                             </select>
                             @error('jenis')
                             <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
-                            @enderror
-                        </div>
+                        @enderror
+                    </div> --}}
 
-                        <div class="w-full">
-                            <label class="block text-gray-700" for="program">Program</label>
-                            <select name="program" id="program" class="w-full rounded-md" required>
-                                <option value="" selected disabled>Pilih Program</option>
-                                @foreach ($dataProgram as $item)
-                                <option value="{{ $item->program }}" {{ old('program')==$item->program?'selected':'' }} class="program" style="display:none">{{ $item->program }}</option>
-                                @endforeach
-                                @foreach ($dataProgramCall as $item)
-                                <option value="{{ $item->program }}" {{ old('program')==$item->program?'selected':'' }} class="program_call" style="display:none">{{ $item->program }}</option>
-                                @endforeach
-                            </select>
-                            @error('program')
-                            <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <div>
-                            <label class="text-gray-700" for="file">File</label>
-                            <label class="block text-xs text-gray-700" for="file">File dengan format .csv</label>
-                            <label class="block text-xs text-gray-700" for="file">Format 'msisdn -> 628xxxxxxxxxxx'</label>
-                            <label class="block text-xs text-gray-700" for="file">File maksimal 500 baris</label>
-                            <input class="w-full rounded-md form-input focus:border-indigo-600" type="file" name="file" value="{{ old('file') }}">
-                            @error('file')
-                            <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
-                            @enderror
-                        </div>
+                    <div class="w-full">
+                        <label class="block text-gray-700" for="program">Program</label>
+                        <select name="program" id="program" class="w-full rounded-md" required>
+                            <option value="" selected disabled>Pilih Program</option>
+                            @foreach ($dataProgram as $item)
+                            <option value="{{ $item->program }}" {{ old('program')==$item->program?'selected':'' }} class="program">{{ $item->program }}</option>
+                            @endforeach
+                        </select>
+                        @error('program')
+                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                        @enderror
                     </div>
 
-                    <div class="flex justify-end mt-4">
-                        <button class="w-full px-4 py-2 font-bold text-white bg-indigo-800 rounded-md hover:bg-indigo-700 focus:outline-none focus:bg-indigo-700">Submit</button>
+                    <div>
+                        <label class="text-gray-700" for="file">File</label>
+                        <label class="block text-xs text-gray-700" for="file">File dengan format .csv</label>
+                        <label class="block text-xs text-gray-700" for="file">Format 'msisdn|site_id -> 628xxxxxxxxxxx|xx'</label>
+                        <label class="block text-xs text-gray-700" for="file">File maksimal 500 baris</label>
+                        <input class="w-full rounded-md form-input focus:border-indigo-600" type="file" name="file" value="{{ old('file') }}">
+                        @error('file')
+                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                        @enderror
                     </div>
-                </form>
             </div>
 
+            <div class="flex justify-end mt-4">
+                <button class="w-full px-4 py-2 font-bold text-white bg-indigo-800 rounded-md hover:bg-indigo-700 focus:outline-none focus:bg-indigo-700">Submit</button>
+            </div>
+            </form>
         </div>
+
     </div>
+</div>
 
 </div>
 @endsection
