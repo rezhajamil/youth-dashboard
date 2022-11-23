@@ -196,15 +196,35 @@ class BroadCastController extends Controller
 
 
         $whitelist_branch = DB::select("SELECT 
+                    data_user.branch,
+                    count(`new_data_broadcast`.msisdn) as 'wl',
+                    count(if(`new_data_broadcast`.telp!='no',1,NULL)) as 'diambil',
+                    count(if(`new_data_broadcast`.status='1',1,NULL)) as 'sudah' ,
+                    count(if(`new_data_broadcast`.status='0',1,NULL)) as 'belum',
+                    count(if(`new_data_broadcast`.telp='no',1,NULL)) as 'sisa',
+                    count(if(`Taker_Non_Usim_20221116`.usim='Y',1,NULL)) as 'usim'
+                   
+                    FROM `new_data_broadcast`
+                    JOIN data_user ON data_user.telp=new_data_broadcast.telp
+                    LEFT JOIN Taker_Non_Usim_20221116 ON new_data_broadcast.msisdn=Taker_Non_Usim_20221116.msisdn
+                    
+                    Where new_data_broadcast.program='$program' 
+					" . $branch . "
+                    GROUP by 1
+                    order by 1");
+
+        $whitelist_cluster = DB::select("SELECT 
                     data_user.branch,data_user.cluster,
                     count(`new_data_broadcast`.msisdn) as 'wl',
                     count(if(`new_data_broadcast`.telp!='no',1,NULL)) as 'diambil',
                     count(if(`new_data_broadcast`.status='1',1,NULL)) as 'sudah' ,
                     count(if(`new_data_broadcast`.status='0',1,NULL)) as 'belum',
-                    count(if(`new_data_broadcast`.telp='no',1,NULL)) as 'sisa'
+                    count(if(`new_data_broadcast`.telp='no',1,NULL)) as 'sisa',
+                    count(if(`Taker_Non_Usim_20221116`.usim='Y',1,NULL)) as 'usim'
                    
                     FROM `new_data_broadcast`
                     JOIN data_user ON data_user.telp=new_data_broadcast.telp
+                    LEFT JOIN Taker_Non_Usim_20221116 ON new_data_broadcast.msisdn=Taker_Non_Usim_20221116.msisdn
                     
                     Where new_data_broadcast.program='$program' 
 					" . $branch . "
@@ -227,7 +247,7 @@ class BroadCastController extends Controller
                     GROUP by 1,2
                     order by 1,2");
 
-        return view('broadcast.whitelist.index', compact('whitelist', 'whitelist_branch', 'whitelist_call', 'whitelist_branch_call', 'dataProgram', 'dataProgramCall'));
+        return view('broadcast.whitelist.index', compact('whitelist', 'whitelist_cluster', 'whitelist_branch', 'whitelist_call', 'whitelist_branch_call', 'dataProgram', 'dataProgramCall'));
     }
 
     public function release_whitelist(Request $request, $telp)

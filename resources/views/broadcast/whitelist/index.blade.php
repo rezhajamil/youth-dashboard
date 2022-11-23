@@ -54,9 +54,9 @@
                         <tr>
                             <th rowspan="2" class="p-3 text-sm font-bold text-gray-100 uppercase border-2 border-tersier bg-premier">No</th>
                             <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Branch</th>
-                            <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Cluster</th>
                             <th colspan="3" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Whitelist</th>
                             <th colspan="4" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Broadcast</th>
+                            <th colspan="4" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Taker</th>
 
                             {{-- <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Action</th> --}}
                         </tr>
@@ -68,6 +68,8 @@
                             <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Belum</th>
                             <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">% Ach</th>
                             <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Sisa</th>
+                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Usim</th>
+                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">%</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -75,14 +77,63 @@
                         <tr class="transition hover:bg-gray-200/40">
                             <td class="p-3 font-bold text-gray-700 border-2">{{ $key+1 }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->branch }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->wl }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->diambil }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->diambil/$data->wl?:1)*100,2).' %' }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->sudah }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->belum }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->sudah/$data->wl?:1)*100,2).' %' }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->sisa }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->usim }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->usim/$data->wl?:1)*100,2).' %' }}</td>
+                            {{-- <td class="p-3 text-gray-700 border-b"></td> --}}
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
+            <span class="block mt-6 mb-2 text-lg font-semibold text-gray-600">Whitelist By Cluster</span>
+            <div class="overflow-hidden bg-white rounded-md shadow w-fit table-broadcast">
+                <table class="text-left border-collapse w-fit">
+                    <thead class="border-b">
+                        <tr>
+                            <th rowspan="2" class="p-3 text-sm font-bold text-gray-100 uppercase border-2 border-tersier bg-premier">No</th>
+                            <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Branch</th>
+                            <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Cluster</th>
+                            <th colspan="3" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Whitelist</th>
+                            <th colspan="4" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Broadcast</th>
+                            <th colspan="4" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Taker</th>
+
+                            {{-- <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Action</th> --}}
+                        </tr>
+                        <tr>
+                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Total</th>
+                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Diambil</th>
+                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">% Terpakai</th>
+                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Sudah</th>
+                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Belum</th>
+                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">% Ach</th>
+                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Sisa</th>
+                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Usim</th>
+                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">%</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($whitelist_cluster as $key=>$data)
+                        <tr class="transition hover:bg-gray-200/40">
+                            <td class="p-3 font-bold text-gray-700 border-2">{{ $key+1 }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->branch }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->cluster }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->wl }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->diambil }}</td>
-                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->diambil/$data->wl)*100,2).' %' }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->diambil/$data->wl?:1)*100,2).' %' }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->sudah }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->belum }}</td>
-                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->sudah/$data->wl)*100,2).' %' }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->sudah/$data->wl?:1)*100,2).' %' }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->sisa }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->usim }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->usim/$data->wl?:1)*100,2).' %' }}</td>
                             {{-- <td class="p-3 text-gray-700 border-b"></td> --}}
                         </tr>
                         @endforeach
@@ -128,10 +179,10 @@
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->telp }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->wl }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->diambil }}</td>
-                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->diambil/$data->wl)*100,2).' %' }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->diambil/$data->wl?:1)*100,2).' %' }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->sudah }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->belum }}</td>
-                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->sudah/$data->wl)*100,2).' %' }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->sudah/$data->wl?:1)*100,2).' %' }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->sisa }}</td>
                             @if(Auth::user()->privilege == "branch")
                             <td class="p-3 text-gray-700 border-b">
@@ -181,10 +232,10 @@
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->cluster }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->wl }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->diambil }}</td>
-                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->diambil/$data->wl)*100,2).' %' }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->diambil/$data->wl?:1)*100,2).' %' }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->sudah }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->belum }}</td>
-                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->sudah/$data->wl)*100,2).' %' }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->sudah/$data->wl?:1)*100,2).' %' }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->sisa }}</td>
 
                             {{-- <td class="p-3 text-gray-700 border-b"></td> --}}
@@ -232,10 +283,10 @@
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->telp }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->wl }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->diambil }}</td>
-                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->diambil/$data->wl)*100,2).' %' }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->diambil/$data->wl?:1)*100,2).' %' }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->sudah }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->belum }}</td>
-                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->sudah/$data->wl)*100,2).' %' }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->sudah/$data->wl?:1)*100,2).' %' }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->sisa }}</td>
                             @if(Auth::user()->privilege == "branch")
                             <td class="p-3 text-gray-700 border-b">
