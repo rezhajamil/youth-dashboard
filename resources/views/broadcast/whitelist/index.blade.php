@@ -79,13 +79,13 @@
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->branch }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->wl }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->diambil }}</td>
-                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->diambil/$data->wl?:1)*100,2).' %' }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->diambil/$data->wl)*100,2).' %' }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->sudah }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->belum }}</td>
-                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->sudah/$data->wl?:1)*100,2).' %' }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->sudah/$data->wl)*100,2).' %' }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->sisa }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->usim }}</td>
-                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->usim/$data->wl?:1)*100,2).' %' }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->usim/$data->wl)*100,2).' %' }}</td>
                             {{-- <td class="p-3 text-gray-700 border-b"></td> --}}
                         </tr>
                         @endforeach
@@ -127,13 +127,13 @@
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->cluster }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->wl }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->diambil }}</td>
-                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->diambil/$data->wl?:1)*100,2).' %' }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->diambil/$data->wl)*100,2).' %' }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->sudah }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->belum }}</td>
-                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->sudah/$data->wl?:1)*100,2).' %' }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->sudah/$data->wl)*100,2).' %' }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->sisa }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->usim }}</td>
-                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->usim/$data->wl?:1)*100,2).' %' }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->usim/$data->wl)*100,2).' %' }}</td>
                             {{-- <td class="p-3 text-gray-700 border-b"></td> --}}
                         </tr>
                         @endforeach
@@ -179,10 +179,10 @@
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->telp }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->wl }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->diambil }}</td>
-                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->diambil/$data->wl?:1)*100,2).' %' }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->diambil/$data->wl)*100,2).' %' }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->sudah }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->belum }}</td>
-                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->sudah/$data->wl?:1)*100,2).' %' }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->sudah/$data->wl)*100,2).' %' }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->sisa }}</td>
                             @if(Auth::user()->privilege == "branch")
                             <td class="p-3 text-gray-700 border-b">
@@ -232,10 +232,10 @@
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->cluster }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->wl }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->diambil }}</td>
-                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->diambil/$data->wl?:1)*100,2).' %' }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->diambil/$data->wl)*100,2).' %' }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->sudah }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->belum }}</td>
-                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->sudah/$data->wl?:1)*100,2).' %' }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->sudah/$data->wl)*100,2).' %' }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->sisa }}</td>
 
                             {{-- <td class="p-3 text-gray-700 border-b"></td> --}}
@@ -283,10 +283,10 @@
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->telp }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->wl }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->diambil }}</td>
-                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->diambil/$data->wl?:1)*100,2).' %' }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->diambil/$data->wl)*100,2).' %' }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->sudah }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->belum }}</td>
-                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->sudah/$data->wl?:1)*100,2).' %' }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->sudah/$data->wl)*100,2).' %' }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->sisa }}</td>
                             @if(Auth::user()->privilege == "branch")
                             <td class="p-3 text-gray-700 border-b">
