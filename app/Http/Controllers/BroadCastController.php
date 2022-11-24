@@ -44,7 +44,6 @@ class BroadCastController extends Controller
             GROUP BY  1,2,3
             ORDER BY `data_user`.cluster,`data_user`.role,`data_user`.nama  ;");
 
-
         $broadcast_cluster = DB::select(
             "SELECT a.cluster,
             count(a.msisdn) as 'wl',
@@ -196,40 +195,35 @@ class BroadCastController extends Controller
 
 
         $whitelist_branch = DB::select("SELECT 
-                    data_user.branch,
-                    count(`new_data_broadcast`.msisdn) as 'wl',
-                    count(if(`new_data_broadcast`.telp!='no',1,NULL)) as 'diambil',
-                    count(if(`new_data_broadcast`.status='1',1,NULL)) as 'sudah' ,
-                    count(if(`new_data_broadcast`.status='0',1,NULL)) as 'belum',
-                    count(if(`new_data_broadcast`.telp='no',1,NULL)) as 'sisa',
-                    count(if(`Taker_Non_Usim_20221116`.usim='Y',1,NULL)) as 'usim'
-                   
-                    FROM `new_data_broadcast`
-                    JOIN data_user ON data_user.telp=new_data_broadcast.telp
-                    LEFT JOIN Taker_Non_Usim_20221116 ON new_data_broadcast.msisdn=Taker_Non_Usim_20221116.msisdn
-                    
-                    Where new_data_broadcast.program='$program' 
-					" . $branch . "
-                    GROUP by 1
-                    order by 1");
+                    b.branch,
+                    count(`a`.msisdn) as 'wl',
+                    count(if(`a`.telp!='no',1,NULL)) as 'diambil',
+                    count(if(`a`.telp='no',1,NULL)) as 'sisa',
+                    count(case when a.telp!='no' AND a.status ='1' then a.msisdn end) as 'sudah' ,
+                    count(case when a.telp!='no' AND a.status ='0' then a.msisdn end) as 'belum'
+
+                    FROM `new_data_broadcast` a
+                    JOIN territory_new b ON b.cluster=a.cluster
+
+                    Where a.program='WL Seg5 NOV_22' 
+                    GROUP BY 1
+                    order BY 1;");
 
         $whitelist_cluster = DB::select("SELECT 
-                    data_user.branch,data_user.cluster,
-                    count(`new_data_broadcast`.msisdn) as 'wl',
-                    count(if(`new_data_broadcast`.telp!='no',1,NULL)) as 'diambil',
-                    count(if(`new_data_broadcast`.status='1',1,NULL)) as 'sudah' ,
-                    count(if(`new_data_broadcast`.status='0',1,NULL)) as 'belum',
-                    count(if(`new_data_broadcast`.telp='no',1,NULL)) as 'sisa',
-                    count(if(`Taker_Non_Usim_20221116`.usim='Y',1,NULL)) as 'usim'
-                   
-                    FROM `new_data_broadcast`
-                    JOIN data_user ON data_user.telp=new_data_broadcast.telp
-                    LEFT JOIN Taker_Non_Usim_20221116 ON new_data_broadcast.msisdn=Taker_Non_Usim_20221116.msisdn
-                    
-                    Where new_data_broadcast.program='$program' 
-					" . $branch . "
-                    GROUP by 1,2
-                    order by 1,2");
+                    b.branch,b.cluster,
+                    count(`a`.msisdn) as 'wl',
+                    count(if(`a`.telp!='no',1,NULL)) as 'diambil',
+                    count(if(`a`.telp='no',1,NULL)) as 'sisa',
+                    count(case when a.telp!='no' AND a.status ='1' then a.msisdn end) as 'sudah' ,
+                    count(case when a.telp!='no' AND a.status ='0' then a.msisdn end) as 'belum'
+
+                    FROM `new_data_broadcast` a
+                    JOIN territory_new b ON b.cluster=a.cluster
+
+                    Where a.program='$program' 
+                    " . $branch . "
+                    GROUP BY 1,2
+                    order BY 1,2;");
 
         $whitelist_branch_call = DB::select("SELECT 
                     data_user.branch,data_user.cluster,

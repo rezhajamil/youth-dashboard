@@ -7,7 +7,7 @@
             <a href="{{ route('whitelist.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-800"><i class="mr-2 fa-solid fa-plus"></i> Data Whitelist Baru</a>
             {{-- <span class="text-sm">Update : {{ $update_broadcast[0]->last_update }}</span> --}}
             @endif
-            <h4 class="text-xl font-bold text-gray-600 align-baseline">Broadcast Program</h4>
+            <h4 class="text-xl font-bold text-gray-600 align-baseline">Whitelist Program</h4>
 
             <div class="flex justify-between mt-4 ">
                 <form class="flex flex-wrap items-center gap-x-4 gap-y-2" action="{{ route('whitelist.index') }}" method="get">
@@ -56,7 +56,7 @@
                             <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Branch</th>
                             <th colspan="3" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Whitelist</th>
                             <th colspan="4" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Broadcast</th>
-                            <th colspan="4" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Taker</th>
+                            {{-- <th colspan="4" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Taker</th> --}}
 
                             {{-- <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Action</th> --}}
                         </tr>
@@ -68,8 +68,8 @@
                             <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Belum</th>
                             <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">% Ach</th>
                             <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Sisa</th>
-                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Usim</th>
-                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">%</th>
+                            {{-- <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Usim</th>
+                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">%</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -84,8 +84,8 @@
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->belum }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->sudah/$data->wl)*100,2).' %' }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->sisa }}</td>
-                            <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->usim }}</td>
-                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->usim/$data->wl)*100,2).' %' }}</td>
+                            {{-- <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->usim }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->usim/$data->wl)*100,2).' %' }}</td> --}}
                             {{-- <td class="p-3 text-gray-700 border-b"></td> --}}
                         </tr>
                         @endforeach
@@ -103,7 +103,7 @@
                             <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Cluster</th>
                             <th colspan="3" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Whitelist</th>
                             <th colspan="4" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Broadcast</th>
-                            <th colspan="4" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Taker</th>
+                            {{-- <th colspan="4" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Taker</th> --}}
 
                             {{-- <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Action</th> --}}
                         </tr>
@@ -115,8 +115,8 @@
                             <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Belum</th>
                             <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">% Ach</th>
                             <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Sisa</th>
-                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Usim</th>
-                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">%</th>
+                            {{-- <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Usim</th> --}}
+                            {{-- <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">%</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -132,8 +132,8 @@
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->belum }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->sudah/$data->wl)*100,2).' %' }}</td>
                             <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->sisa }}</td>
-                            <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->usim }}</td>
-                            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->usim/$data->wl)*100,2).' %' }}</td>
+                            {{-- <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->usim }}</td> --}}
+                            {{-- <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->usim/$data->wl)*100,2).' %' }}</td> --}}
                             {{-- <td class="p-3 text-gray-700 border-b"></td> --}}
                         </tr>
                         @endforeach
