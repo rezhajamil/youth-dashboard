@@ -21,7 +21,7 @@ class BroadCastController extends Controller
         $last_m1 = date('Y-m-01', strtotime('-1 month', strtotime($request->date)));
         $last_mtd = $this->convDate($mtd);
         $program = $request->program;
-        $dataProgram = DB::table('new_after_broadcast')->select('program')->distinct()->get();
+        $dataProgram = DB::table('new_list_program')->select('program')->distinct()->get();
         $branch_broadcast = Auth::user()->privilege == "branch" ? "and data_user.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "and data_user.cluster='" . Auth::user()->cluster . "'" : '');
         $branch_program = Auth::user()->privilege == "branch" ? "data_user.branch ='" . Auth::user()->branch . "' AND" : (Auth::user()->privilege == "branch" ? "data_user.branch ='" . Auth::user()->branch . "' AND" : '');
         $branch_broadcast_cluster = Auth::user()->privilege == "branch" ? "WHERE b.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "WHERE b.branch='" . Auth::user()->cluster . "'" : '');

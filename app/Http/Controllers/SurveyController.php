@@ -17,9 +17,9 @@ class SurveyController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->privilege == 'branch') {
-            abort(403);
-        }
+        // if (Auth::user()->privilege == 'branch') {
+        //     abort(403);
+        // }
         $session = DB::table('survey_session')->orderBy('date', 'desc')->get();
         return view('directUser.survey.index', compact('session'));
     }
