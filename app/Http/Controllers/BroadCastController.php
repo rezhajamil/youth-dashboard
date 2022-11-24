@@ -158,10 +158,10 @@ class BroadCastController extends Controller
         $program_call = $request->program_call;
         $dataProgram = DB::table('new_list_program')->select('program')->distinct()->get();
         $dataProgramCall = DB::table('new_list_program_call')->select('program')->distinct()->get();
-        $branch = Auth::user()->privilege == "branch" ? "AND data_user.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "AND data_user.cluster='" . Auth::user()->cluster . "'" : '');
+        $branch = Auth::user()->privilege == "branch" ? "AND b.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "AND data_user.cluster='" . Auth::user()->cluster . "'" : '');
 
         $whitelist = DB::select("SELECT 
-                    new_data_broadcast.telp, data_user.nama,data_user.branch,data_user.cluster,
+                    new_data_broadcast.telp, b.nama,b.branch,b.cluster,
                     count(`new_data_broadcast`.msisdn) as 'wl',
                     count(if(`new_data_broadcast`.telp!='no',1,NULL)) as 'diambil',
                     count(if(`new_data_broadcast`.status='1',1,NULL)) as 'sudah' ,
@@ -169,7 +169,7 @@ class BroadCastController extends Controller
                     count(if(`new_data_broadcast`.telp='no',1,NULL)) as 'sisa'
                    
                     FROM `new_data_broadcast`
-                    JOIN data_user ON data_user.telp=new_data_broadcast.telp
+                    JOIN data_user b ON b.telp=new_data_broadcast.telp
                     
                     Where new_data_broadcast.program='$program' 
 					" . $branch . "
@@ -178,7 +178,7 @@ class BroadCastController extends Controller
 
         $whitelist_call = DB::select("SELECT 
                     
-                    new_data_campaign.telp, data_user.nama,data_user.branch,data_user.cluster,
+                    new_data_campaign.telp, b.nama,b.branch,b.cluster,
                     count(`new_data_campaign`.msisdn) as 'wl',
                     count(if(`new_data_campaign`.telp!='no',1,NULL)) as 'diambil',
                     count(if(`new_data_campaign`.status='1',1,NULL)) as 'sudah' ,
@@ -186,7 +186,7 @@ class BroadCastController extends Controller
                     count(if(`new_data_campaign`.telp='no',1,NULL)) as 'sisa'
                    
                     FROM `new_data_campaign`
-                    JOIN data_user ON data_user.telp=new_data_campaign.telp
+                    JOIN data_user b ON b.telp=new_data_campaign.telp
                     
                     Where new_data_campaign.program='$program_call' 
 					" . $branch . "
@@ -205,7 +205,7 @@ class BroadCastController extends Controller
                     FROM `new_data_broadcast` a
                     JOIN territory_new b ON b.cluster=a.cluster
 
-                    Where a.program='WL Seg5 NOV_22' 
+                    Where a.program='$program' 
                     GROUP BY 1
                     order BY 1;");
 
@@ -226,7 +226,7 @@ class BroadCastController extends Controller
                     order BY 1,2;");
 
         $whitelist_branch_call = DB::select("SELECT 
-                    data_user.branch,data_user.cluster,
+                    b.branch,b.cluster,
                     count(`new_data_campaign`.msisdn) as 'wl',
                     count(if(`new_data_campaign`.telp!='no',1,NULL)) as 'diambil',
                     count(if(`new_data_campaign`.status='1',1,NULL)) as 'sudah' ,
@@ -234,7 +234,7 @@ class BroadCastController extends Controller
                     count(if(`new_data_campaign`.telp='no',1,NULL)) as 'sisa'
                    
                     FROM `new_data_campaign`
-                    JOIN data_user ON data_user.telp=new_data_campaign.telp
+                    JOIN data_user b ON b.telp=new_data_campaign.telp
                     
                     Where new_data_campaign.program='$program_call' 
 					" . $branch . "
