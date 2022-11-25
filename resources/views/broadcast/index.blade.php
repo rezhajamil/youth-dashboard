@@ -27,269 +27,356 @@
                         <input type="checkbox" id="by_region" class="appearance-none">
                     </div>
                 </div> --}}
-
             </div>
 
-            <span class="inline-block mt-6 mb-2 text-lg font-semibold text-gray-600">Broadcast/By Direct Sales</span>
-            <div class="overflow-hidden bg-white rounded-md shadow w-fit">
-                <table class="text-left border-collapse w-fit">
-                    <thead class="border-b">
-                        <tr>
-                            <th rowspan="2" class="p-2 text-sm font-bold text-gray-100 uppercase border-2 border-tersier bg-premier">No</th>
-                            <th rowspan="2" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Cluster</th>
-                            <th rowspan="2" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Nama</th>
-                            <th rowspan="2" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Role</th>
-                            <th colspan="5" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Broadcast</th>
-                            <th colspan="4" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Result</th>
-                            <th colspan="4" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Persentase</th>
-
-                            {{-- <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Action</th> --}}
-                        </tr>
-                        <tr>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Total</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Send</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">All Not Send</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Not Send</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Not WA</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Read</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Not Read</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Respon</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Not Respon</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">(%) Send</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">(%) Not Send</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">(%) Read</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">(%) Respon</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @php
-                        $sum_total=0;
-                        $sum_sent=0;
-                        $sum_not_sent=0;
-                        $sum_not_wa=0;
-                        $sum_read=0;
-                        $sum_not_read=0;
-                        $sum_reply=0;
-                        $sum_not_reply=0;
-
-                        @endphp
-                        @foreach ($broadcast as $key=>$data)
-                        @php
-                        $sum_total+=$data->total;
-                        $sum_sent+=$data->sent;
-                        $sum_not_sent+=$data->not_sent;
-                        $sum_not_wa+=$data->not_wa;
-                        $sum_read+=$data->read;
-                        $sum_not_read+=$data->not_read;
-                        $sum_reply+=$data->reply;
-                        $sum_not_reply+=$data->not_reply;
-                        @endphp
-                        <tr class="transition hover:bg-gray-200/40">
-                            <td class="p-2 font-bold text-gray-700 border-2">{{ $key+1 }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2 ">{{ $data->cluster }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2 ">{{ $data->nama }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2">{{ $data->role }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2">{{ $data->total }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2">{{ $data->sent }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_sent+$data->not_wa }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_sent }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_wa }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2">{{ $data->read }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_read }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2">{{ $data->reply }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_reply }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ $data->total>0?number_format(($data->sent/$data->total)*100,2).' %':'0%' }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ $data->total>0?number_format((($data->not_sent+$data->not_wa)/$data->total)*100,2).' %':'0%' }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ $data->sent>0?number_format(($data->read/$data->sent)*100,2).' %':'0%' }}</td>
-                            @if ($data->reply>0&&$data->read>0)
-                            <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->reply/$data->read)*100,2).' %' }}</td>
-                            @else
-                            <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">0%</td>
-                            @endif
-
-                            {{-- <td class="p-2 text-gray-700 border-b"></td> --}}
-                        </tr>
-                        @endforeach
-                        <tr>
-                            <td colspan="4" class="p-2 font-bold text-white uppercase border-2 border-l-tersier bg-tersier">Grand Total</td>
-                            <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_total }}</td>
-                            <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_sent }}</td>
-                            <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_not_sent+$sum_not_wa }}</td>
-                            <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_not_sent }}</td>
-                            <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_not_wa }}</td>
-                            <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_read }}</td>
-                            <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_not_read }}</td>
-                            <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_reply }}</td>
-                            <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_not_reply }}</td>
-                            @if ($sum_total)
-                            <td class="p-2 text-white uppercase border-2 bg-tersier">{{ number_format(($sum_sent/$sum_total)*100,2).' %' }}</td>
-                            <td class="p-2 text-white uppercase border-2 bg-tersier whitespace-nowrap">{{ number_format((($sum_not_sent+$sum_not_wa)/$sum_total)*100,2).' %' }}</td>
-                            @else
-                            <td class="p-2 text-white uppercase border-2 bg-tersier whitespace-nowrap">0%</td>
-                            <td class="p-2 text-white uppercase border-2 bg-tersier whitespace-nowrap">0%</td>
-                            @endif
-                            @if ($sum_sent>0)
-                            <td class="p-2 text-white uppercase border-2 bg-tersier whitespace-nowrap">{{ number_format(($sum_read/$sum_sent)*100,2).' %' }}</td>
-                            @else
-                            <td class="p-2 text-white uppercase border-2 bg-tersier whitespace-nowrap">0%</td>
-                            @endif
-                            @if ($sum_reply>0&&$sum_read>0)
-                            <td class="p-2 text-white uppercase border-2 bg-tersier whitespace-nowrap border-r-tersier">{{ number_format(($sum_reply/$sum_read)*100,2).' %' }}</td>
-                            @else
-                            <td class="p-2 text-white uppercase border-2 bg-tersier whitespace-nowrap border-r-tersier">0%</td>
-                            @endif
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <span class="inline-block mt-6 mb-2 text-lg font-semibold text-gray-600">Broadcast/By Program</span>
-            <div class="overflow-hidden bg-white rounded-md shadow w-fit">
-                <table class="text-left border-collapse w-fit">
-                    <thead class="border-b">
-                        <tr>
-                            <th rowspan="2" class="p-2 text-sm font-bold text-gray-100 uppercase border-2 border-tersier bg-premier">No</th>
-                            <th rowspan="2" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Nama Program</th>
-                            <th colspan="5" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Broadcast</th>
-                            <th colspan="4" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Result</th>
-                            <th colspan="4" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Persentase</th>
-
-                            {{-- <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Action</th> --}}
-                        </tr>
-                        <tr>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Total</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Send</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">All Not Send</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Not Send</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Not WA</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Read</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Not Read</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Respon</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Not Respon</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">(%) Send</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">(%) Not Send</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">(%) Read</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">(%) Respon</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @php
-                        $sum_total=0;
-                        $sum_sent=0;
-                        $sum_not_sent=0;
-                        $sum_not_wa=0;
-                        $sum_read=0;
-                        $sum_not_read=0;
-                        $sum_reply=0;
-                        $sum_not_reply=0;
-
-                        @endphp
-                        @foreach ($program_list as $key=>$data)
-                        @php
-                        $sum_total+=$data->total;
-                        $sum_sent+=$data->sent;
-                        $sum_not_sent+=$data->not_sent;
-                        $sum_not_wa+=$data->not_wa;
-                        $sum_read+=$data->read;
-                        $sum_not_read+=$data->not_read;
-                        $sum_reply+=$data->reply;
-                        $sum_not_reply+=$data->not_reply;
-                        @endphp
-                        <tr class="transition hover:bg-gray-200/40">
-                            <td class="p-2 font-bold text-gray-700 border-2">{{ $key+1 }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2 ">{{ $data->program }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2">{{ $data->total }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2">{{ $data->sent }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_sent+$data->not_wa }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_sent }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_wa }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2">{{ $data->read }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_read }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2">{{ $data->reply }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_reply }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->sent/$data->total)*100,2).' %' }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format((($data->not_sent+$data->not_wa)/$data->total)*100,2).' %' }}</td>
-                            <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->read/($data->sent!=0?$data->sent:1))*100,2).' %' }}</td>
-                            @if ($data->reply>0&&$data->read>0)
-                            <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->reply/$data->read)*100,2).' %' }}</td>
-                            @else
-                            <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">0%</td>
-                            @endif
-
-                            {{-- <td class="p-2 text-gray-700 border-b"></td> --}}
-                        </tr>
-                        @endforeach
-                        <tr>
-                            <td colspan="2" class="p-2 font-bold text-white uppercase border-2 border-l-tersier bg-tersier">Grand Total</td>
-                            <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_total }}</td>
-                            <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_sent }}</td>
-                            <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_not_sent+$sum_not_wa }}</td>
-                            <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_not_sent }}</td>
-                            <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_not_wa }}</td>
-                            <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_read }}</td>
-                            <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_not_read }}</td>
-                            <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_reply }}</td>
-                            <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_not_reply }}</td>
-                            @if ($sum_total)
-                            <td class="p-2 text-white uppercase border-2 bg-tersier">{{ number_format(($sum_sent/$sum_total)*100,2).' %' }}</td>
-                            <td class="p-2 text-white uppercase border-2 bg-tersier whitespace-nowrap">{{ number_format((($sum_not_sent+$sum_not_wa)/$sum_total)*100,2).' %' }}</td>
-                            @else
-                            <td class="p-2 text-white uppercase border-2 bg-tersier whitespace-nowrap">0%</td>
-                            <td class="p-2 text-white uppercase border-2 bg-tersier whitespace-nowrap">0%</td>
-                            @endif
-                            @if ($sum_sent>0)
-                            <td class="p-2 text-white uppercase border-2 bg-tersier whitespace-nowrap">{{ number_format(($sum_read/$sum_sent)*100,2).' %' }}</td>
-                            @else
-                            <td class="p-2 text-white uppercase border-2 bg-tersier whitespace-nowrap">0%</td>
-                            @endif
-                            @if ($sum_reply>0&&$sum_read>0)
-                            <td class="p-2 text-white uppercase border-2 bg-tersier whitespace-nowrap border-r-tersier">{{ number_format(($sum_reply/$sum_read)*100,2).' %' }}</td>
-                            @else
-                            <td class="p-2 text-white uppercase border-2 bg-tersier whitespace-nowrap border-r-tersier">0%</td>
-                            @endif
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            {{-- <span class="block mt-6 mb-2 text-lg font-semibold text-gray-600">Broadcast/By Cluster</span>
+            {{-- <span class="block mt-6 mb-2 text-lg font-semibold text-gray-600">Broadcast/By Branch</span>
             <div class="overflow-hidden bg-white rounded-md shadow w-fit table-broadcast">
                 <table class="text-left border-collapse w-fit">
                     <thead class="border-b">
                         <tr>
-                            <th rowspan="2" class="p-3 text-sm font-bold text-gray-100 uppercase border-2 border-tersier bg-premier">No</th>
-                            <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Cluster</th>
-                            <th colspan="3" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Whitelist</th>
-                            <th colspan="4" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Broadcast</th>
-
+                            <th rowspan="2" class="p-2 text-sm font-bold text-gray-100 uppercase border-2 border-tersier bg-premier">No</th>
+                            <th rowspan="2" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Branch</th>
+                            <th rowspan="2" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Cluster</th>
+                            <th colspan="5" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Broadcast</th>
+                            <th colspan="5" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Result</th>
+                            <th colspan="5" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Persentase</th>
                         </tr>
                         <tr>
-                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Total</th>
-                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Diambil</th>
-                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">% Terpakai</th>
-                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Sudah</th>
-                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Belum</th>
-                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">% Ach</th>
-                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Sisa</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Total</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Send</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">All Not Send</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Not Send</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Not WA</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Read</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Not Read</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Respon</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Not Respon</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">USIM</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">(%) Send</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">(%) Not Send</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">(%) Read</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">(%) Respon</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">(%) USIM</th>
                         </tr>
+
                     </thead>
                     <tbody>
-                        @foreach ($broadcast_cluster as $key=>$data)
+                        @foreach ($broadcast_branch as $key=>$data)
                         <tr class="transition hover:bg-gray-200/40">
-                            <td class="p-3 font-bold text-gray-700 border-2">{{ $key+1 }}</td>
-            <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->cluster }}</td>
-            <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->wl }}</td>
-            <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->diambil }}</td>
-            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->diambil/$data->wl)*100,2).' %' }}</td>
-            <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->sudah }}</td>
-            <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->belum }}</td>
-            <td class="p-3 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->sudah/$data->wl)*100,2).' %' }}</td>
-            <td class="p-3 text-gray-700 uppercase border-2 ">{{ $data->sisa }}</td>
+                            <td class="p-2 font-bold text-gray-700 border-2">{{ $key+1 }}</td>
+            <td class="p-2 text-gray-700 uppercase border-2 ">{{ $data->branch }}</td>
+            <td class="p-2 text-gray-700 uppercase border-2 ">{{ $data->cluster }}</td>
+            <td class="p-2 text-gray-700 uppercase border-2">{{ $data->total }}</td>
+            <td class="p-2 text-gray-700 uppercase border-2">{{ $data->sent }}</td>
+            <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_sent+$data->not_wa }}</td>
+            <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_sent }}</td>
+            <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_wa }}</td>
+            <td class="p-2 text-gray-700 uppercase border-2">{{ $data->read }}</td>
+            <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_read }}</td>
+            <td class="p-2 text-gray-700 uppercase border-2">{{ $data->reply }}</td>
+            <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_reply }}</td>
+            <td class="p-2 text-gray-700 uppercase border-2">{{ $data->usim }}</td>
+            <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ $data->total>0?number_format(($data->sent/$data->total)*100,2).' %':'0%' }}</td>
+            <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ $data->total>0?number_format((($data->not_sent+$data->not_wa)/$data->total)*100,2).' %':'0%' }}</td>
+            <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ $data->sent>0?number_format(($data->read/$data->sent)*100,2).' %':'0%' }}</td>
+            @if ($data->reply>0&&$data->read>0)
+            <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->reply/$data->read)*100,2).' %' }}</td>
+            @else
+            <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">0%</td>
+            @endif
+            <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->usim/$data->total)*100,2).' %' }}</td>
             </tr>
             @endforeach
             </tbody>
             </table>
         </div> --}}
+
+        <span class="block mt-6 mb-2 text-lg font-semibold text-gray-600">Broadcast/By Cluster</span>
+        <div class="overflow-hidden bg-white rounded-md shadow w-fit table-broadcast">
+            <table class="text-left border-collapse w-fit">
+                <thead class="border-b">
+                    <tr>
+                        <th rowspan="2" class="p-2 text-sm font-bold text-gray-100 uppercase border-2 border-tersier bg-premier">No</th>
+                        <th rowspan="2" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Cluster</th>
+                        <th colspan="5" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Broadcast</th>
+                        <th colspan="5" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Result</th>
+                        <th colspan="5" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Persentase</th>
+
+                        {{-- <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Action</th> --}}
+                    </tr>
+                    <tr>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Total</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Send</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">All Not Send</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Not Send</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Not WA</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Read</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Not Read</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Respon</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Not Respon</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">USIM</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">(%) Send</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">(%) Not Send</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">(%) Read</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">(%) Respon</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">(%) USIM</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    @foreach ($broadcast_cluster as $key=>$data)
+                    <tr class="transition hover:bg-gray-200/40">
+                        <td class="p-2 font-bold text-gray-700 border-2">{{ $key+1 }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2 ">{{ $data->cluster }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2">{{ $data->total }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2">{{ $data->sent }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_sent+$data->not_wa }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_sent }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_wa }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2">{{ $data->read }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_read }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2">{{ $data->reply }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_reply }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2">{{ $data->usim }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ $data->total>0?number_format(($data->sent/$data->total)*100,2).' %':'0%' }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ $data->total>0?number_format((($data->not_sent+$data->not_wa)/$data->total)*100,2).' %':'0%' }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ $data->sent>0?number_format(($data->read/$data->sent)*100,2).' %':'0%' }}</td>
+                        @if ($data->reply>0&&$data->read>0)
+                        <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->reply/$data->read)*100,2).' %' }}</td>
+                        @else
+                        <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">0%</td>
+                        @endif
+                        <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->usim/$data->total)*100,2).' %' }}</td>
+
+                        {{-- <td class="p-2 text-gray-700 border-b"></td> --}}
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+
+        <span class="inline-block mt-6 mb-2 text-lg font-semibold text-gray-600">Broadcast/By Direct Sales</span>
+        <div class="overflow-hidden bg-white rounded-md shadow w-fit">
+            <table class="text-left border-collapse w-fit">
+                <thead class="border-b">
+                    <tr>
+                        <th rowspan="2" class="p-2 text-sm font-bold text-gray-100 uppercase border-2 border-tersier bg-premier">No</th>
+                        <th rowspan="2" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Cluster</th>
+                        <th rowspan="2" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Nama</th>
+                        <th rowspan="2" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Role</th>
+                        <th colspan="5" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Broadcast</th>
+                        <th colspan="4" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Result</th>
+                        <th colspan="4" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Persentase</th>
+
+                        {{-- <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Action</th> --}}
+                    </tr>
+                    <tr>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Total</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Send</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">All Not Send</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Not Send</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Not WA</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Read</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Not Read</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Respon</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Not Respon</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">(%) Send</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">(%) Not Send</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">(%) Read</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">(%) Respon</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                    $sum_total=0;
+                    $sum_sent=0;
+                    $sum_not_sent=0;
+                    $sum_not_wa=0;
+                    $sum_read=0;
+                    $sum_not_read=0;
+                    $sum_reply=0;
+                    $sum_not_reply=0;
+
+                    @endphp
+                    @foreach ($broadcast as $key=>$data)
+                    @php
+                    $sum_total+=$data->total;
+                    $sum_sent+=$data->sent;
+                    $sum_not_sent+=$data->not_sent;
+                    $sum_not_wa+=$data->not_wa;
+                    $sum_read+=$data->read;
+                    $sum_not_read+=$data->not_read;
+                    $sum_reply+=$data->reply;
+                    $sum_not_reply+=$data->not_reply;
+                    @endphp
+                    <tr class="transition hover:bg-gray-200/40">
+                        <td class="p-2 font-bold text-gray-700 border-2">{{ $key+1 }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2 ">{{ $data->cluster }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2 ">{{ $data->nama }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2">{{ $data->role }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2">{{ $data->total }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2">{{ $data->sent }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_sent+$data->not_wa }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_sent }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_wa }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2">{{ $data->read }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_read }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2">{{ $data->reply }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_reply }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ $data->total>0?number_format(($data->sent/$data->total)*100,2).' %':'0%' }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ $data->total>0?number_format((($data->not_sent+$data->not_wa)/$data->total)*100,2).' %':'0%' }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ $data->sent>0?number_format(($data->read/$data->sent)*100,2).' %':'0%' }}</td>
+                        @if ($data->reply>0&&$data->read>0)
+                        <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->reply/$data->read)*100,2).' %' }}</td>
+                        @else
+                        <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">0%</td>
+                        @endif
+
+                        {{-- <td class="p-2 text-gray-700 border-b"></td> --}}
+                    </tr>
+                    @endforeach
+                    <tr>
+                        <td colspan="4" class="p-2 font-bold text-white uppercase border-2 border-l-tersier bg-tersier">Grand Total</td>
+                        <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_total }}</td>
+                        <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_sent }}</td>
+                        <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_not_sent+$sum_not_wa }}</td>
+                        <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_not_sent }}</td>
+                        <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_not_wa }}</td>
+                        <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_read }}</td>
+                        <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_not_read }}</td>
+                        <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_reply }}</td>
+                        <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_not_reply }}</td>
+                        @if ($sum_total)
+                        <td class="p-2 text-white uppercase border-2 bg-tersier">{{ number_format(($sum_sent/$sum_total)*100,2).' %' }}</td>
+                        <td class="p-2 text-white uppercase border-2 bg-tersier whitespace-nowrap">{{ number_format((($sum_not_sent+$sum_not_wa)/$sum_total)*100,2).' %' }}</td>
+                        @else
+                        <td class="p-2 text-white uppercase border-2 bg-tersier whitespace-nowrap">0%</td>
+                        <td class="p-2 text-white uppercase border-2 bg-tersier whitespace-nowrap">0%</td>
+                        @endif
+                        @if ($sum_sent>0)
+                        <td class="p-2 text-white uppercase border-2 bg-tersier whitespace-nowrap">{{ number_format(($sum_read/$sum_sent)*100,2).' %' }}</td>
+                        @else
+                        <td class="p-2 text-white uppercase border-2 bg-tersier whitespace-nowrap">0%</td>
+                        @endif
+                        @if ($sum_reply>0&&$sum_read>0)
+                        <td class="p-2 text-white uppercase border-2 bg-tersier whitespace-nowrap border-r-tersier">{{ number_format(($sum_reply/$sum_read)*100,2).' %' }}</td>
+                        @else
+                        <td class="p-2 text-white uppercase border-2 bg-tersier whitespace-nowrap border-r-tersier">0%</td>
+                        @endif
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <span class="inline-block mt-6 mb-2 text-lg font-semibold text-gray-600">Broadcast/By Program</span>
+        <div class="overflow-hidden bg-white rounded-md shadow w-fit">
+            <table class="text-left border-collapse w-fit">
+                <thead class="border-b">
+                    <tr>
+                        <th rowspan="2" class="p-2 text-sm font-bold text-gray-100 uppercase border-2 border-tersier bg-premier">No</th>
+                        <th rowspan="2" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Nama Program</th>
+                        <th colspan="5" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Broadcast</th>
+                        <th colspan="4" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Result</th>
+                        <th colspan="4" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Persentase</th>
+
+                        {{-- <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Action</th> --}}
+                    </tr>
+                    <tr>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Total</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Send</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">All Not Send</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Not Send</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Not WA</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Read</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Not Read</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Respon</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Not Respon</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">(%) Send</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">(%) Not Send</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">(%) Read</th>
+                        <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">(%) Respon</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                    $sum_total=0;
+                    $sum_sent=0;
+                    $sum_not_sent=0;
+                    $sum_not_wa=0;
+                    $sum_read=0;
+                    $sum_not_read=0;
+                    $sum_reply=0;
+                    $sum_not_reply=0;
+
+                    @endphp
+                    @foreach ($program_list as $key=>$data)
+                    @php
+                    $sum_total+=$data->total;
+                    $sum_sent+=$data->sent;
+                    $sum_not_sent+=$data->not_sent;
+                    $sum_not_wa+=$data->not_wa;
+                    $sum_read+=$data->read;
+                    $sum_not_read+=$data->not_read;
+                    $sum_reply+=$data->reply;
+                    $sum_not_reply+=$data->not_reply;
+                    @endphp
+                    <tr class="transition hover:bg-gray-200/40">
+                        <td class="p-2 font-bold text-gray-700 border-2">{{ $key+1 }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2 ">{{ $data->program }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2">{{ $data->total }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2">{{ $data->sent }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_sent+$data->not_wa }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_sent }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_wa }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2">{{ $data->read }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_read }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2">{{ $data->reply }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2">{{ $data->not_reply }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->sent/$data->total)*100,2).' %' }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format((($data->not_sent+$data->not_wa)/$data->total)*100,2).' %' }}</td>
+                        <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->read/($data->sent!=0?$data->sent:1))*100,2).' %' }}</td>
+                        @if ($data->reply>0&&$data->read>0)
+                        <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->reply/$data->read)*100,2).' %' }}</td>
+                        @else
+                        <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">0%</td>
+                        @endif
+
+                        {{-- <td class="p-2 text-gray-700 border-b"></td> --}}
+                    </tr>
+                    @endforeach
+                    <tr>
+                        <td colspan="2" class="p-2 font-bold text-white uppercase border-2 border-l-tersier bg-tersier">Grand Total</td>
+                        <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_total }}</td>
+                        <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_sent }}</td>
+                        <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_not_sent+$sum_not_wa }}</td>
+                        <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_not_sent }}</td>
+                        <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_not_wa }}</td>
+                        <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_read }}</td>
+                        <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_not_read }}</td>
+                        <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_reply }}</td>
+                        <td class="p-2 text-white uppercase border-2 bg-tersier">{{ $sum_not_reply }}</td>
+                        @if ($sum_total)
+                        <td class="p-2 text-white uppercase border-2 bg-tersier">{{ number_format(($sum_sent/$sum_total)*100,2).' %' }}</td>
+                        <td class="p-2 text-white uppercase border-2 bg-tersier whitespace-nowrap">{{ number_format((($sum_not_sent+$sum_not_wa)/$sum_total)*100,2).' %' }}</td>
+                        @else
+                        <td class="p-2 text-white uppercase border-2 bg-tersier whitespace-nowrap">0%</td>
+                        <td class="p-2 text-white uppercase border-2 bg-tersier whitespace-nowrap">0%</td>
+                        @endif
+                        @if ($sum_sent>0)
+                        <td class="p-2 text-white uppercase border-2 bg-tersier whitespace-nowrap">{{ number_format(($sum_read/$sum_sent)*100,2).' %' }}</td>
+                        @else
+                        <td class="p-2 text-white uppercase border-2 bg-tersier whitespace-nowrap">0%</td>
+                        @endif
+                        @if ($sum_reply>0&&$sum_read>0)
+                        <td class="p-2 text-white uppercase border-2 bg-tersier whitespace-nowrap border-r-tersier">{{ number_format(($sum_reply/$sum_read)*100,2).' %' }}</td>
+                        @else
+                        <td class="p-2 text-white uppercase border-2 bg-tersier whitespace-nowrap border-r-tersier">0%</td>
+                        @endif
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
     </div>
 </div>

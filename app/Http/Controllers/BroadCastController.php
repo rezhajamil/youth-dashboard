@@ -24,7 +24,7 @@ class BroadCastController extends Controller
         $dataProgram = DB::table('new_list_program')->select('program')->distinct()->get();
         $branch_broadcast = Auth::user()->privilege == "branch" ? "and data_user.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "and data_user.cluster='" . Auth::user()->cluster . "'" : '');
         $branch_program = Auth::user()->privilege == "branch" ? "data_user.branch ='" . Auth::user()->branch . "' AND" : (Auth::user()->privilege == "branch" ? "data_user.branch ='" . Auth::user()->branch . "' AND" : '');
-        $branch_broadcast_cluster = Auth::user()->privilege == "branch" ? "WHERE b.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "WHERE b.branch='" . Auth::user()->cluster . "'" : '');
+        $branch_broadcast_cluster = Auth::user()->privilege == "branch" ? "WHERE d.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "WHERE d.branch='" . Auth::user()->cluster . "'" : '');
 
         $broadcast = DB::select("SELECT 
             `data_user`.nama, `data_user`.cluster, `data_user`.role,
@@ -44,18 +44,61 @@ class BroadCastController extends Controller
             GROUP BY  1,2,3
             ORDER BY `data_user`.cluster,`data_user`.role,`data_user`.nama  ;");
 
-        $broadcast_cluster = DB::select(
-            "SELECT a.cluster,
-            count(a.msisdn) as 'wl',
-            count(if(a.telp!='no',1,NULL)) as 'diambil',
-            count(if(a.status='1',1,NULL)) as 'sudah' ,
-            count(if(a.status='0',1,NULL)) as 'belum',
-            count(if(a.telp='no',1,NULL)) as 'sisa'
+        // $broadcast_branch = DB::select(
+        //     "SELECT 
+        //     d.branch,c.*
+        //     FROM 
+        //     (SELECT b.cluster,
+        //     COUNT(a.msisdn) As 'total', 
+        //     COUNT(IF(a.send='Terkirim',1,Null))AS 'sent', 
+        //     COUNT(IF(a.send='Tidak Terkirim',1,Null))AS 'not_sent',
+        //     COUNT(IF(a.send='Bukan Nomor Wa',1,Null))AS 'not_wa',
+        //     COUNT(IF(a.baca='Dibaca',1,Null))AS 'read',
+        //     COUNT(IF(a.baca='Tidak dibaca',1,Null))AS 'not_read',
+        //     COUNT(IF(a.respon='Dibalas',1,Null))AS 'reply',
+        //     COUNT(IF(a.respon='Tidak dibalas',1,Null))AS 'not_reply',
+        //     COUNT(IF(b.usim='Y',1,Null))AS 'usim'
+        //     FROM new_after_broadcast a
+        //     LEFT JOIN Taker_Non_Usim_20221116 b ON a.msisdn=b.msisdn
 
-            FROM `new_data_broadcast` a join
-            territory_new b ON b.cluster=a.cluster
+        //     WHERE a.program='$program'  
+        //     AND a.date BETWEEN '$m1' AND '$mtd'
+
+        //     GROUP BY 1
+        //     ORDER BY 1) c
+
+        //     JOIN territory_new d ON c.cluster=d.cluster
+        //     GROUP BY  1
+        //     ORDER BY 1;"
+        // );
+
+        $broadcast_cluster = DB::select(
+            "SELECT 
+            d.branch,d.cluster,c.*
+            FROM 
+            (SELECT b.cluster,
+            COUNT(a.msisdn) As 'total', 
+            COUNT(IF(a.send='Terkirim',1,Null))AS 'sent', 
+            COUNT(IF(a.send='Tidak Terkirim',1,Null))AS 'not_sent',
+            COUNT(IF(a.send='Bukan Nomor Wa',1,Null))AS 'not_wa',
+            COUNT(IF(a.baca='Dibaca',1,Null))AS 'read',
+            COUNT(IF(a.baca='Tidak dibaca',1,Null))AS 'not_read',
+            COUNT(IF(a.respon='Dibalas',1,Null))AS 'reply',
+            COUNT(IF(a.respon='Tidak dibalas',1,Null))AS 'not_reply',
+            COUNT(IF(b.usim='Y',1,Null))AS 'usim'
+            FROM new_after_broadcast a
+            LEFT JOIN Taker_Non_Usim_20221116 b ON a.msisdn=b.msisdn
+
+            WHERE a.program='$program'  
+            AND a.date BETWEEN '$m1' AND '$mtd'
+
+            GROUP BY 1
+            ORDER BY 1) c
+
+            JOIN territory_new d ON c.cluster=d.cluster
             $branch_broadcast_cluster
-            GROUP by 1;"
+            GROUP BY 1,2
+            ORDER BY 1,2;"
         );
 
         $program_list = DB::select("SELECT 
@@ -264,7 +307,7 @@ class BroadCastController extends Controller
         } else {
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->where('branch', Auth::user()->branch)->get();
         }
-        $dataProgram = DB::select("select program from new_list_program where status='1'");
+        $dataProgram = DB::select("select distinct program from new_list_program where status='1'");
         // $dataProgramCall = DB::select("select program from new_list_program_call where status='1'" . $branch . "");
 
         // ddd("select program from new_list_program where status='1'
