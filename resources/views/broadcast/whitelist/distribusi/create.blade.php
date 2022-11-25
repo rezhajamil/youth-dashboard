@@ -51,6 +51,16 @@
                     </div>
 
                     <div>
+                        <label class="block text-gray-700" for="site">Site ID <i class="fa-solid fa-right-long"></i> Sisa Whitelist</label>
+                        <select name="site" id="site" class="w-full rounded-md" required>
+                            <option value="" selected disabled>Pilih Site ID</option>
+                        </select>
+                        @error('site')
+                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div>
                         <label class="block text-gray-700" for="role">Role</label>
                         <select name="role" id="role" class="w-full rounded-md" required>
                             <option value="" selected disabled>Pilih Role</option>
@@ -100,6 +110,7 @@
         $("#cluster").on('change', () => {
             var cluster = $("#cluster").val();
             var role = $("#role").val();
+            var program = $("#program").val();
             console.log($(this).attr('id'));
 
             // if ($(this).attr('id') == 'cluster' || $(this).attr('id') == 'role') {
@@ -111,15 +122,20 @@
                 , data: {
                     cluster: cluster
                     , role: role
+                    , program: program
                     , _token: "{{ csrf_token() }}"
                 }
 
                 , success: (data) => {
+                    const {
+                        users
+                        , site_id
+                    } = data;
                     console.log(data);
-                    if (data.length) {
+                    if (users.length) {
                         $("#user").html(
                             `<option value="" disabled selected>Pilih User</option>` +
-                            data.map((item) => {
+                            users.map((item) => {
                                 return `
                                     <option value="${item.telp}">${item.nama}</option>
                                     `
@@ -131,6 +147,88 @@
                             `<option value="" disabled selected>Tidak ada user</option>`
                         )
                     }
+
+                    if (site_id.length) {
+                        $("#site").html(
+                            `<option value="" disabled selected>Pilih Site ID</option>` +
+                            site_id.map((item) => {
+                                return `
+                                    <option value="${item.site_id}">${item.site_id}->${item.jumlah}</option>
+                                    `
+                            })
+                        )
+                    } else {
+                        $("#site").html(
+                            `<option value="" disabled selected>Pilih Site ID</option>` +
+                            `<option value="" disabled selected>Tidak ada Site ID</option>`
+                        )
+                    }
+                }
+                , error: (e) => {
+                    console.log(e)
+                }
+            });
+            // }
+        })
+
+        $("#program").on('change', () => {
+            var cluster = $("#cluster").val();
+            var role = $("#role").val();
+            var program = $("#program").val();
+            console.log($(this).attr('id'));
+
+            // if ($(this).attr('id') == 'cluster' || $(this).attr('id') == 'role') {
+            console.log('aa');
+            $.ajax({
+                url: "{{ route('whitelist.distribusi.user') }}"
+                , method: "GET"
+                , dataType: "JSON"
+                , data: {
+                    cluster: cluster
+                    , role: role
+                    , program: program
+                    , _token: "{{ csrf_token() }}"
+                }
+
+                , success: (data) => {
+                    const {
+                        users
+                        , site_id
+                    } = data;
+                    console.log(data);
+
+                    if (users.length) {
+                        $("#user").html(
+                            `<option value="" disabled selected>Pilih User</option>` +
+                            users.map((item) => {
+                                return `
+                                    <option value="${item.telp}">${item.nama}</option>
+                                    `
+                            })
+                        )
+                    } else {
+                        $("#user").html(
+                            `<option value="" disabled selected>Pilih User</option>` +
+                            `<option value="" disabled selected>Tidak ada user</option>`
+                        )
+                    }
+
+                    if (site_id.length) {
+                        $("#site").html(
+                            `<option value="" disabled selected>Pilih Site ID</option>` +
+                            site_id.map((item) => {
+                                return `
+                                <option value="${item.site_id}">${item.site_id}->${item.jumlah}</option>
+                                `
+                            })
+                        )
+                    } else {
+                        $("#site").html(
+                            `<option value="" disabled selected>Pilih Site ID</option>` +
+                            `<option value="" disabled selected>Tidak ada Site ID</option>`
+                        )
+                    }
+
                 }
                 , error: (e) => {
                     console.log(e)
@@ -157,14 +255,18 @@
                 }
 
                 , success: (data) => {
+                    const {
+                        users
+                        , site_id
+                    } = data;
                     console.log(data);
-                    if (data.length) {
+                    if (users.length) {
                         $("#user").html(
-                            data.map((item) => {
-                                `<option value="" disabled selected>Pilih User</option>`
+                            `<option value="" disabled selected>Pilih User</option>` +
+                            users.map((item) => {
                                 return `
-                                    <option value="${item.telp}">${item.nama}</option>
-                                    `
+                    <option value="${item.telp}">${item.nama}</option>
+                    `
                             })
                         )
                     } else {

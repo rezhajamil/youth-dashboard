@@ -383,10 +383,12 @@ class BroadCastController extends Controller
     {
         $cluster = $request->cluster;
         $role = $request->role;
+        $program = $request->program;
 
         $users = DataUser::where('cluster', $cluster)->where('role', $role)->orderBy('nama')->get();
+        $site_id = DB::select("select site_id,count(case when telp='no' then site_id end) jumlah from new_data_campaign where cluster='$cluster' and program='$program' group by 1 order by 1;");
 
-        return response()->json($users);
+        return response()->json(compact('users', 'site_id'));
     }
 
     public function store_whitelist_distribusi(Request $request)
@@ -394,6 +396,7 @@ class BroadCastController extends Controller
         $request->validate([
             'cluster' => 'required',
             'program' => 'required',
+            'site' => 'required',
             'role' => 'required',
             'user' => 'required',
             'jumlah' => 'required',
@@ -405,7 +408,7 @@ class BroadCastController extends Controller
             return back()->with('error', 'Mohon maaf, user ini masih memiliki jumlah whitelist diatas 5');
         }
 
-        DB::table('new_data_campaign')->where('cluster', $request->cluster)->where('program', $request->program)->where('telp', 'no')->limit($request->jumlah)->update([
+        DB::table('new_data_campaign')->where('cluster', $request->cluster)->where('program', $request->program)->where('telp', 'no')->where('site_id', $request->site)->limit($request->jumlah)->update([
             'telp' => $request->user
         ]);
 
