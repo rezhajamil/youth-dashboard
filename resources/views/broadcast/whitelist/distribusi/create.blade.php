@@ -71,7 +71,7 @@
                     </div>
 
                     <div>
-                        <label class="block text-gray-700" for="jumlah">Jumlah</label>
+                        <label class="block text-gray-700" for="jumlah">Jumlah Limit</label>
                         <input type="number" name="jumlah" id="jumlah" class="w-full rounded" required>
                         @error('jumlah')
                         <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
