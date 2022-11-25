@@ -331,15 +331,23 @@ class BroadCastController extends Controller
         ]);
 
         $count = DB::table('new_data_campaign')->where('telp', 'no')->where('cluster', $request->cluster)->where('program', $request->program)->count();
-        if ($count >= 100) {
-            return back()->with('error', 'Tidak bisa upload. Whitelist anda masih ada.');
-        }
+        // if ($count >= 100) {
+        //     return back()->with('error', 'Tidak bisa upload. Whitelist anda masih ada.');
+        // }
 
         if ($request->hasFile('file')) {
             if (file_exists($request->file)) {
                 $file = fopen($request->file, "r");
 
                 $idx = 0;
+
+                $get_row = fgetcsv($file, 10000, ";");
+
+                if (count($get_row) <= 1) {
+                    $a = str_split($get_row[0]);
+                    return back()->with('error', "Format CSV salah. Format adalah 'msisdn;site_id' bukan 'msisdn" . $a[9] . "site_id'");
+                }
+
                 while (($row = fgetcsv($file, 10000, ";")) !== FALSE) {
 
                     $data = [
