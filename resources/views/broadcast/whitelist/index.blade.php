@@ -4,7 +4,8 @@
     <div class="flex flex-col">
         <div class="mt-4">
             @if(Auth::user()->privilege != "cluster")
-            <a href="{{ route('whitelist.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-800"><i class="mr-2 fa-solid fa-plus"></i> Data Whitelist Baru</a>
+            <a href="{{ route('whitelist.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-indigo-600 transition-all rounded-md hover:bg-indigo-800"><i class="mr-2 fa-solid fa-plus"></i> Data Whitelist Baru</a>
+            <a href="{{ route('whitelist.distribusi.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-orange-600 transition-all rounded-md hover:bg-orange-800"><i class="mr-2 fa-solid fa-plus"></i> Distribusi Whitelist</a>
             {{-- <span class="text-sm">Update : {{ $update_broadcast[0]->last_update }}</span> --}}
             @endif
             <h4 class="text-xl font-bold text-gray-600 align-baseline">Whitelist Program</h4>

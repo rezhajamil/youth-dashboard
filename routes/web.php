@@ -80,7 +80,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('whitelist/create', [BroadCastController::class, 'create_whitelist'])->name('whitelist.create');
     Route::delete('whitelist/{id}', [BroadCastController::class, 'destroy_whitelist'])->name('whitelist.destroy');
     Route::put('whitelist/{telp}', [BroadCastController::class, 'release_whitelist'])->name('whitelist.release');
-    // Route::resource('sekolah', SekolahController::class);
+    Route::get('whitelist/distribusi', [BroadCastController::class, 'create_whitelist_distribusi'])->name('whitelist.distribusi.create');
+    Route::post('whitelist/distribusi', [BroadCastController::class, 'store_whitelist_distribusi'])->name('whitelist.distribusi.store');
+
     Route::get('sekolah', [SekolahController::class, 'index'])->name('sekolah.index');
     Route::post('sekolah', [SekolahController::class, 'store'])->name('sekolah.store');
     Route::get('sekolah/create', [SekolahController::class, 'create'])->name('sekolah.create');

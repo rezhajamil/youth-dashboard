@@ -334,7 +334,7 @@ class BroadCastController extends Controller
                 $file = fopen($request->file, "r");
 
                 $idx = 0;
-                while (($row = fgetcsv($file, 10000, "|")) !== FALSE) {
+                while (($row = fgetcsv($file, 10000, ";")) !== FALSE) {
 
                     $data = [
                         'cluster' => $request->cluster,
@@ -358,6 +358,18 @@ class BroadCastController extends Controller
         }
 
         return redirect()->route('whitelist.index');
+    }
+
+    public function create_whitelist_distribusi()
+    {
+        $branch = Auth::user()->privilege == 'branch' ? "and branch='ALL' OR branch='" . Auth::user()->branch . "'" : '';
+        if (Auth::user()->privilege == "superadmin") {
+            $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->get();
+        } else {
+            $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->where('branch', Auth::user()->branch)->get();
+        }
+        $dataProgram = DB::select("select distinct program from new_list_program where status='1'");
+        return view('broadcast.whitelist.distribusi.create');
     }
 
     /**
