@@ -6,6 +6,9 @@
             <h4 class="text-xl font-bold text-gray-600 align-baseline">Tambah Data Whitelist</h4>
 
             <div class="px-6 py-4 mx-auto overflow-auto bg-white rounded-md shadow sm:mx-0 w-fit">
+                @if (session('error'))
+                <div class="bg-red-300 text-red-700 font-bold px-4 py-2 w-full">{{ session('error') }}</div>
+                @endif
                 <form action="{{ route('whitelist.store') }}" method="POST" class="" enctype="multipart/form-data">
                     @csrf
                     <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">

@@ -301,7 +301,6 @@ class BroadCastController extends Controller
 
     public function create_whitelist()
     {
-        abort(403);
         $branch = Auth::user()->privilege == 'branch' ? "and branch='ALL' OR branch='" . Auth::user()->branch . "'" : '';
         if (Auth::user()->privilege == "superadmin") {
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->get();
@@ -329,6 +328,11 @@ class BroadCastController extends Controller
             'program' => 'required',
             'file' => 'required|mimes:csv,txt'
         ]);
+
+        $count = DB::table('new_data_campaign')->where('telp', 'no')->where('cluster', $request->cluster)->where('program', $request->program)->count();
+        if ($count >= 100) {
+            return back()->with('error', 'Tidak bisa upload. Whitelist anda masih ada.');
+        }
 
         if ($request->hasFile('file')) {
             if (file_exists($request->file)) {
