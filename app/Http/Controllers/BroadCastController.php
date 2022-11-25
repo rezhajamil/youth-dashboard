@@ -301,6 +301,7 @@ class BroadCastController extends Controller
 
     public function create_whitelist()
     {
+        abort(403);
         $branch = Auth::user()->privilege == 'branch' ? "and branch='ALL' OR branch='" . Auth::user()->branch . "'" : '';
         if (Auth::user()->privilege == "superadmin") {
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->get();
