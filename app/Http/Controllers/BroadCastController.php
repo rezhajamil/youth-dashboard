@@ -374,7 +374,7 @@ class BroadCastController extends Controller
         } else {
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->where('branch', Auth::user()->branch)->orderBy('cluster')->get();
         }
-        $dataProgram = DB::select("select distinct program from new_list_program where status='1'");
+        $dataProgram = DB::select("select distinct program from new_list_program where status='1' $branch");
         $dataRole = DB::select("select distinct user_type as role from user_type where status='1'");
         return view('broadcast.whitelist.distribusi.create', compact('cluster', 'dataProgram', 'dataRole'));
     }
@@ -398,6 +398,12 @@ class BroadCastController extends Controller
             'user' => 'required',
             'jumlah' => 'required',
         ]);
+
+        $count = DB::table('new_data_campaign')->where('telp', $request->user)->where('status', '0')->count();
+
+        if ($count > 5) {
+            return back()->with('error', 'Mohon maaf, user ini masih memiliki jumlah whitelist diatas 5');
+        }
 
         DB::table('new_data_campaign')->where('cluster', $request->cluster)->where('program', $request->program)->where('telp', 'no')->limit($request->jumlah)->update([
             'telp' => $request->user
