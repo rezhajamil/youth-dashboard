@@ -3,10 +3,10 @@
 <div class="w-full mx-4">
     <div class="flex flex-col">
         <div class="mt-4">
-            <h4 class="text-xl font-bold text-gray-600 align-baseline">Tambah Data Whitelist</h4>
+            <h4 class="text-xl font-bold text-gray-600 align-baseline">Tambah Distribusi Whitelist</h4>
 
             <div class="px-6 py-4 mx-auto overflow-auto bg-white rounded-md shadow sm:mx-0 w-fit">
-                <form action="{{ route('whitelist.store') }}" method="POST" class="" enctype="multipart/form-data">
+                <form action="{{ route('whitelist.distribusi.store') }}" method="POST" class="">
                     @csrf
                     <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
                         <div class="w-full">
@@ -48,23 +48,39 @@
                     </div>
 
                     <div>
-                        <label class="text-gray-700" for="file">File</label>
-                        <label class="block text-xs text-gray-700" for="file">File dengan format .csv</label>
-                        <label class="block text-xs text-gray-700" for="file">Format 'msisdn;site_id -> 628xxxxxxxxxxx;xxxxx'</label>
-                        <label class="block text-xs text-gray-700" for="file">File maksimal 500 baris</label>
-                        <input class="w-full rounded-md form-input focus:border-indigo-600" type="file" name="file" value="{{ old('file') }}">
-                        @error('file')
+                        <label class="block text-gray-700" for="role">Role</label>
+                        <select name="role" id="role" class="w-full rounded-md" required>
+                            <option value="" selected disabled>Pilih Role</option>
+                            @foreach ($dataRole as $item)
+                            <option value="{{ $item->role }}" {{ old('role')==$item->role?'selected':'' }} class="role">{{ $item->role }}</option>
+                            @endforeach
+                        </select>
+                        @error('role')
                         <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="w-full p-2">
-                        <span class="text-gray-700">Contoh Format</span>
-                        <img src="{{ asset('images/contoh.jpg') }}" alt="contoh" class="border-2 object-contain">
+
+                    <div>
+                        <label class="block text-gray-700" for="user">User</label>
+                        <select name="user" id="user" class="w-full rounded-md" required>
+                            <option value="" selected disabled>Pilih User</option>
+                        </select>
+                        @error('user')
+                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label class="block text-gray-700" for="jumlah">Jumlah</label>
+                        <input type="number" name="jumlah" id="jumlah" class="w-full rounded" required>
+                        @error('jumlah')
+                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                        @enderror
                     </div>
             </div>
 
             <div class="flex justify-end mt-4">
-                <button class="w-full px-4 py-2 font-bold text-white bg-indigo-800 rounded-md hover:bg-indigo-700 focus:outline-none focus:bg-indigo-700">Submit</button>
+                <button class="w-full px-4 py-2 font-bold text-white bg-orange-600 rounded-md hover:bg-orange-700 focus:outline-none focus:bg-orange-700">Submit</button>
             </div>
             </form>
         </div>
@@ -78,106 +94,90 @@
 <script>
     $(document).ready(function() {
 
-        $("#regional").on('input', () => {
-            var regional = $("#regional").val();
-            console.log(regional)
+        $("#cluster").on('change', () => {
+            var cluster = $("#cluster").val();
+            var role = $("#role").val();
+            console.log($(this).attr('id'));
+
+            // if ($(this).attr('id') == 'cluster' || $(this).attr('id') == 'role') {
+            console.log('aa');
             $.ajax({
-                url: "{{ route('wilayah.get_branch') }}"
-                , method: "POST"
+                url: "{{ route('whitelist.distribusi.user') }}"
+                , method: "GET"
                 , dataType: "JSON"
                 , data: {
-                    regional: regional
+                    cluster: cluster
+                    , role: role
                     , _token: "{{ csrf_token() }}"
                 }
 
                 , success: (data) => {
-                    $("#branch").html(
-                        data.map((item) => {
-                            return `
-                            <option value="${item.branch}">${item.branch}</option>
-                            `
-                        })
-
-                    )
+                    console.log(data);
+                    if (data.length) {
+                        $("#user").html(
+                            `<option value="" disabled selected>Pilih User</option>` +
+                            data.map((item) => {
+                                return `
+                                    <option value="${item.telp}">${item.nama}</option>
+                                    `
+                            })
+                        )
+                    } else {
+                        $("#user").html(
+                            `<option value="" disabled selected>Pilih User</option>` +
+                            `<option value="" disabled selected>Tidak ada user</option>`
+                        )
+                    }
                 }
                 , error: (e) => {
                     console.log(e)
                 }
             });
-
+            // }
         })
 
-        $("#branch").on('input', () => {
-            var branch = $("#branch").val();
-            console.log(branch)
-            $.ajax({
-                url: "{{ route('wilayah.get_cluster') }}"
-                , method: "POST"
-                , dataType: "JSON"
-                , data: {
-                    branch: branch
-                    , _token: "{{ csrf_token() }}"
-                }
-                , success: (data) => {
-                    $("#cluster").html(
-                        data.map((item) => {
-                            return `
-                    <option value="${item.cluster}">${item.cluster}</option>
-                    `
-                        })
-
-                    )
-
-                }
-                , error: (e) => {
-                    console.log(e)
-                }
-            })
-        })
-
-        $("#cluster").on('input', () => {
+        $("#role").on('change', () => {
             var cluster = $("#cluster").val();
-            console.log(cluster)
+            var role = $("#role").val();
+            console.log($(this).attr('id'));
+
+            // if ($(this).attr('id') == 'cluster' || $(this).attr('id') == 'role') {
+            console.log('aa');
             $.ajax({
-                url: "{{ route('wilayah.get_tap') }}"
-                , method: "POST"
+                url: "{{ route('whitelist.distribusi.user') }}"
+                , method: "GET"
                 , dataType: "JSON"
                 , data: {
                     cluster: cluster
+                    , role: role
                     , _token: "{{ csrf_token() }}"
                 }
+
                 , success: (data) => {
-                    console.log(data)
-                    $("#tap").html(
-                        data.map((item) => {
-                            return `
-                    <option value="${item.nama}">${item.nama}</option>
-                    `
-                        })
-
-                    )
-
+                    console.log(data);
+                    if (data.length) {
+                        $("#user").html(
+                            data.map((item) => {
+                                `<option value="" disabled selected>Pilih User</option>`
+                                return `
+                                    <option value="${item.telp}">${item.nama}</option>
+                                    `
+                            })
+                        )
+                    } else {
+                        $("#user").html(
+                            `<option value="" disabled selected>Pilih User</option>` +
+                            `<option value="" disabled selected>Tidak ada user</option>`
+                        )
+                    }
                 }
                 , error: (e) => {
                     console.log(e)
                 }
-            })
+            });
+            // }
         })
 
-        $("select[name=jenis]").on("change", function() {
-            let value = $(this).val();
-
-            if (value == 'broadcast') {
-                $(".program").show();
-                $(".program_call").hide();
-            } else if (value == 'call') {
-                $(".program").hide();
-                $(".program_call").show();
-            } else {
-                $(".program").hide();
-                $(".program_call").hide();
-            }
-        })
 
     })
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -369,12 +370,40 @@ class BroadCastController extends Controller
     {
         $branch = Auth::user()->privilege == 'branch' ? "and branch='ALL' OR branch='" . Auth::user()->branch . "'" : '';
         if (Auth::user()->privilege == "superadmin") {
-            $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->get();
+            $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->orderBy('cluster')->get();
         } else {
-            $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->where('branch', Auth::user()->branch)->get();
+            $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->where('branch', Auth::user()->branch)->orderBy('cluster')->get();
         }
         $dataProgram = DB::select("select distinct program from new_list_program where status='1'");
-        return view('broadcast.whitelist.distribusi.create');
+        $dataRole = DB::select("select distinct user_type as role from user_type where status='1'");
+        return view('broadcast.whitelist.distribusi.create', compact('cluster', 'dataProgram', 'dataRole'));
+    }
+
+    public function get_user_distribusi(Request $request)
+    {
+        $cluster = $request->cluster;
+        $role = $request->role;
+
+        $users = DataUser::where('cluster', $cluster)->where('role', $role)->orderBy('nama')->get();
+
+        return response()->json($users);
+    }
+
+    public function store_whitelist_distribusi(Request $request)
+    {
+        $request->validate([
+            'cluster' => 'required',
+            'program' => 'required',
+            'role' => 'required',
+            'user' => 'required',
+            'jumlah' => 'required',
+        ]);
+
+        DB::table('new_data_campaign')->where('cluster', $request->cluster)->where('program', $request->program)->where('telp', 'no')->limit($request->jumlah)->update([
+            'telp' => $request->user
+        ]);
+
+        return redirect()->route('whitelist.index');
     }
 
     /**
