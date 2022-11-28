@@ -205,17 +205,17 @@ class BroadCastController extends Controller
         $branch = Auth::user()->privilege == "branch" ? "AND b.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "AND data_user.cluster='" . Auth::user()->cluster . "'" : '');
 
         $whitelist = DB::select("SELECT 
-                    new_data_broadcast.telp, b.nama,b.branch,b.cluster,
-                    count(`new_data_broadcast`.msisdn) as 'wl',
-                    count(if(`new_data_broadcast`.telp!='no',1,NULL)) as 'diambil',
-                    count(if(`new_data_broadcast`.status='1',1,NULL)) as 'sudah' ,
-                    count(if(`new_data_broadcast`.status='0',1,NULL)) as 'belum',
-                    count(if(`new_data_broadcast`.telp='no',1,NULL)) as 'sisa'
+                    new_data_campaign.telp, b.nama,b.branch,b.cluster,
+                    count(`new_data_campaign`.msisdn) as 'wl',
+                    count(if(`new_data_campaign`.telp!='no',1,NULL)) as 'diambil',
+                    count(if(`new_data_campaign`.status='1',1,NULL)) as 'sudah' ,
+                    count(if(`new_data_campaign`.status='0',1,NULL)) as 'belum',
+                    count(if(`new_data_campaign`.telp='no',1,NULL)) as 'sisa'
                    
-                    FROM `new_data_broadcast`
-                    JOIN data_user b ON b.telp=new_data_broadcast.telp
+                    FROM `new_data_campaign`
+                    JOIN data_user b ON b.telp=new_data_campaign.telp
                     
-                    Where new_data_broadcast.program='$program' 
+                    Where new_data_campaign.program='$program' 
 					" . $branch . "
                     GROUP by 1,2,3,4
                     order by 3,4,2");
@@ -225,8 +225,8 @@ class BroadCastController extends Controller
                     new_data_campaign.telp, b.nama,b.branch,b.cluster,
                     count(`new_data_campaign`.msisdn) as 'wl',
                     count(if(`new_data_campaign`.telp!='no',1,NULL)) as 'diambil',
-                    count(if(`new_data_campaign`.status='1',1,NULL)) as 'sudah' ,
-                    count(if(`new_data_campaign`.status='0',1,NULL)) as 'belum',
+                    count(if(`new_data_campaign`.call='1',1,NULL)) as 'sudah' ,
+                    count(if(`new_data_campaign`.call='0',1,NULL)) as 'belum',
                     count(if(`new_data_campaign`.telp='no',1,NULL)) as 'sisa'
                    
                     FROM `new_data_campaign`
@@ -246,7 +246,7 @@ class BroadCastController extends Controller
                     count(case when a.telp!='no' AND a.status ='1' then a.msisdn end) as 'sudah' ,
                     count(case when a.telp!='no' AND a.status ='0' then a.msisdn end) as 'belum'
 
-                    FROM `new_data_broadcast` a
+                    FROM `new_data_campaign` a
                     JOIN territory_new b ON b.cluster=a.cluster
 
                     Where a.program='$program' 
@@ -261,7 +261,7 @@ class BroadCastController extends Controller
                     count(case when a.telp!='no' AND a.status ='1' then a.msisdn end) as 'sudah' ,
                     count(case when a.telp!='no' AND a.status ='0' then a.msisdn end) as 'belum'
 
-                    FROM `new_data_broadcast` a
+                    FROM `new_data_campaign` a
                     JOIN territory_new b ON b.cluster=a.cluster
 
                     Where a.program='$program' 
@@ -273,8 +273,8 @@ class BroadCastController extends Controller
                     b.branch,b.cluster,
                     count(`new_data_campaign`.msisdn) as 'wl',
                     count(if(`new_data_campaign`.telp!='no',1,NULL)) as 'diambil',
-                    count(if(`new_data_campaign`.status='1',1,NULL)) as 'sudah' ,
-                    count(if(`new_data_campaign`.status='0',1,NULL)) as 'belum',
+                    count(if(`new_data_campaign`.call='1',1,NULL)) as 'sudah' ,
+                    count(if(`new_data_campaign`.call='0',1,NULL)) as 'belum',
                     count(if(`new_data_campaign`.telp='no',1,NULL)) as 'sisa'
                    
                     FROM `new_data_campaign`
