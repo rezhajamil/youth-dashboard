@@ -331,7 +331,7 @@ class BroadCastController extends Controller
         ]);
 
         $count = DB::table('new_data_campaign')->where('telp', 'no')->where('cluster', $request->cluster)->where('program', $request->program)->count();
-        if ($count >= 100) {
+        if ($count >= 200) {
             return back()->with('error', 'Tidak bisa upload. Whitelist anda masih ada.');
         }
 
