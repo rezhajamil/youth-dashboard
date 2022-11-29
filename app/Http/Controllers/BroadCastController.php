@@ -60,7 +60,7 @@ class BroadCastController extends Controller
         //     COUNT(IF(a.respon='Tidak dibalas',1,Null))AS 'not_reply',
         //     COUNT(IF(b.usim='Y',1,Null))AS 'usim'
         //     FROM new_after_broadcast a
-        //     LEFT JOIN Taker_Non_Usim_20221116 b ON a.msisdn=b.msisdn
+        //     LEFT JOIN Taker_Non_Usim_20221124 b ON a.msisdn=b.msisdn
 
         //     WHERE a.program='$program'  
         //     AND a.date BETWEEN '$m1' AND '$mtd'
@@ -88,7 +88,7 @@ class BroadCastController extends Controller
             COUNT(IF(a.respon='Tidak dibalas',1,Null))AS 'not_reply',
             COUNT(IF(b.usim='Y',1,Null))AS 'usim'
             FROM new_after_broadcast a
-            LEFT JOIN Taker_Non_Usim_20221116 b ON a.msisdn=b.msisdn
+            LEFT JOIN Taker_Non_Usim_20221124 b ON a.msisdn=b.msisdn
 
             WHERE a.program='$program'  
             AND a.date BETWEEN '$m1' AND '$mtd'
