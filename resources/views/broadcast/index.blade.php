@@ -91,18 +91,17 @@
             </table>
         </div> --}}
 
-        <span class="block mt-6 mb-2 text-lg font-semibold text-gray-600">Broadcast/By Cluster</span>
-        <div class="overflow-hidden bg-white rounded-md shadow w-fit table-broadcast">
-            <table class="text-left border-collapse w-fit">
-                <thead class="border-b">
-                    <tr>
+        <!-- <span class="block mt-6 mb-2 text-lg font-semibold text-gray-600">Broadcast/By Cluster</span> -->
+        <!-- <div class="overflow-hidden bg-white rounded-md shadow w-fit table-broadcast"> -->
+            <!-- <table class="text-left border-collapse w-fit"> -->
+                <!-- <thead class="border-b"> -->
+<!--                     <tr>
                         <th rowspan="2" class="p-2 text-sm font-bold text-gray-100 uppercase border-2 border-tersier bg-premier">No</th>
                         <th rowspan="2" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Cluster</th>
                         <th colspan="5" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Broadcast</th>
                         <th colspan="5" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Result</th>
                         <th colspan="5" class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Persentase</th>
 
-                        {{-- <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Action</th> --}}
                     </tr>
                     <tr>
                         <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">Total</th>
@@ -121,10 +120,10 @@
                         <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">(%) Respon</th>
                         <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-sekunder">(%) USIM</th>
                     </tr>
-
-                </thead>
-                <tbody>
-                    @foreach ($broadcast_cluster as $key=>$data)
+ -->
+                <!-- </thead> -->
+                <!-- <tbody> -->
+                   <!--  @foreach ($broadcast_cluster as $key=>$data)
                     <tr class="transition hover:bg-gray-200/40">
                         <td class="p-2 font-bold text-gray-700 border-2">{{ $key+1 }}</td>
                         <td class="p-2 text-gray-700 uppercase border-2 ">{{ $data->cluster }}</td>
@@ -148,12 +147,11 @@
                         @endif
                         <td class="p-2 text-gray-700 uppercase border-2 whitespace-nowrap">{{ number_format(($data->usim/$data->total)*100,2).' %' }}</td>
 
-                        {{-- <td class="p-2 text-gray-700 border-b"></td> --}}
                     </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+                    @endforeach -->
+                <!-- </tbody> -->
+            <!-- </table> -->
+        <!-- </div> -->
 
 
         <span class="inline-block mt-6 mb-2 text-lg font-semibold text-gray-600">Broadcast/By Direct Sales</span>

@@ -73,34 +73,34 @@ class BroadCastController extends Controller
         //     ORDER BY 1;"
         // );
 
-        $broadcast_cluster = DB::select(
-            "SELECT 
-            d.branch,d.cluster,c.*
-            FROM 
-            (SELECT b.cluster,
-            COUNT(a.msisdn) As 'total', 
-            COUNT(IF(a.send='Terkirim',1,Null))AS 'sent', 
-            COUNT(IF(a.send='Tidak Terkirim',1,Null))AS 'not_sent',
-            COUNT(IF(a.send='Bukan Nomor Wa',1,Null))AS 'not_wa',
-            COUNT(IF(a.baca='Dibaca',1,Null))AS 'read',
-            COUNT(IF(a.baca='Tidak dibaca',1,Null))AS 'not_read',
-            COUNT(IF(a.respon='Dibalas',1,Null))AS 'reply',
-            COUNT(IF(a.respon='Tidak dibalas',1,Null))AS 'not_reply',
-            COUNT(IF(b.usim='Y',1,Null))AS 'usim'
-            FROM new_after_broadcast a
-            LEFT JOIN Taker_Non_Usim_20221124 b ON a.msisdn=b.msisdn
+        // $broadcast_cluster = DB::select(
+        //     "SELECT 
+        //     d.branch,d.cluster,c.*
+        //     FROM 
+        //     (SELECT b.cluster,
+        //     COUNT(a.msisdn) As 'total', 
+        //     COUNT(IF(a.send='Terkirim',1,Null))AS 'sent', 
+        //     COUNT(IF(a.send='Tidak Terkirim',1,Null))AS 'not_sent',
+        //     COUNT(IF(a.send='Bukan Nomor Wa',1,Null))AS 'not_wa',
+        //     COUNT(IF(a.baca='Dibaca',1,Null))AS 'read',
+        //     COUNT(IF(a.baca='Tidak dibaca',1,Null))AS 'not_read',
+        //     COUNT(IF(a.respon='Dibalas',1,Null))AS 'reply',
+        //     COUNT(IF(a.respon='Tidak dibalas',1,Null))AS 'not_reply',
+        //     COUNT(IF(b.usim='Y',1,Null))AS 'usim'
+        //     FROM new_after_broadcast a
+        //     LEFT JOIN Taker_Non_Usim_20221124 b ON a.msisdn=b.msisdn
 
-            WHERE a.program='$program'  
-            AND a.date BETWEEN '$m1' AND '$mtd'
+        //     WHERE a.program='$program'  
+        //     AND a.date BETWEEN '$m1' AND '$mtd'
 
-            GROUP BY 1
-            ORDER BY 1) c
+        //     GROUP BY 1
+        //     ORDER BY 1) c
 
-            JOIN territory_new d ON c.cluster=d.cluster
-            $branch_broadcast_cluster
-            GROUP BY 1,2
-            ORDER BY 1,2;"
-        );
+        //     JOIN territory_new d ON c.cluster=d.cluster
+        //     $branch_broadcast_cluster
+        //     GROUP BY 1,2
+        //     ORDER BY 1,2;"
+        // );
 
         $program_list = DB::select("SELECT 
             new_after_broadcast.`program`,
@@ -120,7 +120,7 @@ class BroadCastController extends Controller
             GROUP BY  1
             ORDER BY 1  ;");
 
-        return view('broadcast.index', compact('dataProgram', 'broadcast', 'broadcast_cluster', 'update_broadcast', 'program_list'));
+        return view('broadcast.index', compact('dataProgram', 'broadcast', 'update_broadcast', 'program_list'));
     }
 
     public function campaign()
