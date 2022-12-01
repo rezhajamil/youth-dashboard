@@ -11,6 +11,7 @@ use App\Http\Controllers\QuizController;
 use App\Http\Controllers\SalesContoller;
 use App\Http\Controllers\SekolahController;
 use App\Http\Controllers\SurveyController;
+use App\Http\Controllers\TakerController;
 use App\Http\Controllers\WilayahController;
 use Illuminate\Support\Facades\Route;
 
@@ -59,6 +60,7 @@ Route::post('/find_school', [SurveyController::class, 'find_school']);
 
 Route::middleware(['cors'])->group(function () {
     Route::get('/test', [SurveyController::class, 'test']);
+    Route::get('/taker/segment2', [TakerController::class, 'segment2']);
 });
 
 Route::middleware(['auth'])->group(function () {
