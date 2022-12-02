@@ -34,7 +34,7 @@ class TakerController extends Controller
 
         try {
             foreach ($data as $key => $value) {
-                DB::table('taker_segment2')->insert($data);
+                DB::table('takers_segment2')->insert($data);
             }
             return response("Berhasil simpan data");
         } catch (\Throwable $th) {
