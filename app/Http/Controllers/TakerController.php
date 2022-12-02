@@ -30,7 +30,7 @@ class TakerController extends Controller
         // $rev_data_mtd=$request->rev_data_mtd;
         // $rev_data_m1=$request->rev_data_m1;
         // $event_date=$request->event_date;
-        $data=$request->data;
+        $data=$request->row;
 
         return $data;
 
