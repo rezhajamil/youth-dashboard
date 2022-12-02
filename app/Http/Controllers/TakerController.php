@@ -31,16 +31,17 @@ class TakerController extends Controller
         // $rev_data_m1=$request->rev_data_m1;
         // $event_date=$request->event_date;
         $data=$request->row;
-
+        $res=[];
         // return $data;
 
         try {
             foreach ($data as $key => $value) {
                 DB::table('takers_segment2')->insert($value);
+                array_push($res,"Berhasil");
             }
-            return response("Berhasil simpan data");
+            return response([$res,"Berhasil simpan data"]);
         } catch (\Throwable $th) {
-            return response($th,400);
+            return response([$res,$th],400);
         }
 
     }
