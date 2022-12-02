@@ -32,6 +32,8 @@ class TakerController extends Controller
         // $event_date=$request->event_date;
         $data=$request->data;
 
+        return $data;
+
         try {
             foreach ($data as $key => $value) {
                 DB::table('takers_segment2')->insert($data);
