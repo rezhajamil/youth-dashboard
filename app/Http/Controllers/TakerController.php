@@ -32,11 +32,11 @@ class TakerController extends Controller
         // $event_date=$request->event_date;
         $data=$request->row;
 
-        return $data;
+        // return $data;
 
         try {
             foreach ($data as $key => $value) {
-                DB::table('takers_segment2')->insert($data);
+                DB::table('takers_segment2')->insert($value);
             }
             return response("Berhasil simpan data");
         } catch (\Throwable $th) {
