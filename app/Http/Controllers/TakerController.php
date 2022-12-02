@@ -74,7 +74,7 @@ class TakerController extends Controller
             }
             return response("Berhasil simpan data");
         } catch (\Throwable $th) {
-            return response($th,400);
+            return response($request->data,400);
         }
 
     }
