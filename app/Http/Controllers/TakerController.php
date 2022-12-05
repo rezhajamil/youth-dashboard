@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\DB;
 class TakerController extends Controller
 {
     public function segment2(Request $request){
-        $data=json_decode(html_entity_decode(stripslashes($request->row)));
+        // $data=json_decode(html_entity_decode(stripslashes($request->row)));
+        $data=$request->row;
         $res=[];
         return $data;
 
