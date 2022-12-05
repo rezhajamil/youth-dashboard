@@ -20,7 +20,7 @@ class TakerController extends Controller
             }
             return response([$res,"Berhasil simpan data"]);
         } catch (\Throwable $th) {
-            return response([$res,$th],400);
+            return response($th,400);
         }
 
     }
