@@ -11,7 +11,7 @@ class TakerController extends Controller
         // $data=json_decode(html_entity_decode(stripslashes($request->row)));
         $data=$request->row;
         $res=[];
-        return $data;
+        // return $data;
 
         try {
             foreach ($data as $key => $value) {
