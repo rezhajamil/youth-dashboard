@@ -9,21 +9,21 @@ class WilayahController extends Controller
 {
     public function getRegion(Request $request)
     {
-        $region = DB::table('wilayah')->select('regional')->distinct()->whereNotNull('regional')->get();
+        $region = DB::table('territory_new')->select('regional')->distinct()->whereNotNull('regional')->get();
 
         return response()->json($region);
     }
 
     public function getBranch(Request $request)
     {
-        $branch = DB::table('wilayah')->select('branch')->distinct()->whereNotNull('branch')->where('regional', $request->regional)->get();
+        $branch = DB::table('territory_new')->select('branch')->distinct()->whereNotNull('branch')->where('regional', $request->regional)->get();
 
         return response()->json($branch);
     }
 
     public function getCluster(Request $request)
     {
-        $cluster = DB::table('wilayah')->select('cluster')->distinct()->whereNotNull('cluster')->where('branch', $request->branch)->get();
+        $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->where('branch', $request->branch)->get();
 
         return response()->json($cluster);
     }
