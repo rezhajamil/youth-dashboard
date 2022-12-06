@@ -26,6 +26,7 @@ class DashboardController extends Controller
         //     "branch" => "",
         //     "regional" => "SUMBAGUT"
         // ];
+        dd(phpinfo());
 
         // User::create($data);
         if (auth()->user()->privilege == 'superadmin') {

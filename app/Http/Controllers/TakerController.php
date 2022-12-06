@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 class TakerController extends Controller
 {
     public function segment2(Request $request){
-        ini_set("post_max_size","0");
+        ini_set("post_max_size",0);
         // $data=json_decode(html_entity_decode(stripslashes($request->row)));
         $data=json_decode($request->row,true);
         $res=[];
