@@ -60,8 +60,8 @@ Route::post('/find_school', [SurveyController::class, 'find_school']);
 
 Route::middleware(['cors'])->group(function () {
     Route::get('/test', [SurveyController::class, 'test']);
-    Route::get('/taker/segment2', [TakerController::class, 'segment2']);
-    Route::get('/taker/non_usim', [TakerController::class, 'non_usim']);
+    Route::post('/taker/segment2', [TakerController::class, 'segment2']);
+    Route::post('/taker/non_usim', [TakerController::class, 'non_usim']);
 });
 
 Route::middleware(['auth'])->group(function () {
