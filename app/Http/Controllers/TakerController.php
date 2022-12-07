@@ -27,13 +27,18 @@ class TakerController extends Controller
     }
 
     public function non_usim(Request $request){
-        $data=$request->data;
+        ini_set("post_max_size",0);
+        // $data=json_decode(html_entity_decode(stripslashes($request->row)));
+        $data=json_decode($request->row,true);
+        $res=[];
+        return count($data);
 
         try {
             foreach ($data as $key => $value) {
-                DB::table('Taker_Non_Usim')->insert($data);
+                DB::table('Taker_Non_Usim_WL')->insert($value);
+                array_push($res,"Berhasil<br/>");
             }
-            return response("Berhasil simpan data");
+            return response([$res,"Berhasil simpan data"]);
         } catch (\Throwable $th) {
             return response($th,400);
         }
