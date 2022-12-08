@@ -7,7 +7,7 @@
         </div>
     </div>
 
-    <nav class="mt-10" x-data="{sales:false,direct:false,school:false,broadcast:false,content:false,event:false,market:false}">
+    <nav class="mt-10" x-data="{sales:false,direct:false,school:false,broadcast:false,content:false,event:false,market:false,location:false}">
         <a class="flex items-center px-6 py-2 mt-4 text-gray-100 bg-gray-700 bg-opacity-25" href="{{ URL::to('/dashboard') }}">
             <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
@@ -47,6 +47,16 @@
             <a href="{{ route('quiz.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Quiz</span></a>
             {{-- <a href="{{ route('survey.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Survey</span></a> --}}
             @endif
+        </div>
+
+        <a class="flex items-center px-6 py-2 mt-4 text-gray-500 transition-all cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" x-on:click="location=!location">
+            <i class="w-6 h-6 fa-solid fa-location-dot"></i>
+            <span class="mx-3 text-white">Location</span>
+            <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right" :class="{'rotate-90': location, 'rotate-0': !location}"></i>
+        </a>
+        <div class="flex flex-col w-3/4 mx-6 mt-2 ml-auto overflow-hidden bg-gray-700 rounded-md" x-show="location" x-transition>
+            <a href="{{ route('location.taps') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">TAPS</span></a>
+            {{-- <a href="{{ route('location.poi') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">POI</span></a> --}}
         </div>
 
         <a class="flex items-center px-6 py-2 mt-4 text-gray-500 transition-all cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" x-on:click="market=!market">

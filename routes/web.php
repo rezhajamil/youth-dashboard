@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DirectSalesContoller;
 use App\Http\Controllers\DirectUserController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\OutletController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\SalesContoller;
@@ -140,6 +141,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('orbit/sales', [SalesContoller::class, 'orbit'])->name('sales.orbit');
     Route::delete('orbit/sales/destroy/{msisdn}', [SalesContoller::class, 'destroy_orbit'])->name('sales.orbit.destroy');
     Route::get('digipos/sales', [SalesContoller::class, 'digipos'])->name('sales.digipos');
+
+    Route::get("location/taps",[LocationController::class,'taps'])->name('location.taps');
+    Route::get("location/taps/edit/{id}",[LocationController::class,'edit_taps'])->name('location.taps.edit');
+    Route::put("location/taps/update/{id}",[LocationController::class,'update_taps'])->name('location.taps.update');
+    Route::get("location/poi",[LocationController::class,'poi'])->name('location.poi');
+    Route::get("location/poi/edit/{id}",[LocationController::class,'edit_poi'])->name('location.poi.edit');
+    Route::put("location/poi/update/{id}",[LocationController::class,'update_poi'])->name('location.poi.update');
 
     Route::resource('direct_user', DirectUserController::class);
     Route::put('direct_user/change_status/{direct_user}', [DirectUserController::class, 'changeStatus'])->name('direct_user.change_status');
