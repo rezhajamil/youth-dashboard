@@ -21,9 +21,20 @@ class WilayahController extends Controller
         return response()->json($branch);
     }
 
+    public function getSubBranch(Request $request)
+    {
+        $sub_branch = DB::table('territory_new')->select('sub_branch')->distinct()->whereNotNull('sub_branch')->where('branch', $request->branch)->get();
+
+        return response()->json($sub_branch);
+    }
+
     public function getCluster(Request $request)
     {
-        $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->where('branch', $request->branch)->get();
+        if($request->branch){
+            $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->where('branch', $request->branch)->get();
+        }else if($request->sub_branch){
+            $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->where('sub_branch', $request->sub_branch)->get();
+        }
 
         return response()->json($cluster);
     }

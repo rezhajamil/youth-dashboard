@@ -29,6 +29,22 @@ class LocationController extends Controller
 
         return redirect()->route('location.taps');
     }
+
+    public function poi(){
+        $poi=DB::table('list_poi')->where('status','1')->orderBy('regional','desc')->orderBy('branch')->orderBy('cluster')->orderBy('kabupaten')->orderBy('poi_name')->get();
+        $location=DB::table('list_poi')->select('location')->distinct()->get();
+
+        return view('location.poi.index',compact('poi','location'));
+    }
+
+    public function create_poi(){
+        $region=DB::table('territory_new')->select('regional')->orderBy('regional','desc')->distinct()->get();
+        $location=DB::table('list_poi')->select('location')->distinct()->get();
+        $keterangan=DB::table('list_poi')->select('keterangan_poi')->distinct()->get();
+        $jenis=DB::table('list_poi')->select('jenis_poi')->distinct()->get();
+
+        return view('location.poi.create',compact('region','location','keterangan','jenis'));
+    }
     /**
      * Display a listing of the resource.
      *

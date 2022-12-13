@@ -146,6 +146,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get("location/taps/edit/{id}",[LocationController::class,'edit_taps'])->name('location.taps.edit');
     Route::put("location/taps/update/{id}",[LocationController::class,'update_taps'])->name('location.taps.update');
     Route::get("location/poi",[LocationController::class,'poi'])->name('location.poi');
+    Route::get("location/poi/create",[LocationController::class,'create_poi'])->name('location.poi.create');
+    Route::post("location/poi/post",[LocationController::class,'store_poi'])->name('location.poi.store');
     Route::get("location/poi/edit/{id}",[LocationController::class,'edit_poi'])->name('location.poi.edit');
     Route::put("location/poi/update/{id}",[LocationController::class,'update_poi'])->name('location.poi.update');
 
