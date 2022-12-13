@@ -35,7 +35,9 @@ use Illuminate\Support\Facades\Route;
 Route::name('wilayah.')->group(function () {
     Route::get('wilayah/get_region', [WilayahController::class, 'getRegion'])->name('get_region');
     Route::post('wilayah/get_branch', [WilayahController::class, 'getBranch'])->name('get_branch');
+    Route::post('wilayah/get_sub_branch', [WilayahController::class, 'getSubBranch'])->name('get_sub_branch');
     Route::post('wilayah/get_cluster', [WilayahController::class, 'getCluster'])->name('get_cluster');
+    Route::post('wilayah/get_kabupaten', [WilayahController::class, 'getKabupaten'])->name('get_kabupaten');
     Route::post('wilayah/get_tap', [WilayahController::class, 'getTap'])->name('get_tap');
 });
 

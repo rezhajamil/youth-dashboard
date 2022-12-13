@@ -39,6 +39,13 @@ class WilayahController extends Controller
         return response()->json($cluster);
     }
 
+    public function getKabupaten(Request $request)
+    {
+        $kabupaten = DB::table('territory_new')->select('kab_new as kabupaten')->distinct()->whereNotNull('kab_new')->where('cluster', $request->cluster)->get();
+
+        return response()->json($kabupaten);
+    }
+
     public function getTap(Request $request)
     {
         $tap = DB::table('taps')->select('nama')->distinct()->whereNotNull('nama')->where('cluster', $request->cluster)->orderBy('nama')->get();

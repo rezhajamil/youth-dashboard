@@ -9,7 +9,7 @@
                 <form action="{{ route('location.poi.store') }}" method="POST" class="">
                     @csrf
                     <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-                        <div class="grid grid-cols-3 gap-x-3 col-span-full">
+                        <div class="grid grid-cols-5 gap-x-3 col-span-full">
                             <div class="w-full">
                                 <label class="block text-gray-700" for="regional">Regional</label>
                                 <select name="regional" id="regional" class="w-full rounded-md">
@@ -34,6 +34,15 @@
                                 @enderror
                             </div>
                             <div class="w-full">
+                                <label class="block text-gray-700" for="sub_branch">Sub Branch</label>
+                                <select name="sub_branch" id="sub_branch" class="w-full rounded-md">
+                                    <option value="" selected disabled>Pilih Sub Branch</option>
+                                </select>
+                                @error('sub_branch')
+                                <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="w-full">
                                 <label class="block text-gray-700" for="cluster">Cluster</label>
                                 <select name="cluster" id="cluster" class="w-full rounded-md">
                                     <option value="" selected disabled>Pilih Cluster</option>
@@ -42,150 +51,88 @@
                                 <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
                             </div>
+                            <div class="w-full">
+                                <label class="block text-gray-700" for="kabupaten">Kabupaten</label>
+                                <select name="kabupaten" id="kabupaten" class="w-full rounded-md">
+                                    <option value="" selected disabled>Pilih Kabupaten</option>
+                                </select>
+                                @error('kabupaten')
+                                <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
-
-                        <div class="w-full">
-                            <label class="block text-gray-700" for="tap">TAP</label>
-                            <select name="tap" id="tap" class="w-full rounded-md">
-                                <option value="" selected disabled>Pilih TAP</option>
-                                @foreach ($tap as $item)
-                                <option value="{{ $item->nama }}" {{ old('tap')==$item->nama?'selected':'' }}>{{ strtoupper($item->nama) }}</option>
-                                @endforeach
-                            </select>
-                            @error('tap')
-                            <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <div class="w-full">
-                            <label class="block text-gray-700" for="role">Role</label>
-                            <select name="role" id="role" class="w-full rounded-md">
-                                <option value="" selected disabled>Pilih Role</option>
-                                @foreach ($role as $item)
-                                <option value="{{ $item->user_type }}" {{ old('role')==$item->user_type?'selected':'' }}>{{ $item->user_type }}</option>
-                                @endforeach
-                            </select>
-                            @error('role')
-                            <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <div>
-                            <label class="text-gray-700" for="nama">Nama Lengkap</label>
-                            <input class="w-full rounded-md form-input focus:border-indigo-600" type="text" name="nama" value="{{ old('nama') }}">
-                            @error('nama')
-                            <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <div>
-                            <label class="text-gray-700" for="panggilan">Panggilan</label>
-                            <input class="w-full rounded-md form-input focus:border-indigo-600" type="text" name="panggilan" value="{{ old('panggilan') }}">
-
-                            @error('panggilan')
-                            <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
-                            @enderror
-
-                        </div>
-
-                        <div class="w-full">
-                            <label class="block text-gray-700" for="kampus">Pendidikan</label>
-                            <select name="kampus" id="kampus" class="w-full rounded-md">
-                                <option value="" selected disabled>Pilih Pendidikan</option>
-                                <option value="SLTA" {{ old('kampus')=='SLTA'?'selected':'' }}>SLTA</option>
-                                <option value="D3" {{ old('kampus')=='D3'?'selected':'' }}>D3</option>
-                                <option value="S1" {{ old('kampus')=='S1'?'selected':'' }}>S1</option>
-                                <option value="S2" {{ old('kampus')=='S2'?'selected':'' }}>S2</option>
-                            </select>
-                            @error('kampus')
-                            <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
-                            @enderror
-
-                        </div>
-
-                        <div>
-                            <label class="text-gray-700" for="tgl_lahir">Tanggal Lahir</label>
-                            <input class="w-full rounded-md form-input focus:border-indigo-600" type="date" name="tgl_lahir" value="{{ old('tgl_lahir') }}">
-                            @error('tgl_lahir')
-                            <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
-                            @enderror
-
+                        
+                        <div class="grid grid-cols-3 gap-x-3 col-span-full">
+                            <div class="w-full">
+                                <label class="block text-gray-700" for="location">Location</label>
+                                <select name="location" id="location" class="w-full rounded-md">
+                                    <option value="" selected disabled>Pilih Location</option>
+                                    @foreach ($location as $item)
+                                    <option value="{{ $item->location }}" {{ old('location')==$item->location?'selected':'' }}>
+                                        {{ $item->location }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                                @error('regional')
+                                <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="w-full">
+                                <label class="block text-gray-700" for="keterangan_poi">Keterangan POI</label>
+                                <select name="keterangan_poi" id="keterangan_poi" class="w-full rounded-md">
+                                    <option value="" selected disabled>Pilih Keterangan POI</option>
+                                    @foreach ($keterangan as $item)
+                                    <option value="{{ $item->keterangan_poi }}" {{ old('keterangan_poi')==$item->keterangan_poi?'selected':'' }}>
+                                        {{ $item->keterangan_poi }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                                @error('regional')
+                                <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="w-full">
+                                <label class="block text-gray-700" for="jenis_poi">Jenis POI</label>
+                                <select name="jenis_poi" id="jenis_poi" class="w-full rounded-md">
+                                    <option value="" selected disabled>Pilih Jenis POI</option>
+                                    @foreach ($jenis as $item)
+                                    <option value="{{ $item->jenis_poi }}" {{ old('jenis_poi')==$item->jenis_poi?'selected':'' }}>
+                                        {{ $item->jenis_poi }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                                @error('regional')
+                                <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
 
                         <div class="grid grid-cols-3 gap-x-3 col-span-full">
-                            <div>
-                                <label class="text-gray-700" for="telp">Telepon</label>
-                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="number" name="telp" placeholder="081234567890" value="{{ old('telp') }}">
-
-                                @error('telp')
-                                <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
-                                @enderror
-
-                            </div>
-                            <div>
-                                <label class="text-gray-700" for="mkios">MKios</label>
-                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="number" name="mkios" value="{{ old('mkios') }}">
-
-                                @error('mkios')
-                                <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
-                                @enderror
-
-                            </div>
-                            <div>
-                                <label class="text-gray-700" for="id_digipos">ID Digipos</label>
-                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="number" name="id_digipos" value="{{ old('id_digipos') }}">
-
-                                @error('id_digipos')
-                                <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
-                                @enderror
-
-                            </div>
-                        </div>
-
                         <div>
-                            <label class="text-gray-700" for="user_calista">User Calista</label>
-                            <input class="w-full rounded-md form-input focus:border-indigo-600" type="text" name="user_calista" value="{{ old('user_calista') }}">
-
-                            @error('user_calista')
+                            <label class="text-gray-700" for="name">Nama POI</label>
+                            <input class="w-full rounded-md form-input focus:border-indigo-600" type="text" name="name" value="{{ old('name') }}">
+                            @error('name')
                             <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                             @enderror
-
                         </div>
-
                         <div>
-                            <label class="text-gray-700" for="password">Password</label>
-                            <input class="w-full rounded-md form-input focus:border-indigo-600" type="text" name="password" value="{{ old('password') }}">
-
-                            @error('password')
+                            <label class="text-gray-700" for="latitude">Latitude</label>
+                            <input class="w-full rounded-md form-input focus:border-indigo-600" type="text" name="latitude" value="{{ old('latitude') }}">
+                            @error('latitude')
                             <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                             @enderror
-
                         </div>
-
                         <div>
-                            <label class="text-gray-700" for="reff_byu">Reff Code BY.U</label>
-                            <input class="w-full rounded-md form-input focus:border-indigo-600" type="text" name="reff_byu" value="{{ old('reff_byu') }}">
-
-                            @error('reff_byu')
+                            <label class="text-gray-700" for="longitude">Longitude</label>
+                            <input class="w-full rounded-md form-input focus:border-indigo-600" type="text" name="longitude" value="{{ old('longitude') }}">
+                            @error('longitude')
                             <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                             @enderror
-
                         </div>
-
-                        <div>
-                            <label class="text-gray-700" for="reff_code">Reff Code Orbit</label>
-                            <input class="w-full rounded-md form-input focus:border-indigo-600" type="text" name="reff_code" value="{{ old('reff_code') }}">
-
-                            @error('reff_code')
-                            <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
-                            @enderror
-
-                        </div>
-
 
                     </div>
 
-                    <div class="flex justify-end mt-4">
+                    <div class="flex justify-end mt-4 col-span-full">
                         <button class="w-full px-4 py-2 font-bold text-white bg-indigo-800 rounded-md hover:bg-indigo-700 focus:outline-none focus:bg-indigo-700">Submit</button>
                     </div>
                 </form>
@@ -214,6 +161,7 @@
 
                 , success: (data) => {
                     $("#branch").html(
+                        "<option disabled selected>Pilih Branch</option>"+
                         data.map((item) => {
                             return `
                             <option value="${item.branch}">${item.branch}</option>
@@ -232,7 +180,7 @@
             var branch = $("#branch").val();
             console.log(branch)
             $.ajax({
-                url: "{{ route('wilayah.get_cluster') }}"
+                url: "{{ route('wilayah.get_sub_branch') }}"
                 , method: "POST"
                 , dataType: "JSON"
                 , data: {
@@ -240,7 +188,39 @@
                     , _token: "{{ csrf_token() }}"
                 }
                 , success: (data) => {
+                    console.log(data)
+                    $("#sub_branch").html(
+                        "<option disabled selected>Pilih Sub Branch</option>"+
+                        data.map((item) => {
+                            return `
+                    <option value="${item.sub_branch}">${item.sub_branch}</option>
+                    `
+                        })
+
+                    )
+
+                }
+                , error: (e) => {
+                    console.log(e)
+                }
+            })
+        })
+
+        $("#sub_branch").on('input', () => {
+            var sub_branch = $("#sub_branch").val();
+            console.log(sub_branch)
+            $.ajax({
+                url: "{{ route('wilayah.get_cluster') }}"
+                , method: "POST"
+                , dataType: "JSON"
+                , data: {
+                    sub_branch: sub_branch
+                    , _token: "{{ csrf_token() }}"
+                }
+                , success: (data) => {
+                    console.log(data)
                     $("#cluster").html(
+                        "<option disabled selected>Pilih Cluster</option>"+
                         data.map((item) => {
                             return `
                     <option value="${item.cluster}">${item.cluster}</option>
@@ -260,7 +240,7 @@
             var cluster = $("#cluster").val();
             console.log(cluster)
             $.ajax({
-                url: "{{ route('wilayah.get_tap') }}"
+                url: "{{ route('wilayah.get_kabupaten') }}"
                 , method: "POST"
                 , dataType: "JSON"
                 , data: {
@@ -269,10 +249,11 @@
                 }
                 , success: (data) => {
                     console.log(data)
-                    $("#tap").html(
+                    $("#kabupaten").html(
+                        "<option disabled selected>Pilih Kabupaten</option>"+
                         data.map((item) => {
                             return `
-                    <option value="${item.nama}">${item.nama}</option>
+                    <option value="${item.kabupaten}">${item.kabupaten}</option>
                     `
                         })
 

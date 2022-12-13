@@ -33,13 +33,16 @@
                             <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-red-600">No</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Regional</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Branch</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Sub Branch</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Cluster</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Provinsi</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Kabupaten</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Nama POI</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Location</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Nama</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Jenis</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Keterangan</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Longitude</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Latitude</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Action</th>
+                            {{-- <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Action</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -48,16 +51,18 @@
                             <td class="p-3 font-bold text-gray-700 border-b">{{ $key+1 }}</td>
                             <td class="p-3 text-gray-700 uppercase border-b regional">{{ $data->regional }}</td>
                             <td class="p-3 text-gray-700 uppercase border-b branch">{{ $data->branch }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-b branch">{{ $data->sub_branch }}</td>
                             <td class="p-3 text-gray-700 uppercase border-b cluster">{{ $data->cluster }}</td>
                             <td class="p-3 text-gray-700 uppercase border-b kabupaten">{{ $data->kabupaten }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-b nama">{{ $data->location }}</td>
                             <td class="p-3 text-gray-700 uppercase border-b nama">{{ $data->poi_name }}</td>
                             <td class="p-3 text-gray-700 uppercase border-b jenis">{{ $data->jenis_poi }}</td>
                             <td class="p-3 text-gray-700 uppercase border-b keterangan">{{ $data->keterangan_poi }}</td>
                             <td class="p-3 text-gray-700 uppercase border-b longitude">{{ $data->longitude }}</td>
                             <td class="p-3 text-gray-700 uppercase border-b latitude">{{ $data->latitude }}</td>
-                            <td class="p-3 text-gray-700 border-b">
+                            {{-- <td class="p-3 text-gray-700 border-b">
                                 <a href="{{ route('location.taps.edit',$data->id) }}" class="block my-1 text-base font-semibold text-indigo-600 transition hover:text-indigo-800">Edit Cluster</a>
-                            </td>
+                            </td> --}}
                             {{-- @else
                             <td class="p-3 text-gray-700 border-b">
                                 <form action="{{ route('direct_user.change_status',$data->id) }}" method="post">
