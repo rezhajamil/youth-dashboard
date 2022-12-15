@@ -73,7 +73,7 @@
                                     </option>
                                     @endforeach
                                 </select>
-                                @error('regional')
+                                @error('location')
                                 <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -87,7 +87,7 @@
                                     </option>
                                     @endforeach
                                 </select>
-                                @error('regional')
+                                @error('keterangan_poi')
                                 <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -101,7 +101,7 @@
                                     </option>
                                     @endforeach
                                 </select>
-                                @error('regional')
+                                @error('jenis_poi')
                                 <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
                             </div>

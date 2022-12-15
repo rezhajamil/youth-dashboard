@@ -100,6 +100,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('resume/sekolah', [SekolahController::class, 'resume'])->name('sekolah.resume');
     Route::get('oss_osk/sekolah', [SekolahController::class, 'oss_osk'])->name('sekolah.oss_osk');
     Route::get('pjp/sekolah', [SekolahController::class, 'pjp'])->name('sekolah.pjp');
+    Route::get('pjp/sekolah/create', [SekolahController::class, 'create_pjp'])->name('sekolah.pjp.create');
+    Route::post('pjp/sekolah/store', [SekolahController::class, 'store_pjp'])->name('sekolah.pjp.store');
 
     Route::get('content/sapaan', [ContentController::class, 'sapaan'])->name('sapaan.index');
     Route::post('content/sapaan', [ContentController::class, 'store_sapaan'])->name('sapaan.store');
@@ -144,14 +146,14 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('orbit/sales/destroy/{msisdn}', [SalesContoller::class, 'destroy_orbit'])->name('sales.orbit.destroy');
     Route::get('digipos/sales', [SalesContoller::class, 'digipos'])->name('sales.digipos');
 
-    Route::get("location/taps",[LocationController::class,'taps'])->name('location.taps');
-    Route::get("location/taps/edit/{id}",[LocationController::class,'edit_taps'])->name('location.taps.edit');
-    Route::put("location/taps/update/{id}",[LocationController::class,'update_taps'])->name('location.taps.update');
-    Route::get("location/poi",[LocationController::class,'poi'])->name('location.poi');
-    Route::get("location/poi/create",[LocationController::class,'create_poi'])->name('location.poi.create');
-    Route::post("location/poi/post",[LocationController::class,'store_poi'])->name('location.poi.store');
-    Route::get("location/poi/edit/{id}",[LocationController::class,'edit_poi'])->name('location.poi.edit');
-    Route::put("location/poi/update/{id}",[LocationController::class,'update_poi'])->name('location.poi.update');
+    Route::get("location/taps", [LocationController::class, 'taps'])->name('location.taps');
+    Route::get("location/taps/edit/{id}", [LocationController::class, 'edit_taps'])->name('location.taps.edit');
+    Route::put("location/taps/update/{id}", [LocationController::class, 'update_taps'])->name('location.taps.update');
+    Route::get("location/poi", [LocationController::class, 'poi'])->name('location.poi');
+    Route::get("location/poi/create", [LocationController::class, 'create_poi'])->name('location.poi.create');
+    Route::post("location/poi/post", [LocationController::class, 'store_poi'])->name('location.poi.store');
+    Route::get("location/poi/edit/{id}", [LocationController::class, 'edit_poi'])->name('location.poi.edit');
+    Route::put("location/poi/update/{id}", [LocationController::class, 'update_poi'])->name('location.poi.update');
 
     Route::resource('direct_user', DirectUserController::class);
     Route::put('direct_user/change_status/{direct_user}', [DirectUserController::class, 'changeStatus'])->name('direct_user.change_status');

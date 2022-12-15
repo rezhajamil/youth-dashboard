@@ -189,4 +189,40 @@ class SekolahController extends Controller
 
         return view('sekolah.pjp', compact('pjp'));
     }
+
+    public function create_pjp()
+    {
+        return view('sekolah.create_pjp');
+    }
+
+    public function store_pjp(Request $request)
+    {
+        $request->validate([
+            'npsn' => 'required',
+            'date' => 'required',
+            'time' => 'required',
+            'telp' => 'required',
+            'frekuensi' => 'required',
+            'activity' => 'required',
+        ]);
+
+        $pjp = DB::table('pjp')->insert([
+            'npsn' => $request->npsn,
+            'telp' => $request->telp,
+            'frekuensi' => $request->frekuensi,
+            'activity' => $request->activity,
+            'date' => $request->date,
+            'time' => $request->time,
+        ]);
+
+        return redirect()->route('sekolah.pjp');
+    }
+
+    public function find_school(Request $request)
+    {
+        $name = $request->name;
+        $sekolah = DB::table('Data_Sekolah_Sumatera')->select(['NPSN', 'NAMA_SEKOLAH'])->where('PROVINSI', 'Sumatera Utara')->where('NAMA_SEKOLAH', 'like', '%' . $name . '%')->orderBy('NAMA_SEKOLAH')->limit('100')->get();
+
+        return response()->json($sekolah);
+    }
 }

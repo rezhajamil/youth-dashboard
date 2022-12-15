@@ -8,7 +8,7 @@
             </div>
 
             {{-- <span class="inline-block mt-6 mb-2 text-lg font-semibold text-gray-600">Direct Sales By Region</span> --}}
-            {{-- <a href="{{ route('direct_user.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-800"><i class="mr-2 fa-solid fa-plus"></i> Data User Baru</a> --}}
+            <a href="{{ route('sekolah.pjp.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-800"><i class="mr-2 fa-solid fa-plus"></i> Data PJP Baru</a>
 
             <div class="overflow-auto bg-white rounded-md shadow w-fit">
                 <table class="overflow-auto text-left border-collapse w-fit">
