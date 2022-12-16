@@ -15,20 +15,30 @@
                     <thead class="border-b">
                         <tr>
                             <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-red-600">No</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Regional</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Branch</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Cluster</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">PJP</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Jumlah</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">NPSN</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Nama Sekolah</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Telp</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Frekuensi</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Activity</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Waktu</th>
                         </tr>
                     </thead>
                     <tbody class="max-h-screen overflow-y-auto">
                         @foreach ($pjp as $key=>$data)
                         <tr class="hover:bg-gray-200">
-                            <td class="p-4 font-bold text-gray-700 border-b">{{ $key+1 }}</td>
-                            <td class="p-4 text-gray-700 border-b npsn">{{ $data->BRANCH }}</td>
-                            <td class="p-4 text-gray-700 border-b provinsi">{{ $data->CLUSTER }}</td>
-                            <td class="p-4 text-gray-700 border-b kabupaten">{{ $data->PJP }}</td>
-                            <td class="p-4 text-gray-700 border-b kecamatan">{{ $data->jumlah }}</td>
+                            <td class="p-3 font-bold text-gray-700 border-b">{{ $key+1 }}</td>
+                            <td class="p-3 text-gray-700 border-b npsn">{{ $data->REGIONAL }}</td>
+                            <td class="p-3 text-gray-700 border-b npsn">{{ $data->BRANCH }}</td>
+                            <td class="p-3 text-gray-700 border-b provinsi">{{ $data->CLUSTER }}</td>
+                            <td class="p-3 text-gray-700 border-b kabupaten">{{ $data->npsn }}</td>
+                            <td class="p-3 text-gray-700 border-b kabupaten">{{ $data->NAMA_SEKOLAH }}</td>
+                            <td class="p-3 text-gray-700 border-b kecamatan">{{ $data->telp }}</td>
+                            <td class="p-3 text-gray-700 border-b kecamatan">{{ $data->frekuensi }}</td>
+                            <td class="p-3 text-gray-700 border-b kecamatan">{{ $data->activity }}</td>
+                            <td class="p-3 text-gray-700 border-b kecamatan whitespace-nowrap">{{ date('d-m-Y',strtotime($data->date)) }} {{$data->time}}</td>
                         </tr>
                         @endforeach
                     </tbody>
