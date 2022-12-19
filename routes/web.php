@@ -37,7 +37,10 @@ Route::name('wilayah.')->group(function () {
     Route::post('wilayah/get_branch', [WilayahController::class, 'getBranch'])->name('get_branch');
     Route::post('wilayah/get_sub_branch', [WilayahController::class, 'getSubBranch'])->name('get_sub_branch');
     Route::post('wilayah/get_cluster', [WilayahController::class, 'getCluster'])->name('get_cluster');
+    Route::post('wilayah/get_provinsi', [WilayahController::class, 'getProvinsi'])->name('get_provinsi');
     Route::post('wilayah/get_kabupaten', [WilayahController::class, 'getKabupaten'])->name('get_kabupaten');
+    Route::post('wilayah/get_kecamatan', [WilayahController::class, 'getKecamatan'])->name('get_kecamatan');
+    Route::post('wilayah/get_kelurahan', [WilayahController::class, 'getKelurahan'])->name('get_kelurahan');
     Route::post('wilayah/get_tap', [WilayahController::class, 'getTap'])->name('get_tap');
 });
 
@@ -147,8 +150,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('digipos/sales', [SalesContoller::class, 'digipos'])->name('sales.digipos');
 
     Route::get("location/taps", [LocationController::class, 'taps'])->name('location.taps');
+    Route::get("location/taps/create", [LocationController::class, 'create_taps'])->name('location.taps.create');
     Route::get("location/taps/edit/{id}", [LocationController::class, 'edit_taps'])->name('location.taps.edit');
     Route::put("location/taps/update/{id}", [LocationController::class, 'update_taps'])->name('location.taps.update');
+    Route::post("location/taps/post", [LocationController::class, 'store_taps'])->name('location.taps.store');
     Route::get("location/poi", [LocationController::class, 'poi'])->name('location.poi');
     Route::get("location/poi/create", [LocationController::class, 'create_poi'])->name('location.poi.create');
     Route::post("location/poi/post", [LocationController::class, 'store_poi'])->name('location.poi.store');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class LocationController extends Controller
@@ -13,6 +14,56 @@ class LocationController extends Controller
         $taps = DB::table('taps')->orderBy('region_channel', 'desc')->orderBy('cluster')->orderBy('provinsi')->orderBy('kabupaten')->orderBy('kecamatan')->orderBy('kelurahan')->orderBy('nama')->get();
 
         return view('location.taps.index', compact('taps'));
+    }
+
+    public function create_taps()
+    {
+        if (Auth::user()->privilege == 'superadmin') {
+            $region = DB::table('territory_new')->select('regional')->orderBy('regional', 'desc')->distinct()->get();
+        } else {
+            $region = DB::table('territory_new')->select('regional')->where('branch', auth()->user()->branch)->distinct()->get();
+        }
+
+        return view('location.taps.create', compact('region'));
+    }
+
+
+    public function store_taps(Request $request)
+    {
+        $request->validate([
+            'regional' => 'required',
+            'branch' => 'required',
+            'cluster' => 'required',
+            'provinsi' => 'required',
+            'kabupaten' => 'required',
+            'kecamatan' => 'required',
+            'kelurahan' => 'required',
+            'nama' => 'required',
+            'alamat' => 'required',
+            'latitude' => 'required',
+            'longitude' => 'required',
+        ]);
+
+        $taps = DB::table('taps')->insert([
+            'region_channel' => $request->regional,
+            'branch' => $request->branch,
+            'cluster' => $request->cluster,
+            'provinsi' => $request->provinsi,
+            'kabupaten' => $request->kabupaten,
+            'kecamatan' => $request->kecamatan,
+            'kelurahan' => $request->kelurahan,
+            'kode_pos' => $request->kode_pos ?? '0',
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+            'mitra_ad_cluster' => $request->mitra_ad_cluster,
+            'call_center' => $request->call_center ?? '0',
+            'email' => $request->email ?? '0',
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        return redirect()->route('location.taps');
     }
 
     public function edit_taps($id)

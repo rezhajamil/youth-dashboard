@@ -15,7 +15,8 @@ class SekolahController extends Controller
      */
     public function index(Request $request)
     {
-        $provinsi = Sekolah::select('provinsi')->distinct()->orderBy('provinsi')->get();
+        ddd(phpinfo());
+        $provinsi = Sekolah::select('provinsi')->distinct()->whereNotNull('provinsi')->orderBy('provinsi')->get();
         $branch = DB::table('wilayah')->select('branch')->distinct()->whereNotNull('branch')->get();
 
         if ($request->kecamatan) {
