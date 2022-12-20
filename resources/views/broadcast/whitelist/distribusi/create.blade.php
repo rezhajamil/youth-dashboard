@@ -7,7 +7,7 @@
 
             <div class="px-6 py-4 mx-auto overflow-auto bg-white rounded-md shadow sm:mx-0 w-fit">
                 @if (session('error'))
-                <div class="bg-red-300 text-red-700 font-bold px-4 py-2 w-full">{{ session('error') }}</div>
+                <div class="w-full px-4 py-2 font-bold text-red-700 bg-red-300">{{ session('error') }}</div>
                 @endif
                 <form action="{{ route('whitelist.distribusi.store') }}" method="POST" class="">
                     @csrf
@@ -209,7 +209,7 @@
                     } else {
                         $("#user").html(
                             `<option value="" disabled selected>Pilih User</option>` +
-                            `<option value="" disabled selected>Tidak ada user</option>`
+                            `<option value="" disabled selected>Tidak Ada User</option>`
                         )
                     }
 

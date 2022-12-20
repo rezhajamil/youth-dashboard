@@ -22,7 +22,6 @@
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Nama Sekolah</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Telp</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Frekuensi</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Activity</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Waktu</th>
                         </tr>
                     </thead>
@@ -37,8 +36,7 @@
                             <td class="p-3 text-gray-700 border-b kabupaten">{{ $data->NAMA_SEKOLAH }}</td>
                             <td class="p-3 text-gray-700 border-b kecamatan">{{ $data->telp }}</td>
                             <td class="p-3 text-gray-700 border-b kecamatan">{{ $data->frekuensi }}</td>
-                            <td class="p-3 text-gray-700 border-b kecamatan">{{ $data->activity }}</td>
-                            <td class="p-3 text-gray-700 border-b kecamatan whitespace-nowrap">{{ date('d-m-Y',strtotime($data->date)) }} {{$data->time}}</td>
+                            <td class="p-3 text-gray-700 border-b kecamatan whitespace-nowrap">{{ date('d-m-Y H:i',strtotime($data->date)) }}</td>
                         </tr>
                         @endforeach
                     </tbody>

@@ -9,7 +9,19 @@
                 <form action="{{ route('sekolah.pjp.store') }}" method="POST" class="">
                     @csrf
                     <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-                        <div class="grid grid-cols-3 gap-x-3 col-span-full gap-y-4">
+                        <div class="grid grid-cols-2 gap-x-3 col-span-full gap-y-4">
+                            <div>
+                                <label class="block text-gray-700" for="cluster">Cluster</label>
+                                <select name="cluster" id="cluster" class="w-full rounded-md">
+                                    <option value="" selected disabled>Pilih Cluster</option>
+                                    @foreach ($cluster as $item)
+                                        <option value="{{$item->cluster}}">{{$item->cluster}}</option>
+                                    @endforeach
+                                </select>
+                                @error('cluster')
+                                <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                @enderror
+                            </div>
                             <div>
                                 <label class="text-gray-700" for="npsn">NPSN</label>
                                 <input class="w-full rounded-md form-input focus:border-indigo-600" id="npsn" type="text" name="npsn" value="{{ old('npsn') }}" placeholder="NPSN">
@@ -19,22 +31,10 @@
                                 @enderror
                             </div>
                             <div>
-                                <label class="text-gray-700" for="date">Tanggal</label>
-                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="date" name="date" value="{{ old('date') }}">
-                                @error('date')
-                                <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div>
-                                <label class="text-gray-700" for="time">Waktu</label>
-                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="time" name="time" value="{{ old('time') }}">
-                                @error('time')
-                                <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div>
-                                <label class="text-gray-700" for="telp">Telp</label>
-                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="number" name="telp" value="{{ old('telp') }}" placeholder="6281234567890">
+                                <label class="block text-gray-700" for="telp">Telp</label>
+                                <select name="telp" id="telp" class="w-full rounded-md">
+                                    <option value="" selected disabled>Pilih Telp</option>
+                                </select>
                                 @error('telp')
                                 <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
@@ -52,7 +52,7 @@
                                 <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div>
+                            {{-- <div>
                                 <label class="block text-gray-700" for="activity">Activity</label>
                                 <select name="activity" id="activity" class="w-full rounded-md">
                                     <option value="" selected disabled>Pilih Activity</option>
@@ -64,7 +64,7 @@
                                 @error('activity')
                                 <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
-                            </div>
+                            </div> --}}
                         </div>
 
                         <div class="flex justify-end mt-4 col-span-full">
@@ -97,6 +97,49 @@
         $('#sekolah').on('input', function() {
             $('#loading').show();
             findSchool();
+        })
+        
+        $("#cluster").on('change', () => {
+            var cluster = $("#cluster").val();
+
+            console.log('aa');
+            $.ajax({
+                url: "{{ route('sekolah.pjp.user') }}"
+                , method: "GET"
+                , dataType: "JSON"
+                , data: {
+                    cluster: cluster
+                    , _token: "{{ csrf_token() }}"
+                }
+
+                , success: (data) => {
+                    const {
+                        users
+                    } = data;
+                    console.log(data);
+
+                    if (users.length) {
+                        $("#telp").html(
+                            `<option value="" disabled selected>Pilih Telp</option>` +
+                            users.map((item) => {
+                                return `
+                                    <option value="${item.telp}">${item.nama.toString().toUpperCase()} | ${item.telp}</option>
+                                    ` 
+                            })
+                        )
+                    } else {
+                        $("#telp").html(
+                            `<option value="" disabled selected>Pilih Telp</option>` +
+                            `<option value="" disabled selected>Tidak Ada Telp</option>`
+                        )
+                    }
+
+                }
+                , error: (e) => {
+                    console.log(e)
+                }
+            });
+            // }
         })
 
         const findSchool = () => {

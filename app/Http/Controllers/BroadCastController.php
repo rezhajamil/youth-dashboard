@@ -240,7 +240,7 @@ class BroadCastController extends Controller
                     count(if(`new_data_campaign`.status='1',1,NULL)) as 'sudah' ,
                     count(if(`new_data_campaign`.status='0',1,NULL)) as 'belum',
                     count(if(`new_data_campaign`.telp='no',1,NULL)) as 'sisa'
-                   
+                    
                     FROM `new_data_campaign`
                     JOIN data_user b ON b.telp=new_data_campaign.telp
                     

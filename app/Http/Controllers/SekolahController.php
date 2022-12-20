@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataUser;
 use App\Models\Sekolah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -186,34 +187,41 @@ class SekolahController extends Controller
     public function pjp()
     {
         // $pjp = DB::select("SELECT BRANCH,CLUSTER,PJP,COUNT(PJP) as jumlah FROM Data_Sekolah_Sumatera WHERE PJP IS NOT NULL GROUP BY 1,2,3 ORDER BY 1,2,3;");
-        $pjp = DB::select("SELECT a.*,b.NAMA_SEKOLAH,b.REGIONAL,b.BRANCH,b.CLUSTER FROM pjp a JOIN Data_Sekolah_Sumatera b on a.npsn=b.NPSN ORDER BY a.date desc,a.time desc;");
+        $pjp = DB::select("SELECT a.*,b.NAMA_SEKOLAH,b.REGIONAL,b.BRANCH,b.CLUSTER FROM pjp a JOIN Data_Sekolah_Sumatera b on a.npsn=b.NPSN ORDER BY a.date desc;");
 
         return view('sekolah.pjp', compact('pjp'));
     }
 
     public function create_pjp()
     {
-        return view('sekolah.create_pjp');
+        if (auth()->user()->privilege == 'superadmin') {
+            $cluster = DB::table('territory_new')->select('cluster')->distinct()->orderBy('cluster')->get();
+        } else if (auth()->user()->privilege == 'branch') {
+            $cluster = DB::table('territory_new')->select('cluster')->where('branch', auth()->user()->branch)->distinct()->orderBy('cluster')->get();
+        }
+        return view('sekolah.create_pjp', compact('cluster'));
+    }
+
+    public function get_user_pjp(Request $request)
+    {
+        $users = DataUser::where('cluster', $request->cluster)->orderBy('nama')->get();
+
+        return response()->json(compact('users'));
     }
 
     public function store_pjp(Request $request)
     {
         $request->validate([
             'npsn' => 'required',
-            'date' => 'required',
-            'time' => 'required',
             'telp' => 'required',
             'frekuensi' => 'required',
-            'activity' => 'required',
         ]);
 
         $pjp = DB::table('pjp')->insert([
             'npsn' => $request->npsn,
             'telp' => $request->telp,
             'frekuensi' => $request->frekuensi,
-            'activity' => $request->activity,
-            'date' => $request->date,
-            'time' => $request->time,
+            'date' => date('Y-m-d H:i:s'),
         ]);
 
         return redirect()->route('sekolah.pjp');
