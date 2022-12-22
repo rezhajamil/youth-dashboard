@@ -77,6 +77,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('sales', SalesContoller::class);
     Route::resource('broadcast', BroadCastController::class);
     Route::resource('outlet', OutletController::class);
+    Route::get('call', [BroadCastController::class, 'broadcast_call'])->name('broadcast.call');
 
     Route::get('campaign', [BroadCastController::class, 'campaign'])->name('campaign.index');
     Route::post('campaign', [BroadCastController::class, 'store_campaign'])->name('campaign.store');

@@ -154,7 +154,8 @@ class BroadCastController extends Controller
 
     public function broadcast_call(Request $request)
     {
-        $program = $request->prorgam;
+        $program = $request->program;
+        $dataProgram = DB::table('new_list_program')->select('program')->distinct()->get();
         $call = DB::select("SELECT 
             d.branch,d.cluster,c.*
             FROM 
@@ -181,26 +182,7 @@ class BroadCastController extends Controller
             GROUP BY 1,2
             ORDER BY 1,2;");
 
-        $call_cluster = DB::select("SELECT b.cluster,
-            COUNT(a.msisdn) As 'total', 
-            COUNT(IF(a.connect='Connected',1,Null))AS 'connect', 
-            COUNT(IF(a.connect='Not Connected',1,Null))AS 'not_connect',
-            COUNT(IF(a.angkat='Diangkat',1,Null))AS 'angkat',
-            COUNT(IF(a.angkat='Tidak Diangkat',1,Null))AS 'not_angkat',
-            COUNT(IF(a.respon='ditutup',1,Null))AS 'res_ditutup',
-            COUNT(IF(a.respon='mengira penipuan',1,Null))AS 'res_penipuan',
-            COUNT(IF(a.respon='Setuju ganti Kartu',1,Null))AS 'res_setuju',
-            COUNT(IF(a.respon='tidak mau ganti',1,Null))AS 'res_tolak'
-            FROM new_after_call a
-            LEFT JOIN data_user b ON a.telp=b.telp
-
-            WHERE a.program='$program'  
-            -- AND a.date BETWEEN '2022-11-01' AND '2022-12-21'
-
-            GROUP BY 1
-            ORDER BY 1");
-
-        return view('broadcast.call', compact('call'));
+        return view('broadcast.call', compact('call', 'dataProgram'));
     }
 
     public function campaign()
