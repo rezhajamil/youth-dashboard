@@ -29,11 +29,11 @@
                         @foreach ($pjp as $key=>$data)
                         <tr class="hover:bg-gray-200">
                             <td class="p-3 font-bold text-gray-700 border-b">{{ $key+1 }}</td>
-                            <td class="p-3 text-gray-700 border-b npsn">{{ $data->REGIONAL }}</td>
-                            <td class="p-3 text-gray-700 border-b npsn">{{ $data->BRANCH }}</td>
-                            <td class="p-3 text-gray-700 border-b provinsi">{{ $data->CLUSTER }}</td>
-                            <td class="p-3 text-gray-700 border-b kabupaten">{{ $data->npsn }}</td>
-                            <td class="p-3 text-gray-700 border-b kabupaten">{{ $data->NAMA_SEKOLAH }}</td>
+                            <td class="p-3 text-gray-700 border-b regional">{{ $data->REGIONAL }}</td>
+                            <td class="p-3 text-gray-700 border-b branch">{{ $data->BRANCH }}</td>
+                            <td class="p-3 text-gray-700 border-b cluster">{{ $data->CLUSTER }}</td>
+                            <td class="p-3 text-gray-700 border-b npsn">{{ $data->npsn }}</td>
+                            <td class="p-3 text-gray-700 border-b nama_sekolah">{{ $data->NAMA_SEKOLAH }}</td>
                             <td class="p-3 text-gray-700 border-b kecamatan">{{ $data->telp }}</td>
                             <td class="p-3 text-gray-700 border-b kecamatan">{{ $data->frekuensi }}</td>
                             <td class="p-3 text-gray-700 border-b kecamatan whitespace-nowrap">{{ date('d-m-Y H:i',strtotime($data->date)) }}</td>

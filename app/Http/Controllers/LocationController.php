@@ -77,7 +77,7 @@ class LocationController extends Controller
     {
         $tap = DB::table('taps')->find($id);
 
-        DB::table('taps')->update([
+        DB::table('taps')->where('id', $id)->update([
             "cluster" => $request->cluster
         ]);
 
