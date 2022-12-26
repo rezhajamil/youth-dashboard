@@ -4,11 +4,11 @@
     <div class="flex flex-col">
         <div class="mt-4">
             <div class="flex justify-between mb-4">
-                <h4 class="text-xl font-bold text-gray-600 align-baseline">Data PJP</h4>
+                <h4 class="text-xl font-bold text-gray-600 align-baseline">Data Kunjungan</h4>
             </div>
 
             {{-- <span class="inline-block mt-6 mb-2 text-lg font-semibold text-gray-600">Direct Sales By Region</span> --}}
-            <a href="{{ route('sekolah.pjp.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-800"><i class="mr-2 fa-solid fa-plus"></i> Data PJP Baru</a>
+            <a href="{{ route('sekolah.pjp.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-800"><i class="mr-2 fa-solid fa-plus"></i> Data Kunjungan</a>
 
             <div class="overflow-auto bg-white rounded-md shadow w-fit">
                 <table class="overflow-auto text-left border-collapse w-fit">
@@ -20,6 +20,7 @@
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Cluster</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">NPSN</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Nama Sekolah</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Nama Event</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Telp</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Frekuensi</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Waktu</th>
@@ -33,10 +34,11 @@
                             <td class="p-3 text-gray-700 border-b branch">{{ $data->BRANCH }}</td>
                             <td class="p-3 text-gray-700 border-b cluster">{{ $data->CLUSTER }}</td>
                             <td class="p-3 text-gray-700 border-b npsn">{{ $data->npsn }}</td>
-                            <td class="p-3 text-gray-700 border-b nama_sekolah">{{ $data->NAMA_SEKOLAH }}</td>
+                            <td class="p-3 text-gray-700 border-b nama_sekolah">{{ $data->NAMA_SEKOLAH??'-' }}</td>
+                            <td class="p-3 text-gray-700 border-b nama_sekolah">{{ $data->NAMA_SEKOLAH??'-' }}</td>
                             <td class="p-3 text-gray-700 border-b kecamatan">{{ $data->telp }}</td>
                             <td class="p-3 text-gray-700 border-b kecamatan">{{ $data->frekuensi }}</td>
-                            <td class="p-3 text-gray-700 border-b kecamatan whitespace-nowrap">{{ date('d-m-Y H:i',strtotime($data->date)) }}</td>
+                            <td class="p-3 text-gray-700 border-b kecamatan whitespace-nowrap">{{ $data->date_start }} s/d {{ $data->date_end }}</td>
                         </tr>
                         @endforeach
                     </tbody>

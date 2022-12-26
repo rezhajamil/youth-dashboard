@@ -87,7 +87,7 @@
                                 @endif
                             </td>
                             <td class="p-3 text-gray-700 border-b">
-                                <a href="{{ route('direct_user.show',$data->id) }}" class="block my-1 text-base font-semibold transition text-emerald-600 hover:text-emerald-800">Quiz</a>
+                                <a href="{{ route('direct_user.show',$data->id) }}" class="block my-1 text-base font-semibold transition text-emerald-600 hover:text-emerald-800">Rapor</a>
                                 @if (Auth::user()->privilege!='cluster')
                                 <a href="{{ route('direct_user.edit',$data->id) }}" class="block my-1 text-base font-semibold text-indigo-600 transition hover:text-indigo-800">Edit</a>
                                 @endif

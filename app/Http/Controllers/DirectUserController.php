@@ -115,10 +115,26 @@ class DirectUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $user = DataUser::find($id);
         $quiz = DB::table('quiz_answer')->join('quiz_session', 'quiz_answer.session', '=', 'quiz_session.id')->where('telp', $user->telp)->orderBy('session', 'desc')->get();
+
+        $month = $request->month;
+        $year = $request->year;
+
+        $getPeriod = new DatePeriod(
+            new DateTime($year . '-' . $month . '-01'),
+            new DateInterval('P1D'),
+            new DateTime(date('Y-m-d', strtotime(date("Y-m-t", strtotime($year . '-' . $month . '-01')) . ' +1 day')))
+        );
+        $period = [];
+        foreach ($getPeriod as $key => $value) {
+            array_push($period, $value->format('d-M-Y'));
+        }
+
+        $query = "SELECT * FROM absen_ao WHERE telp='" . $user->telp . "' order by date;";
+        $absensi = DB::select($query);
 
         return view('directUser.show', compact('user', 'quiz'));
     }

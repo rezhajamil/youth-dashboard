@@ -187,7 +187,7 @@ class SekolahController extends Controller
     public function pjp()
     {
         // $pjp = DB::select("SELECT BRANCH,CLUSTER,PJP,COUNT(PJP) as jumlah FROM Data_Sekolah_Sumatera WHERE PJP IS NOT NULL GROUP BY 1,2,3 ORDER BY 1,2,3;");
-        $pjp = DB::select("SELECT a.*,b.NAMA_SEKOLAH,b.REGIONAL,b.BRANCH,b.CLUSTER FROM pjp a JOIN Data_Sekolah_Sumatera b on a.npsn=b.NPSN ORDER BY a.date desc;");
+        $pjp = DB::select("SELECT a.*,b.NAMA_SEKOLAH,b.REGIONAL,b.BRANCH,b.CLUSTER FROM pjp a JOIN Data_Sekolah_Sumatera b on a.npsn=b.NPSN ORDER BY a.kategori desc;");
 
         return view('sekolah.pjp', compact('pjp'));
     }
@@ -212,17 +212,28 @@ class SekolahController extends Controller
     public function store_pjp(Request $request)
     {
         $request->validate([
-            'npsn' => 'required',
             'telp' => 'required',
-            'frekuensi' => 'required',
+            'hari' => 'required',
         ]);
 
-        $pjp = DB::table('pjp')->insert([
-            'npsn' => $request->npsn,
-            'telp' => $request->telp,
-            'frekuensi' => $request->frekuensi,
-            'date' => date('Y-m-d H:i:s'),
-        ]);
+        if ($request->kategori == 'sekolah') {
+            $pjp = DB::table('pjp')->insert([
+                'kategori' => $request->kategori,
+                'npsn' => $request->npsn,
+                'telp' => $request->telp,
+                'frekuensi' => $request->frekuensi,
+                'hari' => $request->hari,
+            ]);
+        } else {
+            $pjp = DB::table('pjp')->insert([
+                'kategori' => $request->kategori,
+                'event' => ucwords($request->event),
+                'telp' => $request->telp,
+                'hari' => $request->hari,
+                'date_start' => $request->date_start,
+                'date_end' => $request->date_end
+            ]);
+        }
 
         return redirect()->route('sekolah.pjp');
     }
@@ -230,7 +241,8 @@ class SekolahController extends Controller
     public function find_school(Request $request)
     {
         $name = $request->name;
-        $sekolah = DB::table('Data_Sekolah_Sumatera')->select(['NPSN', 'NAMA_SEKOLAH'])->where('PROVINSI', 'Sumatera Utara')->where('NAMA_SEKOLAH', 'like', '%' . $name . '%')->orderBy('NAMA_SEKOLAH')->limit('100')->get();
+        $cluster = $request->cluster;
+        $sekolah = DB::table('Data_Sekolah_Sumatera')->select(['NPSN', 'NAMA_SEKOLAH'])->where('CLUSTER', $cluster)->where('NAMA_SEKOLAH', 'like', '%' . $name . '%')->orderBy('NAMA_SEKOLAH')->limit('10')->get();
 
         return response()->json($sekolah);
     }
