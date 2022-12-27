@@ -227,9 +227,9 @@
                                     @enderror
                                 </div>
                                 <div>
-                                    <label class="text-gray-700" for="nama">Nama Event</label>
-                                    <input class="w-full rounded-md form-input focus:border-indigo-600" type="text" name="nama" placeholder="Nama Event" value="{{ old('nama') }}">
-                                    @error('nama')
+                                    <label class="text-gray-700" for="event">Nama Event</label>
+                                    <input class="w-full rounded-md form-input focus:border-indigo-600" type="text" name="event" placeholder="Nama Event" value="{{ old('event') }}">
+                                    @error('event')
                                     <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>

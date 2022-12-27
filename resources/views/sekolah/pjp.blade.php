@@ -15,6 +15,7 @@
                     <thead class="border-b">
                         <tr>
                             <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-red-600">No</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Kategori</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Regional</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Branch</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Cluster</th>
@@ -30,15 +31,20 @@
                         @foreach ($pjp as $key=>$data)
                         <tr class="hover:bg-gray-200">
                             <td class="p-3 font-bold text-gray-700 border-b">{{ $key+1 }}</td>
-                            <td class="p-3 text-gray-700 border-b regional">{{ $data->REGIONAL }}</td>
-                            <td class="p-3 text-gray-700 border-b branch">{{ $data->BRANCH }}</td>
-                            <td class="p-3 text-gray-700 border-b cluster">{{ $data->CLUSTER }}</td>
+                            <td class="p-3 text-gray-700 uppercase border-b kategori">{{ $data->kategori }}</td>
+                            <td class="p-3 text-gray-700 border-b regional">{{ $data->regional }}</td>
+                            <td class="p-3 text-gray-700 border-b branch">{{ $data->branch }}</td>
+                            <td class="p-3 text-gray-700 border-b cluster">{{ $data->cluster }}</td>
                             <td class="p-3 text-gray-700 border-b npsn">{{ $data->npsn }}</td>
-                            <td class="p-3 text-gray-700 border-b nama_sekolah">{{ $data->NAMA_SEKOLAH??'-' }}</td>
-                            <td class="p-3 text-gray-700 border-b nama_sekolah">{{ $data->NAMA_SEKOLAH??'-' }}</td>
+                            <td class="p-3 text-gray-700 border-b whitespace-nowrap nama_sekolah">{{ $data->NAMA_SEKOLAH??'-' }}</td>
+                            <td class="p-3 text-gray-700 border-b nama_sekolah">{{ $data->event??'-' }}</td>
                             <td class="p-3 text-gray-700 border-b kecamatan">{{ $data->telp }}</td>
                             <td class="p-3 text-gray-700 border-b kecamatan">{{ $data->frekuensi }}</td>
-                            <td class="p-3 text-gray-700 border-b kecamatan whitespace-nowrap">{{ $data->date_start }} s/d {{ $data->date_end }}</td>
+                            @if ($data->date_start||$data->date_end)
+                            <td class="p-3 text-gray-700 border-b kecamatan whitespace-nowrap">{{ date("d-m-Y",strtotime($data->date_start)) }} <span class="font-bold">s/d</span> {{ date("d-m-Y",strtotime($data->date_end)) }}</td>
+                            @else
+                            <td class="p-3 text-gray-700 border-b kecamatan whitespace-nowrap"></td>
+                            @endif
                         </tr>
                         @endforeach
                     </tbody>

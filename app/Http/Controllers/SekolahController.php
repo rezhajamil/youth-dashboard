@@ -187,7 +187,7 @@ class SekolahController extends Controller
     public function pjp()
     {
         // $pjp = DB::select("SELECT BRANCH,CLUSTER,PJP,COUNT(PJP) as jumlah FROM Data_Sekolah_Sumatera WHERE PJP IS NOT NULL GROUP BY 1,2,3 ORDER BY 1,2,3;");
-        $pjp = DB::select("SELECT a.*,b.NAMA_SEKOLAH,b.REGIONAL,b.BRANCH,b.CLUSTER FROM pjp a JOIN Data_Sekolah_Sumatera b on a.npsn=b.NPSN ORDER BY a.kategori desc;");
+        $pjp = DB::select("SELECT a.*,b.NAMA_SEKOLAH,c.regional,c.branch,c.cluster FROM pjp a LEFT JOIN Data_Sekolah_Sumatera b on a.npsn=b.NPSN LEFT JOIN data_user c ON a.telp=c.telp ORDER BY a.kategori desc;");
 
         return view('sekolah.pjp', compact('pjp'));
     }
