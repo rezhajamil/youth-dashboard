@@ -22,15 +22,15 @@ class DirectSalesContoller extends Controller
             count(if(role='EO',1,NULL)) as 'eo',
             count(if(role='MOGI',1,NULL)) as 'mogi',
             count(if(role='YBA',1,NULL)) as 'yba',
+            count(if(role='PROMOTOR',1,NULL)) as 'promotor',
             count(role) as 'jumlah'
             from data_user
-            where not role='' AND NOT role='TYES' AND NOT role='Pilih Type User' 
+            where not role='' AND NOT role='TYES' AND NOT role='Pilih Type User' AND NOT role='ORBIT'
             " . $branch . "
             and status='1'
             GROUP by 1
             Order by cluster DESC
-            ",
-            [1]
+            "
         );
 
         $dataUsersBranch = DB::select(
@@ -39,15 +39,15 @@ class DirectSalesContoller extends Controller
             count(if(role='EO',1,NULL)) as 'eo',
             count(if(role='MOGI',1,NULL)) as 'mogi',
             count(if(role='YBA',1,NULL)) as 'yba',
+            count(if(role='PROMOTOR',1,NULL)) as 'promotor',
             count(role) as 'jumlah'
             from data_user
-            where not role='' AND NOT role='TYES' AND NOT role='Pilih Type User'
+            where not role='' AND NOT role='TYES' AND NOT role='Pilih Type User' AND NOT role='ORBIT'
             " . $branch . "
             and status='1'
             GROUP by 1,2
             Order by regional,branch
-            ",
-            [1]
+            "
         );
 
         // ddd($dataUsers);
