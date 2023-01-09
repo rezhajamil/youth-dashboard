@@ -16,6 +16,7 @@ class SekolahController extends Controller
      */
     public function index(Request $request)
     {
+        ini_set('memory_limit', '-1');
         $provinsi = Sekolah::select('provinsi')->distinct()->whereNotNull('provinsi')->orderBy('provinsi')->get();
         $branch = DB::table('wilayah')->select('branch')->distinct()->whereNotNull('branch')->get();
 
