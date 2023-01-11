@@ -110,6 +110,7 @@
                             <td class="p-4 text-gray-700 border-b cluster">{{ $data->FREKUENSI }}</td>
                             @if (Auth::user()->privilege!='cluster')
                             <td class="p-4 text-gray-700 border-b">
+                                <a href="{{ route('sekolah.show',$data->NPSN) }}" target="_blank" class="block my-1 text-base font-semibold text-teal-600 transition hover:text-teal-800">Detail</a>
                                 @if (!$data->KAB_KOTA||!$data->KECAMATAN||!$data->BRANCH||!$data->CLUSTER)
                                 <a href="{{ route('sekolah.edit',$data->NPSN) }}" class="block my-1 text-base font-semibold text-indigo-600 transition hover:text-indigo-800">Edit</a>
                                 @endif

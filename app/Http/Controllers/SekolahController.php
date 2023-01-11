@@ -70,7 +70,9 @@ class SekolahController extends Controller
      */
     public function show($id)
     {
-        //
+        $sekolah = DB::select("SELECT * FROM Data_Sekolah_Sumatera a LEFT JOIN detail_sekolah b ON a.NPSN=b.npsn WHERE a.NPSN='$id' LIMIT 1;");
+        $sekolah = $sekolah[0];
+        return view('sekolah.show', compact('sekolah'));
     }
 
     /**
