@@ -45,7 +45,16 @@ class DashboardController extends Controller
             $pjp = DB::table('Data_Sekolah_Sumatera')->where('PJP', 'PJP')->where('branch', auth()->user()->branch)->count();
             $nonPjp = DB::table('Data_Sekolah_Sumatera')->where('PJP', 'NON PJP')->where('branch', auth()->user()->branch)->count();
             $oss_osk = DB::table('data_oss_osk')->join('Data_Sekolah_Sumatera', "Data_Sekolah_Sumatera.NPSN", "=", "data_oss_osk.npsn")->where('branch', auth()->user()->branch)->count();
+        } else {
+            $userAO = DataUser::where('role', 'AO')->where('cluster', auth()->user()->cluster)->count();
+            $userEO = DataUser::where('role', 'EO')->where('cluster', auth()->user()->cluster)->count();
+            $userYBA = DataUser::where('role', 'YBA')->where('cluster', auth()->user()->cluster)->count();
+            $userMOGI = DataUser::where('role', 'MOGI')->where('cluster', auth()->user()->cluster)->count();
+            $pjp = DB::table('Data_Sekolah_Sumatera')->where('PJP', 'PJP')->where('cluster', auth()->user()->cluster)->count();
+            $nonPjp = DB::table('Data_Sekolah_Sumatera')->where('PJP', 'NON PJP')->where('cluster', auth()->user()->cluster)->count();
+            $oss_osk = DB::table('data_oss_osk')->join('Data_Sekolah_Sumatera', "Data_Sekolah_Sumatera.NPSN", "=", "data_oss_osk.npsn")->where('cluster', auth()->user()->cluster)->count();
         }
+
         return view('dashboard', compact('userAO', 'userEO', 'userYBA', 'userMOGI', 'pjp', 'nonPjp', 'oss_osk'));
     }
 

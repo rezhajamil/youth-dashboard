@@ -80,6 +80,7 @@
             <a href="{{ route('sales.digipos') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Digipos</span></a>
         </div>
 
+        @if (auth()->user()->privilege!='cluster')
         <a class="flex items-center px-6 py-2 mt-4 text-gray-500 transition-all cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" x-on:click="school=!school">
             <i class="w-6 h-6 fa-solid fa-school"></i>
             <span class="mx-3 text-white">Sekolah</span>
@@ -115,6 +116,7 @@
             <a href="{{ route('event.challenge') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Challenge</span></a>
             <a href="{{ route('event.poin_history') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Poin History</span></a>
         </div>
+        @endif
         {{-- <a href="{{ route('outlet.index') }}" class="items-center hidden px-6 py-2 mt-4 text-gray-500 transition-all cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" x-on:click="outlet=!outlet">
         <i class="w-6 h-6 fa-solid fa-shop"></i>
         <span class="mx-3 text-white">Outlet</span>

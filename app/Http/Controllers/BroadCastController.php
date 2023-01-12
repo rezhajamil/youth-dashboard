@@ -14,8 +14,10 @@ class BroadCastController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index(Request $request)
     {
+
         $update_broadcast = DB::select('select max(date) as last_update from new_after_broadcast;');
         $m1 = date('Y-m-01', strtotime($request->date));
         $mtd = date('Y-m-d', strtotime($request->date));

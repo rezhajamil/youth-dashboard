@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DataUser;
 use App\Models\Sekolah;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class SekolahController extends Controller
@@ -14,8 +15,13 @@ class SekolahController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index(Request $request)
     {
+
+        if (auth()->user()->privilege == 'cluster') {
+            abort(403);
+        }
         ini_set('memory_limit', '-1');
         $provinsi = Sekolah::select('provinsi')->distinct()->whereNotNull('provinsi')->orderBy('provinsi')->get();
         $branch = DB::table('wilayah')->select('branch')->distinct()->whereNotNull('branch')->get();
