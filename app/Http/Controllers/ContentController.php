@@ -10,14 +10,6 @@ use Illuminate\Support\Facades\Storage;
 class ContentController extends Controller
 {
 
-
-    public function __construct()
-    {
-        if (auth()->privilege == 'cluster') {
-            abort(403);
-        }
-    }
-
     public function sapaan()
     {
         $sapaan = DB::table('data_sapaan')->orderBy('date', 'desc')->get();
