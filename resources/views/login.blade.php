@@ -67,6 +67,7 @@
                 Sign in
             </button>
         </div>
+        <a href="{{route('register')}}" class="inline-block w-full mt-2 text-center underline transition-all text-sky-800 hover:text-sky-900">Daftar</a>
         </form>
     </div>
     </div>

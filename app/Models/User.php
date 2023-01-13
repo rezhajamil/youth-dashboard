@@ -24,8 +24,10 @@ class User extends Authenticatable
         'id_branch',
         'branch',
         'regional',
+        'cluster',
         'privilege',
         'password',
+        'status',
     ];
 
     /**

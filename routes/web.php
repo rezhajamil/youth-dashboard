@@ -71,6 +71,7 @@ Route::middleware(['cors'])->group(function () {
     Route::post('/taker/non_usim', [TakerController::class, 'non_usim']);
 });
 
+//Must Login
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index']);
     Route::resource('dashboard', DashboardController::class);
