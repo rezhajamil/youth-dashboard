@@ -58,6 +58,29 @@ class DashboardController extends Controller
         return view('dashboard', compact('userAO', 'userEO', 'userYBA', 'userMOGI', 'pjp', 'nonPjp', 'oss_osk'));
     }
 
+    public function resume_api(){
+        $userAO = DataUser::where('role', 'AO')->count();
+        $userEO = DataUser::where('role', 'EO')->count();
+        $userYBA = DataUser::where('role', 'YBA')->count();
+        $userMOGI = DataUser::where('role', 'MOGI')->count();
+        $pjp = DB::table('Data_Sekolah_Sumatera')->where('PJP', 'PJP')->count();
+        $nonPjp = DB::table('Data_Sekolah_Sumatera')->where('PJP', 'NON PJP')->count();
+        $oss_osk = DB::table('data_oss_osk')->count();
+
+        $data=[
+            $userAO,
+            $userEO,
+            $userYBA,
+            $userMOGI,
+            $pjp,
+            $nonPjp,
+            $oss_osk,
+        ];
+
+        return response()->json($data);
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *

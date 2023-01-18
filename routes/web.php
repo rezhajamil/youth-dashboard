@@ -69,6 +69,8 @@ Route::middleware(['cors'])->group(function () {
     Route::get('/test', [SurveyController::class, 'test']);
     Route::post('/taker/segment2', [TakerController::class, 'segment2']);
     Route::post('/taker/non_usim', [TakerController::class, 'non_usim']);
+
+    Route::get('/resume_api',[DashboardController::class,'resume_api']);
 });
 
 //Must Login
