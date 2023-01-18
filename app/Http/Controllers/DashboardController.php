@@ -68,13 +68,13 @@ class DashboardController extends Controller
         $oss_osk = DB::table('data_oss_osk')->count();
 
         $data=[
-            $userAO,
-            $userEO,
-            $userYBA,
-            $userMOGI,
-            $pjp,
-            $nonPjp,
-            $oss_osk,
+            'userAO'=>$userAO,
+            'userEO'=>$userEO,
+            'userYBA'=>$userYBA,
+            'userMOGI'=>$userMOGI,
+            'pjp'=>$pjp,
+            'nonPjp'=>$nonPjp,
+            'oss_osk'=>$oss_osk,
         ];
 
         return response()->json($data);
