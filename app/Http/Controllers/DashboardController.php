@@ -33,7 +33,8 @@ class DashboardController extends Controller
             $userAO = DataUser::where('role', 'AO')->count();
             $userEO = DataUser::where('role', 'EO')->count();
             $userYBA = DataUser::where('role', 'YBA')->count();
-            $userMOGI = DataUser::where('role', 'MOGI')->count();
+            $userORBIT = DataUser::where('role', 'ORBIT')->count();
+            $userPROMOTOR = DataUser::where('role', 'PROMOTOR')->count();
             $pjp = DB::table('Data_Sekolah_Sumatera')->where('PJP', 'PJP')->count();
             $nonPjp = DB::table('Data_Sekolah_Sumatera')->where('PJP', 'NON PJP')->count();
             $oss_osk = DB::table('data_oss_osk')->count();
@@ -41,7 +42,8 @@ class DashboardController extends Controller
             $userAO = DataUser::where('role', 'AO')->where('branch', auth()->user()->branch)->count();
             $userEO = DataUser::where('role', 'EO')->where('branch', auth()->user()->branch)->count();
             $userYBA = DataUser::where('role', 'YBA')->where('branch', auth()->user()->branch)->count();
-            $userMOGI = DataUser::where('role', 'MOGI')->where('branch', auth()->user()->branch)->count();
+            $userORBIT = DataUser::where('role', 'ORBIT')->where('branch', auth()->user()->branch)->count();
+            $userPROMOTOR = DataUser::where('role', 'PROMOTOR')->where('branch', auth()->user()->branch)->count();
             $pjp = DB::table('Data_Sekolah_Sumatera')->where('PJP', 'PJP')->where('branch', auth()->user()->branch)->count();
             $nonPjp = DB::table('Data_Sekolah_Sumatera')->where('PJP', 'NON PJP')->where('branch', auth()->user()->branch)->count();
             $oss_osk = DB::table('data_oss_osk')->join('Data_Sekolah_Sumatera', "Data_Sekolah_Sumatera.NPSN", "=", "data_oss_osk.npsn")->where('branch', auth()->user()->branch)->count();
@@ -49,20 +51,22 @@ class DashboardController extends Controller
             $userAO = DataUser::where('role', 'AO')->where('cluster', auth()->user()->cluster)->count();
             $userEO = DataUser::where('role', 'EO')->where('cluster', auth()->user()->cluster)->count();
             $userYBA = DataUser::where('role', 'YBA')->where('cluster', auth()->user()->cluster)->count();
-            $userMOGI = DataUser::where('role', 'MOGI')->where('cluster', auth()->user()->cluster)->count();
+            $userORBIT = DataUser::where('role', 'ORBIT')->where('cluster', auth()->user()->cluster)->count();
+            $userPROMOTOR = DataUser::where('role', 'PROMOTOR')->where('cluster', auth()->user()->cluster)->count();
             $pjp = DB::table('Data_Sekolah_Sumatera')->where('PJP', 'PJP')->where('cluster', auth()->user()->cluster)->count();
             $nonPjp = DB::table('Data_Sekolah_Sumatera')->where('PJP', 'NON PJP')->where('cluster', auth()->user()->cluster)->count();
             $oss_osk = DB::table('data_oss_osk')->join('Data_Sekolah_Sumatera', "Data_Sekolah_Sumatera.NPSN", "=", "data_oss_osk.npsn")->where('cluster', auth()->user()->cluster)->count();
         }
 
-        return view('dashboard', compact('userAO', 'userEO', 'userYBA', 'userMOGI', 'pjp', 'nonPjp', 'oss_osk'));
+        return view('dashboard', compact('userAO', 'userEO', 'userYBA', 'userORBIT','userPROMOTOR', 'pjp', 'nonPjp', 'oss_osk'));
     }
 
     public function resume_api(){
         $userAO = DataUser::where('role', 'AO')->count();
         $userEO = DataUser::where('role', 'EO')->count();
         $userYBA = DataUser::where('role', 'YBA')->count();
-        $userMOGI = DataUser::where('role', 'MOGI')->count();
+        $userORBIT = DataUser::where('role', 'ORBIT')->count();
+        $userPROMOTOR = DataUser::where('role', 'PROMOTOR')->count();
         $pjp = DB::table('Data_Sekolah_Sumatera')->where('PJP', 'PJP')->count();
         $nonPjp = DB::table('Data_Sekolah_Sumatera')->where('PJP', 'NON PJP')->count();
         $oss_osk = DB::table('data_oss_osk')->count();
@@ -71,7 +75,8 @@ class DashboardController extends Controller
             'userAO'=>$userAO,
             'userEO'=>$userEO,
             'userYBA'=>$userYBA,
-            'userMOGI'=>$userMOGI,
+            'userORBIT'=>$userORBIT,
+            'userPROMOTOR'=>$userPROMOTOR,
             'pjp'=>$pjp,
             'nonPjp'=>$nonPjp,
             'oss_osk'=>$oss_osk,

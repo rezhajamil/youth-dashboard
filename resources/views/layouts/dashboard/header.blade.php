@@ -12,7 +12,7 @@
     <div class="flex items-center gap-x-4">
         <div class="flex flex-col">
             <span class="font-bold text-sky-600">{{ auth()->user()->name }}</span>
-            <span class="text-xs text-gray-600">{{ auth()->user()->branch }}</span>
+            <span class="text-xs text-gray-600">{{ auth()->user()->privilege=='cluster'?auth()->user()->cluster:auth()->user()->branch }}</span>
         </div>
         <div x-data="{ dropdownOpen: false }" class="relative">
             <button @click="dropdownOpen = ! dropdownOpen" class="relative block w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none">
