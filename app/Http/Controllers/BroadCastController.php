@@ -266,7 +266,7 @@ class BroadCastController extends Controller
         $program_call = $request->program_call;
         $dataProgram = DB::table('new_list_program')->select('program')->distinct()->get();
         $dataProgramCall = DB::table('new_list_program_call')->select('program')->distinct()->get();
-        $branch = Auth::user()->privilege == "branch" ? "AND b.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "AND data_user.cluster='" . Auth::user()->cluster . "'" : '');
+        $branch = Auth::user()->privilege == "branch" ? "AND b.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "AND b.cluster='" . Auth::user()->cluster . "'" : '');
 
         $whitelist = DB::select("SELECT 
                     new_data_campaign.telp, b.nama,b.branch,b.cluster,

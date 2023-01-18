@@ -79,8 +79,6 @@
             <a href="{{ route('sales.orbit') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Orbit</span></a>
             <a href="{{ route('sales.digipos') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Digipos</span></a>
         </div>
-
-        @if (auth()->user()->privilege!='cluster')
         <a class="flex items-center px-6 py-2 mt-4 text-gray-500 transition-all cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" x-on:click="school=!school">
             <i class="w-6 h-6 fa-solid fa-school"></i>
             <span class="mx-3 text-white">Sekolah</span>
@@ -104,6 +102,8 @@
             <a href="{{ route('campaign.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Wording</span></a>
             <a href="{{ route('whitelist.index') }}" class="text-white transition-all border-b hover:bg-white hover:text-gray-700 border-b-gray-900"><span class="inline-block px-2 py-3">Whitelist</span></a>
         </div>
+
+        @if (auth()->user()->privilege!='cluster')
         <a class="flex items-center px-6 py-2 mt-4 text-gray-500 transition-all cursor-pointer hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100" x-on:click="event=!event">
             <i class="w-6 h-6 fa-solid fa-calendar"></i>
             <span class="mx-3 text-white">Event</span>

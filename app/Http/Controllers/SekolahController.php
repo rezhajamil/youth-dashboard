@@ -19,9 +19,6 @@ class SekolahController extends Controller
     public function index(Request $request)
     {
 
-        if (auth()->user()->privilege == 'cluster') {
-            abort(403);
-        }
         ini_set('memory_limit', '-1');
         $provinsi = Sekolah::select('provinsi')->distinct()->whereNotNull('provinsi')->orderBy('provinsi')->get();
         $branch = DB::table('wilayah')->select('branch')->distinct()->whereNotNull('branch')->get();
@@ -196,6 +193,7 @@ class SekolahController extends Controller
     public function pjp()
     {
         // $pjp = DB::select("SELECT BRANCH,CLUSTER,PJP,COUNT(PJP) as jumlah FROM Data_Sekolah_Sumatera WHERE PJP IS NOT NULL GROUP BY 1,2,3 ORDER BY 1,2,3;");
+        // $where=Auth::user()->privilege=='branch'?"where a.cluster='auth()"
         $pjp = DB::select("SELECT a.*,b.NAMA_SEKOLAH,c.regional,c.branch,c.cluster FROM pjp a LEFT JOIN Data_Sekolah_Sumatera b on a.npsn=b.NPSN LEFT JOIN data_user c ON a.telp=c.telp ORDER BY a.kategori desc;");
 
         return view('sekolah.pjp', compact('pjp'));
@@ -207,6 +205,8 @@ class SekolahController extends Controller
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->orderBy('cluster')->get();
         } else if (auth()->user()->privilege == 'branch') {
             $cluster = DB::table('territory_new')->select('cluster')->where('branch', auth()->user()->branch)->distinct()->orderBy('cluster')->get();
+        }else{
+            $cluster = DB::table('territory_new')->select('cluster')->distinct()->where('cluster', auth()->user()->cluster)->distinct()->orderBy('cluster')->get();
         }
         return view('sekolah.create_pjp', compact('cluster'));
     }

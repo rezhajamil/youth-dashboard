@@ -30,9 +30,7 @@
             </div>
 
             {{-- <span class="inline-block mt-6 mb-2 text-lg font-semibold text-gray-600">Direct Sales By Region</span> --}}
-            @if (Auth::user()->privilege!='cluster')
             <a href="{{ route('direct_user.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-800"><i class="mr-2 fa-solid fa-plus"></i> Data User Baru</a>
-            @endif
 
             <div class="overflow-auto bg-white rounded-md shadow w-fit">
                 <table class="overflow-auto text-left border-collapse w-fit">
@@ -88,9 +86,7 @@
                             </td>
                             <td class="p-3 text-gray-700 border-b">
                                 <a href="{{ route('direct_user.show',$data->id) }}" class="block my-1 text-base font-semibold transition text-emerald-600 hover:text-emerald-800">Rapor</a>
-                                @if (Auth::user()->privilege!='cluster')
                                 <a href="{{ route('direct_user.edit',$data->id) }}" class="block my-1 text-base font-semibold text-indigo-600 transition hover:text-indigo-800">Edit</a>
-                                @endif
                                 <form action="{{ route('direct_user.change_status',$data->id) }}" method="post">
                                     @csrf
                                     @method('put')

@@ -44,12 +44,18 @@ class DirectUserController extends Controller
             $branch = DB::table('wilayah')->select('branch')->distinct()->whereNotNull('branch')->get();
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->orderBy('cluster')->get();
             $tap = DB::table('taps')->select('nama')->distinct()->whereNotNull('nama')->orderBy('nama')->get();
-        } else {
+        } else if(Auth::user()->privilege == "branch"){
             $region = DB::table('wilayah')->select('regional')->distinct()->where('regional', Auth::user()->regional)->get();
             $branch = DB::table('wilayah')->select('branch')->distinct()->where('branch', Auth::user()->branch)->get();
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->where('branch', Auth::user()->branch)->orderBy('cluster')->get();
             $tap = [];
+        }else{
+            $region = DB::table('wilayah')->select('regional')->distinct()->where('regional', Auth::user()->regional)->get();
+            $branch = DB::table('wilayah')->select('branch')->distinct()->where('branch', Auth::user()->branch)->get();
+            $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->where('cluster', Auth::user()->cluster)->orderBy('cluster')->get();
+            $tap = [];
         }
+
         $role = DB::table('user_type')->where('status', '1')->get();
 
         return view('directUser.create', compact('region', 'branch', 'cluster', 'tap', 'role'));
@@ -157,10 +163,15 @@ class DirectUserController extends Controller
             $branch = DB::table('wilayah')->select('branch')->distinct()->whereNotNull('branch')->get();
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->orderBy('cluster')->get();
             $tap = DB::table('taps')->select('nama')->distinct()->whereNotNull('nama')->where('cluster', $user->cluster)->orderBy('nama')->get();
-        } else {
+        } else if(Auth::user()->privilege == "branch"){
             $region = DB::table('wilayah')->select('regional')->distinct()->where('regional', Auth::user()->regional)->get();
             $branch = DB::table('wilayah')->select('branch')->distinct()->where('branch', Auth::user()->branch)->get();
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->where('branch', Auth::user()->branch)->orderBy('cluster')->get();
+            $tap = DB::table('taps')->select('nama')->distinct()->whereNotNull('nama')->where('cluster', $user->cluster)->orderBy('nama')->get();
+        }else{
+            $region = DB::table('wilayah')->select('regional')->distinct()->where('regional', Auth::user()->regional)->get();
+            $branch = DB::table('wilayah')->select('branch')->distinct()->where('branch', Auth::user()->branch)->get();
+            $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->where('cluster', Auth::user()->cluster)->orderBy('cluster')->get();
             $tap = DB::table('taps')->select('nama')->distinct()->whereNotNull('nama')->where('cluster', $user->cluster)->orderBy('nama')->get();
         }
 
@@ -227,7 +238,7 @@ class DirectUserController extends Controller
         if (Auth::user()->privilege == 'branch') {
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->where('branch', Auth::user()->branch)->whereNotNull('cluster')->orderBy('cluster')->get();
         } else if (Auth::user()->privilege == 'cluster') {
-            $cluster = DB::table('territory_new')->select('cluster')->where('cluster', Auth::user()->cluster)->orderBy('cluster')->get();
+            $cluster = DB::table('territory_new')->select('cluster')->distinct()->where('cluster', Auth::user()->cluster)->orderBy('cluster')->get();
         } else {
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->orderBy('cluster')->get();
         }
@@ -277,6 +288,7 @@ class DirectUserController extends Controller
                         WHERE MONTH(date)=" . $month . " AND YEAR(date)=" . $year . "
                         and role='" . $request->role . "'
                         ORDER BY 2,3;");
+
             } else {
                 $absensi = [];
             }
