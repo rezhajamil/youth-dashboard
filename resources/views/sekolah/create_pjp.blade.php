@@ -123,79 +123,79 @@
 
             if($(this).val()=='sekolah'){
                 $("#container").html(`<div class="" x-data="{search:false}">
-                <h4 class="text-xl font-bold text-gray-600 align-baseline">Kunjungan Sekolah</h4>
-                <div class="px-6 py-4 mx-auto overflow-auto bg-white rounded-md shadow sm:mx-0 w-fit">
-                    <form action="{{ route('sekolah.pjp.store') }}" method="POST" class="">
-                        @csrf
-                        <input type="hidden" name="kategori" value="sekolah">
-                        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-                            <div class="grid grid-cols-3 gap-x-3 col-span-full gap-y-4">
-                                <div>
-                                    <label class="block text-gray-700" for="cluster">Cluster</label>
-                                    <select name="cluster" id="cluster" class="w-full rounded-md cluster">
-                                        <option value="" selected disabled>Pilih Cluster</option>
-                                        @foreach ($cluster as $item)
-                                            <option value="{{$item->cluster}}">{{$item->cluster}}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('cluster')
-                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
-                                    @enderror
+                    <h4 class="text-xl font-bold text-gray-600 align-baseline">Kunjungan Sekolah</h4>
+                    <div class="px-6 py-4 mx-auto overflow-auto bg-white rounded-md shadow sm:mx-0 w-fit">
+                        <form action="{{ route('sekolah.pjp.store') }}" method="POST" class="">
+                            @csrf
+                            <input type="hidden" name="kategori" value="sekolah">
+                            <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+                                <div class="grid grid-cols-3 gap-x-3 col-span-full gap-y-4">
+                                    <div>
+                                        <label class="block text-gray-700" for="cluster">Cluster</label>
+                                        <select name="cluster" id="cluster" class="w-full rounded-md cluster">
+                                            <option value="" selected disabled>Pilih Cluster</option>
+                                            @foreach ($cluster as $item)
+                                                <option value="{{$item->cluster}}">{{$item->cluster}}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('cluster')
+                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div>
+                                        <label class="text-gray-700" for="npsn">NPSN</label>
+                                        <input class="w-full rounded-md form-input focus:border-indigo-600 npsn" id="npsn" type="text" name="npsn" value="{{ old('npsn') }}" placeholder="NPSN">
+                                        <span class="inline-block mt-1 text-sm underline transition-all cursor-pointer text-sekunder hover:text-black" id="search"  x-on:click="search=true"><i class="mr-1 text-sm fa-solid fa-magnifying-glass text-sekunder"></i>Cari Sekolah</span>
+                                        @error('npsn')
+                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div>
+                                        <label class="block text-gray-700" for="telp">Telp</label>
+                                        <select name="telp" id="telp" class="w-full rounded-md telp">
+                                            <option value="" selected disabled>Pilih Telp</option>
+                                        </select>
+                                        @error('telp')
+                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div>
+                                        <label class="block text-gray-700" for="hari">Hari</label>
+                                        <select name="hari" id="hari" class="w-full rounded-md">
+                                            <option value="" selected disabled>Pilih Hari</option>
+                                            <option value="Senin">Senin</option>
+                                            <option value="Selasa">Selasa</option>
+                                            <option value="Rabu">Rabu</option>
+                                            <option value="Kamis">Kamis</option>
+                                            <option value="Jumat">Jumat</option>
+                                            <option value="Sabtu">Sabtu</option>
+                                        </select>
+                                        @error('hari')
+                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div>
+                                        <label class="block text-gray-700" for="frekuensi">Frekuensi</label>
+                                        <select name="frekuensi" id="frekuensi" class="w-full rounded-md">
+                                            <option value="" selected disabled>Pilih Frekuensi</option>
+                                            <option value="F1">F1</option>
+                                            <option value="F2">F2</option>
+                                            <option value="F3">F3</option>
+                                            <option value="F4">F4</option>
+                                        </select>
+                                        @error('frekuensi')
+                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                                 </div>
-                                <div>
-                                    <label class="text-gray-700" for="npsn">NPSN</label>
-                                    <input class="w-full rounded-md form-input focus:border-indigo-600 npsn" id="npsn" type="text" name="npsn" value="{{ old('npsn') }}" placeholder="NPSN">
-                                    <span class="inline-block mt-1 text-sm underline transition-all cursor-pointer text-sekunder hover:text-black" id="search"  x-on:click="search=true"><i class="mr-1 text-sm fa-solid fa-magnifying-glass text-sekunder"></i>Cari Sekolah</span>
-                                    @error('npsn')
-                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                                <div>
-                                    <label class="block text-gray-700" for="telp">Telp</label>
-                                    <select name="telp" id="telp" class="w-full rounded-md telp">
-                                        <option value="" selected disabled>Pilih Telp</option>
-                                    </select>
-                                    @error('telp')
-                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                                <div>
-                                    <label class="block text-gray-700" for="hari">Hari</label>
-                                    <select name="hari" id="hari" class="w-full rounded-md">
-                                        <option value="" selected disabled>Pilih Hari</option>
-                                        <option value="Senin">Senin</option>
-                                        <option value="Selasa">Selasa</option>
-                                        <option value="Rabu">Rabu</option>
-                                        <option value="Kamis">Kamis</option>
-                                        <option value="Jumat">Jumat</option>
-                                        <option value="Sabtu">Sabtu</option>
-                                    </select>
-                                    @error('hari')
-                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                                <div>
-                                    <label class="block text-gray-700" for="frekuensi">Frekuensi</label>
-                                    <select name="frekuensi" id="frekuensi" class="w-full rounded-md">
-                                        <option value="" selected disabled>Pilih Frekuensi</option>
-                                        <option value="F1">F1</option>
-                                        <option value="F2">F2</option>
-                                        <option value="F3">F3</option>
-                                        <option value="F4">F4</option>
-                                    </select>
-                                    @error('frekuensi')
-                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
-                                    @enderror
+        
+                                <div class="flex justify-end mt-4 col-span-full">
+                                    <button class="w-full px-4 py-2 font-bold text-white bg-indigo-800 rounded-md hover:bg-indigo-700 focus:outline-none focus:bg-indigo-700">Submit</button>
                                 </div>
                             </div>
-    
-                            <div class="flex justify-end mt-4 col-span-full">
-                                <button class="w-full px-4 py-2 font-bold text-white bg-indigo-800 rounded-md hover:bg-indigo-700 focus:outline-none focus:bg-indigo-700">Submit</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>`);
+                        </form>
+                    </div>
+                </div>`);
             }else{
                 $("#container").html(`<div class="" x-data="{search:false}">
                 <h4 class="text-xl font-bold text-gray-600 align-baseline">Kunjungan Event</h4>
