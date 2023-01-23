@@ -233,12 +233,12 @@ class SekolahController extends Controller
                 'frekuensi' => $request->frekuensi,
                 'hari' => $request->hari,
             ]);
-        } else {
+        } else if($request->kategori == 'event'){
             $pjp = DB::table('pjp')->insert([
                 'kategori' => $request->kategori,
                 'event' => ucwords($request->event),
                 'telp' => $request->telp,
-                'hari' => $request->hari,
+                'date' => $request->date,
                 'date_start' => $request->date_start,
                 'date_end' => $request->date_end
             ]);
