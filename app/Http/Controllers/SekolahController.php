@@ -218,6 +218,13 @@ class SekolahController extends Controller
         return response()->json(compact('users'));
     }
 
+    public function get_poi(Request $request)
+    {
+        $poi = DB::table('list_poi')->where('cluster', $request->cluster)->where('status','1')->orderBy('poi_name')->get();
+
+        return response()->json(compact('poi'));
+    }
+
     public function store_pjp(Request $request)
     {
         $request->validate([
@@ -226,21 +233,27 @@ class SekolahController extends Controller
         ]);
 
         if ($request->kategori == 'sekolah') {
+            $sekolah=DB::table('Data_Sekolah_Sumatera')->where('NPSN',$request->npsn)->first();
             $pjp = DB::table('pjp')->insert([
                 'kategori' => $request->kategori,
                 'npsn' => $request->npsn,
                 'telp' => $request->telp,
                 'frekuensi' => $request->frekuensi,
                 'hari' => $request->hari,
+                'longitude' => $sekolah->LONGITUDE,
+                'latitude' => $sekolah->LATITUDE,
             ]);
         } else if($request->kategori == 'event'){
+            $poi=DB::table('list_poi')->find($request->poi);
             $pjp = DB::table('pjp')->insert([
                 'kategori' => $request->kategori,
                 'event' => ucwords($request->event),
                 'telp' => $request->telp,
                 'date' => $request->date,
                 'date_start' => $request->date_start,
-                'date_end' => $request->date_end
+                'date_end' => $request->date_end,
+                'longitude' => $poi->longitude,
+                'latitude' => $poi->latitude,
             ]);
         }
 

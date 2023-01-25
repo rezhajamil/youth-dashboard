@@ -156,6 +156,15 @@
                                     @enderror
                                 </div>
                                 <div>
+                                    <label class="block text-gray-700" for="poi">POI</label>
+                                    <select name="poi" id="poi" class="w-full rounded-md poi">
+                                        <option value="" selected disabled>Pilih POI</option>
+                                    </select>
+                                    @error('poi')
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div>
                                     <label class="text-gray-700" for="event">Nama Event</label>
                                     <input class="w-full rounded-md form-input focus:border-indigo-600" type="text" name="event" placeholder="Nama Event" value="{{ old('event') }}">
                                     @error('event')
@@ -273,7 +282,6 @@
         $(document).on('change',"#cluster", () => {
             var cluster = $("#cluster").val();
 
-            console.log('aa');
             $.ajax({
                 url: "{{ route('sekolah.pjp.user') }}"
                 , method: "GET"
@@ -286,7 +294,6 @@
                     const {
                         users
                     } = data;
-                    console.log(data);
 
                     if (users.length) {
                         $("#telp").html(
@@ -301,6 +308,42 @@
                         $("#telp").html(
                             `<option value="" disabled selected>Pilih Direct Sales</option>` +
                             `<option value="" disabled selected>Tidak Ada Telp</option>`
+                        )
+                    }
+
+                }
+                , error: (e) => {
+                    console.log(e)
+                }
+            });
+
+            $.ajax({
+                url: "{{ route('sekolah.pjp.poi') }}"
+                , method: "GET"
+                , dataType: "JSON"
+                , data: {
+                    cluster: cluster
+                    , _token: "{{ csrf_token() }}"
+                }
+                , success: (data) => {
+                    const {
+                        poi
+                    } = data;
+                    console.log(data);
+
+                    if (poi.length) {
+                        $("#poi").html(
+                            `<option value="" disabled selected>Pilih POI</option>` +
+                            poi.map((item) => {
+                                return `
+                                    <option value="${item.id}">${item.poi_name.toString().toUpperCase()}</option>
+                                    ` 
+                            })
+                        )
+                    } else {
+                        $("#poi").html(
+                            `<option value="" disabled selected>Pilih POI</option>` +
+                            `<option value="" disabled selected>Tidak Ada POI</option>`
                         )
                     }
 
