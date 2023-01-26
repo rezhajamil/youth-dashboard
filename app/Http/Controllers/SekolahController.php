@@ -211,25 +211,10 @@ class SekolahController extends Controller
         return view('sekolah.create_pjp', compact('cluster'));
     }
 
-    public function get_user_pjp(Request $request)
-    {
-        $users = DataUser::where('cluster', $request->cluster)->orderBy('nama')->get();
-
-        return response()->json(compact('users'));
-    }
-
-    public function get_poi(Request $request)
-    {
-        $poi = DB::table('list_poi')->where('cluster', $request->cluster)->where('status','1')->orderBy('poi_name')->get();
-
-        return response()->json(compact('poi'));
-    }
-
     public function store_pjp(Request $request)
     {
         $request->validate([
             'telp' => 'required',
-            'hari' => 'required',
         ]);
 
         if ($request->kategori == 'sekolah') {
@@ -255,11 +240,55 @@ class SekolahController extends Controller
                 'longitude' => $poi->longitude,
                 'latitude' => $poi->latitude,
             ]);
+        }else if($request->kategori == 'u60'){
+            $site=DB::table('4g_list_site')->where('site_id',$request->site_id)->first();
+            $pjp = DB::table('pjp')->insert([
+                'kategori' => $request->kategori,
+                'event' => ucwords($request->event),
+                'telp' => $request->telp,
+                'date' => $request->date,
+                'keterangan' => $request->keterangan,
+                'longitude' => $site->longitude,
+                'latitude' => $site->latitude,
+            ]);
+        }else if($request->kategori == 'orbit'){
+            $poi=DB::table('list_poi')->find($request->poi);
+            $pjp = DB::table('pjp')->insert([
+                'kategori' => $request->kategori,
+                'event' => ucwords($request->event),
+                'telp' => $request->telp,
+                'date' => $request->date,
+                'lokasi' => $request->lokasi,
+                'keterangan' => $request->keterangan,
+                'longitude' => $poi->longitude,
+                'latitude' => $poi->latitude,
+            ]);
         }
 
         return redirect()->route('sekolah.pjp');
     }
 
+    
+    public function get_user_pjp(Request $request)
+    {
+        $users = DataUser::where('cluster', $request->cluster)->orderBy('nama')->get();
+
+        return response()->json(compact('users'));
+    }
+
+    public function get_poi(Request $request)
+    {
+        $poi = DB::table('list_poi')->where('cluster', $request->cluster)->where('status','1')->orderBy('poi_name')->get();
+
+        return response()->json(compact('poi'));
+    }
+
+    public function get_site(Request $request){
+        $site = DB::table('4g_list_site')->where('cluster', $request->cluster)->orderBy('site_id')->get();
+
+        return response()->json(compact('site'));
+    }
+    
     public function find_school(Request $request)
     {
         $name = $request->name;

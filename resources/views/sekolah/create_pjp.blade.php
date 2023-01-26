@@ -276,6 +276,75 @@
                     </form>
                 </div>
             </div>`);
+            }else if($(this).val()=='orbit'){
+                $("#container").html(`<div class="" x-data="{search:false}">
+                <h4 class="text-xl font-bold text-gray-600 align-baseline">Kunjungan Orbit</h4>
+                <div class="px-6 py-4 mx-auto overflow-auto bg-white rounded-md shadow sm:mx-0 w-fit" x-data="{search:false}">
+                    <form action="{{ route('sekolah.pjp.store') }}" method="POST" class="">
+                        @csrf
+                        <input type="hidden" name="kategori" value="orbit">
+                        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+                            <div class="grid grid-cols-3 gap-x-3 col-span-full gap-y-4">
+                                <div>
+                                    <label class="block text-gray-700" for="cluster">Cluster</label>
+                                    <select name="cluster" id="cluster" class="w-full rounded-md cluster">
+                                        <option value="" selected disabled>Pilih Cluster</option>
+                                        @foreach ($cluster as $item)
+                                            <option value="{{$item->cluster}}">{{$item->cluster}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('cluster')
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700" for="telp">Direct Sales</label>
+                                    <select name="telp" id="telp" class="w-full rounded-md telp">
+                                        <option value="" selected disabled>Pilih Direct Sales</option>
+                                    </select>
+                                    @error('telp')
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div>
+                                    <label class="text-gray-700" for="date">Tanggal Kunjungan</label>
+                                    <input class="w-full rounded-md form-input focus:border-indigo-600" type="date" name="date" value="{{ old('date') }}">
+                                    @error('date')
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div>
+                                    <label class="block text-gray-700" for="poi">POI</label>
+                                    <select name="poi" id="poi" class="w-full rounded-md poi">
+                                        <option value="" selected disabled>Pilih POI</option>
+                                    </select>
+                                    @error('poi')
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div>
+                                    <label class="text-gray-700" for="lokasi">Nama Lokasi</label>
+                                    <input class="w-full rounded-md form-input focus:border-indigo-600" type="text" name="lokasi" placeholder="Nama Lokasi" value="{{ old('lokasi') }}">
+                                    @error('lokasi')
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div>
+                                    <label class="text-gray-700" for="keterangan">Keterangan</label>
+                                    <input class="w-full rounded-md form-input focus:border-indigo-600" type="text" name="keterangan" placeholder="Keterangan" value="{{ old('keterangan') }}">
+                                    @error('keterangan')
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+    
+                            <div class="flex justify-end mt-4 col-span-full">
+                                <button class="w-full px-4 py-2 font-bold text-white bg-orange-800 rounded-md hover:bg-orange-700 focus:outline-none focus:bg-orange-700">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>`);
             }
         })
         
@@ -344,6 +413,42 @@
                         $("#poi").html(
                             `<option value="" disabled selected>Pilih POI</option>` +
                             `<option value="" disabled selected>Tidak Ada POI</option>`
+                        )
+                    }
+
+                }
+                , error: (e) => {
+                    console.log(e)
+                }
+            });
+
+            $.ajax({
+                url: "{{ route('sekolah.pjp.site') }}"
+                , method: "GET"
+                , dataType: "JSON"
+                , data: {
+                    cluster: cluster
+                    , _token: "{{ csrf_token() }}"
+                }
+                , success: (data) => {
+                    const {
+                        site
+                    } = data;
+                    console.log(data);
+
+                    if (site.length) {
+                        $("#site_id").html(
+                            `<option value="" disabled selected>Pilih SITE ID</option>` +
+                            site.map((item) => {
+                                return `
+                                    <option value="${item.site_id}">${item.site_id.toString().toUpperCase()}</option>
+                                    ` 
+                            })
+                        )
+                    } else {
+                        $("#site_id").html(
+                            `<option value="" disabled selected>Pilih SITE ID</option>` +
+                            `<option value="" disabled selected>Tidak Ada SITE ID</option>`
                         )
                     }
 
