@@ -225,6 +225,7 @@ class SekolahController extends Controller
                 'telp' => $request->telp,
                 'frekuensi' => $request->frekuensi,
                 'hari' => $request->hari,
+                'lokasi' => $sekolah->NAMA_SEKOLAH,
                 'longitude' => $sekolah->LONGITUDE,
                 'latitude' => $sekolah->LATITUDE,
             ]);
