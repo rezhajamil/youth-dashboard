@@ -7,7 +7,8 @@
         </button>
     </div>
 
-    <img src="{{ asset('images/logo-text.png') }}" alt="logo" class="w-20 ml-2 mr-auto sm:w-40">
+    <img src="{{ asset('images/logo-new.png') }}" alt="logo" class="w-16 ml-2">
+    <img src="{{ asset('images/logo-new-text.png') }}" alt="logo" class="w-40 ml-2 mr-auto">
 
     <div class="flex items-center gap-x-4">
         <div class="flex flex-col">

@@ -1153,6 +1153,9 @@ select {
 .w-2 {
   width: 0.5rem;
 }
+.w-16 {
+  width: 4rem;
+}
 .min-w-full {
   min-width: 100%;
 }
