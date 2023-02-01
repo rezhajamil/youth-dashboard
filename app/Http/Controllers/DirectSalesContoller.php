@@ -15,7 +15,7 @@ class DirectSalesContoller extends Controller
      */
     public function index()
     {
-        $branch = Auth::user()->privilege == "branch" ? "and branch='" . Auth::user()->branch . "'" : '';
+        $branch = Auth::user()->privilege == "branch" ? "and branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege=='cluster'?"and cluster='".Auth::user()->cluster."'":'');
         $dataUsersCluster = DB::select(
             "select cluster,
             count(if(role='AO',1,NULL)) as 'ao',
