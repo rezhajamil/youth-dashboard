@@ -33,41 +33,44 @@
 
             <form class="grid grid-cols-2 gap-3 mt-4" action="{{ route('register') }}" method="POST">
                 @csrf
-                <label class="block">
-                    <span class="text-sm text-gray-700">Username</span>
-                    <input type="text" class="block w-full mt-1 rounded-md form-input focus:border-sky-600" name="username" value="{{old('username')}}">
-                    @error('username')
-                    <span class="text-sm italic text-premier">{{ $message }}</span>
-                    @enderror
-                </label>
+                <div class="grid grid-cols-3 col-span-full gap-x-4">
+                    <label class="block">
+                        <span class="text-sm text-gray-700">Username</span>
+                        <input type="text" class="block w-full mt-1 rounded-md form-input focus:border-sky-600" name="username" value="{{old('username')}}">
+                        @error('username')
+                        <span class="text-sm italic text-premier">{{ $message }}</span>
+                        @enderror
+                    </label>
+    
+                    <label class="block">
+                        <span class="text-sm text-gray-700">Nama</span>
+                        <input type="text" class="block w-full mt-1 rounded-md form-input focus:border-sky-600" name="name" value="{{old('name')}}">
+                        @error('name')
+                        <span class="text-sm italic text-premier">{{ $message }}</span>
+                        @enderror
+                    </label>
+                    
+                    <label class="block">
+                        <span class="text-sm text-gray-700">Role</span>
+                        <select name="role" id="role" class="w-full rounded-md">
+                            <option value="" selected disabled>Pilih Role</option>
+                            <option value="branch">Branch</option>
+                            <option value="cluster">Cluster</option>
+                        </select>
+                        @error('role')
+                        <span class="text-sm italic text-premier">{{ $message }}</span>
+                        @enderror
+                    </label>
+                </div>
 
-                <label class="block">
-                    <span class="text-sm text-gray-700">Nama</span>
-                    <input type="text" class="block w-full mt-1 rounded-md form-input focus:border-sky-600" name="name" value="{{old('name')}}">
-                    @error('name')
-                    <span class="text-sm italic text-premier">{{ $message }}</span>
-                    @enderror
-                </label>
-
-                <label class="block">
+                {{-- <label class="block">
                     <span class="text-sm text-gray-700">ID Branch</span>
                     <input type="text" class="block w-full rounded-md form-input focus:border-sky-600" name="id_branch" value="{{old('id_branch',0)}}">
                     @error('id_branch')
                     <span class="text-sm italic text-premier">{{ $message }}</span>
                     @enderror
-                </label>
+                </label> --}}
 
-                <label class="block">
-                    <span class="text-sm text-gray-700">Role</span>
-                    <select name="role" id="role" class="w-full rounded-md">
-                        <option value="" selected disabled>Pilih Role</option>
-                        <option value="branch">Branch</option>
-                        <option value="cluster">Cluster</option>
-                    </select>
-                    @error('role')
-                    <span class="text-sm italic text-premier">{{ $message }}</span>
-                    @enderror
-                </label>
 
                 <div class="grid grid-cols-3 col-span-full gap-x-4">
                     <label class="block">

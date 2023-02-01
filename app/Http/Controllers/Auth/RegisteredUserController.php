@@ -39,7 +39,6 @@ class RegisteredUserController extends Controller
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'name' => ['required', 'string', 'max:255'],
-            'id_branch' => ['required', 'string', 'max:255'],
             'region' => ['required', 'string', 'max:255'],
             'branch' => ['required', 'string', 'max:255'],
             'role' => ['required', 'string', 'max:255'],
@@ -49,7 +48,7 @@ class RegisteredUserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'username' => $request->username,
-            'id_branch' => $request->id_branch,
+            'id_branch' => '0',
             'privilege' => $request->role,
             'regional' => $request->region,
             'branch' => $request->branch,
