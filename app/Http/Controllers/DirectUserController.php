@@ -250,6 +250,7 @@ class DirectUserController extends Controller
             $month = date('n');
             $year = date('Y');
         }
+        // ddd($month);
 
         $getPeriod = new DatePeriod(
             new DateTime($year . '-' . $month . '-01'),

@@ -5,8 +5,25 @@
         <div class="mt-4">
             <div class="flex items-center gap-x-3">
                 <a href="{{ url()->previous() }}" class="inline-block px-4 py-2 mt-2 mb-6 font-bold text-white transition-all bg-indigo-600 rounded-md hover:bg-indigo-800"><i class="mr-2 fa-solid fa-arrow-left"></i> Kembali</a>
-                <h4 class="mb-2 text-2xl font-bold text-indigo-600 align-baseline">{{date('M',strtotime($month))}}, {{$year}}</h4>
+                <form action="{{route('direct_user.show',$user->id)}}" method="get">
+                    <select name="month" id="month" required>
+                            <option value="" selected disabled>Pilih Bulan</option>
+                            @for ($i = 1; $i < 13; $i++) <option value="{{ $i }}" {{ date('n')==$i?'selected':'' }}>{{ $i }}</option>
+                                @endfor
+                    </select>
+                    <select name="year" id="year" required>
+                        <option value="" selected disabled>Pilih Tahun</option>
+                        @for ($i = date('Y')-2; $i <= date('Y'); $i++) <option value="{{ $i }}" {{ date('Y')==$i?'selected':'' }}>{{ $i }}</option>
+                            @endfor
+                    </select>
+                    <button type="submit" class="inline-block px-4 py-2 mt-2 mb-6 font-bold text-white transition-all bg-orange-600 rounded-md hover:bg-orange-800">Ganti Tanggal</button>
+                </form>
             </div>
+            
+            <div class="flex mb-8 gap-x-3">
+                <h4 class="mb-2 text-2xl font-bold text-indigo-600 align-baseline">Bulan {{$month}}, Tahun {{$year}}</h4>
+            </div>
+            
             <h4 class="mb-2 text-xl font-bold text-gray-600 align-baseline">Hasil Quiz Oleh {{ $user->nama }}</h4>
 
             <div class="mb-10 overflow-auto bg-white rounded-md shadow w-fit">
@@ -46,6 +63,7 @@
                 </table>
             </div>
 
+            <h4 class="mb-2 text-xl font-bold text-gray-600 align-baseline">Absensi Oleh {{ $user->nama }}</h4>
             <div class="overflow-hidden bg-white rounded-md shadow w-fit">
                 <table class="text-left border-collapse w-fit">
                     <thead class="border-b">

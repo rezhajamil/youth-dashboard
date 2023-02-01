@@ -7,7 +7,7 @@
 
             <div class="flex justify-between my-4 ">
                 <form class="flex flex-wrap items-center gap-x-4 gap-y-2" action="{{ route('direct_user.absensi') }}" method="get">
-                    <select name="cluster" id="cluster">
+                    <select name="cluster" id="cluster" {{auth()->user()->privilege=='superadmin'?'':'required'}}>
                         <option value="" selected disabled>Pilih Cluster</option>
                         @foreach ($cluster as $item)
                         <option value="{{ $item->cluster }}" {{ request()->get('cluster')==$item->cluster?'selected':'' }}>{{ $item->cluster }}</option>
