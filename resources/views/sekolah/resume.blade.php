@@ -20,16 +20,16 @@
 
 
             {{-- <span class="inline-block mt-6 mb-2 text-lg font-semibold text-gray-600">Direct Sales By Region</span> --}}
-            {{-- <a href="{{ route('direct_user.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-800"><i class="mr-2 fa-solid fa-plus"></i> Data User Baru</a> --}}
+            {{-- <a href="{{ route('direct_user.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-y_premier rounded-md hover:bg-y_premier"><i class="mr-2 fa-solid fa-plus"></i> Data User Baru</a> --}}
 
             <div class="overflow-auto bg-white rounded-md shadow w-fit">
                 <table class="overflow-auto text-left border-collapse w-fit">
                     <thead class="border-b">
                         <tr>
-                            <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-red-600">No</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600 ">Branch</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600 ">Cluster</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600 ">Total</th>
+                            <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier ">Branch</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier ">Cluster</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier ">Total</th>
                         </tr>
                     </thead>
                     <tbody class="max-h-screen overflow-y-auto">

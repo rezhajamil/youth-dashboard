@@ -4,7 +4,7 @@
     <div class="flex flex-col">
         <div class="mt-4">
             @if(Auth::user()->privilege != "cluster")
-            <a href="{{ route('whitelist.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-indigo-600 transition-all rounded-md hover:bg-indigo-800"><i class="mr-2 fa-solid fa-plus"></i> Data Whitelist Baru</a>
+            <a href="{{ route('whitelist.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-y_premier transition-all rounded-md hover:bg-y_premier"><i class="mr-2 fa-solid fa-plus"></i> Data Whitelist Baru</a>
             <a href="{{ route('whitelist.distribusi.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-orange-600 transition-all rounded-md hover:bg-orange-800"><i class="mr-2 fa-solid fa-plus"></i> Distribusi Whitelist</a>
             {{-- <span class="text-sm">Update : {{ $update_broadcast[0]->last_update }}</span> --}}
             @endif
@@ -25,7 +25,7 @@
                         @endforeach
                     </select>
                     <div class="flex gap-x-3">
-                        <button class="px-4 py-2 font-bold text-white transition bg-indigo-600 rounded-lg hover:bg-indigo-800"><i class="mr-2 fa-solid fa-magnifying-glass"></i>Cari</button>
+                        <button class="px-4 py-2 font-bold text-white transition bg-y_premier rounded-lg hover:bg-y_premier"><i class="mr-2 fa-solid fa-magnifying-glass"></i>Cari</button>
                         @if (request()->get('program'))
                         <a href="{{ route('whitelist.index') }}" class="px-4 py-2 font-bold text-white transition bg-gray-600 rounded-lg hover:bg-gray-800"><i class="mr-2 fa-solid fa-circle-xmark"></i>Reset</a>
                         @endif

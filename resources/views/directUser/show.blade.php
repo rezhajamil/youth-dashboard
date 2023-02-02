@@ -4,7 +4,7 @@
     <div class="flex flex-col">
         <div class="mt-4">
             <div class="flex items-center gap-x-3">
-                <a href="{{ url()->previous() }}" class="inline-block px-4 py-2 mt-2 mb-6 font-bold text-white transition-all bg-indigo-600 rounded-md hover:bg-indigo-800"><i class="mr-2 fa-solid fa-arrow-left"></i> Kembali</a>
+                <a href="{{ url()->previous() }}" class="inline-block px-4 py-2 mt-2 mb-6 font-bold text-white transition-all bg-y_premier rounded-md hover:bg-y_premier"><i class="mr-2 fa-solid fa-arrow-left"></i> Kembali</a>
                 <form action="{{route('direct_user.show',$user->id)}}" method="get">
                     <select name="month" id="month" required>
                             <option value="" selected disabled>Pilih Bulan</option>
@@ -21,7 +21,7 @@
             </div>
             
             <div class="flex mb-8 gap-x-3">
-                <h4 class="mb-2 text-2xl font-bold text-indigo-600 align-baseline">Bulan {{$month}}, Tahun {{$year}}</h4>
+                <h4 class="mb-2 text-2xl font-bold text-y_premier align-baseline">Bulan {{$month}}, Tahun {{$year}}</h4>
             </div>
             
             <h4 class="mb-2 text-xl font-bold text-gray-600 align-baseline">Hasil Quiz Oleh {{ $user->nama }}</h4>

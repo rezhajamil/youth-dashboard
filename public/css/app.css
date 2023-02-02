@@ -1427,6 +1427,10 @@ select {
   --tw-border-opacity: 1;
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
 }
+.border-y_premier {
+  --tw-border-opacity: 1;
+  border-color: rgb(96 116 177 / var(--tw-border-opacity));
+}
 .border-b-gray-900 {
   --tw-border-opacity: 1;
   border-bottom-color: rgb(17 24 39 / var(--tw-border-opacity));
@@ -1580,6 +1584,14 @@ select {
 .bg-y_premier {
   --tw-bg-opacity: 1;
   background-color: rgb(96 116 177 / var(--tw-bg-opacity));
+}
+.bg-y_sekunder {
+  --tw-bg-opacity: 1;
+  background-color: rgb(96 176 191 / var(--tw-bg-opacity));
+}
+.bg-y_tersier {
+  --tw-bg-opacity: 1;
+  background-color: rgb(206 85 161 / var(--tw-bg-opacity));
 }
 .bg-opacity-25 {
   --tw-bg-opacity: 0.25;
@@ -1907,6 +1919,10 @@ select {
   --tw-text-opacity: 1;
   color: rgb(96 116 177 / var(--tw-text-opacity));
 }
+.text-y_sekunder {
+  --tw-text-opacity: 1;
+  color: rgb(96 176 191 / var(--tw-text-opacity));
+}
 .underline {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
@@ -2128,6 +2144,14 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(185 0 39 / var(--tw-bg-opacity));
 }
+.hover\:bg-y_premier:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(96 116 177 / var(--tw-bg-opacity));
+}
+.hover\:bg-y_sekunder:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(96 176 191 / var(--tw-bg-opacity));
+}
 .hover\:bg-opacity-25:hover {
   --tw-bg-opacity: 0.25;
 }
@@ -2207,6 +2231,10 @@ select {
   --tw-text-opacity: 1;
   color: rgb(127 29 29 / var(--tw-text-opacity));
 }
+.hover\:text-y_premier:hover {
+  --tw-text-opacity: 1;
+  color: rgb(96 116 177 / var(--tw-text-opacity));
+}
 .hover\:underline:hover {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
@@ -2269,6 +2297,10 @@ select {
 .focus\:bg-gray-50:focus {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+}
+.focus\:bg-y_sekunder:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(96 176 191 / var(--tw-bg-opacity));
 }
 .focus\:text-gray-700:focus {
   --tw-text-opacity: 1;

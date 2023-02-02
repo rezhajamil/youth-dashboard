@@ -4,7 +4,7 @@
     <div class="flex flex-col">
         <div class="mt-4">
 
-            <a href="{{ url()->previous() }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-800"><i class="mr-2 fa-solid fa-arrow-left"></i> Kembali</a>
+            <a href="{{ url()->previous() }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-y_premier rounded-md hover:bg-y_premier"><i class="mr-2 fa-solid fa-arrow-left"></i> Kembali</a>
             <h4 class="text-xl font-bold text-gray-600 align-baseline">Detail Quiz</h4>
 
             <span class="inline-block mt-6 mb-2 text-xl font-semibold text-gray-600">{{ $quiz->nama }}</span>

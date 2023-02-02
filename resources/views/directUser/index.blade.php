@@ -30,25 +30,25 @@
             </div>
 
             {{-- <span class="inline-block mt-6 mb-2 text-lg font-semibold text-gray-600">Direct Sales By Region</span> --}}
-            <a href="{{ route('direct_user.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-800"><i class="mr-2 fa-solid fa-plus"></i> Data User Baru</a>
+            <a href="{{ route('direct_user.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-y_premier rounded-md hover:bg-y_premier"><i class="mr-2 fa-solid fa-plus"></i> Data User Baru</a>
 
             <div class="overflow-auto bg-white rounded-md shadow w-fit">
                 <table class="overflow-auto text-left border-collapse w-fit">
                     <thead class="border-b">
                         <tr>
-                            <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-red-600">No</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Regional</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Branch</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Cluster</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">TAP</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Nama</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Telp</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Digipos</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Reff Orbit</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Link Aja</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Role</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Status</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Action</th>
+                            <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Regional</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Branch</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Cluster</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">TAP</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Nama</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Telp</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Digipos</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Reff Orbit</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Link Aja</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Role</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Status</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -86,7 +86,7 @@
                             </td>
                             <td class="p-3 text-gray-700 border-b">
                                 <a href="{{ route('direct_user.show',$data->id) }}" class="block my-1 text-base font-semibold transition text-emerald-600 hover:text-emerald-800">Rapor</a>
-                                <a href="{{ route('direct_user.edit',$data->id) }}" class="block my-1 text-base font-semibold text-indigo-600 transition hover:text-indigo-800">Edit</a>
+                                <a href="{{ route('direct_user.edit',$data->id) }}" class="block my-1 text-base font-semibold text-y_premier transition hover:text-indigo-800">Edit</a>
                                 <form action="{{ route('direct_user.change_status',$data->id) }}" method="post">
                                     @csrf
                                     @method('put')

@@ -24,7 +24,7 @@ if ($bilangan < pow(10, 9) && $bilangan>= pow(10, 6)) {
                         {{-- <form class="flex flex-wrap items-center gap-x-4 gap-y-2" action="{{ route('sales.migrasi') }}" method="get">
                         <input type="date" name="date" id="date" class="px-4 rounded-lg" value="{{ request()->get('date') }}" required>
                         <div class="flex gap-x-3">
-                            <button class="px-4 py-2 font-bold text-white transition bg-indigo-600 rounded-lg hover:bg-indigo-800"><i class="mr-2 fa-solid fa-magnifying-glass"></i>Cari</button>
+                            <button class="px-4 py-2 font-bold text-white transition bg-y_premier rounded-lg hover:bg-y_premier"><i class="mr-2 fa-solid fa-magnifying-glass"></i>Cari</button>
                             @if (request()->get('date'))
                             <a href="{{ route('sales.migrasi') }}" class="px-4 py-2 font-bold text-white transition bg-gray-600 rounded-lg hover:bg-gray-800"><i class="mr-2 fa-solid fa-circle-xmark"></i>Reset</a>
                             @endif
@@ -52,36 +52,36 @@ if ($bilangan < pow(10, 9) && $bilangan>= pow(10, 6)) {
                         <table class="text-left border-collapse w-fit">
                             <thead class="border-b">
                                 <tr>
-                                    <th rowspan="2" class="p-3 text-sm font-bold text-gray-100 uppercase bg-red-600 border">No</th>
-                                    <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Regional</th>
-                                    <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Branch</th>
-                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Omset</th>
-                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Rech Reg</th>
-                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Rech Vas</th>
-                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Digital</th>
-                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">CVM</th>
-                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Voice</th>
-                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">NSB</th>
-                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Ketengan</th>
-                                    {{-- <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Action</th> --}}
+                                    <th rowspan="2" class="p-3 text-sm font-bold text-gray-100 uppercase bg-y_tersier border">No</th>
+                                    <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Regional</th>
+                                    <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Branch</th>
+                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Omset</th>
+                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Rech Reg</th>
+                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Rech Vas</th>
+                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Digital</th>
+                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">CVM</th>
+                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Voice</th>
+                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">NSB</th>
+                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Ketengan</th>
+                                    {{-- <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Action</th> --}}
                                 </tr>
                                 <tr>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">MTD</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">M-1</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">MTD</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">M-1</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">MTD</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">M-1</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">MTD</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">M-1</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">MTD</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">M-1</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">MTD</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">M-1</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">MTD</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">M-1</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">MTD</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">M-1</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -118,35 +118,35 @@ if ($bilangan < pow(10, 9) && $bilangan>= pow(10, 6)) {
                         <table class="text-left border-collapse w-fit">
                             <thead class="border-b">
                                 <tr>
-                                    <th rowspan="2" class="p-3 text-sm font-bold text-gray-100 uppercase bg-red-600 border">No</th>
-                                    <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Cluster</th>
-                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Omset</th>
-                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Rech Reg</th>
-                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Rech Vas</th>
-                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Digital</th>
-                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">CVM</th>
-                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Voice</th>
-                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">NSB</th>
-                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Ketengan</th>
-                                    {{-- <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Action</th> --}}
+                                    <th rowspan="2" class="p-3 text-sm font-bold text-gray-100 uppercase bg-y_tersier border">No</th>
+                                    <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Cluster</th>
+                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Omset</th>
+                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Rech Reg</th>
+                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Rech Vas</th>
+                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Digital</th>
+                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">CVM</th>
+                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Voice</th>
+                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">NSB</th>
+                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Ketengan</th>
+                                    {{-- <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Action</th> --}}
                                 </tr>
                                 <tr>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">MTD</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">M-1</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">MTD</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">M-1</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">MTD</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">M-1</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">MTD</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">M-1</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">MTD</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">M-1</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">MTD</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">M-1</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">MTD</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">M-1</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">MTD</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">M-1</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -195,39 +195,39 @@ if ($bilangan < pow(10, 9) && $bilangan>= pow(10, 6)) {
                         <table class="text-left border-collapse w-fit">
                             <thead class="border-b">
                                 <tr>
-                                    <th rowspan="2" class="p-3 text-sm font-bold text-gray-100 uppercase bg-red-600 border">No</th>
-                                    <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Cluster</th>
-                                    <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Outled ID</th>
-                                    <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Fisik</th>
-                                    <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Nama</th>
-                                    <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Role</th>
-                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Omset</th>
-                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Rech Reg</th>
-                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Rech Vas</th>
-                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Digital</th>
-                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">CVM</th>
-                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Voice</th>
-                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">NSB</th>
-                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Ketengan</th>
-                                    {{-- <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Action</th> --}}
+                                    <th rowspan="2" class="p-3 text-sm font-bold text-gray-100 uppercase bg-y_tersier border">No</th>
+                                    <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Cluster</th>
+                                    <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Outled ID</th>
+                                    <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Fisik</th>
+                                    <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Nama</th>
+                                    <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Role</th>
+                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Omset</th>
+                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Rech Reg</th>
+                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Rech Vas</th>
+                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Digital</th>
+                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">CVM</th>
+                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Voice</th>
+                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">NSB</th>
+                                    <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Ketengan</th>
+                                    {{-- <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Action</th> --}}
                                 </tr>
                                 <tr>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">MTD</th>
-                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">M-1</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">MTD</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">M-1</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">MTD</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">M-1</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">MTD</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">M-1</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">MTD</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">M-1</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">MTD</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">M-1</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">MTD</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">M-1</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">MTD</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">M-1</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">MTD</th>
+                                    <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">M-1</th>
                                 </tr>
                             </thead>
                             <tbody>

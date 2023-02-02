@@ -8,23 +8,23 @@
             </div>
 
             {{-- <span class="inline-block mt-6 mb-2 text-lg font-semibold text-gray-600">Direct Sales By Region</span> --}}
-            <a href="{{ route('sekolah.pjp.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-800"><i class="mr-2 fa-solid fa-plus"></i> Data Kunjungan</a>
+            <a href="{{ route('sekolah.pjp.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-y_premier rounded-md hover:bg-y_premier"><i class="mr-2 fa-solid fa-plus"></i> Data Kunjungan</a>
 
             <div class="overflow-auto bg-white rounded-md shadow w-fit">
                 <table class="overflow-auto text-left border-collapse w-fit">
                     <thead class="border-b">
                         <tr>
-                            <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-red-600">No</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Kategori</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Regional</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Branch</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Cluster</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">NPSN</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Nama Sekolah</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Nama Event</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Telp</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Frekuensi</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Waktu</th>
+                            <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Kategori</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Regional</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Branch</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Cluster</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">NPSN</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Nama Sekolah</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Nama Event</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Telp</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Frekuensi</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Waktu</th>
                         </tr>
                     </thead>
                     <tbody class="max-h-screen overflow-y-auto">

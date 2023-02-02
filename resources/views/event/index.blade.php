@@ -17,7 +17,7 @@
                         @endforeach
                     </select>
                     <div class="flex gap-x-3">
-                        <button class="px-4 py-2 font-bold text-white transition bg-indigo-600 rounded-lg hover:bg-indigo-800"><i class="mr-2 fa-solid fa-magnifying-glass"></i>Cari</button>
+                        <button class="px-4 py-2 font-bold text-white transition bg-y_premier rounded-lg hover:bg-y_premier"><i class="mr-2 fa-solid fa-magnifying-glass"></i>Cari</button>
                         @if (request()->get('kategori'))
                         <a href="{{ route('event.index') }}" class="px-4 py-2 font-bold text-white transition bg-gray-600 rounded-lg hover:bg-gray-800"><i class="mr-2 fa-solid fa-circle-xmark"></i>Reset</a>
                         @endif
@@ -27,7 +27,7 @@
 
 
             {{-- <span class="inline-block mt-6 mb-2 text-lg font-semibold text-gray-600">Direct Sales By Region</span> --}}
-            {{-- <a href="{{ route('direct_user.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-800"><i class="mr-2 fa-solid fa-plus"></i> Data User Baru</a> --}}
+            {{-- <a href="{{ route('direct_user.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-y_premier rounded-md hover:bg-y_premier"><i class="mr-2 fa-solid fa-plus"></i> Data User Baru</a> --}}
             <div class="flex flex-wrap items-end my-3 gap-x-4 gap-y-2">
                 <input type="text" name="search" id="search" placeholder="Search..." class="px-4 rounded-lg">
                 <div class="flex flex-col">
@@ -59,19 +59,19 @@
                 <table class="overflow-auto text-left border-collapse w-fit">
                     <thead class="border-b">
                         <tr>
-                            <th class="p-2 text-sm font-bold text-center text-gray-100 uppercase bg-red-600">No</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Kategori</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Jenis</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Kabupaten</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Kecamatan</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">NPSN</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Nama Sekolah</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Nama Peserta</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Telp</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Tim</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Kelayakan</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Keterangan</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Action</th>
+                            <th class="p-2 text-sm font-bold text-center text-gray-100 uppercase bg-y_tersier">No</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier">Kategori</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier">Jenis</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier">Kabupaten</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier">Kecamatan</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier">NPSN</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier">Nama Sekolah</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier">Nama Peserta</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier">Telp</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier">Tim</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier">Kelayakan</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier">Keterangan</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier">Action</th>
                         </tr>
                     </thead>
                     <tbody class="max-h-screen overflow-y-auto">
@@ -107,7 +107,7 @@
                                 <a href="{{ URL::to('/layak/event/'.$data->id.'?layak=1') }}" class="px-3 py-2 text-white transition-all bg-green-600 rounded hover:bg-green-800">Layak</a>
                                 @endif
                                 @if($data->layak!='0')
-                                <a href="{{ URL::to('/layak/event/'.$data->id.'?layak=0') }}" class="px-3 py-2 text-white transition-all bg-red-600 rounded whitespace-nowrap hover:bg-red-800 ">Tidak Layak</a>
+                                <a href="{{ URL::to('/layak/event/'.$data->id.'?layak=0') }}" class="px-3 py-2 text-white transition-all bg-y_tersier rounded whitespace-nowrap hover:bg-red-800 ">Tidak Layak</a>
                                 @endif --}}
                                 <button class="px-3 py-2 text-white transition-all bg-orange-600 rounded whitespace-nowrap hover:bg-orange-800 btn-keterangan" data-id="{{ $data->id }}">Beri Keterangan</button>
                             </td>
@@ -134,7 +134,7 @@
             </select>
             <textarea class="w-full rounded" placeholder="Keterangan" name="keterangan"></textarea>
             <button type="submit" class="w-full px-3 py-2 text-white transition bg-blue-600 rounded hover:bg-blue-800">Submit</button>
-            <a class="w-full px-3 py-2 text-center text-white transition bg-red-600 rounded hover:bg-red-800" id="cancel">Batal</a>
+            <a class="w-full px-3 py-2 text-center text-white transition bg-y_tersier rounded hover:bg-red-800" id="cancel">Batal</a>
         </form>
     </div>
 </div>

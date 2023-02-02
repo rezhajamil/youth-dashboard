@@ -9,7 +9,7 @@
                 <form class="flex flex-wrap items-center mt-4 gap-x-4 gap-y-2" action="{{ route('sales.orbit') }}" method="get">
                     <input type="date" name="date" id="date" class="px-4 rounded-lg" value="{{ request()->get('date') }}" required>
                     <div class="flex gap-x-3">
-                        <button class="px-4 py-2 font-bold text-white transition bg-indigo-600 rounded-lg hover:bg-indigo-800"><i class="mr-2 fa-solid fa-magnifying-glass"></i>Cari</button>
+                        <button class="px-4 py-2 font-bold text-white transition bg-y_premier rounded-lg hover:bg-y_premier"><i class="mr-2 fa-solid fa-magnifying-glass"></i>Cari</button>
                         @if (request()->get('date'))
                         <a href="{{ route('sales.orbit') }}" class="px-4 py-2 font-bold text-white transition bg-gray-600 rounded-lg hover:bg-gray-800"><i class="mr-2 fa-solid fa-circle-xmark"></i>Reset</a>
                         @endif
@@ -36,13 +36,13 @@
                 <table class="text-left border-collapse w-fit">
                     <thead class="border-b">
                         <tr>
-                            <th class="p-4 text-sm font-bold text-gray-100 uppercase bg-red-600">No</th>
-                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Regional</th>
-                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Branch</th>
-                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Status</th>
-                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">MTD</th>
-                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">M-1</th>
-                            {{-- <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Action</th> --}}
+                            <th class="p-4 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No</th>
+                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Regional</th>
+                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Branch</th>
+                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Status</th>
+                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">MTD</th>
+                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">M-1</th>
+                            {{-- <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Action</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -66,12 +66,12 @@
                 <table class="text-left border-collapse w-fit">
                     <thead class="border-b">
                         <tr>
-                            <th class="p-4 text-sm font-bold text-gray-100 uppercase bg-red-600">No</th>
-                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Cluster</th>
-                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Status</th>
-                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">MTD</th>
-                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">M-1</th>
-                            {{-- <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Action</th> --}}
+                            <th class="p-4 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No</th>
+                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Cluster</th>
+                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Status</th>
+                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">MTD</th>
+                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">M-1</th>
+                            {{-- <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Action</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -112,21 +112,21 @@
                 <table class="text-left border-collapse w-fit">
                     <thead class="border-b">
                         <tr>
-                            <th class="p-4 text-sm font-bold text-gray-100 uppercase bg-red-600">No</th>
-                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Cluster</th>
-                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Nama</th>
-                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Telp</th>
-                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Role</th>
-                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Reff Code</th>
-                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Status</th>
-                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Jenis</th>
-                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Detail</th>
-                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">MSISDN</th>
-                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">IMEI</th>
-                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Tanggal Lapor</th>
-                            {{-- <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">MOM</th> --}}
+                            <th class="p-4 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No</th>
+                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Cluster</th>
+                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Nama</th>
+                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Telp</th>
+                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Role</th>
+                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Reff Code</th>
+                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Status</th>
+                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Jenis</th>
+                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Detail</th>
+                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">MSISDN</th>
+                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">IMEI</th>
+                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Tanggal Lapor</th>
+                            {{-- <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">MOM</th> --}}
                             @if (Auth::user()->privilege!='cluster')
-                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-red-600">Action</th>
+                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Action</th>
                             @endif
                         </tr>
                     </thead>

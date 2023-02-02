@@ -22,16 +22,16 @@
                 <table class="overflow-auto text-left border-collapse w-fit">
                     <thead class="border-b">
                         <tr>
-                            <th class="p-2 text-sm font-bold text-center text-gray-100 uppercase bg-red-600">No</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Judul</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Nama</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Telp</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Poin</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Tanggal</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Approver</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Keterangan</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Link</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Action</th>
+                            <th class="p-2 text-sm font-bold text-center text-gray-100 uppercase bg-y_tersier">No</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier">Judul</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier">Nama</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier">Telp</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier">Poin</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier">Tanggal</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier">Approver</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier">Keterangan</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier">Link</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier">Action</th>
                         </tr>
                     </thead>
                     <tbody class="max-h-screen overflow-y-auto">
@@ -88,7 +88,7 @@
             </select>
             <textarea class="w-full rounded" placeholder="Keterangan" name="keterangan"></textarea>
             <button type="submit" class="w-full px-3 py-2 text-white transition bg-blue-600 rounded hover:bg-blue-800">Submit</button>
-            <a class="w-full px-3 py-2 text-center text-white transition bg-red-600 rounded hover:bg-red-800" id="cancel">Batal</a>
+            <a class="w-full px-3 py-2 text-center text-white transition bg-y_tersier rounded hover:bg-red-800" id="cancel">Batal</a>
         </form>
     </div>
 </div>

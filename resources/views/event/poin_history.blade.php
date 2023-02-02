@@ -22,14 +22,14 @@
                 <table class="overflow-auto text-left border-collapse w-fit">
                     <thead class="border-b">
                         <tr>
-                            <th class="p-2 text-sm font-bold text-center text-gray-100 uppercase bg-red-600">No</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Tanggal</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Jenis</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Keterangan</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Nama</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Email</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Telp</th>
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-red-600">Poin</th>
+                            <th class="p-2 text-sm font-bold text-center text-gray-100 uppercase bg-y_tersier">No</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier">Tanggal</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier">Jenis</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier">Keterangan</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier">Nama</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier">Email</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier">Telp</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier">Poin</th>
                         </tr>
                     </thead>
                     <tbody class="max-h-screen overflow-y-auto">

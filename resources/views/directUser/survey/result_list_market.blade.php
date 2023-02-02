@@ -3,7 +3,7 @@
 <div class="w-full mx-4">
     <div class="flex flex-col">
         <div class="mt-4">
-            <a href="{{ url()->previous() }}" class="block px-4 py-2 my-2 font-bold text-white bg-indigo-600 rounded-md w-fit hover:bg-indigo-800"><i class="mr-2 fa-solid fa-arrow-left"></i> Kembali</a>
+            <a href="{{ url()->previous() }}" class="block px-4 py-2 my-2 font-bold text-white bg-y_premier rounded-md w-fit hover:bg-y_premier"><i class="mr-2 fa-solid fa-arrow-left"></i> Kembali</a>
             <h4 class="inline-block mb-2 text-xl font-bold text-gray-600 align-baseline" id="title">{{ $survey->nama }}</h4>
             {{-- <button class="px-2 py-1 ml-2 text-lg text-white transition bg-green-600 rounded-md hover:bg-green-800" id="capture"><i class="fa-regular fa-circle-down"></i></button> --}}
             <input type="hidden" name="sekolah" id="sekolah" value="{{ json_encode($sekolah) }}">
@@ -13,11 +13,11 @@
                 <table class="overflow-auto text-left bg-white border-collapse w-fit" id="table-data">
                     <thead class="border-b" id="thead">
                         {{-- <tr class="border-b">
-                            <th rowspan="3" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">No</th>
-                            <th rowspan="3" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Sekolah</th>
-                            <th rowspan="3" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Soal</th>
-                            <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Opsi</th>
-                            <th colspan="1" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Jumlah</th>
+                            <th rowspan="3" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">No</th>
+                            <th rowspan="3" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Sekolah</th>
+                            <th rowspan="3" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Soal</th>
+                            <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Opsi</th>
+                            <th colspan="1" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Jumlah</th>
                         </tr> --}}
                     </thead>
                     <tbody class="max-h-screen overflow-y-auto" id="tbody">
@@ -54,8 +54,8 @@
 
             header += `
             <tr class="border-b">
-                <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">No</th>
-                <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-red-600 border">Telp</th>
+                <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">No</th>
+                <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Telp</th>
             `;
 
             survey.soal.map((data, i) => {

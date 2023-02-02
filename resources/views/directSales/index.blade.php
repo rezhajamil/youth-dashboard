@@ -8,15 +8,15 @@
                 <table class="text-left border-collapse w-fit">
                     <thead class="border-b">
                         <tr>
-                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-indigo-800">No</th>
-                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-indigo-800">Regional</th>
-                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-indigo-800">Branch</th>
-                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-indigo-800">AO</th>
-                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-indigo-800">EO</th>
-                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-indigo-800">MOGI</th>
-                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-indigo-800">YBA</th>
-                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-indigo-800">PROMOTOR</th>
-                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-indigo-800">Jumlah</th>
+                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">No</th>
+                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">Regional</th>
+                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">Branch</th>
+                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">AO</th>
+                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">EO</th>
+                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">MOGI</th>
+                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">YBA</th>
+                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">PROMOTOR</th>
+                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">Jumlah</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,14 +43,14 @@
                 <table class="text-left border-collapse w-fit">
                     <thead class="border-b">
                         <tr>
-                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-indigo-800">No</th>
-                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-indigo-800">Cluster</th>
-                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-indigo-800">AO</th>
-                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-indigo-800">EO</th>
-                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-indigo-800">MOGI</th>
-                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-indigo-800">YBA</th>
-                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-indigo-800">PROMOTOR</th>
-                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-indigo-800">Jumlah</th>
+                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">No</th>
+                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">Cluster</th>
+                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">AO</th>
+                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">EO</th>
+                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">MOGI</th>
+                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">YBA</th>
+                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">PROMOTOR</th>
+                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">Jumlah</th>
                         </tr>
                     </thead>
                     <tbody>

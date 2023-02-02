@@ -14,7 +14,7 @@
                         @endforeach
                     </select>
                     <div class="flex gap-x-3">
-                        <button class="px-4 py-2 font-bold text-white transition bg-indigo-600 rounded-lg hover:bg-indigo-800"><i class="mr-2 fa-solid fa-magnifying-glass"></i>Cari</button>
+                        <button class="px-4 py-2 font-bold text-white transition rounded-lg bg-y_premier hover:bg-y_sekunder"><i class="mr-2 fa-solid fa-magnifying-glass"></i>Cari</button>
                     </div>
                 </form>
             </div>

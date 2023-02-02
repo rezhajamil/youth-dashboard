@@ -4,22 +4,22 @@
     <div class="flex flex-col">
         <div class="mt-4">
             <h4 class="mb-2 text-xl font-bold text-gray-600 align-baseline">Content Management - Schedule</h4>
-            <a href="{{ route('schedule.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-800"><i class="mr-2 fa-solid fa-plus"></i> Data Schedule Baru</a>
+            <a href="{{ route('schedule.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-y_premier rounded-md hover:bg-y_premier"><i class="mr-2 fa-solid fa-plus"></i> Data Schedule Baru</a>
 
             <div class="overflow-auto bg-white rounded-md shadow w-fit">
                 <table class="overflow-auto text-left border-collapse w-fit">
                     <thead class="border-b">
                         <tr>
-                            <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-red-600">No</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Date</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Time</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Jenis</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Judul</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Pembicara</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Poin</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Minus</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Absen</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Action</th>
+                            <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Date</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Time</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Jenis</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Judul</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Pembicara</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Poin</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Minus</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Absen</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Action</th>
                         </tr>
                     </thead>
                     <tbody class="max-h-screen overflow-y-auto">
@@ -46,7 +46,7 @@
                                 @endif
                             </td>
                             <td class="p-4 text-gray-700 border-b">
-                                {{-- <a href="{{ route('sekolah.edit',$data->NPSN) }}" class="block my-1 text-base font-semibold text-indigo-600 transition hover:text-indigo-800">Edit</a> --}}
+                                {{-- <a href="{{ route('sekolah.edit',$data->NPSN) }}" class="block my-1 text-base font-semibold text-y_premier transition hover:text-indigo-800">Edit</a> --}}
                                 <form action="{{ route('schedule.change_status',$data->id) }}" method="post">
                                     @csrf
                                     @method('put')

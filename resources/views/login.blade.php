@@ -63,11 +63,11 @@
         </div>
 
         <div class="mt-6">
-            <button class="w-full px-4 py-2 text-sm text-center text-white rounded-md bg-y_premier hover:bg-sky-500">
+            <button class="w-full px-4 py-2 text-sm text-center text-white transition-all rounded-md bg-y_premier hover:bg-y_sekunder">
                 Sign in
             </button>
         </div>
-        <a href="{{route('register')}}" class="inline-block w-full mt-2 text-center underline transition-all text-sky-800 hover:text-sky-900">Daftar</a>
+        <a href="{{route('register')}}" class="inline-block w-full mt-2 text-center underline transition-all text-y_premier hover:text-sky-900">Daftar</a>
         </form>
     </div>
     </div>

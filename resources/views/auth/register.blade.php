@@ -123,10 +123,10 @@
                 </label>
 
                 <div class="mt-6 col-span-full">
-                    <button class="w-full px-4 py-2 text-sm text-center text-white bg-indigo-600 rounded-md hover:bg-indigo-500">
+                    <button class="w-full px-4 py-2 text-sm text-center text-white transition-all rounded-md bg-y_premier hover:bg-y_sekunder">
                         Daftar
                     </button>
-                    <a href="{{route('login')}}" class="inline-block w-full mt-2 text-sm text-center underline transition cursor-pointer text-y_premier hover:text-sky-800">Sudah punya akun? Login ke akun anda</a>
+                    <a href="{{route('login')}}" class="inline-block w-full mt-2 text-sm text-center underline transition cursor-pointer text-y_premier hover:text-y_premier">Sudah punya akun? Login ke akun anda</a>
                 </div>
             </form>
         </div>

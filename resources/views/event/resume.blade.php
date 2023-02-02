@@ -11,10 +11,10 @@
                 <table class="overflow-auto text-left border-collapse w-fit">
                     <thead class="border-b">
                         <tr>
-                            <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-red-600">No</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Kategori</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Jenis</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Jumlah</th>
+                            <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Kategori</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Jenis</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Jumlah</th>
                         </tr>
                     </thead>
                     <tbody class="max-h-screen overflow-y-auto">

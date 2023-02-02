@@ -5,7 +5,7 @@
         <div class="mt-4">
             <h4 class="text-xl font-bold text-gray-600 align-baseline">Campaign</h4>
             @if (Auth::user()->privilege!='cluster')
-            <a href="{{ route('campaign.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-800"><i class="mr-2 fa-solid fa-plus"></i> Data Campaign Baru</a>
+            <a href="{{ route('campaign.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-y_premier rounded-md hover:bg-y_premier"><i class="mr-2 fa-solid fa-plus"></i> Data Campaign Baru</a>
             @endif
 
             <div class="flex flex-wrap items-end mb-2 gap-x-4">

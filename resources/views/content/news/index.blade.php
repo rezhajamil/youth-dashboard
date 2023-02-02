@@ -4,7 +4,7 @@
     <div class="flex flex-col">
         <div class="mt-4">
             <h4 class="mb-2 text-xl font-bold text-gray-600 align-baseline">Content Management - News - Meeting</h4>
-            <a href="{{ route('news.create',['jenis'=>'meeting']) }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-800">
+            <a href="{{ route('news.create',['jenis'=>'meeting']) }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-y_premier rounded-md hover:bg-y_premier">
                 <i class="mr-2 fa-solid fa-plus"></i>
                 Data Meeting Baru
             </a>
@@ -13,12 +13,12 @@
                 <table class="overflow-auto text-left border-collapse w-fit">
                     <thead class="border-b">
                         <tr>
-                            <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-red-600">No</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Date</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Type</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Judul</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">View</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Action</th>
+                            <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Date</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Type</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Judul</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">View</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Action</th>
                         </tr>
                     </thead>
                     <tbody class="max-h-screen overflow-y-auto">
@@ -48,7 +48,7 @@
         </div>
         <div class="mt-8">
             <h4 class="mb-2 text-xl font-bold text-gray-600 align-baseline">Content Management - News - Event</h4>
-            <a href="{{ route('news.create',['jenis'=>'event']) }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-800">
+            <a href="{{ route('news.create',['jenis'=>'event']) }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-y_premier rounded-md hover:bg-y_premier">
                 <i class="mr-2 fa-solid fa-plus"></i>
                 Data Event Baru
             </a>
@@ -57,12 +57,12 @@
                 <table class="overflow-auto text-left border-collapse w-fit">
                     <thead class="border-b">
                         <tr>
-                            <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-red-600">No</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Date</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Type</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Judul</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">View</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Action</th>
+                            <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Date</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Type</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Judul</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">View</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Action</th>
                         </tr>
                     </thead>
                     <tbody class="max-h-screen overflow-y-auto">
@@ -93,7 +93,7 @@
 
         <div class="mt-8">
             <h4 class="mb-2 text-xl font-bold text-gray-600 align-baseline">Content Management - News - News</h4>
-            <a href="{{ route('news.create',['jenis'=>'news']) }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-800">
+            <a href="{{ route('news.create',['jenis'=>'news']) }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-y_premier rounded-md hover:bg-y_premier">
                 <i class="mr-2 fa-solid fa-plus"></i>
                 Data News Baru
             </a>
@@ -102,12 +102,12 @@
                 <table class="overflow-auto text-left border-collapse w-fit">
                     <thead class="border-b">
                         <tr>
-                            <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-red-600">No</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Date</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Type</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Judul</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">View</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Action</th>
+                            <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Date</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Type</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Judul</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">View</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Action</th>
                         </tr>
                     </thead>
                     <tbody class="max-h-screen overflow-y-auto">
@@ -138,7 +138,7 @@
 
         <div class="mt-8">
             <h4 class="mb-2 text-xl font-bold text-gray-600 align-baseline">Content Management - News - Challenge</h4>
-            <a href="{{ route('news.create',['jenis'=>'challenge']) }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-indigo-600 rounded-md hover:bg-indigo-800">
+            <a href="{{ route('news.create',['jenis'=>'challenge']) }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-y_premier rounded-md hover:bg-y_premier">
                 <i class="mr-2 fa-solid fa-plus"></i>
                 Data Challenge Baru
             </a>
@@ -147,12 +147,12 @@
                 <table class="overflow-auto text-left border-collapse w-fit">
                     <thead class="border-b">
                         <tr>
-                            <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-red-600">No</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Date</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Type</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Judul</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">View</th>
-                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-red-600">Action</th>
+                            <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Date</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Type</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Judul</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">View</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Action</th>
                         </tr>
                     </thead>
                     <tbody class="max-h-screen overflow-y-auto">
