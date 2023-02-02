@@ -25,7 +25,7 @@
 </head>
 <body>
     <div class="flex flex-col items-center justify-center h-screen px-6 bg-gray-200">
-        <img src="{{ asset('images/logo-shape-text.png') }}" alt="" class="h-40 mb-4 aspect-auto wow fadeInDown" data-wow-duration="2s">
+        <img src="{{ asset('images/logo-new-full.png') }}" alt="" class="h-40 mb-4 aspect-auto wow fadeInDown" data-wow-duration="2s">
         <div class="w-1/2 max-w-sm p-6 bg-white rounded-md shadow-md">
             <div class="flex items-center justify-center">
                 <span class="text-2xl font-semibold text-gray-700">Login Dashboard</span>
@@ -35,7 +35,7 @@
                 @csrf
                 <label class="block">
                     <span class="text-sm text-gray-700">Username</span>
-                    <input type="text" class="block w-full mt-1 rounded-md form-input focus:border-sky-600" name="username">
+                    <input type="text" class="block w-full mt-1 rounded-md form-input focus:border-y_premier" name="username">
                 </label>
                 @error('username')
                 <span class="text-sm italic text-premier">{{ $message }}</span>
@@ -43,7 +43,7 @@
 
                 <label class="block mt-3">
                     <span class="text-sm text-gray-700">Password</span>
-                    <input type="password" class="block w-full mt-1 rounded-md form-input focus:border-sky-600" name="password">
+                    <input type="password" class="block w-full mt-1 rounded-md form-input focus:border-y_premier" name="password">
                 </label>
                 @error('password')
                 <span class="text-sm italic text-premier">{{ $message }}</span>
@@ -52,7 +52,7 @@
                 <div class="flex items-center justify-between mt-4">
                     <div>
                         <label class="inline-flex items-center">
-                            <input type="checkbox" checked class="text-sky-600 form-checkbox">
+                            <input type="checkbox" checked class="text-y_premier form-checkbox">
                             <span class="mx-2 text-sm text-gray-600">Remember me</span>
                         </label>
                     </div>
@@ -63,7 +63,7 @@
         </div>
 
         <div class="mt-6">
-            <button class="w-full px-4 py-2 text-sm text-center text-white rounded-md bg-sky-600 hover:bg-sky-500">
+            <button class="w-full px-4 py-2 text-sm text-center text-white rounded-md bg-y_premier hover:bg-sky-500">
                 Sign in
             </button>
         </div>

@@ -1,4 +1,4 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
+const defaultTheme = require("tailwindcss/defaultTheme");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -19,6 +19,10 @@ module.exports = {
                 premier: "#B90027",
                 sekunder: "#021942",
                 tersier: "#5A595E",
+                y_premier: "#6074B1",
+                y_sekunder: "#60B0BF",
+                y_tersier: "#CE55A1",
+                y_kuartener: "#EF8E8D",
             },
         },
     },

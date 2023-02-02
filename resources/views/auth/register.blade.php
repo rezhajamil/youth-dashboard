@@ -25,7 +25,7 @@
 </head>
 <body>
     <div class="flex flex-col items-center justify-center h-screen px-6 bg-gray-200">
-        <img src="{{ asset('images/logo-shape-text.png') }}" alt="" class="h-40 mb-4 aspect-auto wow fadeInDown" data-wow-duration="2s">
+        <img src="{{ asset('images/logo-new-full.png') }}" alt="" class="h-40 mb-4 aspect-auto wow fadeInDown" data-wow-duration="2s">
         <div class="w-3/4 p-6 bg-white rounded-md shadow-md">
             <div class="flex items-center justify-center">
                 <span class="text-2xl font-semibold text-gray-700">Register Dashboard</span>
@@ -36,7 +36,7 @@
                 <div class="grid grid-cols-3 col-span-full gap-x-4">
                     <label class="block">
                         <span class="text-sm text-gray-700">Username</span>
-                        <input type="text" class="block w-full mt-1 rounded-md form-input focus:border-sky-600" name="username" value="{{old('username')}}">
+                        <input type="text" class="block w-full mt-1 rounded-md form-input focus:border-y_premier" name="username" value="{{old('username')}}">
                         @error('username')
                         <span class="text-sm italic text-premier">{{ $message }}</span>
                         @enderror
@@ -44,7 +44,7 @@
     
                     <label class="block">
                         <span class="text-sm text-gray-700">Nama</span>
-                        <input type="text" class="block w-full mt-1 rounded-md form-input focus:border-sky-600" name="name" value="{{old('name')}}">
+                        <input type="text" class="block w-full mt-1 rounded-md form-input focus:border-y_premier" name="name" value="{{old('name')}}">
                         @error('name')
                         <span class="text-sm italic text-premier">{{ $message }}</span>
                         @enderror
@@ -65,7 +65,7 @@
 
                 {{-- <label class="block">
                     <span class="text-sm text-gray-700">ID Branch</span>
-                    <input type="text" class="block w-full rounded-md form-input focus:border-sky-600" name="id_branch" value="{{old('id_branch',0)}}">
+                    <input type="text" class="block w-full rounded-md form-input focus:border-y_premier" name="id_branch" value="{{old('id_branch',0)}}">
                     @error('id_branch')
                     <span class="text-sm italic text-premier">{{ $message }}</span>
                     @enderror
@@ -108,7 +108,7 @@
                 </div>
                 <label class="block mt-3">
                     <span class="text-sm text-gray-700">Password</span>
-                    <input type="password" class="block w-full mt-1 rounded-md form-input focus:border-sky-600" name="password">
+                    <input type="password" class="block w-full mt-1 rounded-md form-input focus:border-y_premier" name="password">
                     @error('password')
                     <span class="text-sm italic text-premier">{{ $message }}</span>
                     @enderror
@@ -116,7 +116,7 @@
                 
                 <label class="block mt-3">
                     <span class="text-sm text-gray-700">Konfirmasi Password</span>
-                    <input type="password" class="block w-full mt-1 rounded-md form-input focus:border-sky-600" name="password_confirmation">
+                    <input type="password" class="block w-full mt-1 rounded-md form-input focus:border-y_premier" name="password_confirmation">
                     @error('password')
                     <span class="text-sm italic text-premier">{{ $message }}</span>
                     @enderror
@@ -126,7 +126,7 @@
                     <button class="w-full px-4 py-2 text-sm text-center text-white bg-indigo-600 rounded-md hover:bg-indigo-500">
                         Daftar
                     </button>
-                    <a href="{{route('login')}}" class="inline-block w-full mt-2 text-sm text-center underline transition cursor-pointer text-sky-600 hover:text-sky-800">Sudah punya akun? Login ke akun anda</a>
+                    <a href="{{route('login')}}" class="inline-block w-full mt-2 text-sm text-center underline transition cursor-pointer text-y_premier hover:text-sky-800">Sudah punya akun? Login ke akun anda</a>
                 </div>
             </form>
         </div>
