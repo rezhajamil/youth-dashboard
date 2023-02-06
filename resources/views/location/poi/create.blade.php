@@ -68,8 +68,8 @@
                                 <select name="location" id="location" class="w-full rounded-md">
                                     <option value="" selected disabled>Pilih Location</option>
                                     @foreach ($location as $item)
-                                    <option value="{{ $item->location }}" {{ old('location')==$item->location?'selected':'' }}>
-                                        {{ $item->location }}
+                                    <option value="{{ $item->name }}" {{ old('location')==$item->name?'selected':'' }}>
+                                        {{ $item->name }}
                                     </option>
                                     @endforeach
                                 </select>
@@ -82,8 +82,8 @@
                                 <select name="keterangan_poi" id="keterangan_poi" class="w-full rounded-md">
                                     <option value="" selected disabled>Pilih Keterangan POI</option>
                                     @foreach ($keterangan as $item)
-                                    <option value="{{ $item->keterangan_poi }}" {{ old('keterangan_poi')==$item->keterangan_poi?'selected':'' }}>
-                                        {{ $item->keterangan_poi }}
+                                    <option value="{{ $item->name }}" {{ old('keterangan_poi')==$item->name?'selected':'' }}>
+                                        {{ $item->name }}
                                     </option>
                                     @endforeach
                                 </select>
@@ -135,7 +135,7 @@
                     </div>
 
                     <div class="flex justify-end mt-4 col-span-full">
-                        <button class="w-full px-4 py-2 font-bold text-white bg-y_premier rounded-md hover:bg-y_sekunder focus:outline-none focus:bg-y_sekunder">Submit</button>
+                        <button class="w-full px-4 py-2 font-bold text-white rounded-md bg-y_premier hover:bg-y_sekunder focus:outline-none focus:bg-y_sekunder">Submit</button>
                     </div>
                 </form>
             </div>

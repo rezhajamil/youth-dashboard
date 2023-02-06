@@ -95,8 +95,8 @@ class LocationController extends Controller
     public function create_poi()
     {
         $region = DB::table('territory_new')->select('regional')->orderBy('regional', 'desc')->distinct()->get();
-        $location = DB::table('list_poi')->select('location')->distinct()->get();
-        $keterangan = DB::table('list_poi')->select('keterangan_poi')->distinct()->get();
+        $location = DB::table('location_poi')->select('name')->distinct()->get();
+        $keterangan = DB::table('keterangan_poi')->select('name')->distinct()->get();
         $jenis = DB::table('list_poi')->select('jenis_poi')->distinct()->get();
 
         return view('location.poi.create', compact('region', 'location', 'keterangan', 'jenis'));
