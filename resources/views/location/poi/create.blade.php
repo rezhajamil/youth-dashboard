@@ -33,7 +33,7 @@
                                 <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="w-full">
+                            {{-- <div class="w-full">
                                 <label class="block text-gray-700" for="sub_branch">Sub Branch</label>
                                 <select name="sub_branch" id="sub_branch" class="w-full rounded-md">
                                     <option value="" selected disabled>Pilih Sub Branch</option>
@@ -41,7 +41,7 @@
                                 @error('sub_branch')
                                 <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
-                            </div>
+                            </div> --}}
                             <div class="w-full">
                                 <label class="block text-gray-700" for="cluster">Cluster</label>
                                 <select name="cluster" id="cluster" class="w-full rounded-md">
@@ -182,7 +182,7 @@
             var branch = $("#branch").val();
             console.log(branch)
             $.ajax({
-                url: "{{ route('wilayah.get_sub_branch') }}"
+                url: "{{ route('wilayah.get_cluster') }}"
                 , method: "POST"
                 , dataType: "JSON"
                 , data: {
@@ -191,11 +191,11 @@
                 }
                 , success: (data) => {
                     console.log(data)
-                    $("#sub_branch").html(
+                    $("#cluster").html(
                         "<option disabled selected>Pilih Sub Branch</option>"+
                         data.map((item) => {
                             return `
-                    <option value="${item.sub_branch}">${item.sub_branch}</option>
+                    <option value="${item.cluster}">${item.cluster}</option>
                     `
                         })
 

@@ -107,7 +107,7 @@ class LocationController extends Controller
         $request->validate([
             'regional' => 'required',
             'branch' => 'required',
-            'sub_branch' => 'required',
+            // 'sub_branch' => 'required',
             'cluster' => 'required',
             'kabupaten' => 'required',
             'location' => 'required',
@@ -122,7 +122,7 @@ class LocationController extends Controller
             'area' => 'SUMATERA',
             'regional' => $request->regional,
             'branch' => $request->branch,
-            'sub_branch' => $request->sub_branch,
+            // 'sub_branch' => $request->sub_branch,
             'cluster' => $request->cluster,
             'kabupaten' => $request->kabupaten,
             'location' => $request->location,
