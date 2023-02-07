@@ -32,7 +32,7 @@
                         @endforeach
                     </select>
                     <div class="flex gap-x-3">
-                        <button class="px-4 py-2 font-bold text-white transition bg-y_premier rounded-lg hover:bg-y_premier"><i class="mr-2 fa-solid fa-magnifying-glass"></i>Cari</button>
+                        <button class="px-4 py-2 font-bold text-white transition rounded-lg bg-y_premier hover:bg-y_premier"><i class="mr-2 fa-solid fa-magnifying-glass"></i>Cari</button>
                         @if (request()->get('provinsi')||request()->get('kabupaten')||request()->get('kecamatan'))
                         <a href="{{ route('sekolah.index') }}" class="px-4 py-2 font-bold text-white transition bg-gray-600 rounded-lg hover:bg-gray-800"><i class="mr-2 fa-solid fa-circle-xmark"></i>Reset</a>
                         @endif
@@ -67,7 +67,7 @@
 
 
             {{-- <span class="inline-block mt-6 mb-2 text-lg font-semibold text-gray-600">Direct Sales By Region</span> --}}
-            {{-- <a href="{{ route('direct_user.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-y_premier rounded-md hover:bg-y_premier"><i class="mr-2 fa-solid fa-plus"></i> Data User Baru</a> --}}
+            {{-- <a href="{{ route('direct_user.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white rounded-md bg-y_premier hover:bg-y_premier"><i class="mr-2 fa-solid fa-plus"></i> Data User Baru</a> --}}
 
             <div class="overflow-auto bg-white rounded-md shadow w-fit">
                 <table class="overflow-auto text-left border-collapse w-fit">
@@ -106,13 +106,13 @@
                             <td class="p-4 text-gray-700 border-b regional">{{ $data->REGIONAL }}</td>
                             <td class="p-4 text-gray-700 border-b branch">{{ $data->BRANCH }}</td>
                             <td class="p-4 text-gray-700 border-b cluster">{{ $data->CLUSTER }}</td>
-                            <td class="p-4 text-gray-700 border-b cluster">{{ $data->PJP }}</td>
-                            <td class="p-4 text-gray-700 border-b cluster">{{ $data->FREKUENSI }}</td>
+                            <td class="p-4 text-gray-700 border-b ">{{ $data->PJP }}</td>
+                            <td class="p-4 text-gray-700 border-b ">{{ $data->FREKUENSI }}</td>
                             @if (Auth::user()->privilege!='cluster')
                             <td class="p-4 text-gray-700 border-b">
                                 <a href="{{ route('sekolah.show',$data->NPSN) }}" target="_blank" class="block my-1 text-base font-semibold text-teal-600 transition hover:text-teal-800">Detail</a>
                                 @if (!$data->KAB_KOTA||!$data->KECAMATAN||!$data->BRANCH||!$data->CLUSTER)
-                                <a href="{{ route('sekolah.edit',$data->NPSN) }}" class="block my-1 text-base font-semibold text-y_premier transition hover:text-indigo-800">Edit</a>
+                                <a href="{{ route('sekolah.edit',$data->NPSN) }}" class="block my-1 text-base font-semibold transition text-y_premier hover:text-indigo-800">Edit</a>
                                 @endif
                                 {{-- <form action="{{ route('direct_user.change_status',$data->id) }}" method="post">
                                 @csrf
