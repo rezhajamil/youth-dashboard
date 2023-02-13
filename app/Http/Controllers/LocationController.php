@@ -151,7 +151,7 @@ class LocationController extends Controller
     
     public function update_poi(Request $request, $id)
     {
-        $poi = DB::table('poi')->find($id);
+        $poi = DB::table('list_poi')->find($id);
 
         DB::table('list_poi')->where('id', $id)->update([
             "latitude" => $request->latitude,
