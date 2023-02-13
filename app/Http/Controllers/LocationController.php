@@ -103,6 +103,7 @@ class LocationController extends Controller
 
         return view('location.poi.create', compact('region', 'location', 'keterangan', 'jenis'));
     }
+    
 
     public function store_poi(Request $request)
     {
@@ -138,6 +139,28 @@ class LocationController extends Controller
 
         return redirect()->route('location.poi');
     }
+
+    
+    public function edit_poi($id)
+    {
+        $poi = DB::table('list_poi')->find($id);
+        // $cluster = DB::table('territory_new')->select('cluster')->distinct()->get();
+        return view('location.poi.edit', compact('poi'));
+    }
+
+    
+    public function update_poi(Request $request, $id)
+    {
+        $poi = DB::table('poi')->find($id);
+
+        DB::table('list_poi')->where('id', $id)->update([
+            "latitude" => $request->latitude,
+            "longitude" => $request->longitude
+        ]);
+
+        return redirect()->route('location.poi');
+    }
+    
     /**
      * Display a listing of the resource.
      *
