@@ -4,7 +4,7 @@
     <div class="flex flex-col">
         <div class="mt-4">
             <h4 class="text-xl font-bold text-gray-600 align-baseline">Data TAPS</h4>
-            <a href="{{ route('location.taps.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-y_premier rounded-md hover:bg-y_premier"><i class="mr-2 fa-solid fa-plus"></i> Data TAPS Baru</a>
+            <a href="{{ route('location.taps.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white rounded-md bg-y_premier hover:bg-y_premier"><i class="mr-2 fa-solid fa-plus"></i> Data TAPS Baru</a>
             <div class="flex flex-wrap items-end mb-2 gap-x-4">
                 <input type="text" name="search" id="search" placeholder="Search..." class="px-4 rounded-lg">
                 <div class="flex flex-col">
@@ -24,7 +24,7 @@
 
             {{-- <span class="inline-block mt-6 mb-2 text-lg font-semibold text-gray-600">Direct Sales By Region</span> --}}
             {{-- @if (Auth::user()->privilege!='cluster')
-            <a href="{{ route('direct_user.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-y_premier rounded-md hover:bg-y_premier"><i class="mr-2 fa-solid fa-plus"></i> Data User Baru</a>
+            <a href="{{ route('direct_user.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white rounded-md bg-y_premier hover:bg-y_premier"><i class="mr-2 fa-solid fa-plus"></i> Data User Baru</a>
             @endif --}}
 
             <div class="overflow-auto bg-white rounded-md shadow w-fit">
@@ -60,7 +60,7 @@
                             <td class="p-3 text-gray-700 uppercase border-b longitude">{{ $data->longitude }}</td>
                             <td class="p-3 text-gray-700 uppercase border-b latitude">{{ $data->latitude }}</td>
                             <td class="p-3 text-gray-700 border-b">
-                                <a href="{{ route('location.taps.edit',$data->id) }}" class="block my-1 text-base font-semibold text-y_premier transition hover:text-indigo-800">Edit Cluster</a>
+                                <a href="{{ route('location.taps.edit',$data->id) }}" class="block my-1 text-base font-semibold transition text-y_premier hover:text-indigo-800">Edit</a>
                             </td>
                             {{-- @else
                             <td class="p-3 text-gray-700 border-b">

@@ -78,7 +78,9 @@ class LocationController extends Controller
         $tap = DB::table('taps')->find($id);
 
         DB::table('taps')->where('id', $id)->update([
-            "cluster" => $request->cluster
+            "cluster" => $request->cluster,
+            "latitude" => $request->latitude,
+            "longitude" => $request->longitude
         ]);
 
         return redirect()->route('location.taps');
