@@ -32,10 +32,16 @@ class AuthenticatedSessionController extends Controller
     {
         $user = User::where('username', $request->username)->first();
 
-        if ($user->status == 0) {
-            throw ValidationException::withMessages([
-                'username' => 'Akun anda tidak aktif. Hubungi administrator untuk mengaktifkan.',
-            ]);
+        if($user){
+            if ($user->status == 0) {
+                throw ValidationException::withMessages([
+                    'username' => 'Akun anda tidak aktif. Hubungi administrator untuk mengaktifkan.',
+                ]);
+            }
+        }else{
+           throw ValidationException::withMessages([
+                'username' => 'Akun tidak ditemukan / Username Salah',
+            ]); 
         }
         $request->authenticate($request);
 
