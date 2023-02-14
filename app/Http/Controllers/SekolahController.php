@@ -87,28 +87,11 @@ class SekolahController extends Controller
     public function edit($npsn)
     {
         $sekolah = Sekolah::where('NPSN', $npsn)->first();
-        $regional = explode(".", $sekolah->REGIONAL);
-        if ($sekolah->KAB_KOTA) {
-            // $kabupaten = [(object)['kabupaten' => $sekolah->KAB_KOTA]];
-            $kabupaten = [(object)['kabupaten' => $sekolah->KAB_KOTA]];
-        } else {
-            $kabupaten = DB::table('territory')->select('kabupaten')->distinct()->where('region', $regional[1])->orderBy('kabupaten')->get();
-        }
-
-        if ($sekolah->KECAMATAN) {
-            $kecamatan = [(object)['kecamatan' => $sekolah->KECAMATAN]];
-        } else {
-            if ($sekolah->KAB_KOTA) {
-                $kecamatan = DB::table('territory')->select('kecamatan')->distinct()->where('kabupaten', $sekolah->KAB_KOTA)->orderBy('kecamatan')->get();
-            } else {
-                $kecamatan = [];
-            }
-        }
         // foreach ($kabupaten as $item) {
         //     ddd($item);
         // }
-        $branch = DB::table('territory')->select('new_branch as branch')->distinct()->where('region', $regional[1])->orderBy('new_branch')->get();
-        return view('sekolah.edit', compact('sekolah', 'kabupaten', 'kecamatan', 'branch'));
+        $user=DataUser::where('cluster',$sekolah->CLUSTER)->orderBy('nama')->get();
+        return view('sekolah.edit', compact('sekolah', 'user'));
     }
 
     /**
@@ -121,24 +104,20 @@ class SekolahController extends Controller
     public function update(Request $request, $npsn)
     {
         $request->validate([
-            'kabupaten' => 'required',
-            'kecamatan' => 'required',
-            'branch' => 'required',
-            'cluster' => 'required',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
             'pjp' => 'required',
             'frekuensi' => 'required',
+            'telp' => 'required|numeric',
         ]);
 
-        $sekolah = Sekolah::find($npsn);
-        $sekolah->timestamps = false;
-        $sekolah->KAB_KOTA = $request->kabupaten;
-        $sekolah->KECAMATAN = $request->kecamatan;
-        $sekolah->BRANCH = $request->branch;
-        $sekolah->CLUSTER = $request->cluster;
-        $sekolah->PJP = $request->pjp;
-        $sekolah->FREKUENSI = $request->frekuensi;
 
-        $sekolah->save();
+        DB::table('Data_Sekolah_Sumatera')->where('NPSN',$npsn)->update([
+            'LATITUDE'=>$request->latitude,
+            'LONGITUDE'=>$request->longitude,
+            'PJP'=>$request->pjp,
+            'FREKUENSI'=>$request->frekuensi,
+        ]);
 
         return redirect()->route('sekolah.index');
     }

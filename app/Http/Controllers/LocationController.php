@@ -40,8 +40,8 @@ class LocationController extends Controller
             'kelurahan' => 'required',
             'nama' => 'required',
             'alamat' => 'required',
-            'latitude' => 'required',
-            'longitude' => 'required',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
         ]);
 
         $taps = DB::table('taps')->insert([
@@ -75,6 +75,11 @@ class LocationController extends Controller
 
     public function update_taps(Request $request, $id)
     {
+        $request->validate([
+            'latitude'=>'required|numeric',
+            'longitude'=>'required|numeric',
+        ]);
+
         $tap = DB::table('taps')->find($id);
 
         DB::table('taps')->where('id', $id)->update([
@@ -117,8 +122,8 @@ class LocationController extends Controller
             'keterangan_poi' => 'required',
             'jenis_poi' => 'required',
             'name' => 'required',
-            'latitude' => 'required',
-            'longitude' => 'required',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
         ]);
 
         $poi = DB::table('list_poi')->insert([
@@ -151,6 +156,10 @@ class LocationController extends Controller
     
     public function update_poi(Request $request, $id)
     {
+        $request->validate([
+            'latitude'=>'required|numeric',
+            'longitude'=>'required|numeric',
+        ]);
         $poi = DB::table('list_poi')->find($id);
 
         DB::table('list_poi')->where('id', $id)->update([

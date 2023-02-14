@@ -13,14 +13,14 @@
                         <div class="grid grid-cols-2 gap-x-3 col-span-full">
                             <div class="w-full">
                                 <label class="text-gray-700" for="latitude">Latitude</label>
-                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="number" name="latitude" value="{{ old('latitude',$poi->latitude) }}">
+                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="text" name="latitude" value="{{ old('latitude',$poi->latitude) }}">
                                 @error('latitude')
                                 <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="w-full">
                                 <label class="text-gray-700" for="longitude">Longitude</label>
-                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="number" name="longitude" value="{{ old('longitude',$poi->longitude) }}">
+                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="text" name="longitude" value="{{ old('longitude',$poi->longitude) }}">
                                 @error('longitude')
                                 <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror

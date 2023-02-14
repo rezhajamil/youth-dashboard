@@ -315,7 +315,7 @@ class SurveyController extends Controller
                 $sekolah=Sekolah::where('npsn',$request->npsn)->first();
                 DB::table('survey_answer')->insert([
                     'session' => $request->session,
-                    'npsn' => $request->npsn,
+                    'npsn' => $request->npsn, 
                     'telp' => $sekolah->TELP,
                     'kelas' => $request->kelas ?? 'All',
                     'pilihan' => json_encode($pilihan),
