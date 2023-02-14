@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataUser;
+use App\Models\Sekolah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -311,9 +312,11 @@ class SurveyController extends Controller
             $answer = DB::table('survey_answer')->where('telp_siswa', $request->jawaban_0[0])->count();
             // ddd($request->session);
             if ($answer < 1) {
+                $sekolah=Sekolah::where('npsn',$request->npsn)->first();
                 DB::table('survey_answer')->insert([
                     'session' => $request->session,
                     'npsn' => $request->npsn,
+                    'telp' => $sekolah->TELP,
                     'kelas' => $request->kelas ?? 'All',
                     'pilihan' => json_encode($pilihan),
                     'telp_siswa' => $request->jawaban_0[0],
