@@ -119,14 +119,14 @@
                         </div>
                         <div>
                             <label class="text-gray-700" for="latitude">Latitude</label>
-                            <input class="w-full rounded-md form-input focus:border-indigo-600" type="text" name="latitude" value="{{ old('latitude') }}">
+                            <input class="w-full rounded-md form-input focus:border-indigo-600" type="number" name="latitude" value="{{ old('latitude') }}">
                             @error('latitude')
                             <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                             @enderror
                         </div>
                         <div>
                             <label class="text-gray-700" for="longitude">Longitude</label>
-                            <input class="w-full rounded-md form-input focus:border-indigo-600" type="text" name="longitude" value="{{ old('longitude') }}">
+                            <input class="w-full rounded-md form-input focus:border-indigo-600" type="number" name="longitude" value="{{ old('longitude') }}">
                             @error('longitude')
                             <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                             @enderror
