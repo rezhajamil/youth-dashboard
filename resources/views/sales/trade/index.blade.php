@@ -113,11 +113,10 @@
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Nama</th>
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Telp</th>
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Role</th>
-                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Reff Code</th>
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Jenis</th>
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Detail</th>
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">MSISDN</th>
-                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">IMEI</th>
+                            <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">No Kompetitor</th>
                             <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Tanggal Lapor</th>
                             {{-- <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">MOM</th> --}}
                             @if (Auth::user()->privilege!='cluster')
@@ -133,7 +132,6 @@
                             <td class="p-4 text-gray-700 uppercase border-b nama">{{ $data->nama }}</td>
                             <td class="p-4 text-gray-700 uppercase border-b telp">{{ $data->telp }}</td>
                             <td class="p-4 text-gray-700 uppercase border-b role">{{ $data->role }}</td>
-                            <td class="p-4 text-gray-700 uppercase border-b reff">{{ $data->reff_code }}</td>
                             <td class="p-4 text-gray-700 uppercase border-b whitespace-nowrap jenis">{{ $data->jenis }}</td>
                             <td class="p-4 text-gray-700 uppercase border-b whitespace-nowrap status">{{ $data->detail }}</td>
                             <td class="p-4 text-gray-700 uppercase border-b msisdn">{{ $data->msisdn }}</td>
