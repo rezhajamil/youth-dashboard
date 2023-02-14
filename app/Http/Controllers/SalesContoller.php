@@ -187,7 +187,7 @@ class SalesContoller extends Controller
                     FROM sales_copy a  
                     JOIN data_user b ON b.telp = a.telp
                     LEFT JOIN validasi_orbit c on c.msisdn = a.msisdn
-                    " . $where . " 
+                    WHERE a.kategori='ORBIT'
                     " . $branch . "
                     GROUP BY 1,2,3;";
 
@@ -197,7 +197,7 @@ class SalesContoller extends Controller
                     FROM sales_copy a  
                     JOIN data_user b ON b.telp = a.telp
                     LEFT JOIN validasi_orbit c on c.msisdn = a.msisdn
-                    " . $where . "
+                    WHERE a.kategori='ORBIT'
                     " . $branch . "
                     GROUP BY 1,2;";
 
@@ -206,7 +206,7 @@ class SalesContoller extends Controller
                     JOIN data_user b ON b.telp = a.telp
                     LEFT JOIN validasi_orbit c on c.msisdn = a.msisdn
                     where a.date BETWEEN '" . $m1 . "' AND '" . $mtd . "'
-                    and not a.status ='1' 
+                    and not a.status ='1' and a.kategori='ORBIT'
                     " . $and . "
                     " . $branch . "
                     ORDER by b.cluster, b.nama ASC";
@@ -225,6 +225,15 @@ class SalesContoller extends Controller
     public function destroy_orbit($msisdn)
     {
         $orbit = DB::table('sales_copy')->where('msisdn', $msisdn)->update([
+            'status' => '1'
+        ]);
+
+        return back();
+    }
+
+    public function destroy_trade($msisdn)
+    {
+        $trade = DB::table('sales_copy')->where('msisdn', $msisdn)->update([
             'status' => '1'
         ]);
 
@@ -346,119 +355,54 @@ class SalesContoller extends Controller
         return view('sales.digipos.index', compact('sales', 'sales_branch', 'sales_cluster'));
     }
 
-    public function trade()
+    public function trade(Request $request)
     {
-        $branch = Auth::user()->privilege == 'branch' ? "WHERE a.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == 'cluster' ? "WHERE a.cluster='" . Auth::user()->cluster . "'" : '');
-        $query = "SELECT a.`cluster`,a.outlet_id,a.fisik,b.nama,b.role,
-                SUM(omset_jun22) as omset_last_mtd,
-                SUM(rech_reg_jun22) as rech_reg_last_mtd,
-                SUM(rech_vas_jun22) as rech_vas_last_mtd,
-                SUM(digital_jun22) as digital_last_mtd,
-                SUM(cvm_jun22) as cvm_last_mtd,
-                SUM(voice_jun22) as voice_last_mtd,
-                SUM(nsb_jun22) as nsb_last_mtd,
-                SUM(ketengan_jun22) as ketengan_last_mtd,
+        $update = DB::select('select max(date) as last_update from sales_copy;');
+        if ($request->date) {
+            $m1 = date('Y-m-01', strtotime($request->date));
+            $mtd = date('Y-m-d', strtotime($request->date));
+            $last_m1 = date('Y-m-01', strtotime($this->convDate($mtd)));
+            $last_mtd = $this->convDate($mtd);
+            $branch = Auth::user()->privilege == "branch" ? "branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "b.cluster='" . Auth::user()->cluster . "'" : '');
+            $where = Auth::user()->privilege == "branch" || Auth::user()->privilege == "cluster" ? "where" : "";
+            $and = Auth::user()->privilege == "branch" || Auth::user()->privilege == "cluster" ? "and" : "";
 
-                SUM(omset_jul22) as omset_mtd,
-                SUM(rech_reg_jul22) as rech_reg_mtd,
-                SUM(rech_vas_jul22) as rech_vas_mtd,
-                SUM(digital_jul22) as digital_mtd,
-                SUM(cvm_jul22) as cvm_mtd,
-                SUM(voice_jul22) as voice_mtd,
-                SUM(nsb_jul22) as nsb_mtd,
-                SUM(ketengan_jul22) as ketengan_mtd
+            $query_branch = "SELECT b.regional, b.branch ,
+                    COUNT(CASE WHEN a.`date` BETWEEN '" . $m1 . "' AND '" . $mtd . "' THEN a.msisdn END) mtd,
+                       COUNT(CASE WHEN a.`date` BETWEEN '" . $last_m1 . "' AND '" . $last_mtd . "' THEN a.msisdn END) last_mtd
+                    FROM sales_copy a  
+                    JOIN data_user b ON b.telp = a.telp
+                    WHERE a.kategori='TRADE IN'
+                    " . $branch . "
+                    GROUP BY 1,2;";
 
-                FROM `penjualan_digipos` a 
-                INNER JOIN data_user b ON a.outlet_id=b.id_digipos
-                " . $branch . "
-                GROUP BY 1,2,3,4,5;";
+            $query_cluster = "SELECT b.cluster,
+                    COUNT(CASE WHEN a.`date` BETWEEN '" . $m1 . "' AND '" . $mtd . "' THEN a.msisdn END) mtd,
+                       COUNT(CASE WHEN a.`date` BETWEEN '" . $last_m1 . "' AND '" . $last_mtd . "' THEN a.msisdn END) last_mtd
+                    FROM sales_copy a  
+                    JOIN data_user b ON b.telp = a.telp
+                    WHERE a.kategori='TRADE IN'
+                    " . $branch . "
+                    GROUP BY 1;";
 
-        $query_branch = "SELECT a.region,a.branch,
-            SUM(omset_jun22) as omset_last_mtd,
-            SUM(rech_reg_jun22) as rech_reg_last_mtd,
-            SUM(rech_vas_jun22) as rech_vas_last_mtd,
-            SUM(digital_jun22) as digital_last_mtd,
-            SUM(cvm_jun22) as cvm_last_mtd,
-            SUM(voice_jun22) as voice_last_mtd,
-            SUM(nsb_jun22) as nsb_last_mtd,
-            SUM(ketengan_jun22) as ketengan_last_mtd,
+            $query = "SELECT b.nama,b.cluster,b.role,b.telp,b.reff_code, a.msisdn,a.`date`,a.serial,a.jenis,a.detail
+                    FROM sales_copy a  
+                    JOIN data_user b ON b.telp = a.telp
+                    where a.date BETWEEN '" . $m1 . "' AND '" . $mtd . "'
+                    and not a.status ='1' and a.kategori='TRADE IN'
+                    " . $and . "
+                    " . $branch . "
+                    ORDER by b.cluster, b.nama ASC";
 
-            SUM(omset_jul22) as omset_mtd,
-            SUM(rech_reg_jul22) as rech_reg_mtd,
-            SUM(rech_vas_jul22) as rech_vas_mtd,
-            SUM(digital_jul22) as digital_mtd,
-            SUM(cvm_jul22) as cvm_mtd,
-            SUM(voice_jul22) as voice_mtd,
-            SUM(nsb_jul22) as nsb_mtd,
-            SUM(ketengan_jul22) as ketengan_mtd
-
-            FROM `penjualan_digipos` a 
-            INNER JOIN data_user b ON a.outlet_id=b.id_digipos
-            " . $branch . "
-            GROUP BY 1,2;";
-
-        $query_cluster = "SELECT a.cluster,
-            SUM(omset_jun22) as omset_last_mtd,
-            SUM(rech_reg_jun22) as rech_reg_last_mtd,
-            SUM(rech_vas_jun22) as rech_vas_last_mtd,
-            SUM(digital_jun22) as digital_last_mtd,
-            SUM(cvm_jun22) as cvm_last_mtd,
-            SUM(voice_jun22) as voice_last_mtd,
-            SUM(nsb_jun22) as nsb_last_mtd,
-            SUM(ketengan_jun22) as ketengan_last_mtd,
-
-            SUM(omset_jul22) as omset_mtd,
-            SUM(rech_reg_jul22) as rech_reg_mtd,
-            SUM(rech_vas_jul22) as rech_vas_mtd,
-            SUM(digital_jul22) as digital_mtd,
-            SUM(cvm_jul22) as cvm_mtd,
-            SUM(voice_jul22) as voice_mtd,
-            SUM(nsb_jul22) as nsb_mtd,
-            SUM(ketengan_jul22) as ketengan_mtd
-
-            FROM `penjualan_digipos` a 
-            INNER JOIN data_user b ON a.outlet_id=b.id_digipos
-            WHERE a.branch='JAMBI'
-            GROUP BY 1;";
-
-        $sales = DB::select($query);
-        $sales_branch = DB::select($query_branch);
-        $sales_cluster = DB::select($query_cluster);
-
-        foreach ($sales as $key => $data) {
-            $data->omset_mom = $this->persen($data->omset_last_mtd, $data->omset_mtd);
-            $data->rech_reg_mom = $this->persen($data->rech_reg_last_mtd, $data->rech_reg_mtd);
-            $data->rech_vas_mom = $this->persen($data->rech_vas_last_mtd, $data->rech_vas_mtd);
-            $data->digital_mom = $this->persen($data->digital_last_mtd, $data->digital_mtd);
-            $data->cvm_mom = $this->persen($data->cvm_last_mtd, $data->cvm_mtd);
-            $data->voice_mom = $this->persen($data->voice_last_mtd, $data->voice_mtd);
-            $data->nsb_mom = $this->persen($data->nsb_last_mtd, $data->nsb_mtd);
-            $data->ketengan_mom = $this->persen($data->ketengan_last_mtd, $data->ketengan_mtd);
+            $sales_branch = DB::select($query_branch, [1]);
+            $sales_cluster = DB::select($query_cluster, [1]);
+            $sales = DB::select($query, [1]);
+        } else {
+            $sales_branch = [];
+            $sales_cluster = [];
+            $sales = [];
         }
-
-        foreach ($sales_branch as $key => $data) {
-            $data->omset_mom = $this->persen($data->omset_last_mtd, $data->omset_mtd);
-            $data->rech_reg_mom = $this->persen($data->rech_reg_last_mtd, $data->rech_reg_mtd);
-            $data->rech_vas_mom = $this->persen($data->rech_vas_last_mtd, $data->rech_vas_mtd);
-            $data->digital_mom = $this->persen($data->digital_last_mtd, $data->digital_mtd);
-            $data->cvm_mom = $this->persen($data->cvm_last_mtd, $data->cvm_mtd);
-            $data->voice_mom = $this->persen($data->voice_last_mtd, $data->voice_mtd);
-            $data->nsb_mom = $this->persen($data->nsb_last_mtd, $data->nsb_mtd);
-            $data->ketengan_mom = $this->persen($data->ketengan_last_mtd, $data->ketengan_mtd);
-        }
-
-        foreach ($sales_cluster as $key => $data) {
-            $data->omset_mom = $this->persen($data->omset_last_mtd, $data->omset_mtd);
-            $data->rech_reg_mom = $this->persen($data->rech_reg_last_mtd, $data->rech_reg_mtd);
-            $data->rech_vas_mom = $this->persen($data->rech_vas_last_mtd, $data->rech_vas_mtd);
-            $data->digital_mom = $this->persen($data->digital_last_mtd, $data->digital_mtd);
-            $data->cvm_mom = $this->persen($data->cvm_last_mtd, $data->cvm_mtd);
-            $data->voice_mom = $this->persen($data->voice_last_mtd, $data->voice_mtd);
-            $data->nsb_mom = $this->persen($data->nsb_last_mtd, $data->nsb_mtd);
-            $data->ketengan_mom = $this->persen($data->ketengan_last_mtd, $data->ketengan_mtd);
-        }
-
-        return view('sales.digipos.index', compact('sales', 'sales_branch', 'sales_cluster'));
+        return view('sales.trade.index', compact('sales_branch', 'sales_cluster', 'sales', 'update'));
     }
 
     /**
