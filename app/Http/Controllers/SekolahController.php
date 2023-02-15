@@ -224,6 +224,7 @@ class SekolahController extends Controller
             $site=DB::table('4g_list_site')->where('site_id',$request->site_id)->first();
             $pjp = DB::table('pjp')->insert([
                 'kategori' => $request->kategori,
+                'npsn' => $request->site_id,
                 'event' => ucwords($request->event),
                 'telp' => $request->telp,
                 'date' => $request->date,
