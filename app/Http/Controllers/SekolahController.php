@@ -90,7 +90,7 @@ class SekolahController extends Controller
         // foreach ($kabupaten as $item) {
         //     ddd($item);
         // }
-        $user=DataUser::where('cluster',$sekolah->CLUSTER)->orderBy('nama')->get();
+        $user = DataUser::where('cluster', $sekolah->CLUSTER)->orderBy('nama')->get();
         return view('sekolah.edit', compact('sekolah', 'user'));
     }
 
@@ -112,11 +112,11 @@ class SekolahController extends Controller
         ]);
 
 
-        DB::table('Data_Sekolah_Sumatera')->where('NPSN',$npsn)->update([
-            'LATITUDE'=>$request->latitude,
-            'LONGITUDE'=>$request->longitude,
-            'PJP'=>$request->pjp,
-            'FREKUENSI'=>$request->frekuensi,
+        DB::table('Data_Sekolah_Sumatera')->where('NPSN', $npsn)->update([
+            'LATITUDE' => $request->latitude,
+            'LONGITUDE' => $request->longitude,
+            'PJP' => $request->pjp,
+            'FREKUENSI' => $request->frekuensi,
         ]);
 
         return redirect()->route('sekolah.index');
@@ -173,7 +173,8 @@ class SekolahController extends Controller
     {
         // $pjp = DB::select("SELECT BRANCH,CLUSTER,PJP,COUNT(PJP) as jumlah FROM Data_Sekolah_Sumatera WHERE PJP IS NOT NULL GROUP BY 1,2,3 ORDER BY 1,2,3;");
         // $where=Auth::user()->privilege=='branch'?"where a.cluster='auth()"
-        $pjp = DB::select("SELECT a.*,b.NAMA_SEKOLAH,c.regional,c.branch,c.cluster FROM pjp a LEFT JOIN Data_Sekolah_Sumatera b on a.npsn=b.NPSN LEFT JOIN data_user c ON a.telp=c.telp ORDER BY a.kategori desc;");
+        $where = Auth::user()->privilege == 'branch' ? "WHERE b.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == 'cluster' ? "WHERE b.cluster='" . Auth::user()->cluster . "'" : '');
+        $pjp = DB::select("SELECT a.*,b.NAMA_SEKOLAH,c.regional,c.branch,c.cluster FROM pjp a LEFT JOIN Data_Sekolah_Sumatera b on a.npsn=b.NPSN LEFT JOIN data_user c ON a.telp=c.telp $where ORDER BY a.kategori desc;");
 
         return view('sekolah.pjp', compact('pjp'));
     }
@@ -184,7 +185,7 @@ class SekolahController extends Controller
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->orderBy('cluster')->get();
         } else if (auth()->user()->privilege == 'branch') {
             $cluster = DB::table('territory_new')->select('cluster')->where('branch', auth()->user()->branch)->distinct()->orderBy('cluster')->get();
-        }else{
+        } else {
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->where('cluster', auth()->user()->cluster)->distinct()->orderBy('cluster')->get();
         }
         return view('sekolah.create_pjp', compact('cluster'));
@@ -197,7 +198,7 @@ class SekolahController extends Controller
         ]);
 
         if ($request->kategori == 'sekolah') {
-            $sekolah=DB::table('Data_Sekolah_Sumatera')->where('NPSN',$request->npsn)->first();
+            $sekolah = DB::table('Data_Sekolah_Sumatera')->where('NPSN', $request->npsn)->first();
             $pjp = DB::table('pjp')->insert([
                 'kategori' => $request->kategori,
                 'npsn' => $request->npsn,
@@ -208,8 +209,8 @@ class SekolahController extends Controller
                 'longitude' => $sekolah->LONGITUDE,
                 'latitude' => $sekolah->LATITUDE,
             ]);
-        } else if($request->kategori == 'event'){
-            $poi=DB::table('list_poi')->find($request->poi);
+        } else if ($request->kategori == 'event') {
+            $poi = DB::table('list_poi')->find($request->poi);
             $pjp = DB::table('pjp')->insert([
                 'kategori' => $request->kategori,
                 'npsn' => $request->poi,
@@ -221,8 +222,8 @@ class SekolahController extends Controller
                 'longitude' => $poi->longitude,
                 'latitude' => $poi->latitude,
             ]);
-        }else if($request->kategori == 'u60'){
-            $site=DB::table('4g_list_site')->where('site_id',$request->site_id)->first();
+        } else if ($request->kategori == 'u60') {
+            $site = DB::table('4g_list_site')->where('site_id', $request->site_id)->first();
             $pjp = DB::table('pjp')->insert([
                 'kategori' => $request->kategori,
                 'npsn' => $request->site_id,
@@ -233,8 +234,8 @@ class SekolahController extends Controller
                 'longitude' => $site->longitude,
                 'latitude' => $site->latitude,
             ]);
-        }else if($request->kategori == 'orbit'){
-            $poi=DB::table('list_poi')->find($request->poi);
+        } else if ($request->kategori == 'orbit') {
+            $poi = DB::table('list_poi')->find($request->poi);
             $pjp = DB::table('pjp')->insert([
                 'kategori' => $request->kategori,
                 'npsn' => $request->poi,
@@ -251,7 +252,7 @@ class SekolahController extends Controller
         return redirect()->route('sekolah.pjp');
     }
 
-    
+
     public function get_user_pjp(Request $request)
     {
         $users = DataUser::where('cluster', $request->cluster)->orderBy('nama')->get();
@@ -261,17 +262,18 @@ class SekolahController extends Controller
 
     public function get_poi(Request $request)
     {
-        $poi = DB::table('list_poi')->where('cluster', $request->cluster)->where('status','1')->orderBy('poi_name')->get();
+        $poi = DB::table('list_poi')->where('cluster', $request->cluster)->where('status', '1')->orderBy('poi_name')->get();
 
         return response()->json(compact('poi'));
     }
 
-    public function get_site(Request $request){
+    public function get_site(Request $request)
+    {
         $site = DB::table('4g_list_site')->where('cluster', $request->cluster)->orderBy('site_id')->get();
 
         return response()->json(compact('site'));
     }
-    
+
     public function find_school(Request $request)
     {
         $name = $request->name;

@@ -372,7 +372,8 @@ class SalesContoller extends Controller
                        COUNT(CASE WHEN a.`date` BETWEEN '" . $last_m1 . "' AND '" . $last_mtd . "' THEN a.msisdn END) last_mtd
                     FROM sales_copy a  
                     JOIN data_user b ON b.telp = a.telp
-                    WHERE a.kategori='TRADE IN'
+                    WHERE a.kategori='TRADE IN' 
+                    " . $and . "
                     " . $branch . "
                     GROUP BY 1,2;";
 
@@ -382,6 +383,7 @@ class SalesContoller extends Controller
                     FROM sales_copy a  
                     JOIN data_user b ON b.telp = a.telp
                     WHERE a.kategori='TRADE IN'
+                    " . $and . "
                     " . $branch . "
                     GROUP BY 1;";
 

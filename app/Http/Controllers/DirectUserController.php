@@ -44,12 +44,12 @@ class DirectUserController extends Controller
             $branch = DB::table('wilayah')->select('branch')->distinct()->whereNotNull('branch')->get();
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->orderBy('cluster')->get();
             $tap = DB::table('taps')->select('nama')->distinct()->whereNotNull('nama')->orderBy('nama')->get();
-        } else if(Auth::user()->privilege == "branch"){
+        } else if (Auth::user()->privilege == "branch") {
             $region = DB::table('wilayah')->select('regional')->distinct()->where('regional', Auth::user()->regional)->get();
             $branch = DB::table('wilayah')->select('branch')->distinct()->where('branch', Auth::user()->branch)->get();
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->where('branch', Auth::user()->branch)->orderBy('cluster')->get();
             $tap = [];
-        }else{
+        } else {
             $region = DB::table('wilayah')->select('regional')->distinct()->where('regional', Auth::user()->regional)->get();
             $branch = DB::table('wilayah')->select('branch')->distinct()->where('branch', Auth::user()->branch)->get();
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->where('cluster', Auth::user()->cluster)->orderBy('cluster')->get();
@@ -125,7 +125,6 @@ class DirectUserController extends Controller
     {
         $user = DataUser::find($id);
 
-
         $month = $request->month ?? date('m');
         $year = $request->year ?? date('Y');
 
@@ -163,12 +162,12 @@ class DirectUserController extends Controller
             $branch = DB::table('wilayah')->select('branch')->distinct()->whereNotNull('branch')->get();
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->orderBy('cluster')->get();
             $tap = DB::table('taps')->select('nama')->distinct()->whereNotNull('nama')->where('cluster', $user->cluster)->orderBy('nama')->get();
-        } else if(Auth::user()->privilege == "branch"){
+        } else if (Auth::user()->privilege == "branch") {
             $region = DB::table('wilayah')->select('regional')->distinct()->where('regional', Auth::user()->regional)->get();
             $branch = DB::table('wilayah')->select('branch')->distinct()->where('branch', Auth::user()->branch)->get();
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->where('branch', Auth::user()->branch)->orderBy('cluster')->get();
             $tap = DB::table('taps')->select('nama')->distinct()->whereNotNull('nama')->where('cluster', $user->cluster)->orderBy('nama')->get();
-        }else{
+        } else {
             $region = DB::table('wilayah')->select('regional')->distinct()->where('regional', Auth::user()->regional)->get();
             $branch = DB::table('wilayah')->select('branch')->distinct()->where('branch', Auth::user()->branch)->get();
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->where('cluster', Auth::user()->cluster)->orderBy('cluster')->get();
@@ -289,7 +288,6 @@ class DirectUserController extends Controller
                         WHERE MONTH(date)=" . $month . " AND YEAR(date)=" . $year . "
                         and role='" . $request->role . "'
                         ORDER BY 2,3;");
-
             } else {
                 $absensi = [];
             }
@@ -331,6 +329,26 @@ class DirectUserController extends Controller
         $absensi = DB::select($query);
 
         return view('directUser.absensi.show', compact('absensi', 'period'));
+    }
+
+    public function clock_in(Request $request)
+    {
+        $cluster = $request->cluster;
+        $month = $request->month ?? date('m');
+        $year = $request->year ?? date('Y');
+
+        $list_cluster = DB::table('territory_new')->select('cluster')->distinct()->get();
+
+        if ($cluster) {
+            $clock = DB::table('table_kunjungan')
+                ->select(
+                    "SELECT * FROM table_kunjungan a JOIN data_user b ON a.telp=b.telp WHERE b.cluster='$cluster' AND MONTH(a.date)=$month AND YEAR(a.date)=$year ORDER BY b.nama"
+                )->get();
+        } else {
+            $clock = [];
+        }
+
+        return view('directUser.clockIn.index', compact('cluster', 'month', 'year', 'list_cluster', 'clock'));
     }
 
     /**
