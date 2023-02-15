@@ -163,8 +163,16 @@ class SekolahController extends Controller
 
     public function oss_osk()
     {
-        $resume = DB::select("SELECT BRANCH,CLUSTER,COUNT(data_oss_osk.npsn) as jumlah FROM data_oss_osk JOIN Data_Sekolah_Sumatera ON data_oss_osk.npsn=Data_Sekolah_Sumatera.NPSN GROUP BY 1,2 ORDER BY 1,2;");
-        $sekolah = DB::select("SELECT * FROM data_oss_osk JOIN Data_Sekolah_Sumatera ON data_oss_osk.npsn=Data_Sekolah_Sumatera.NPSN ORDER BY `CLUSTER`,KATEGORI_JENJANG,data_oss_osk.kecamatan,data_oss_osk.nama_sekolah");
+        $privilege = Auth::user()->privilege;
+        $territory = 'WHERE ' . ($privilege == 'branch' ? "Data_Sekolah_Sumatera.branch='" . Auth::user()->branch . "'" : "Data_Sekolah_Sumatera.cluster='" . Auth::user()->cluster . "'");
+
+        if ($privilege != 'superadmin') {
+            $resume = DB::select("SELECT BRANCH,CLUSTER,COUNT(data_oss_osk.npsn) as jumlah FROM data_oss_osk JOIN Data_Sekolah_Sumatera ON data_oss_osk.npsn=Data_Sekolah_Sumatera.NPSN $territory GROUP BY 1,2 ORDER BY 1,2;");
+            $sekolah = DB::select("SELECT * FROM data_oss_osk JOIN Data_Sekolah_Sumatera ON data_oss_osk.npsn=Data_Sekolah_Sumatera.NPSN $territory ORDER BY `CLUSTER`,KATEGORI_JENJANG,data_oss_osk.kecamatan,data_oss_osk.nama_sekolah");
+        } else {
+            $resume = DB::select("SELECT BRANCH,CLUSTER,COUNT(data_oss_osk.npsn) as jumlah FROM data_oss_osk JOIN Data_Sekolah_Sumatera ON data_oss_osk.npsn=Data_Sekolah_Sumatera.NPSN GROUP BY 1,2 ORDER BY 1,2;");
+            $sekolah = DB::select("SELECT * FROM data_oss_osk JOIN Data_Sekolah_Sumatera ON data_oss_osk.npsn=Data_Sekolah_Sumatera.NPSN ORDER BY `CLUSTER`,KATEGORI_JENJANG,data_oss_osk.kecamatan,data_oss_osk.nama_sekolah");
+        }
 
         return view('sekolah.oss_osk', compact('sekolah', 'resume'));
     }

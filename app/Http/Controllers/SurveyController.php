@@ -312,10 +312,10 @@ class SurveyController extends Controller
             $answer = DB::table('survey_answer')->where('telp_siswa', $request->jawaban_0[0])->count();
             // ddd($request->session);
             if ($answer < 1) {
-                $sekolah=Sekolah::where('npsn',$request->npsn)->first();
+                $sekolah = Sekolah::where('npsn', $request->npsn)->first();
                 DB::table('survey_answer')->insert([
                     'session' => $request->session,
-                    'npsn' => $request->npsn, 
+                    'npsn' => $request->npsn,
                     'telp' => $sekolah->TELP,
                     'kelas' => $request->kelas ?? 'All',
                     'pilihan' => json_encode($pilihan),

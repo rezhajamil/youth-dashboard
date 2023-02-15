@@ -6,12 +6,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+
 class LocationController extends Controller
 {
-
     public function taps()
     {
-        $taps = DB::table('taps')->orderBy('region_channel', 'desc')->orderBy('cluster')->orderBy('provinsi')->orderBy('kabupaten')->orderBy('kecamatan')->orderBy('kelurahan')->orderBy('nama')->get();
+        $privilege = Auth::user()->privilege;
+        $territory = $privilege == 'branch' ? Auth::user()->branch : Auth::user()->cluster;
+
+        if ($privilege == 'branch') {
+            $taps = DB::table('taps')->where('branch', $territory)->orderBy('region_channel', 'desc')->orderBy('cluster')->orderBy('provinsi')->orderBy('kabupaten')->orderBy('kecamatan')->orderBy('kelurahan')->orderBy('nama')->get();
+        } else if ($privilege == 'cluster') {
+            $taps = DB::table('taps')->where('cluster', $territory)->orderBy('region_channel', 'desc')->orderBy('cluster')->orderBy('provinsi')->orderBy('kabupaten')->orderBy('kecamatan')->orderBy('kelurahan')->orderBy('nama')->get();
+        } else {
+            $taps = DB::table('taps')->orderBy('region_channel', 'desc')->orderBy('cluster')->orderBy('provinsi')->orderBy('kabupaten')->orderBy('kecamatan')->orderBy('kelurahan')->orderBy('nama')->get();
+        }
 
         return view('location.taps.index', compact('taps'));
     }
@@ -76,8 +85,8 @@ class LocationController extends Controller
     public function update_taps(Request $request, $id)
     {
         $request->validate([
-            'latitude'=>'required|numeric',
-            'longitude'=>'required|numeric',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
         ]);
 
         $tap = DB::table('taps')->find($id);
@@ -93,7 +102,18 @@ class LocationController extends Controller
 
     public function poi()
     {
-        $poi = DB::table('list_poi')->where('status', '1')->orderBy('regional', 'desc')->orderBy('branch')->orderBy('cluster')->orderBy('kabupaten')->orderBy('poi_name')->get();
+        $privilege = Auth::user()->privilege;
+        $territory = $privilege == 'branch' ? Auth::user()->branch : Auth::user()->cluster;
+
+        if ($privilege == 'branch') {
+            $poi = DB::table('list_poi')->where('branch', $territory)->where('status', '1')->orderBy('regional', 'desc')->orderBy('branch')->orderBy('cluster')->orderBy('kabupaten')->orderBy('poi_name')->get();
+        } else if ($privilege == 'cluster') {
+            $poi = DB::table('list_poi')->where('cluster', $territory)->where('status', '1')->orderBy('regional', 'desc')->orderBy('branch')->orderBy('cluster')->orderBy('kabupaten')->orderBy('poi_name')->get();
+        } else {
+            $poi = DB::table('list_poi')->where('status', '1')->orderBy('regional', 'desc')->orderBy('branch')->orderBy('cluster')->orderBy('kabupaten')->orderBy('poi_name')->get();
+        }
+
+
         $location = DB::table('list_poi')->select('location')->distinct()->get();
 
         return view('location.poi.index', compact('poi', 'location'));
@@ -108,7 +128,7 @@ class LocationController extends Controller
 
         return view('location.poi.create', compact('region', 'location', 'keterangan', 'jenis'));
     }
-    
+
 
     public function store_poi(Request $request)
     {
@@ -145,7 +165,7 @@ class LocationController extends Controller
         return redirect()->route('location.poi');
     }
 
-    
+
     public function edit_poi($id)
     {
         $poi = DB::table('list_poi')->find($id);
@@ -153,12 +173,12 @@ class LocationController extends Controller
         return view('location.poi.edit', compact('poi'));
     }
 
-    
+
     public function update_poi(Request $request, $id)
     {
         $request->validate([
-            'latitude'=>'required|numeric',
-            'longitude'=>'required|numeric',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
         ]);
         $poi = DB::table('list_poi')->find($id);
 
@@ -169,7 +189,7 @@ class LocationController extends Controller
 
         return redirect()->route('location.poi');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
