@@ -237,6 +237,7 @@ class SekolahController extends Controller
             $poi=DB::table('list_poi')->find($request->poi);
             $pjp = DB::table('pjp')->insert([
                 'kategori' => $request->kategori,
+                'npsn' => $request->poi,
                 'event' => ucwords($request->event),
                 'telp' => $request->telp,
                 'date' => $request->date,
