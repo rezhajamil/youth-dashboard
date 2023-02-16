@@ -12,6 +12,7 @@
                 <option value="orbit">Orbit</option>
             </select>
         </div>
+        
         <div class="grid mt-4 gap-y-12" id="container">
         </div>
         <div class="fixed inset-0 z-20 flex items-center justify-center w-full h-full overflow-auto bg-black/80" style="display:none;" id="search-container"  x-transition>
@@ -73,7 +74,7 @@
                                     </div>
                                     <div>
                                         <label class="text-gray-700" for="npsn">NPSN</label>
-                                        <input class="w-full rounded-md form-input focus:border-indigo-600 npsn" id="npsn" type="text" name="npsn" value="{{ old('npsn') }}" placeholder="NPSN">
+                                        <input class="w-full rounded-md form-input focus:border-indigo-600 npsn" id="npsn" type="text" name="npsn" value="{{ old('npsn') }}" placeholder="NPSN" required>
                                         <span class="inline-block mt-1 text-sm underline transition-all cursor-pointer text-sekunder hover:text-black" id="search"  x-on:click="search=true"><i class="mr-1 text-sm fa-solid fa-magnifying-glass text-sekunder"></i>Cari Sekolah</span>
                                         @error('npsn')
                                         <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
@@ -81,7 +82,7 @@
                                     </div>
                                     <div>
                                         <label class="block text-gray-700" for="telp">Direct Sales</label>
-                                        <select name="telp" id="telp" class="w-full rounded-md telp">
+                                        <select name="telp" id="telp" class="w-full rounded-md telp" required>
                                             <option value="" selected disabled>Pilih Direct Sales</option>
                                         </select>
                                         @error('telp')
@@ -90,7 +91,7 @@
                                     </div>
                                     <div>
                                         <label class="block text-gray-700" for="hari">Hari</label>
-                                        <select name="hari" id="hari" class="w-full rounded-md">
+                                        <select name="hari" id="hari" class="w-full rounded-md" required>
                                             <option value="" selected disabled>Pilih Hari</option>
                                             <option value="Senin">Senin</option>
                                             <option value="Selasa">Selasa</option>
@@ -105,7 +106,7 @@
                                     </div>
                                     <div>
                                         <label class="block text-gray-700" for="frekuensi">Frekuensi</label>
-                                        <select name="frekuensi" id="frekuensi" class="w-full rounded-md">
+                                        <select name="frekuensi" id="frekuensi" class="w-full rounded-md" required>
                                             <option value="" selected disabled>Pilih Frekuensi</option>
                                             <option value="F1">F1</option>
                                             <option value="F2">F2</option>
@@ -119,7 +120,7 @@
                                 </div>
         
                                 <div class="flex justify-end mt-4 col-span-full">
-                                    <button class="w-full px-4 py-2 font-bold text-white bg-y_premier rounded-md hover:bg-y_sekunder focus:outline-none focus:bg-y_sekunder">Submit</button>
+                                    <button class="w-full px-4 py-2 font-bold text-white rounded-md bg-y_premier hover:bg-y_sekunder focus:outline-none focus:bg-y_sekunder">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -148,7 +149,7 @@
                                 </div>
                                 <div>
                                     <label class="block text-gray-700" for="telp">Direct Sales</label>
-                                    <select name="telp" id="telp" class="w-full rounded-md telp">
+                                    <select name="telp" id="telp" class="w-full rounded-md telp" required>
                                         <option value="" selected disabled>Pilih Direct Sales</option>
                                     </select>
                                     @error('telp')
@@ -157,7 +158,7 @@
                                 </div>
                                 <div>
                                     <label class="block text-gray-700" for="poi">POI</label>
-                                    <select name="poi" id="poi" class="w-full rounded-md poi">
+                                    <select name="poi" id="poi" class="w-full rounded-md poi" required>
                                         <option value="" selected disabled>Pilih POI</option>
                                     </select>
                                     @error('poi')
@@ -166,7 +167,7 @@
                                 </div>
                                 <div>
                                     <label class="text-gray-700" for="event">Nama Event</label>
-                                    <input class="w-full rounded-md form-input focus:border-indigo-600" type="text" name="event" placeholder="Nama Event" value="{{ old('event') }}">
+                                    <input class="w-full rounded-md form-input focus:border-indigo-600" type="text" name="event" placeholder="Nama Event" value="{{ old('event') }}" required>
                                     @error('event')
                                     <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
@@ -237,7 +238,7 @@
                                 </div>
                                 <div>
                                     <label class="block text-gray-700" for="telp">Direct Sales</label>
-                                    <select name="telp" id="telp" class="w-full rounded-md telp">
+                                    <select name="telp" id="telp" class="w-full rounded-md telp" required>
                                         <option value="" selected disabled>Pilih Direct Sales</option>
                                     </select>
                                     @error('telp')
@@ -246,7 +247,7 @@
                                 </div>
                                 <div>
                                     <label class="block text-gray-700" for="site_id">SITE ID</label>
-                                    <select name="site_id" id="site_id" class="w-full rounded-md site-id">
+                                    <select name="site_id" id="site_id" class="w-full rounded-md site-id" required>
                                         <option value="" selected disabled>Pilih SITE ID</option>
                                     </select>
                                     @error('site_id')
@@ -299,7 +300,7 @@
                                 </div>
                                 <div>
                                     <label class="block text-gray-700" for="telp">Direct Sales</label>
-                                    <select name="telp" id="telp" class="w-full rounded-md telp">
+                                    <select name="telp" id="telp" class="w-full rounded-md telp" required>
                                         <option value="" selected disabled>Pilih Direct Sales</option>
                                     </select>
                                     @error('telp')
@@ -315,7 +316,7 @@
                                 </div>
                                 <div>
                                     <label class="block text-gray-700" for="poi">POI</label>
-                                    <select name="poi" id="poi" class="w-full rounded-md poi">
+                                    <select name="poi" id="poi" class="w-full rounded-md poi" required>
                                         <option value="" selected disabled>Pilih POI</option>
                                     </select>
                                     @error('poi')
@@ -375,8 +376,7 @@
                         )
                     } else {
                         $("#telp").html(
-                            `<option value="" disabled selected>Pilih Direct Sales</option>` +
-                            `<option value="" disabled selected>Tidak Ada Telp</option>`
+                            `<option value="" disabled selected>Pilih Direct Sales</option>` 
                         )
                     }
 
@@ -411,8 +411,7 @@
                         )
                     } else {
                         $("#poi").html(
-                            `<option value="" disabled selected>Pilih POI</option>` +
-                            `<option value="" disabled selected>Tidak Ada POI</option>`
+                            `<option value="" disabled selected>Pilih POI</option>`
                         )
                     }
 
@@ -447,8 +446,7 @@
                         )
                     } else {
                         $("#site_id").html(
-                            `<option value="" disabled selected>Pilih SITE ID</option>` +
-                            `<option value="" disabled selected>Tidak Ada SITE ID</option>`
+                            `<option value="" disabled selected>Pilih SITE ID</option>` 
                         )
                     }
 

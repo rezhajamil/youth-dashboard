@@ -206,6 +206,10 @@ class SekolahController extends Controller
         ]);
 
         if ($request->kategori == 'sekolah') {
+            $request->validate([
+                'hari' => 'required',
+                'frekuensi' => 'required',
+            ]);
             $sekolah = DB::table('Data_Sekolah_Sumatera')->where('NPSN', $request->npsn)->first();
             $pjp = DB::table('pjp')->insert([
                 'kategori' => $request->kategori,
@@ -218,6 +222,14 @@ class SekolahController extends Controller
                 'latitude' => $sekolah->LATITUDE,
             ]);
         } else if ($request->kategori == 'event') {
+            $request->validate([
+                'poi' => 'required',
+                'event' => 'required',
+                'date' => 'required',
+                'date_start' => 'required',
+                'date_end' => 'required',
+            ]);
+
             $poi = DB::table('list_poi')->find($request->poi);
             $pjp = DB::table('pjp')->insert([
                 'kategori' => $request->kategori,
@@ -231,6 +243,10 @@ class SekolahController extends Controller
                 'latitude' => $poi->latitude,
             ]);
         } else if ($request->kategori == 'u60') {
+            $request->validate([
+                'date' => 'required',
+                'site_id' => 'required',
+            ]);
             $site = DB::table('4g_list_site')->where('site_id', $request->site_id)->first();
             $pjp = DB::table('pjp')->insert([
                 'kategori' => $request->kategori,
@@ -243,6 +259,11 @@ class SekolahController extends Controller
                 'latitude' => $site->latitude,
             ]);
         } else if ($request->kategori == 'orbit') {
+            $request->validate([
+                'date' => 'required',
+                'poi' => 'required',
+                'lokasi' => 'required',
+            ]);
             $poi = DB::table('list_poi')->find($request->poi);
             $pjp = DB::table('pjp')->insert([
                 'kategori' => $request->kategori,
