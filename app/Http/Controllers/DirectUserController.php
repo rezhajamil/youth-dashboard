@@ -347,7 +347,7 @@ class DirectUserController extends Controller
 
         if ($cluster) {
             $clocks = DB::select(
-                "SELECT * FROM table_kunjungan a JOIN data_user b ON a.telp=b.telp WHERE b.cluster='$cluster' AND MONTH(a.date)=$month AND YEAR(a.date)=$year ORDER BY b.nama"
+                "SELECT * FROM table_kunjungan a JOIN data_user b ON a.telp=b.telp WHERE b.cluster='$cluster' AND MONTH(a.date)=$month AND YEAR(a.date)=$year ORDER BY b.nama,a.date"
             );
         } else {
             $clocks = [];
