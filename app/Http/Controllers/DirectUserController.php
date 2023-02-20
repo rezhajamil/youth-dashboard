@@ -337,18 +337,23 @@ class DirectUserController extends Controller
         $month = $request->month ?? date('m');
         $year = $request->year ?? date('Y');
 
-        $list_cluster = DB::table('territory_new')->select('cluster')->distinct()->get();
-
-        if ($cluster) {
-            $clock = DB::table('table_kunjungan')
-                ->select(
-                    "SELECT * FROM table_kunjungan a JOIN data_user b ON a.telp=b.telp WHERE b.cluster='$cluster' AND MONTH(a.date)=$month AND YEAR(a.date)=$year ORDER BY b.nama"
-                )->get();
-        } else {
-            $clock = [];
+        if (auth()->user()->privilege == 'superadmin') {
+            $list_cluster = DB::table('territory_new')->select('cluster')->distinct()->get();
+        } else if (auth()->user()->privilege == 'branch') {
+            $list_cluster = DB::table('territory_new')->select('cluster')->where('branch', auth()->user()->branch)->distinct()->get();
+        } else if (auth()->user()->privilege == 'cluster') {
+            $list_cluster = DB::table('territory_new')->select('cluster')->where('cluster', auth()->user()->cluster)->distinct()->get();
         }
 
-        return view('directUser.clockIn.index', compact('cluster', 'month', 'year', 'list_cluster', 'clock'));
+        if ($cluster) {
+            $clocks = DB::select(
+                "SELECT * FROM table_kunjungan a JOIN data_user b ON a.telp=b.telp WHERE b.cluster='$cluster' AND MONTH(a.date)=$month AND YEAR(a.date)=$year ORDER BY b.nama"
+            );
+        } else {
+            $clocks = [];
+        }
+
+        return view('directUser.clockIn.index', compact('cluster', 'month', 'year', 'list_cluster', 'clocks'));
     }
 
     /**

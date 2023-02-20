@@ -1,6 +1,6 @@
 <div x-cloak :class="sidebarOpen ? 'block' : 'hidden'" @click="sidebarOpen = false" class="fixed inset-0 z-20 transition-opacity bg-black opacity-50 lg:hidden"></div>
 
-<div x-cloak :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'" class="fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300 transform bg-slate-600 lg:translate-x-0 lg:static lg:inset-0">
+<div x-cloak :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'" class="fixed inset-y-0 left-0 z-30 overflow-y-auto transition duration-300 transform w-fit bg-slate-600 lg:translate-x-0 lg:static lg:inset-0">
     <div class="flex items-center justify-center mt-8">
         <div class="flex items-center">
             <span class="mx-2 text-xl font-semibold text-white">Direct Sales <br /> Management Dashboard</span>
@@ -20,7 +20,7 @@
         @if (auth()->user()->privilege=="superadmin")
         <a class="flex items-center px-6 py-2 mt-4 text-white transition-all cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100" x-on:click="content=!content">
             <i class="w-6 h-6 fa-solid fa-list-check"></i>
-            <span class="mx-3 text-white">Content Management</span>
+            <span class="mx-3 text-white select-none">Content Management</span>
             <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right" :class="{'rotate-90': content, 'rotate-0': !content}"></i>
         </a>
         <div class="flex flex-col w-3/4 mx-6 mt-2 ml-auto overflow-hidden bg-opacity-25 rounded-md bg-slate-800" x-show="content" x-transition>
@@ -36,7 +36,7 @@
 
         <a class="flex items-center px-6 py-2 mt-4 text-white transition-all cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100" x-on:click="direct=!direct">
             <i class="w-6 h-6 fa-solid fa-user-group"></i>
-            <span class="mx-3 text-white">Direct Sales</span>
+            <span class="mx-3 text-white select-none">Direct Sales</span>
             <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right" :class="{'rotate-90': direct, 'rotate-0': !direct}"></i>
         </a>
         <div class="flex flex-col w-3/4 mx-6 mt-2 ml-auto overflow-hidden bg-opacity-25 rounded-md bg-slate-800" x-show="direct" x-transition>
@@ -52,7 +52,7 @@
 
         <a class="flex items-center px-6 py-2 mt-4 text-white transition-all cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100" x-on:click="location=!location">
             <i class="w-6 h-6 fa-solid fa-location-dot"></i>
-            <span class="mx-3 text-white">Location</span>
+            <span class="mx-3 text-white select-none">Location</span>
             <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right" :class="{'rotate-90': location, 'rotate-0': !location}"></i>
         </a>
         <div class="flex flex-col w-3/4 mx-6 mt-2 ml-auto overflow-hidden bg-opacity-25 rounded-md bg-slate-800" x-show="location" x-transition>
@@ -62,7 +62,7 @@
 
         <a class="flex items-center px-6 py-2 mt-4 text-white transition-all cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100" x-on:click="market=!market">
             <i class="w-6 h-6 fa-solid fa-shop"></i>
-            <span class="mx-3 text-white">Market</span>
+            <span class="mx-3 text-white select-none">Market</span>
             <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right" :class="{'rotate-90': market, 'rotate-0': !market}"></i>
         </a>
         <div class="flex flex-col w-3/4 mx-6 mt-2 ml-auto overflow-hidden bg-opacity-25 rounded-md bg-slate-800" x-show="market" x-transition>
@@ -72,7 +72,7 @@
 
         <a class="flex items-center px-6 py-2 mt-4 text-white transition-all cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100" x-on:click="sales=!sales">
             <i class="w-6 h-6 fa-solid fa-chart-line"></i>
-            <span class="mx-3 text-white">Sales</span>
+            <span class="mx-3 text-white select-none">Sales</span>
             <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right" :class="{'rotate-90': sales, 'rotate-0': !sales}"></i>
         </a>
         <div class="flex flex-col w-3/4 mx-6 mt-2 ml-auto overflow-hidden bg-opacity-25 rounded-md bg-slate-800" x-show="sales" x-transition>
@@ -83,7 +83,7 @@
         </div>
         <a class="flex items-center px-6 py-2 mt-4 text-white transition-all cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100" x-on:click="school=!school">
             <i class="w-6 h-6 fa-solid fa-school"></i>
-            <span class="mx-3 text-white">Sekolah</span>
+            <span class="mx-3 text-white select-none">Sekolah</span>
             <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right" :class="{'rotate-90': school, 'rotate-0': !school}"></i>
         </a>
         <div class="flex flex-col w-3/4 mx-6 mt-2 ml-auto overflow-hidden bg-opacity-25 rounded-md bg-slate-800" x-show="school" x-transition>
@@ -95,7 +95,7 @@
         </div>
         <a class="flex items-center px-6 py-2 mt-4 text-white transition-all cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100" x-on:click="broadcast=!broadcast">
             <i class="w-6 h-6 fa-solid fa-tower-broadcast"></i>
-            <span class="mx-3 text-white">Campaign</span>
+            <span class="mx-3 text-white select-none">Campaign</span>
             <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right" :class="{'rotate-90': broadcast, 'rotate-0': !broadcast}"></i>
         </a>
         <div class="flex flex-col w-3/4 mx-6 mt-2 ml-auto overflow-hidden bg-opacity-25 rounded-md bg-slate-800" x-show="broadcast" x-transition>
@@ -110,7 +110,7 @@
         @if (auth()->user()->privilege!='cluster')
         <a class="flex items-center px-6 py-2 mt-4 text-white transition-all cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100" x-on:click="event=!event">
             <i class="w-6 h-6 fa-solid fa-calendar"></i>
-            <span class="mx-3 text-white">Event</span>
+            <span class="mx-3 text-white select-none">Event</span>
             <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right" :class="{'rotate-90': event, 'rotate-0': !event}"></i>
         </a>
         <div class="flex flex-col w-3/4 mx-6 mt-2 ml-auto overflow-hidden bg-opacity-25 rounded-md bg-slate-800" x-show="event" x-transition>
@@ -123,14 +123,14 @@
         @endif
         {{-- <a href="{{ route('outlet.index') }}" class="items-center hidden px-6 py-2 mt-4 text-gray-500 transition-all cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100" x-on:click="outlet=!outlet">
         <i class="w-6 h-6 fa-solid fa-shop"></i>
-        <span class="mx-3 text-white">Outlet</span>
+        <span class="mx-3 text-white select-none">Outlet</span>
         <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right" :class="{'rotate-90': outlet, 'rotate-0': !outlet}"></i>
         </a> --}}
 
 
         {{-- <a href="{{ route('direct_user.index') }}" class="flex items-center px-6 py-2 mt-4 text-white transition-all cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100">
         <i class="w-6 h-6 fa-solid fa-users"></i>
-        <span class="mx-3 text-white">Database Direct User</span>
+        <span class="mx-3 text-white select-none">Database Direct User</span>
         </a> --}}
 
     </nav>

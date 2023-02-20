@@ -30,7 +30,7 @@
                 <table class="overflow-auto text-left border-collapse w-fit">
                     <thead class="border-b">
                         <tr>
-                            <th rowspan="2" class="p-3 text-sm font-bold text-gray-100 uppercase border bg-y_tersier">No</th>
+                            {{-- <th rowspan="2" class="p-3 text-sm font-bold text-gray-100 uppercase border bg-y_tersier">No</th> --}}
                             <th rowspan="2" class="p-3 text-sm font-medium text-gray-100 uppercase border bg-y_tersier">Nama</th>
                             <th rowspan="2" class="p-3 text-sm font-medium text-gray-100 uppercase border bg-y_tersier">Keterangan</th>
                             <th colspan="5" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">Clock In</th>
@@ -44,6 +44,69 @@
                         </tr>
                     </thead>
                     <tbody class="max-h-screen overflow-y-auto">
+                        @foreach ($clocks as $key=>$clock)
+                            @if ($key==0||$clock->telp!=$clocks[$key-1]->telp)
+                                <tr class="">
+                                    {{-- <td rowspan="3" class="p-4 font-bold text-gray-700 border-b">{{ $key+1 }}</td> --}}
+                                    <td rowspan="3" class="p-4 font-bold border border-b-4">{{ $clock->nama }}<br/>({{$clock->telp}})</td>
+                                    <td class="p-4 font-semibold border">Tanggal</td>
+                                    @php
+                                        $count=0;
+                                    @endphp
+                                    @foreach ($clocks as $data)
+                                        @if ($clock->telp==$data->telp)
+                                            <td class="p-4 border">{{$data->date}}</td>
+                                            @php $count++ @endphp
+                                        @endif
+                                    @endforeach
+                                    @php
+                                        if($count<5){
+                                            for ($i=0; $i < 5-$count; $i++) { 
+                                                echo "<td class='p-4 border bg-gray-400/10'></td>";
+                                            }
+                                        }
+                                    @endphp
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-semibold border">Waktu</td>
+                                    @php
+                                        $count=0;
+                                    @endphp
+                                    @foreach ($clocks as $data)
+                                        @if ($clock->telp==$data->telp)
+                                            <td class="p-4 border">{{$data->waktu}}</td>
+                                            @php $count++ @endphp
+                                        @endif
+                                    @endforeach
+                                    @php
+                                        if($count<5){
+                                            for ($i=0; $i < 5-$count; $i++) { 
+                                                echo "<td class='p-4 border bg-gray-400/10'></td>";
+                                            }
+                                        }
+                                    @endphp
+                                </tr>
+                                <tr class="border-b-4">
+                                    <td class="p-4 font-semibold border">Lokasi</td>
+                                    @php
+                                        $count=0;
+                                    @endphp
+                                    @foreach ($clocks as $data)
+                                        @if ($clock->telp==$data->telp)
+                                            <td class="p-4 border">{{$data->lokasi}}</td>
+                                            @php $count++ @endphp
+                                        @endif
+                                    @endforeach
+                                    @php
+                                        if($count<5){
+                                            for ($i=0; $i < 5-$count; $i++) { 
+                                                echo "<td class='p-4 border bg-gray-400/10'></td>";
+                                            }
+                                        }
+                                    @endphp
+                                </tr>
+                            @endif
+                        @endforeach
                     </tbody>
                 </table>
             </div>
