@@ -25,13 +25,13 @@ class SalesContoller extends Controller
             COUNT(CASE WHEN a.date BETWEEN '" . $m1 . "' and '" . $mtd . "' then outlet_id end) mtd,
             COUNT(CASE WHEN a.date BETWEEN '" . $last_m1 . "' and '" . $last_mtd . "' then outlet_id end) last_mtd
                         
-                    FROM 4g_usim_all_trx a 
-                    
-                    INNER JOIN data_user b ON a.outlet_id=b.id_digipos
-                    
-                    WHERE a.status='MIGRATION_SUCCCESS' OR a.status='USIM_ACTIVE'
-                    GROUP BY 1,2,3
-                    ORDER BY 1,2,3;
+            FROM 4g_usim_all_trx a 
+            
+            INNER JOIN data_user b ON a.outlet_id=b.id_digipos
+            
+            WHERE a.status='MIGRATION_SUCCCESS' OR a.status='USIM_ACTIVE'
+            GROUP BY 1,2,3
+            ORDER BY 1,2,3;
             ";
 
             $query_cluster = "
@@ -41,12 +41,12 @@ class SalesContoller extends Controller
             COUNT(CASE WHEN a.date BETWEEN '" . $m1 . "' and '" . $mtd . "' then outlet_id end) mtd,
             COUNT(CASE WHEN a.date BETWEEN '" . $last_m1 . "' and '" . $last_mtd . "' then outlet_id end) last_mtd
                         
-                    FROM 4g_usim_all_trx a 
-                    
-                    INNER JOIN data_user b ON a.outlet_id=b.id_digipos
-                    
-                    WHERE a.status='MIGRATION_SUCCCESS' OR a.status='USIM_ACTIVE'
-                    GROUP BY 1;";
+            FROM 4g_usim_all_trx a 
+            
+            INNER JOIN data_user b ON a.outlet_id=b.id_digipos
+            
+            WHERE a.status='MIGRATION_SUCCCESS' OR a.status='USIM_ACTIVE'
+            GROUP BY 1;";
 
             $query_branch = "
             SELECT b.regional,b.branch,

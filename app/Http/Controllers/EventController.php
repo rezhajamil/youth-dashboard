@@ -15,13 +15,20 @@ class EventController extends Controller
      */
     public function index()
     {
-        if (!request()->get('kategori') || request()->get('kategori') == 'All') {
-            $peserta = DB::select("SELECT * FROM peserta_event a LEFT JOIN Data_Sekolah_Sumatera b ON a.npsn=b.NPSN ORDER BY kategori,id asc,jenis,KAB_KOTA,KECAMATAN,a.npsn,NAMA_SEKOLAH,nama;");
+        if (request()->get('event')) {
+            if (!request()->get('kategori') || request()->get('kategori') == 'All') {
+                $peserta = DB::select("SELECT * FROM peserta_event a LEFT JOIN Data_Sekolah_Sumatera b ON a.npsn=b.NPSN WHERE a.event='" . request()->get('event') . "' ORDER BY kategori,id asc,jenis,KAB_KOTA,KECAMATAN,a.npsn,NAMA_SEKOLAH,nama;");
+            } else {
+                $peserta = DB::select("SELECT * FROM peserta_event a LEFT JOIN Data_Sekolah_Sumatera b ON a.npsn=b.NPSN WHERE a.kategori='" . request()->get('kategori') . "' AND a.event='" . request()->get('event') . "' ORDER BY kategori,id asc,jenis,KAB_KOTA,KECAMATAN,a.npsn,NAMA_SEKOLAH,nama;");
+            }
+            $kategori = DB::table('peserta_event')->select('kategori')->where('event', request()->get('event'))->distinct()->orderBy('kategori')->get();
         } else {
-            $peserta = DB::select("SELECT * FROM peserta_event a LEFT JOIN Data_Sekolah_Sumatera b ON a.npsn=b.NPSN WHERE a.kategori='" . request()->get('kategori') . "' ORDER BY kategori,id asc,jenis,KAB_KOTA,KECAMATAN,a.npsn,NAMA_SEKOLAH,nama;");
+            $peserta = [];
+            $kategori = [];
         }
-        $kategori = DB::table('peserta_event')->select('kategori')->distinct()->orderBy('kategori')->get();
-        return view('event.index', compact('peserta', 'kategori'));
+
+        $event = DB::table('list_event')->get();
+        return view('event.index', compact('peserta', 'kategori', 'event'));
     }
 
     public function resume()

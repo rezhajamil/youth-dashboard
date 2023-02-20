@@ -1493,8 +1493,8 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
-.bg-gray-400\/40 {
-  background-color: rgb(156 163 175 / 0.4);
+.bg-gray-400\/10 {
+  background-color: rgb(156 163 175 / 0.1);
 }
 .bg-orange-600 {
   --tw-bg-opacity: 1;
@@ -1584,12 +1584,6 @@ select {
 }
 .bg-black\/70 {
   background-color: rgb(0 0 0 / 0.7);
-}
-.bg-gray-400\/20 {
-  background-color: rgb(156 163 175 / 0.2);
-}
-.bg-gray-400\/10 {
-  background-color: rgb(156 163 175 / 0.1);
 }
 .bg-opacity-25 {
   --tw-bg-opacity: 0.25;
