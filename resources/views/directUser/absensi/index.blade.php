@@ -30,7 +30,7 @@
                             @endfor
                     </select>
                     <div class="flex gap-x-3">
-                        <button class="px-4 py-2 font-bold text-white transition bg-y_premier rounded-lg hover:bg-y_premier"><i class="mr-2 fa-solid fa-magnifying-glass"></i>Cari</button>
+                        <button class="px-4 py-2 font-bold text-white transition rounded-lg bg-y_premier hover:bg-y_premier"><i class="mr-2 fa-solid fa-magnifying-glass"></i>Cari</button>
                         @if (request()->get('date'))
                         <a href="{{ route('broadcast.index') }}" class="px-4 py-2 font-bold text-white transition bg-gray-600 rounded-lg hover:bg-gray-800"><i class="mr-2 fa-solid fa-circle-xmark"></i>Reset</a>
                         @endif
@@ -49,10 +49,10 @@
                 <table class="text-left border-collapse w-fit">
                     <thead class="border-b">
                         <tr>
-                            {{-- <th class="p-2 text-sm font-bold text-gray-100 uppercase border-2 border-tersier bg-premier">No</th> --}}
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">Nama</th>
+                            {{-- <th class="p-2 text-sm font-bold text-gray-100 uppercase border-2 border-tersier bg-y_tersier">No</th> --}}
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-y_tersier">Nama</th>
                             @foreach ($period as $data)
-                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 whitespace-nowrap border-tersier bg-premier">{{ date('d',strtotime($data)) }}</th>
+                            <th class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 whitespace-nowrap border-tersier bg-y_tersier">{{ date('d',strtotime($data)) }}</th>
                             @endforeach
                         </tr>
                     </thead>

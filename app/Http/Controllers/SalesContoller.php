@@ -188,7 +188,8 @@ class SalesContoller extends Controller
                     JOIN data_user b ON b.telp = a.telp
                     LEFT JOIN validasi_orbit c on c.msisdn = a.msisdn
                     WHERE a.kategori='ORBIT'
-                    " . $branch . "
+                    $and
+                    $branch
                     GROUP BY 1,2,3;";
 
             $query_cluster = "SELECT b.cluster,c.status,
@@ -198,7 +199,8 @@ class SalesContoller extends Controller
                     JOIN data_user b ON b.telp = a.telp
                     LEFT JOIN validasi_orbit c on c.msisdn = a.msisdn
                     WHERE a.kategori='ORBIT'
-                    " . $branch . "
+                    $and
+                    $branch
                     GROUP BY 1,2;";
 
             $query = "SELECT b.nama,b.cluster,b.role,b.telp,b.reff_code, a.msisdn, c.status,a.`date`,a.serial,a.jenis,a.detail
@@ -207,8 +209,8 @@ class SalesContoller extends Controller
                     LEFT JOIN validasi_orbit c on c.msisdn = a.msisdn
                     where a.date BETWEEN '" . $m1 . "' AND '" . $mtd . "'
                     and not a.status ='1' and a.kategori='ORBIT'
-                    " . $and . "
-                    " . $branch . "
+                    $and
+                    $branch
                     ORDER by b.cluster, b.nama ASC";
 
             $sales_branch = DB::select($query_branch, [1]);
