@@ -382,7 +382,15 @@ class SurveyController extends Controller
             return view('directUser.survey.result', compact('answer', 'survey', 'resume', 'hasil'));
         } else if ($survey->tipe == 'Siswa') {
             $answer = DB::table('survey_answer')->where('session', $id)->get();
-            $sekolah = DB::table('survey_answer')->select(['Data_Sekolah_Sumatera.NPSN', 'NAMA_SEKOLAH'])->join('Data_Sekolah_Sumatera', 'survey_answer.npsn', '=', 'Data_Sekolah_Sumatera.NPSN')->where('session', $id)->distinct()->get();
+            if (auth()->user()->privilege == 'branch') {
+                $sekolah = DB::table('survey_answer')->select(['Data_Sekolah_Sumatera.NPSN', 'NAMA_SEKOLAH'])->join('Data_Sekolah_Sumatera', 'survey_answer.npsn', '=', 'Data_Sekolah_Sumatera.NPSN')->where('session', $id)->where('branch', auth()->user()->branch)->distinct()->get();
+            } else if (auth()->user()->privilege == 'cluster') {
+                $sekolah = DB::table('survey_answer')->select(['Data_Sekolah_Sumatera.NPSN', 'NAMA_SEKOLAH'])->join('Data_Sekolah_Sumatera', 'survey_answer.npsn', '=', 'Data_Sekolah_Sumatera.NPSN')->where('session', $id)->where('cluster', auth()->user()->cluster)->distinct()->get();
+            } else {
+                $sekolah = DB::table('survey_answer')->select(['Data_Sekolah_Sumatera.NPSN', 'NAMA_SEKOLAH'])->join('Data_Sekolah_Sumatera', 'survey_answer.npsn', '=', 'Data_Sekolah_Sumatera.NPSN')->where('session', $id)->distinct()->get();
+            }
+
+
 
             $survey->soal = json_decode($survey->soal);
             $survey->jenis_soal = json_decode($survey->jenis_soal);

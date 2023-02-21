@@ -7,6 +7,30 @@
                 <h4 class="text-xl font-bold text-gray-600 align-baseline">Resume Peserta Event</h4>
             </div>
 
+            <div class="flex justify-between">
+                <form class="flex flex-wrap items-center my-3 gap-x-4 gap-y-2" action="{{ route('event.index') }}" method="get">
+                    <select name="event" id="event" class="px-4 pr-8 rounded-lg">
+                        <option value="" selected disabled>Pilih Event</option>
+                        @foreach ($event as $item)
+                        <option value="{{ $item->id }}" {{ $item->id==request()->get('event')?'selected':'' }}>{{ $item->singkatan }} | {{$item->tahun}}</option>
+                        @endforeach
+                    </select>
+                    <select name="kategori" id="kategori" class="px-4 rounded-lg">
+                        <option value="" selected disabled>Pilih Kategori</option>
+                        <option value="All" {{ 'All'==request()->get('kategori')?'selected':'' }}>Semua</option>
+                        @foreach ($kategori as $item)
+                        <option value="{{ $item->kategori }}" {{ $item->kategori==request()->get('kategori')?'selected':'' }}>{{ $item->kategori }}</option>
+                        @endforeach
+                    </select>
+                    <div class="flex gap-x-3">
+                        <button class="px-4 py-2 font-bold text-white transition rounded-lg bg-y_premier hover:bg-y_premier"><i class="mr-2 fa-solid fa-magnifying-glass"></i>Cari</button>
+                        @if (request()->get('kategori'))
+                        <a href="{{ route('event.index') }}" class="px-4 py-2 font-bold text-white transition bg-gray-600 rounded-lg hover:bg-gray-800"><i class="mr-2 fa-solid fa-circle-xmark"></i>Reset</a>
+                        @endif
+                    </div>
+                </form>
+            </div>
+
             <div class="overflow-auto bg-white rounded-md shadow w-fit">
                 <table class="overflow-auto text-left border-collapse w-fit">
                     <thead class="border-b">

@@ -4,7 +4,7 @@
     <div class="flex flex-col">
         <div class="mt-4">
             @if (Auth::user()->privilege=='superadmin')
-            <a href="{{ route('survey.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-y_premier rounded-md hover:bg-y_premier"><i class="mr-2 fa-solid fa-plus"></i> Data Survey Baru</a>
+            <a href="{{ route('survey.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white rounded-md bg-y_premier hover:bg-y_premier"><i class="mr-2 fa-solid fa-plus"></i> Data Survey Baru</a>
             @endif
             <h4 class="mt-6 mb-2 text-xl font-bold text-gray-600 align-baseline">Survey</h4>
             <div class="overflow-auto bg-white rounded-md shadow w-fit">
@@ -41,13 +41,15 @@
 
                             <td class="p-4 text-gray-700 gap-x-3">
                                 <div class="">
-                                    <a href="{{ route('survey.show',$data->id) }}" class="block my-1 text-base font-semibold text-y_premier transition hover:text-indigo-800">Lihat</a>
+                                    {{-- <a href="{{ route('survey.show',$data->id) }}" class="block my-1 text-base font-semibold transition text-y_premier hover:text-indigo-800">Lihat</a> --}}
                                     <a href="{{ route('survey.answer.resume',$data->id) }}" class="block my-1 text-base font-semibold text-orange-600 transition hover:text-orange-800">Hasil</a>
+                                    @if (auth()->user()->privilege=='superadmin')
                                     <form action="{{ route('survey.change_status',$data->id) }}" method="post">
                                         @csrf
                                         @method('put')
                                         <button class="block my-1 text-base font-semibold text-left text-green-600 transition whitespace-nowrap hover:text-green-800">Ubah Status</button>
                                     </form>
+                                    @endif
                                 </div>
                             </td>
                         </tr>
