@@ -70,7 +70,7 @@ Route::middleware(['cors'])->group(function () {
     Route::post('/taker/segment2', [TakerController::class, 'segment2']);
     Route::post('/taker/non_usim', [TakerController::class, 'non_usim']);
 
-    Route::get('/resume_api',[DashboardController::class,'resume_api']);
+    Route::get('/resume_api', [DashboardController::class, 'resume_api']);
 });
 
 //Must Login
@@ -110,6 +110,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('pjp/sekolah', [SekolahController::class, 'pjp'])->name('sekolah.pjp');
     Route::get('pjp/sekolah/create', [SekolahController::class, 'create_pjp'])->name('sekolah.pjp.create');
     Route::post('pjp/sekolah/store', [SekolahController::class, 'store_pjp'])->name('sekolah.pjp.store');
+    Route::get('pjp/sekolah/edit/{id}', [SekolahController::class, 'edit_pjp'])->name('sekolah.pjp.edit');
+    Route::put('pjp/sekolah/update/{id}', [SekolahController::class, 'update_pjp'])->name('sekolah.pjp.update');
+    Route::delete('pjp/sekolah/destroy/{id}', [SekolahController::class, 'destroy_pjp'])->name('sekolah.pjp.destroy');
     Route::get('pjp/sekolah/user', [SekolahController::class, 'get_user_pjp'])->name('sekolah.pjp.user');
     Route::get('pjp/sekolah/poi', [SekolahController::class, 'get_poi'])->name('sekolah.pjp.poi');
     Route::get('pjp/sekolah/site', [SekolahController::class, 'get_site'])->name('sekolah.pjp.site');

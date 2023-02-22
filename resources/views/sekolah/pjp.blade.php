@@ -8,7 +8,7 @@
             </div>
 
             {{-- <span class="inline-block mt-6 mb-2 text-lg font-semibold text-gray-600">Direct Sales By Region</span> --}}
-            <a href="{{ route('sekolah.pjp.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white bg-y_premier rounded-md hover:bg-y_premier"><i class="mr-2 fa-solid fa-plus"></i> Data Kunjungan</a>
+            <a href="{{ route('sekolah.pjp.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white rounded-md bg-y_premier hover:bg-y_premier"><i class="mr-2 fa-solid fa-plus"></i> Data Kunjungan</a>
 
             <div class="overflow-auto bg-white rounded-md shadow w-fit">
                 <table class="overflow-auto text-left border-collapse w-fit">
@@ -25,6 +25,7 @@
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Telp</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Frekuensi</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Waktu</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Action</th>
                         </tr>
                     </thead>
                     <tbody class="max-h-screen overflow-y-auto">
@@ -45,6 +46,14 @@
                             @else
                             <td class="p-3 text-gray-700 border-b kecamatan whitespace-nowrap"></td>
                             @endif
+                            <td class="p-3 text-gray-700 border-b kecamatan whitespace-nowrap">
+                                {{-- <a href="{{ route('sekolah.pjp.edit',$data->id) }}" class="block my-1 text-base font-semibold text-blue-600 transition hover:text-blue-800">Edit</a> --}}
+                                <form action="{{ route('sekolah.pjp.destroy',$data->id) }}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <button class="block my-1 text-base font-semibold text-left text-red-600 transition whitespace-nowrap hover:text-red-800">Hapus</button>
+                                </form>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

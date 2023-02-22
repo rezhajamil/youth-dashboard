@@ -390,8 +390,6 @@ class SurveyController extends Controller
                 $sekolah = DB::table('survey_answer')->select(['Data_Sekolah_Sumatera.NPSN', 'NAMA_SEKOLAH'])->join('Data_Sekolah_Sumatera', 'survey_answer.npsn', '=', 'Data_Sekolah_Sumatera.NPSN')->where('session', $id)->distinct()->get();
             }
 
-
-
             $survey->soal = json_decode($survey->soal);
             $survey->jenis_soal = json_decode($survey->jenis_soal);
             $survey->opsi = json_decode($survey->opsi);

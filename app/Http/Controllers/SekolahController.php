@@ -199,6 +199,21 @@ class SekolahController extends Controller
         return view('sekolah.create_pjp', compact('cluster'));
     }
 
+    public function edit_pjp($id)
+    {
+        if (auth()->user()->privilege == 'superadmin') {
+            $cluster = DB::table('territory_new')->select('cluster')->distinct()->orderBy('cluster')->get();
+        } else if (auth()->user()->privilege == 'branch') {
+            $cluster = DB::table('territory_new')->select('cluster')->where('branch', auth()->user()->branch)->distinct()->orderBy('cluster')->get();
+        } else {
+            $cluster = DB::table('territory_new')->select('cluster')->distinct()->where('cluster', auth()->user()->cluster)->distinct()->orderBy('cluster')->get();
+        }
+
+        $pjp = DB::table('pjp')->find($id);
+
+        return view('sekolah.edit_pjp', compact('cluster', 'pjp'));
+    }
+
     public function store_pjp(Request $request)
     {
         $request->validate([
@@ -279,6 +294,13 @@ class SekolahController extends Controller
         }
 
         return redirect()->route('sekolah.pjp');
+    }
+
+    public function destroy_pjp($id)
+    {
+        $pjp = DB::table('pjp')->delete($id);
+
+        return back();
     }
 
 
