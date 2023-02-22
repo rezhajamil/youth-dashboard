@@ -25,7 +25,9 @@
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Telp</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Frekuensi</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Waktu</th>
+                            @if (Auth::user()->privilege=='superadmin'||Auth::user()->privilege=='branch')
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Action</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody class="max-h-screen overflow-y-auto">
@@ -46,6 +48,7 @@
                             @else
                             <td class="p-3 text-gray-700 border-b kecamatan whitespace-nowrap"></td>
                             @endif
+                            @if (Auth::user()->privilege=='superadmin'||Auth::user()->privilege=='branch')
                             <td class="p-3 text-gray-700 border-b kecamatan whitespace-nowrap">
                                 {{-- <a href="{{ route('sekolah.pjp.edit',$data->id) }}" class="block my-1 text-base font-semibold text-blue-600 transition hover:text-blue-800">Edit</a> --}}
                                 <form action="{{ route('sekolah.pjp.destroy',$data->id) }}" method="post">
@@ -54,6 +57,7 @@
                                     <button class="block my-1 text-base font-semibold text-left text-red-600 transition whitespace-nowrap hover:text-red-800">Hapus</button>
                                 </form>
                             </td>
+                            @endif
                         </tr>
                         @endforeach
                     </tbody>
