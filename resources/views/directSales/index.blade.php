@@ -13,9 +13,10 @@
                             <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">Branch</th>
                             <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">AO</th>
                             <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">EO</th>
-                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">MOGI</th>
+                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">ORBIT</th>
                             <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">YBA</th>
                             <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">PROMOTOR</th>
+                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">BUDDIES</th>
                             <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">Jumlah</th>
                         </tr>
                     </thead>
@@ -27,9 +28,10 @@
                             <td class="px-6 py-4 text-gray-700 border-b">{{ $data->branch }}</td>
                             <td class="px-6 py-4 text-gray-700 border-b">{{ $data->ao }}</td>
                             <td class="px-6 py-4 text-gray-700 border-b">{{ $data->eo }}</td>
-                            <td class="px-6 py-4 text-gray-700 border-b">{{ $data->mogi }}</td>
+                            <td class="px-6 py-4 text-gray-700 border-b">{{ $data->orbit }}</td>
                             <td class="px-6 py-4 text-gray-700 border-b">{{ $data->yba }}</td>
                             <td class="px-6 py-4 text-gray-700 border-b">{{ $data->promotor }}</td>
+                            <td class="px-6 py-4 text-gray-700 border-b">{{ $data->buddies }}</td>
                             <td class="px-6 py-4 text-gray-700 border-b">{{ $data->jumlah }}</td>
                         </tr>
                         @endforeach
@@ -47,9 +49,10 @@
                             <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">Cluster</th>
                             <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">AO</th>
                             <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">EO</th>
-                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">MOGI</th>
+                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">ORBIT</th>
                             <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">YBA</th>
                             <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">PROMOTOR</th>
+                            <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">BUDDIES</th>
                             <th class="px-5 py-3 text-sm font-medium text-gray-100 uppercase bg-y_premier">Jumlah</th>
                         </tr>
                     </thead>
@@ -60,9 +63,10 @@
                             <td class="px-6 py-4 text-gray-700 border-b">{{ $data->cluster }}</td>
                             <td class="px-6 py-4 text-gray-700 border-b">{{ $data->ao }}</td>
                             <td class="px-6 py-4 text-gray-700 border-b">{{ $data->eo }}</td>
-                            <td class="px-6 py-4 text-gray-700 border-b">{{ $data->mogi }}</td>
+                            <td class="px-6 py-4 text-gray-700 border-b">{{ $data->orbit }}</td>
                             <td class="px-6 py-4 text-gray-700 border-b">{{ $data->yba }}</td>
                             <td class="px-6 py-4 text-gray-700 border-b">{{ $data->promotor }}</td>
+                            <td class="px-6 py-4 text-gray-700 border-b">{{ $data->buddies }}</td>
                             <td class="px-6 py-4 text-gray-700 border-b">{{ $data->jumlah }}</td>
                         </tr>
                         @endforeach

@@ -15,14 +15,15 @@ class DirectSalesContoller extends Controller
      */
     public function index()
     {
-        $branch = Auth::user()->privilege == "branch" ? "and branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege=='cluster'?"and cluster='".Auth::user()->cluster."'":'');
+        $branch = Auth::user()->privilege == "branch" ? "and branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == 'cluster' ? "and cluster='" . Auth::user()->cluster . "'" : '');
         $dataUsersCluster = DB::select(
             "select cluster,
             count(if(role='AO',1,NULL)) as 'ao',
             count(if(role='EO',1,NULL)) as 'eo',
-            count(if(role='MOGI',1,NULL)) as 'mogi',
             count(if(role='YBA',1,NULL)) as 'yba',
             count(if(role='PROMOTOR',1,NULL)) as 'promotor',
+            count(if(role='ORBIT',1,NULL)) as 'orbit',
+            count(if(role='BUDDIES',1,NULL)) as 'buddies',
             count(role) as 'jumlah'
             from data_user
             where not role='' AND NOT role='TYES' AND NOT role='Pilih Type User' AND NOT role='ORBIT'
@@ -37,9 +38,10 @@ class DirectSalesContoller extends Controller
             "select regional,branch,
             count(if(role='AO',1,NULL)) as 'ao',
             count(if(role='EO',1,NULL)) as 'eo',
-            count(if(role='MOGI',1,NULL)) as 'mogi',
             count(if(role='YBA',1,NULL)) as 'yba',
             count(if(role='PROMOTOR',1,NULL)) as 'promotor',
+            count(if(role='ORBIT',1,NULL)) as 'orbit',
+            count(if(role='BUDDIES',1,NULL)) as 'buddies',
             count(role) as 'jumlah'
             from data_user
             where not role='' AND NOT role='TYES' AND NOT role='Pilih Type User' AND NOT role='ORBIT'
