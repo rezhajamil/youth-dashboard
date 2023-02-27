@@ -21,11 +21,11 @@ class DirectUserController extends Controller
     public function index()
     {
         if (Auth::user()->privilege == "superadmin") {
-            $users = DataUser::join('user_type', 'data_user.role', '=', 'user_type.user_type')->where('user_type.status', 1)->orderBy('regional')->orderBy('branch')->orderBy('cluster')->orderBy('nama')->get();
+            $users = DataUser::select('data_user.*')->join('user_type', 'data_user.role', '=', 'user_type.user_type')->where('user_type.status', 1)->orderBy('regional')->orderBy('branch')->orderBy('cluster')->orderBy('nama')->get();
         } else if (Auth::user()->privilege == "branch") {
-            $users = DataUser::join('user_type', 'data_user.role', '=', 'user_type.user_type')->where('branch', Auth::user()->branch)->where('user_type.status', 1)->where('user_type.status', 1)->orderBy('regional')->orderBy('branch')->orderBy('cluster')->orderBy('nama')->get();
+            $users = DataUser::select('data_user.*')->join('user_type', 'data_user.role', '=', 'user_type.user_type')->where('branch', Auth::user()->branch)->where('user_type.status', 1)->where('user_type.status', 1)->orderBy('regional')->orderBy('branch')->orderBy('cluster')->orderBy('nama')->get();
         } else {
-            $users = DataUser::join('user_type', 'data_user.role', '=', 'user_type.user_type')->where('cluster', Auth::user()->cluster)->where('user_type.status', 1)->orderBy('regional')->orderBy('branch')->orderBy('cluster')->orderBy('nama')->get();
+            $users = DataUser::select('data_user.*')->join('user_type', 'data_user.role', '=', 'user_type.user_type')->where('cluster', Auth::user()->cluster)->where('user_type.status', 1)->orderBy('regional')->orderBy('branch')->orderBy('cluster')->orderBy('nama')->get();
         }
 
         // ddd(DataUser::whereRaw("branch='?' and role=? or role=? or role=? or role=? ", array(Auth::user()->branch, 'EO', 'AO', 'MOGI', 'YBA')));

@@ -84,6 +84,10 @@
                                 </span> --}}
                                 @endif
                             </td>
+
+                            {{-- @if ($data->id>2)
+                            {{ddd($data)}}
+                            @endif --}}
                             <td class="p-3 text-gray-700 border-b">
                                 <a href="{{ route('direct_user.show',$data->id) }}" class="block my-1 text-base font-semibold transition text-emerald-600 hover:text-emerald-800">Rapor</a>
                                 <a href="{{ route('direct_user.edit',$data->id) }}" class="block my-1 text-base font-semibold transition text-y_premier hover:text-indigo-800">Edit</a>
