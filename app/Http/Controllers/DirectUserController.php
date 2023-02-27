@@ -79,7 +79,7 @@ class DirectUserController extends Controller
             'panggilan' => 'required',
             'kampus' => 'required',
             'tgl_lahir' => 'required',
-            'telp' => ['required', new TelkomselNumber],
+            'telp' => ['required', 'unique:data_user,telp', new TelkomselNumber],
             'mkios' => 'required',
             'id_digipos' => 'required',
             'user_calista' => 'required',
