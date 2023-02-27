@@ -178,7 +178,8 @@ class SurveyController extends Controller
 
         if ($request->npsn) {
             // ddd($url);
-            $survey = DB::table('survey_session')->where('url', $url)->where('status', '1')->where('tipe', 'Siswa')->orderBy('date', 'desc')->first();
+            $survey = DB::table('survey_session')->where('status', '1')->where('tipe', 'Siswa')->orderBy('date', 'desc')->first();
+            // $survey = DB::table('survey_session')->where('url', $url)->where('status', '1')->where('tipe', 'Siswa')->orderBy('date', 'desc')->first();
             $survey->soal = json_decode($survey->soal);
             $survey->jenis_soal = json_decode($survey->jenis_soal);
             $survey->opsi = json_decode($survey->opsi);

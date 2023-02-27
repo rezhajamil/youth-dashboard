@@ -88,6 +88,12 @@ class DirectUserController extends Controller
             'reff_code' => 'required',
         ]);
 
+        if (in_array($request->role, ['AO', 'EO'])) {
+            $request->validate([
+                'id_digipos' => 'unique:data_user,id_digipos'
+            ]);
+        }
+
         $data = [
             'area' => 'AREA1',
             'posisi' => '',
