@@ -19,12 +19,66 @@
                             </div>
                             <div>
                                 <label class="text-gray-700" for="tipe">Tipe Survey</label>
-                                <select name="tipe" id="tipe" class="w-full rounded-md form-input focus:border-indigo-600">
+                                <select name="tipe" id="tipe" class="w-full rounded-md form-input focus:border-indigo-600" required>
                                     <option value="" selected disabled>Pilih Tipe Survey</option>
                                     <option value="DS">DS</option>
                                     <option value="Siswa">Siswa</option>
                                 </select>
                                 @error('tipe')
+                                <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-4 gap-6 col-span-full">
+                            <div class="w-full">
+                                <label class="block text-gray-700" for="regional">Regional</label>
+                                <select name="regional" id="regional" class="w-full rounded-md" required>
+                                    <option value="" selected disabled>Pilih Region</option>
+                                    <option value="All">ALL Region</option>
+                                    @foreach ($region as $item)
+                                    <option value="{{ $item->regional }}" {{ old('regional')==$item->regional?'selected':'' }}>
+                                        {{ $item->regional }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                                @error('regional')
+                                <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="w-full">
+                                <label class="block text-gray-700" for="branch">Branch</label>
+                                <select name="branch" id="branch" class="w-full rounded-md">
+                                    <option value="All" selected>ALL Branch</option>
+                                    @foreach ($branch as $item)
+                                    <option value="{{ $item->branch }}" {{ old('branch')==$item->branch?'selected':'' }}>
+                                        {{ $item->branch }}</option>
+                                    @endforeach
+                                </select>
+                                @error('branch')
+                                <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="w-full">
+                                <label class="block text-gray-700" for="cluster">Cluster</label>
+                                <select name="cluster" id="cluster" class="w-full rounded-md">
+                                    <option value="All" selected>ALL Cluster</option>
+                                    @foreach ($cluster as $item)
+                                    <option value="{{ $item->cluster }}" {{ old('cluster')==$item->cluster?'selected':'' }}>{{ $item->cluster }}</option>
+                                    @endforeach
+                                </select>
+                                @error('cluster')
+                                <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="w-full">
+                                <label class="block text-gray-700" for="role">Role</label>
+                                <select name="role" id="role" class="w-full rounded-md">
+                                    <option value="All" selected>ALL Role</option>
+                                    @foreach ($role as $item)
+                                    <option value="{{ $item->user_type }}" {{ old('role')==$item->user_type?'selected':'' }}>{{ $item->user_type }}</option>
+                                    @endforeach
+                                </select>
+                                @error('role')
                                 <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -112,7 +166,7 @@
                     </div>
 
                     <div class="flex justify-end mt-4">
-                        <button class="w-full px-4 py-2 font-bold text-white bg-y_premier rounded-md hover:bg-y_sekunder focus:outline-none focus:bg-y_sekunder">Submit</button>
+                        <button class="w-full px-4 py-2 font-bold text-white rounded-md bg-y_premier hover:bg-y_sekunder focus:outline-none focus:bg-y_sekunder">Submit</button>
                     </div>
                 </form>
             </div>

@@ -54,13 +54,15 @@ Route::get('/start/quiz/', [QuizController::class, 'start'])->name('quiz.answer.
 Route::get('/answer_list/quiz/{id}', [QuizController::class, 'answer_list'])->name('quiz.answer.list');
 Route::post('/store_answer/quiz/', [QuizController::class, 'store_answer'])->name('quiz.answer.store');
 
-Route::get('/qns/survey', [SurveyController::class, 'answer'])->name('survey.answer.create');
+Route::get('/qns/survey/{url}', [SurveyController::class, 'answer'])->name('survey.answer.create');
 Route::get('/qns/survey/lucky_draw', [SurveyController::class, 'lucky_draw'])->name('survey.lucky_draw');
 Route::post('/qns/survey/telp_list', [SurveyController::class, 'telp_list'])->name('survey.telp_list');
-Route::get('/start/survey/', [SurveyController::class, 'start'])->name('survey.answer.start');
+Route::get('/start/survey/{url}', [SurveyController::class, 'start'])->name('survey.answer.start');
 Route::get('/resume/survey/{id}', [SurveyController::class, 'resume'])->name('survey.answer.resume');
 Route::get('/answer_list/survey', [SurveyController::class, 'answer_list'])->name('survey.answer.list');
 Route::post('/store_answer/survey/', [SurveyController::class, 'store_answer'])->name('survey.answer.store');
+Route::get('/qns/{url}', [SurveyController::class, 'redirect_survey'])->name('survey.redirect');
+
 
 Route::post('/find_school', [SurveyController::class, 'find_school']);
 Route::post('/find_school_pjp', [SekolahController::class, 'find_school']);
@@ -75,7 +77,7 @@ Route::middleware(['cors'])->group(function () {
 
 //Must Login
 Route::middleware(['auth'])->group(function () {
-    Route::get('/', [DashboardController::class, 'index']);
+    Route::get('/', [DashboardController::class, 'index'])->name('home');
     Route::resource('dashboard', DashboardController::class);
     Route::resource('direct_sales', DirectSalesContoller::class);
     Route::resource('sales', SalesContoller::class);

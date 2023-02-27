@@ -13,8 +13,13 @@
                         <tr>
                             <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Date</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Regional</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Branch</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Cluster</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Role</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Nama</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Deskripsi</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">URL</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Status</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Action</th>
                         </tr>
@@ -25,8 +30,13 @@
                             {{-- {{ ddd($data) }} --}}
                             <td class="p-4 font-bold text-gray-700">{{ $key+1 }}</td>
                             <td class="p-4 text-gray-700">{{ date('d-M-Y',strtotime($data->date)) }}</td>
+                            <td class="p-4 text-gray-700">{{ $data->regional }}</td>
+                            <td class="p-4 text-gray-700">{{ $data->branch }}</td>
+                            <td class="p-4 text-gray-700">{{ $data->cluster }}</td>
+                            <td class="p-4 text-gray-700">{{ $data->role }}</td>
                             <td class="p-4 text-gray-700">{{ $data->nama }}</td>
                             <td class="p-4 text-gray-700">{!! $data->deskripsi !!}</td>
+                            <td class="p-4 italic text-gray-700">{{ $data->url }}</td>
                             <td class="p-4 text-gray-700">
                                 @if ($data->status)
                                 <div class="flex items-center justify-center px-3 py-1 rounded-full bg-green-200/50">

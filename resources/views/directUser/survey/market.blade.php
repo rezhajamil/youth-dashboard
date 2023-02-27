@@ -12,6 +12,7 @@
             <input type="hidden" name="kelas" value="{{ request()->get('kelas') }}">
             <input type="hidden" name="session" value="{{ $survey->id }}">
             <input type="hidden" name="jumlah_soal" value="{{ count($survey->soal) }}">
+            <input type="hidden" name="url" value="{{ $url }}">
             @php
             $opsi=0;
             @endphp

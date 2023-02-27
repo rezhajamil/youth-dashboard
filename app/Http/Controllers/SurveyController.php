@@ -7,7 +7,9 @@ use App\Models\Sekolah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 
 class SurveyController extends Controller
 {
@@ -21,7 +23,7 @@ class SurveyController extends Controller
         // if (Auth::user()->privilege == 'branch') {
         //     abort(403);
         // }
-        $session = DB::table('survey_session')->orderBy('date', 'desc')->get();
+        $session = DB::table('survey_session')->orderBy('regional')->orderBy('branch')->orderBy('cluster')->orderBy('role')->orderBy('date', 'desc')->get();
         return view('directUser.survey.index', compact('session'));
     }
 
@@ -35,7 +37,13 @@ class SurveyController extends Controller
         if (Auth::user()->privilege == 'branch') {
             abort(403);
         }
-        return view('directUser.survey.create');
+
+        $region = DB::table('wilayah')->select('regional')->distinct()->whereNotNull('regional')->get();
+        $branch = DB::table('wilayah')->select('branch')->distinct()->whereNotNull('branch')->get();
+        $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->orderBy('cluster')->get();
+        $role = DB::table('user_type')->where('status', '1')->get();
+
+        return view('directUser.survey.create', compact('region', 'branch', 'cluster', 'role'));
     }
 
     /**
@@ -50,11 +58,15 @@ class SurveyController extends Controller
             abort(403);
         }
         $request->validate([
-            'nama' => 'required',
+            'nama' => 'required|unique:survey_session,nama',
         ]);
 
-        $survey = DB::table('survey_session')->insert([
+        $survey = DB::table('survey_session')->insertGetId([
             'nama' => ucwords($request->nama),
+            'regional' => $request->regional,
+            'branch' => $request->branch,
+            'cluster' => $request->cluster,
+            'role' => $request->role,
             'date' => date('Y-m-d'),
             'tipe' => $request->tipe,
             'deskripsi' => $request->deskripsi,
@@ -66,7 +78,38 @@ class SurveyController extends Controller
             'status' => '0'
         ]);
 
+        // $regional = $request->regional == 'All' ? '' : "-$request->regional";
+        // $branch = $request->branch == 'All' ? '' : "-$request->branch";
+        // $cluster = $request->cluster == 'All' ? '' : "-$request->cluster";
+        $role = $request->role == 'All' ? '' : "-" . Str::lower($request->role);
+
+        if ($request->cluster !== 'All') {
+            $url = "s-" . Str::snake(Str::lower($request->cluster)) . $role . '-' . $survey;
+        } else if ($request->branch !== 'All') {
+            $url = "s-" . Str::snake(Str::lower($request->branch)) . $role . '-' . $survey;
+        } else if ($request->regional !== 'All') {
+            $url = "s-" . Str::snake(Str::lower($request->regional)) . $role . '-' . $survey;
+        } else {
+            $url = "s-" . $survey;
+        }
+
+        DB::table('survey_session')->where('id', $survey)->update([
+            // 'url' => "https://tyes.live/admin/$url", 
+            'url' => "$url",
+        ]);
+
         return redirect()->route('survey.index');
+    }
+
+    public function redirect_survey(Request $request, $url)
+    {
+        if ($request->finish) {
+            return redirect()->route('survey.answer.create', [$url, 'npsn' => $request->npsn, 'finish' => 1]);
+        } else if ($url != '') {
+            return redirect()->route('survey.answer.create', [$url, 'npsn' => $request->npsn]);
+        } else {
+            return redirect()->route('home');
+        }
     }
 
     /**
@@ -129,87 +172,13 @@ class SurveyController extends Controller
         return back();
     }
 
-    public function answer(Request $request)
+    public function answer(Request $request, $url)
     {
         $plain = true;
-        // ddd(json_encode([
-        //     "",
-        //     "Pensi",
-        //     "Olahraga",
-        //     "Game Competition",
-        //     "Knowledge Seminar",
-        //     "Visit Artis Favorit",
-        //     "Pulsa",
-        //     "Kuota Internet",
-        //     "Peralatan Sekolah",
-        //     "Uang Saku",
-        //     "Hape",
-        //     "",
-        //     "",
-        //     "",
-        //     "Telkomsel",
-        //     "Indosat",
-        //     "Tri",
-        //     "XL",
-        //     "Axis",
-        //     "Smartfren",
-        //     "ByU",
-        //     "Telkomsel",
-        //     "Indosat",
-        //     "Tri",
-        //     "XL",
-        //     "Axis",
-        //     "Smartfren",
-        //     "ByU",
-        //     "",
-        //     "Nelpon Jernih",
-        //     "Internetan Cepat",
-        //     "Harga Paket Internetan Murah",
-        //     "Kuota Besar",
-        //     "Masa Aktif Panjang",
-        //     "Dibawah 10 ribu",
-        //     "10 ribu - 20 ribu",
-        //     "20 ribu - 30 ribu",
-        //     "30 ribu - 50 ribu",
-        //     "Diatas 50 ribu",
-        //     "Dibawah 2 GB",
-        //     "2 GB - 5 GB",
-        //     "5 GB - 10 GB",
-        //     "10 GB - 15 GB",
-        //     "Diatas 15 GB",
-        //     "Instagram",
-        //     "Facebook",
-        //     "Twitter",
-        //     "Linkedin",
-        //     "Youtube",
-        //     "TikTok",
-        //     "Whatsapp",
-        //     "Line",
-        //     "Streaming Musik",
-        //     "Streaming Video",
-        //     "Streaming Film",
-        //     "Streaming Youtube",
-        //     "Semuanya",
-        //     "Netflix",
-        //     "Disney Hotstar",
-        //     "Maxstream",
-        //     "Vidio",
-        //     "Lainnya",
-        //     "Free Fire",
-        //     "Mobile Legend",
-        //     "PUBG Mobile",
-        //     "Tidak Suka Main Game",
-        //     "Lainnya",
-        //     "Kantin / Koperasi sekolah",
-        //     "Outlet Sekitar Sekolah",
-        //     "Outlet Sekitar Rumah",
-        //     "Indomaret / Alfamart dan sejenisnya",
-        //     "MyTelkomsel / MyXL / MyCare / MySmartfren dan sejenisnya",
-        //     "Bank / E-Wallet / Tokopedia dan sejenisnya",
-        // ]));
 
         if ($request->npsn) {
-            $survey = DB::table('survey_session')->where('status', '1')->where('tipe', 'Siswa')->orderBy('date', 'desc')->first();
+            // ddd($url);
+            $survey = DB::table('survey_session')->where('url', $url)->where('status', '1')->where('tipe', 'Siswa')->orderBy('date', 'desc')->first();
             $survey->soal = json_decode($survey->soal);
             $survey->jenis_soal = json_decode($survey->jenis_soal);
             $survey->opsi = json_decode($survey->opsi);
@@ -235,19 +204,20 @@ class SurveyController extends Controller
 
         if ($request->npsn) {
             if ($request->finish) {
-                return view('directUser.survey.market', compact('survey', 'plain', 'sekolah'));
+                return view('directUser.survey.market', compact('survey', 'plain', 'sekolah', 'url'));
             } else {
-                return view('directUser.survey.market', compact('survey', 'plain', 'user', 'sekolah', 'title'));
+                return view('directUser.survey.market', compact('survey', 'plain', 'user', 'sekolah', 'title', 'url'));
             }
         } else {
             return view('directUser.survey.answer', compact('survey', 'answer', 'plain', 'user', 'history'));
         }
     }
 
-    public function start(Request $request)
+    public function start(Request $request, $url)
     {
         $plain = true;
-        $survey = DB::table('survey_session')->where('status', '1')->orderBy('date', 'desc')->first();
+        // ddd($request->id);
+        $survey = DB::table('survey_session')->where('url', $url)->where('status', '1')->orderBy('date', 'desc')->first();
         $answer = DB::table('survey_answer')->where('session', $survey->id)->where('telp', $request->telp)->where('telp_siswa', $request->telp_siswa)->count();
 
         if ($answer < 1) {
@@ -309,7 +279,7 @@ class SurveyController extends Controller
         }
 
         if ($request->npsn) {
-            $answer = DB::table('survey_answer')->where('telp_siswa', $request->jawaban_0[0])->count();
+            $answer = DB::table('survey_answer')->where('session', $request->session)->where('telp_siswa', $request->jawaban_0[0])->count();
             // ddd($request->session);
             if ($answer < 1) {
                 $sekolah = Sekolah::where('npsn', $request->npsn)->first();
@@ -323,6 +293,8 @@ class SurveyController extends Controller
                     'time_start' => date('Y-m-d H:i:s'),
                     'finish' => '1'
                 ]);
+            } else {
+                return redirect(URL::to("/survey/$request->url?npsn=$request->npsn&finish=1"));
             }
         } else {
             DB::table('survey_answer')->where('session', $request->session)->where('telp', $request->telp)->where('telp_siswa', $request->telp_siswa)->update([
@@ -332,9 +304,9 @@ class SurveyController extends Controller
         }
 
         if ($request->npsn) {
-            return redirect(URL::to("/qns/survey?npsn=$request->npsn&finish=1"));
+            return redirect(URL::to("/qns/$request->url?npsn=$request->npsn&finish=1"));
         } else {
-            return redirect(URL::to('/qns/survey?telp=' . $request->telp));
+            return redirect(URL::to("/qns/$request->url?telp=$request->telp"));
         }
     }
 
