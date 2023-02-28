@@ -91,6 +91,9 @@
             </table>
         </div> --}}
 
+        @if (request()->get('program')&&request()->get('date'))
+        <input type="hidden" name="d_broadcast" id="d_broadcast" value="{{json_encode($broadcast)}}">
+        @endif
         <span class="block mt-6 mb-2 text-lg font-semibold text-gray-600">Broadcast/By Cluster</span>
         <div class="overflow-hidden bg-white rounded-md shadow w-fit table-broadcast">
             <table class="text-left border-collapse w-fit">
@@ -396,8 +399,7 @@
                 }
             });
         });
-
-    })
+    });
 
 </script>
 @endsection

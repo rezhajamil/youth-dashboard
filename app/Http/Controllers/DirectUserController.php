@@ -203,7 +203,7 @@ class DirectUserController extends Controller
             'panggilan' => 'required',
             'kampus' => 'required',
             'tgl_lahir' => 'required',
-            'telp' => ['required', 'unique:data_user,telp', new TelkomselNumber],
+            'telp' => ['required', new TelkomselNumber],
             'mkios' => 'required',
             'link_aja' => 'required',
             'id_digipos' => 'required',
@@ -212,13 +212,6 @@ class DirectUserController extends Controller
             'reff_byu' => 'required',
             'reff_code' => 'required',
         ]);
-
-
-        if (in_array($request->role, ['AO', 'EO'])) {
-            $request->validate([
-                'id_digipos' => 'unique:data_user,id_digipos'
-            ]);
-        }
 
         $user = DataUser::find($id);
         $user->timestamps = false;
