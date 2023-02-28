@@ -15,11 +15,12 @@
                         <option value="{{ $item->program }}" {{ request()->get('program')==$item->program?'selected':'' }}>{{ $item->program }}</option>
                         @endforeach
                     </select>
-                    <div class="flex gap-x-3">
+                    <div class="flex gap-x-3" id="buttons">
                         <button class="px-4 py-2 font-bold text-white transition rounded-lg bg-y_premier hover:bg-y_sekunder"><i class="mr-2 fa-solid fa-magnifying-glass"></i>Cari</button>
                         @if (request()->get('date'))
                         <a href="{{ route('broadcast.index') }}" class="px-4 py-2 font-bold text-white transition bg-gray-600 rounded-lg hover:bg-gray-800"><i class="mr-2 fa-solid fa-circle-xmark"></i>Reset</a>
                         @endif
+                        <a href="" download="broadcast.csv" class="hidden px-4 py-2 font-bold text-white transition-all bg-teal-600 rounded-lg hover:bg-teal-800"><i class="mr-2 fa-solid fa-file-arrow-down"></i>CSV</a>
                     </div>
                 </form>
                 {{-- <div class="flex gap-x-3">
@@ -93,6 +94,8 @@
 
         @if (request()->get('program')&&request()->get('date'))
         <input type="hidden" name="d_broadcast" id="d_broadcast" value="{{json_encode($broadcast)}}">
+        <input type="hidden" name="d_date" id="d_date" value="{{request()->get('date')}}">
+        <input type="hidden" name="d_program" id="d_program" value="{{request()->get('program')}}">
         @endif
         <span class="block mt-6 mb-2 text-lg font-semibold text-gray-600">Broadcast/By Cluster</span>
         <div class="overflow-hidden bg-white rounded-md shadow w-fit table-broadcast">
@@ -384,7 +387,41 @@
 </div>
 @endsection
 @section('script')
+<script type="text/javascript" src="https://github.com/douglascrockford/JSON-js/raw/master/json2.js"></script>
 <script>
+    function ConvertToCSV(objArray) {
+        var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+        console.log(Object.keys(array[0]));
+        var str = 'data:text/csv;charset=utf-8,';
+        var header=Object.keys(array[0]);
+
+        header.forEach((element,idx) => {
+            str+=element.toUpperCase()
+            if(idx<header.length-1){
+                str+=',';
+            }
+        });
+        str+='\r\n';
+        
+        for (var i = 0; i < array.length; i++) {
+            var line = '';
+            for (var index in array[i]) {
+                if (line != '') line += ','
+
+                line += array[i][index];
+            }
+
+            str += line + '\r\n';
+        }
+        
+        var encodedUri = encodeURI(str);
+        $("#buttons").append(
+            `<a href="${encodedUri}" download="broadcast-${$('#d_program').val()}-${$('#d_date').val()}.csv" class="px-4 py-2 font-bold text-white transition-all bg-teal-600 rounded-lg hover:bg-teal-800"><i class="mr-2 fa-solid fa-file-arrow-down"></i>CSV</a>`
+        );
+
+        return str;
+    }
+    
     $(document).ready(function() {
         $("#search").on("input", function() {
             let search = $(this).val();
@@ -399,6 +436,9 @@
                 }
             });
         });
+
+        var jsonObject = $("#d_broadcast").val();
+        ConvertToCSV(jsonObject)
     });
 
 </script>
