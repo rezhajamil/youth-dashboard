@@ -10,6 +10,7 @@ use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class DirectUserController extends Controller
 {
@@ -193,6 +194,8 @@ class DirectUserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $user = DataUser::find($id);
+
         $request->validate([
             'regional' => 'required',
             'branch' => 'required',
@@ -203,7 +206,7 @@ class DirectUserController extends Controller
             'panggilan' => 'required',
             'kampus' => 'required',
             'tgl_lahir' => 'required',
-            'telp' => ['required', new TelkomselNumber],
+            'telp' => ['required', new TelkomselNumber, Rule::unique('data_user', 'telp')->ignore($user->telp, 'telp')],
             'mkios' => 'required',
             'link_aja' => 'required',
             'id_digipos' => 'required',
@@ -213,7 +216,13 @@ class DirectUserController extends Controller
             'reff_code' => 'required',
         ]);
 
-        $user = DataUser::find($id);
+
+        if (in_array($request->role, ['AO', 'EO'])) {
+            $request->validate([
+                'id_digipos' => [Rule::unique('data_user', 'id_digipos')->ignore($user->id_digipos, 'id_digipos')]
+            ]);
+        }
+
         $user->timestamps = false;
 
         $user->regional = $request->regional;
