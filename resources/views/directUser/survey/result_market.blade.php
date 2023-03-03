@@ -6,7 +6,21 @@
             <a href="{{ url()->previous() }}" class="block px-4 py-2 my-2 font-bold text-white rounded-md bg-y_premier w-fit hover:bg-y_premier"><i class="mr-2 fa-solid fa-arrow-left"></i> Kembali</a>
             <h4 class="inline-block mb-2 text-xl font-bold text-gray-600 align-baseline" id="title">{{ $survey->nama }}</h4>
             {{-- <button class="px-2 py-1 ml-2 text-lg text-white transition bg-green-600 rounded-md hover:bg-green-800" id="capture"><i class="fa-regular fa-circle-down"></i></button> --}}
-            <div class="flex items-center my-4 gap-x-4">
+            <div class="flex items-center gap-x-3">
+                <form action="{{route('survey.answer.resume',$survey->id)}}" method="get">
+                    <select name="month" id="month" required>
+                            <option value="" selected disabled>Pilih Bulan</option>
+                            @for ($i = 1; $i < 13; $i++) <option value="{{ $i }}" {{ request()->get('month')==$i?'selected':(date('n')==$i&&!request()->get('month')?'selected':'') }}>{{ $i }}</option>@endfor
+                    </select>
+                    <select name="year" id="year" required>
+                        <option value="" selected disabled>Pilih Tahun</option>
+                        @for ($i = date('Y')-2; $i <= date('Y'); $i++) <option value="{{ $i }}" {{ request()->get('year')==$i?'selected':(date('Y')==$i&&!request()->get('year')?'selected':'') }}>{{ $i }}</option>
+                            @endfor
+                    </select>
+                    <button type="submit" class="inline-block px-4 py-2 my-2 font-bold text-white transition-all rounded-md bg-y_premier hover:bg-y_premier">Ganti Tanggal</button>
+                </form>
+            </div>
+            <div class="flex items-center my-4 mt-2 gap-x-4">
                 <select name="filter" id="filter" class="block rounded">
                     <option value="" disabled>Pilih Sekolah</option>
                     <option value="">Semua</option>
@@ -195,6 +209,11 @@
             $("#load").show();
             html = '';
             
+            if(sekolah.length==0){
+                $("#load-operator").hide();
+                $("#partisipan").html('0');
+            }
+            
             operator.map(data=>{
                 $("#row-count-operator").prepend(`<td class='border' id="count-${data.operator.toString().toLowerCase()}">0</td>`)
                 $("#row-percent-operator").prepend(`<td class='font-bold border' id="percent-${data.operator.toString().toLowerCase()}">0%</td>`)
@@ -363,7 +382,7 @@
                     pr = 0;
 
                     $("#partisipan").text(answer.length);
-
+                    
                     answer.map((ans,idx)=>{
                         let other=false;
                         kode_operator.forEach(kode => {

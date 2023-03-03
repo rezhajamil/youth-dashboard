@@ -311,9 +311,12 @@ class SurveyController extends Controller
         }
     }
 
-    public function resume($id)
+    public function resume(Request $request, $id)
     {
-        $resume = DB::table('survey_answer')->where('session', $id)->get();
+        $month = $request->month ?? date('m');
+        $year = $request->year ?? date('Y');
+
+        $resume = DB::table('survey_answer')->where('session', $id)->whereMonth('time_start', $month)->whereYear('time_start', $year)->get();
 
         $survey = DB::table('survey_session')->find($id);
 
@@ -358,13 +361,13 @@ class SurveyController extends Controller
 
             return view('directUser.survey.result', compact('answer', 'survey', 'resume', 'hasil'));
         } else if ($survey->tipe == 'Siswa') {
-            $answer = DB::table('survey_answer')->where('session', $id)->whereMonth('time_start', '=', '11')->get();
+            $answer = DB::table('survey_answer')->where('session', $id)->get();
             if (auth()->user()->privilege == 'branch') {
-                $sekolah = DB::table('survey_answer')->select(['Data_Sekolah_Sumatera.NPSN', 'NAMA_SEKOLAH'])->join('Data_Sekolah_Sumatera', 'survey_answer.npsn', '=', 'Data_Sekolah_Sumatera.NPSN')->where('session', $id)->where('branch', auth()->user()->branch)->distinct()->get();
+                $sekolah = DB::table('survey_answer')->select(['Data_Sekolah_Sumatera.NPSN', 'NAMA_SEKOLAH'])->join('Data_Sekolah_Sumatera', 'survey_answer.npsn', '=', 'Data_Sekolah_Sumatera.NPSN')->where('session', $id)->where('branch', auth()->user()->branch)->whereMonth('time_start', $month)->whereYear('time_start', $year)->distinct()->get();
             } else if (auth()->user()->privilege == 'cluster') {
-                $sekolah = DB::table('survey_answer')->select(['Data_Sekolah_Sumatera.NPSN', 'NAMA_SEKOLAH'])->join('Data_Sekolah_Sumatera', 'survey_answer.npsn', '=', 'Data_Sekolah_Sumatera.NPSN')->where('session', $id)->where('cluster', auth()->user()->cluster)->distinct()->get();
+                $sekolah = DB::table('survey_answer')->select(['Data_Sekolah_Sumatera.NPSN', 'NAMA_SEKOLAH'])->join('Data_Sekolah_Sumatera', 'survey_answer.npsn', '=', 'Data_Sekolah_Sumatera.NPSN')->where('session', $id)->where('cluster', auth()->user()->cluster)->whereMonth('time_start', $month)->whereYear('time_start', $year)->distinct()->get();
             } else {
-                $sekolah = DB::table('survey_answer')->select(['Data_Sekolah_Sumatera.NPSN', 'NAMA_SEKOLAH'])->join('Data_Sekolah_Sumatera', 'survey_answer.npsn', '=', 'Data_Sekolah_Sumatera.NPSN')->where('session', $id)->distinct()->get();
+                $sekolah = DB::table('survey_answer')->select(['Data_Sekolah_Sumatera.NPSN', 'NAMA_SEKOLAH'])->join('Data_Sekolah_Sumatera', 'survey_answer.npsn', '=', 'Data_Sekolah_Sumatera.NPSN')->where('session', $id)->whereMonth('time_start', $month)->whereYear('time_start', $year)->distinct()->get();
             }
 
             $survey->soal = json_decode($survey->soal);
