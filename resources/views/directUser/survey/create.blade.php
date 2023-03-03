@@ -99,35 +99,35 @@
                             <div class="grid grid-cols-4 gap-x-4 col-span-full">
                                 <div class="col-span-2">
                                     <label class="text-gray-700" for="soal">Soal</label>
-                                    <input class="w-full rounded-md form-input focus:border-indigo-600" type="text" name="soal[]" required>
+                                    <input class="w-full rounded-md form-input focus:border-indigo-600" type="text" name="soal[]" value="Boleh dong sebutkan Nomor hape kamu.. (Awalan '08')" required>
                                 </div>
                                 <div class="flex flex-col col-span-1">
                                     <label class="text-gray-700" for="jenis_soal">Jenis Soal</label>
                                     <select name="jenis_soal[]" class="w-full rounded-md form-input select-jenis focus:border-indigo-600">
-                                        <option value="Pilgan">Pilihan Ganda</option>
-                                        <option value="Isian">Isian</option>
-                                        <option value="Pilgan & Isian">Pilihan Ganda & Isian</option>
+                                        <option value="Pilgan" disabled>Pilihan Ganda</option>
+                                        <option value="Isian" selected>Isian</option>
+                                        <option value="Pilgan & Isian" disabled>Pilihan Ganda & Isian</option>
                                         {{-- <option value="Checklist">Checklist</option> --}}
-                                        <option value="Prioritas">Prioritas</option>
+                                        <option value="Prioritas" disabled>Prioritas</option>
                                     </select>
                                 </div>
                                 <div class="flex flex-col col-span-1">
                                     <label class="text-gray-700" for="validasi">Jenis Validasi</label>
                                     <select name="validasi[]" class="w-full rounded-md form-input focus:border-indigo-600">
-                                        <option value="">Tidak Ada</option>
-                                        <option value="telp">Nomor Telepon</option>
-                                        <option value="nama">Nama (Bukan Angka)</option>
+                                        <option value="" disabled>Tidak Ada</option>
+                                        <option value="telp" selected>Nomor Telepon</option>
+                                        <option value="nama" disabled>Nama (Bukan Angka)</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="option-container col-span-full">
                                 <input type="hidden" name="jumlah_opsi[]" value="1">
                                 <div class="my-4">
-                                    <div class="flex justify-end gap-x-4">
+                                    <div class="flex justify-end hidden gap-x-4">
                                         <span class="inline-block font-bold text-right text-green-600 underline transition-all cursor-pointer add-opsi">+ Tambah Opsi</span>
                                     </div>
                                     <div class="flex">
-                                        <input class="w-full border-2 border-gray-400 form-input focus:border-indigo-600 first-letter:uppercase" type="text" name="opsi[]" required>
+                                        <input class="w-full border-2 border-gray-400 form-input focus:border-indigo-600 first-letter:uppercase" type="text" name="opsi[]" readonly required>
                                     </div>
                                 </div>
 

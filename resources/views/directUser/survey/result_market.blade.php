@@ -3,7 +3,7 @@
 <div class="w-full mx-4">
     <div class="flex flex-col">
         <div class="mt-4 overflow-y-auto">
-            <a href="{{ url()->previous() }}" class="block px-4 py-2 my-2 font-bold text-white bg-y_premier rounded-md w-fit hover:bg-y_premier"><i class="mr-2 fa-solid fa-arrow-left"></i> Kembali</a>
+            <a href="{{ url()->previous() }}" class="block px-4 py-2 my-2 font-bold text-white rounded-md bg-y_premier w-fit hover:bg-y_premier"><i class="mr-2 fa-solid fa-arrow-left"></i> Kembali</a>
             <h4 class="inline-block mb-2 text-xl font-bold text-gray-600 align-baseline" id="title">{{ $survey->nama }}</h4>
             {{-- <button class="px-2 py-1 ml-2 text-lg text-white transition bg-green-600 rounded-md hover:bg-green-800" id="capture"><i class="fa-regular fa-circle-down"></i></button> --}}
             <div class="flex items-center my-4 gap-x-4">
@@ -15,27 +15,47 @@
                     @endforeach
                 </select>
                 {{-- <button id="btn-excel" class="px-2 py-3 text-white transition-all bg-green-600 rounded hover:bg-green-800">Download as Excel</button> --}}
-                <button id="btn-grafik" class="px-4 py-2 text-white transition-all bg-y_tersier rounded hover:bg-red-800"><i class="mr-2 fa-solid fa-chart-column"></i>Grafik</button>
+                <button id="btn-grafik" class="px-4 py-2 text-white transition-all rounded bg-y_tersier hover:bg-red-800"><i class="mr-2 fa-solid fa-chart-column"></i>Grafik</button>
                 <span class="font-semibold">Jumlah Partisipan : <span id="partisipan"></span></span>
             </div>
             <input type="hidden" name="sekolah" id="sekolah" value="{{ json_encode($sekolah) }}">
+            <input type="hidden" name="operator" id="operator" value="{{ json_encode($operator) }}">
+            <input type="hidden" name="kode_operator" id="kode_operator" value="{{ json_encode($kode_operator) }}">
             <input type="hidden" name="survey" id="survey" value="{{ json_encode($survey) }}">
             <input type="hidden" name="resume" id="resume" value="{{ json_encode($resume) }}">
 
+            <div class="mb-8 overflow-auto bg-white rounded-md shadow w-fit">
+                <table class="overflow-auto text-left bg-white border-collapse w-fit" id="table-operator">
+                    <thead class="border-b">
+                        <tr class="border-b" id="row-operator">
+                            <th class="p-3 text-sm font-bold text-center text-gray-100 uppercase border bg-y_tersier" id="col-lainnya">Lainnya</th>
+                        </tr>
+                    </thead>
+                    <tbody class="max-h-screen overflow-y-auto" id="tbody-operator">
+                        <tr id="row-count-operator" class="text-center"></tr>
+                        <tr id="row-percent-operator" class="text-center"></tr>
+                        <tr id="load-operator" class="font-semibold text-center text-white bg-tersier">
+                            <td colspan="8">Memuat Data...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <div class="mb-8 overflow-auto bg-white rounded-md shadow w-fit" id="result-container">
+                
                 <table class="overflow-auto text-left bg-white border-collapse w-fit" id="table-data">
                     <thead class="border-b">
                         <tr class="border-b">
-                            <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">No</th>
-                            <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Sekolah</th>
-                            <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Soal</th>
-                            <th rowspan="2" colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Opsi</th>
-                            <th rowspan="2" colspan="1" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Jumlah</th>
-                            <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Persentase</th>
+                            <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">No</th>
+                            <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">Sekolah</th>
+                            <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">Soal</th>
+                            <th rowspan="2" colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">Opsi</th>
+                            <th rowspan="2" colspan="1" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">Jumlah</th>
+                            <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">Persentase</th>
                         </tr>
                         <tr>
-                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Per Sekolah</th>
-                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Per Keseluruhan</th>
+                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">Per Sekolah</th>
+                            <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">Per Keseluruhan</th>
                         </tr>
                     </thead>
                     <tbody class="max-h-screen overflow-y-auto" id="tbody">
@@ -68,6 +88,8 @@
         let filter = $("#filter").val();
         let resume = JSON.parse($('#resume').val());
         let sekolah = JSON.parse($('#sekolah').val());
+        let operator = JSON.parse($('#operator').val());
+        let kode_operator = JSON.parse($('#kode_operator').val());
         let survey = JSON.parse($('#survey').val());
         let school, pos, html, chartBar;
 
@@ -84,7 +106,7 @@
         });
 
         const createChart = (canvas, title, label, data) => {
-            console.log(data);
+            // console.log(data);
             chartBar = new Chart(canvas, {
                 type: 'bar'
                 , data: {
@@ -157,6 +179,10 @@
 
         survey.jenis_soal = survey.jenis_soal.filter((data, i) => data != 'Isian');
 
+        operator.map(data=>{
+            $("#row-operator").prepend(`<th class="p-3 text-sm text-center text-gray-100 uppercase border bg-y_tersier" id="col-${data.operator.toString().toLowerCase()}">${data.operator}</th>`);
+        })
+        
         $("#filter").change(function() {
             getResume($(this).val());
         })
@@ -164,8 +190,18 @@
         const getResume = (filter) => {
             $("#tbody").html('');
             $("#grafik-grid").html('');
+            $("#row-count-operator").html('');
+            $("#row-percent-operator").html('');
             $("#load").show();
             html = '';
+            
+            operator.map(data=>{
+                $("#row-count-operator").prepend(`<td class='border' id="count-${data.operator.toString().toLowerCase()}">0</td>`)
+                $("#row-percent-operator").prepend(`<td class='font-bold border' id="percent-${data.operator.toString().toLowerCase()}">0%</td>`)
+            });
+            $("#row-count-operator").append(`<td class='border' id="count-lainnya">0</td>`);
+            $("#row-percent-operator").append(`<td class='font-bold border' id="percent-lainnya">0%</td>`);
+            
             sekolah.map((data, key) => {
                 let url = "{{ route('survey.answer.list')}}" + `?session=${survey.id}&npsn=${data.NPSN}`;
                 let answer = resume.filter(res => res.npsn == data.NPSN);
@@ -176,6 +212,34 @@
                     pr = 0;
 
                     $("#partisipan").text(resume.length);
+
+                    answer.map((ans,idx)=>{
+                        let other=false;
+                        kode_operator.forEach(kode => {
+                            if(kode.kode_prefix==ans.telp_siswa.toString().slice(0,4)){
+                                let col_count=$(`#count-${kode.operator.toString().toLowerCase()}`);
+                                let col_percent=$(`#percent-${kode.operator.toString().toLowerCase()}`);
+                                col_count.html(parseInt(col_count.html())+1);
+                                col_percent.html(`${parseInt(((col_count.html()/resume.length).toFixed(2))*100)}%`);
+                                // console.log([kode.operator,ans.telp_siswa.toString().slice(0,4)]);
+                                other=true;
+                                return;
+                            }
+                        });
+                        if(!other){
+                            let col_count=$(`#count-lainnya`);
+                            let col_percent=$(`#percent-lainnya`);
+                            col_count.html(parseInt(col_count.html())+1);
+                            col_percent.html(`${parseInt(((col_count.html()/resume.length).toFixed(2))*100)}%`);
+                        }
+                    });  
+
+                    // operator.map(data=>{
+                    //     $("#row-percent-operator").prepend(`<td class='font-bold border' id="percent-${data.operator.toString().toLowerCase()}">${parseInt((($(`#count-${data.operator.toString().toLowerCase()}`).html()/resume.length))*100)}%</td>`)
+                    // });
+                    // $("#row-percent-operator").append(`<td class='font-bold border' id="percent-lainnya">${parseInt(($('#count-lainnya').html()/resume.length)*100)}%</td>`);
+
+                    $("#load-operator").hide();
 
                     survey.soal.map((soal, i_soal) => {
                         if (survey.jenis_soal[i_soal] == 'Prioritas') {
@@ -300,6 +364,34 @@
 
                     $("#partisipan").text(answer.length);
 
+                    answer.map((ans,idx)=>{
+                        let other=false;
+                        kode_operator.forEach(kode => {
+                            if(kode.kode_prefix==ans.telp_siswa.toString().slice(0,4)){
+                                let col_count=$(`#count-${kode.operator.toString().toLowerCase()}`);
+                                let col_percent=$(`#percent-${kode.operator.toString().toLowerCase()}`);
+                                col_count.html(parseInt(col_count.html())+1);
+                                col_percent.html(`${parseInt((col_count.html()/answer.length)*100)}%`);
+                                // console.log([kode.operator,ans.telp_siswa.toString().slice(0,4)]);
+                                other=true;
+                                return;
+                            }
+                        });
+                        if(!other){
+                            let col_count=$(`#count-lainnya`);
+                            let col_percent=$(`#percent-lainnya`);
+                            col_count.html(parseInt(col_count.html())+1);
+                            col_percent.html(`${parseInt((col_count.html()/answer.length)*100)}%`);
+                        }
+                    });
+
+                    // operator.map(data=>{
+                    //     $("#row-percent-operator").prepend(`<td class='font-bold border' id="percent-${data.operator.toString().toLowerCase()}">${parseInt(($(`#count-${data.operator.toString().toLowerCase()}`).html()/answer.length)*100)}%</td>`)
+                    // });
+                    // $("#row-percent-operator").append(`<td class='font-bold border' id="percent-lainnya">${parseInt(($('#count-lainnya').html()/answer.length)*100)}%</td>`);
+
+                    $("#load-operator").hide();
+                    
                     survey.soal.map((soal, i_soal) => {
                         if (survey.jenis_soal[i_soal] == 'Prioritas') {
                             for (let index = 0; index < survey.jumlah_opsi[i_soal]; index++) {

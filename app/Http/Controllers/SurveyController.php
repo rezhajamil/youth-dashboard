@@ -317,6 +317,10 @@ class SurveyController extends Controller
 
         $survey = DB::table('survey_session')->find($id);
 
+        $kode_operator = DB::table('kode_prefix_operator')->get();
+
+        $operator = DB::table('kode_prefix_operator')->select('operator')->distinct()->orderBy('operator', 'desc')->get();
+
         $hasil = [];
 
         if ($survey->tipe == 'DS') {
@@ -354,7 +358,7 @@ class SurveyController extends Controller
 
             return view('directUser.survey.result', compact('answer', 'survey', 'resume', 'hasil'));
         } else if ($survey->tipe == 'Siswa') {
-            $answer = DB::table('survey_answer')->where('session', $id)->get();
+            $answer = DB::table('survey_answer')->where('session', $id)->whereMonth('time_start', '=', '11')->get();
             if (auth()->user()->privilege == 'branch') {
                 $sekolah = DB::table('survey_answer')->select(['Data_Sekolah_Sumatera.NPSN', 'NAMA_SEKOLAH'])->join('Data_Sekolah_Sumatera', 'survey_answer.npsn', '=', 'Data_Sekolah_Sumatera.NPSN')->where('session', $id)->where('branch', auth()->user()->branch)->distinct()->get();
             } else if (auth()->user()->privilege == 'cluster') {
@@ -368,7 +372,7 @@ class SurveyController extends Controller
             $survey->opsi = json_decode($survey->opsi);
             $survey->jumlah_opsi = json_decode($survey->jumlah_opsi);
 
-            return view('directUser.survey.result_market', compact('answer', 'survey', 'resume', 'hasil', 'sekolah'));
+            return view('directUser.survey.result_market', compact('kode_operator', 'operator', 'answer', 'survey', 'resume', 'hasil', 'sekolah'));
         }
     }
 

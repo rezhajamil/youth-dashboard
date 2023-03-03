@@ -47,7 +47,7 @@ class LocationController extends Controller
             'kabupaten' => 'required',
             'kecamatan' => 'required',
             'kelurahan' => 'required',
-            'nama' => 'required',
+            'nama' => 'required|unique:taps,nama',
             'alamat' => 'required',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',

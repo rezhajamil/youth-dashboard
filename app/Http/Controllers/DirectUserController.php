@@ -7,6 +7,8 @@ use App\Rules\TelkomselNumber;
 use DateInterval;
 use DatePeriod;
 use DateTime;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -91,7 +93,7 @@ class DirectUserController extends Controller
 
         if (in_array($request->role, ['AO', 'EO'])) {
             $request->validate([
-                'id_digipos' => 'unique:data_user,id_digipos'
+                'id_digipos' => [Rule::unique('data_user', 'id_digipos')->where(fn (QueryBuilder $query) => $query->where('status', 1))]
             ]);
         }
 
