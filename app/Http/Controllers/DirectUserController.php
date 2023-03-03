@@ -351,8 +351,7 @@ class DirectUserController extends Controller
     public function clock_in(Request $request)
     {
         $cluster = $request->cluster;
-        $month = $request->month ?? date('m');
-        $year = $request->year ?? date('Y');
+        $date = $request->date;
 
         if (auth()->user()->privilege == 'superadmin') {
             $list_cluster = DB::table('territory_new')->select('cluster')->distinct()->get();
@@ -364,13 +363,13 @@ class DirectUserController extends Controller
 
         if ($cluster) {
             $clocks = DB::select(
-                "SELECT * FROM table_kunjungan a JOIN data_user b ON a.telp=b.telp WHERE b.cluster='$cluster' AND MONTH(a.date)=$month AND YEAR(a.date)=$year ORDER BY b.nama,a.date"
+                "SELECT * FROM table_kunjungan a JOIN data_user b ON a.telp=b.telp WHERE b.cluster='$cluster' AND a.date='$date' ORDER BY b.nama,a.date"
             );
         } else {
             $clocks = [];
         }
 
-        return view('directUser.clockIn.index', compact('cluster', 'month', 'year', 'list_cluster', 'clocks'));
+        return view('directUser.clockIn.index', compact('cluster', 'date', 'list_cluster', 'clocks'));
     }
 
     /**
