@@ -33,13 +33,22 @@ class EventController extends Controller
 
     public function resume()
     {
-        $peserta = DB::select("SELECT kategori,jenis,COUNT(telp) jumlah FROM peserta_event GROUP BY 1,2 ORDER BY 1,2;");
+        if (request()->get('event')) {
+            $event = request()->get('event');
+            $peserta = DB::select("SELECT kategori,jenis,COUNT(telp) jumlah FROM peserta_event WHERE event='$event' GROUP BY 1,2 ORDER BY 1,2;");
+            // $kategori = DB::table('peserta_event')->select('kategori')->where('event', request()->get('event'))->distinct()->orderBy('kategori')->get();
+        } else {
+            $peserta = [];
+            // $kategori = [];
+        }
+
         $total = 0;
 
         foreach ($peserta as $data) {
             $total += $data->jumlah;
         }
-        return view('event.resume', compact('peserta', 'total'));
+        $event = DB::table('list_event')->get();
+        return view('event.resume', compact('peserta', 'total', 'event'));
     }
 
     /**

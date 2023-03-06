@@ -224,6 +224,58 @@ class SalesContoller extends Controller
         return view('sales.orbit.index', compact('sales_branch', 'sales_cluster', 'sales', 'update'));
     }
 
+
+    public function orbit_digipos(Request $request)
+    {
+        $update = DB::select('select max(so_date) as last_update from orbit_digipos;');
+        if ($request->date) {
+            $m1 = date('Y-m-01', strtotime($request->date));
+            $mtd = date('Y-m-d', strtotime($request->date));
+            $last_m1 = date('Y-m-01', strtotime($this->convDate($mtd)));
+            $last_mtd = $this->convDate($mtd);
+            $branch = Auth::user()->privilege == "branch" ? "branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "b.cluster='" . Auth::user()->cluster . "'" : '');
+            $where = Auth::user()->privilege == "branch" || Auth::user()->privilege == "cluster" ? "where " : "";
+            $and = Auth::user()->privilege == "branch" || Auth::user()->privilege == "cluster" ? "and" : "";
+
+            $query_branch = "SELECT b.regional, b.branch ,
+                    COUNT(CASE WHEN a.`so_date` BETWEEN '$m1' AND '$mtd' THEN a.msisdn END) mtd,
+                    COUNT(CASE WHEN a.`so_date` BETWEEN '$last_m1' AND '$last_mtd' THEN a.msisdn END) last_mtd
+                    FROM orbit_digipos a  
+                    JOIN data_user b ON b.id_digipos = a.outlet_id
+                    $where
+                    $branch
+                    GROUP BY 1,2
+                    ORDER BY 1 DESC,2;";
+
+            $query_cluster = "SELECT b.branch, b.cluster ,
+                    COUNT(CASE WHEN a.`so_date` BETWEEN '$m1' AND '$mtd' THEN a.msisdn END) mtd,
+                    COUNT(CASE WHEN a.`so_date` BETWEEN '$last_m1' AND '$last_mtd' THEN a.msisdn END) last_mtd
+                    FROM orbit_digipos a  
+                    JOIN data_user b ON b.id_digipos = a.outlet_id
+                    $where
+                    $branch
+                    GROUP BY 1,2
+                    ORDER BY 1,2;";
+
+            $query = "SELECT b.nama,b.cluster,b.role,b.telp,b.reff_code, a.msisdn,a.so_date,a.imei
+                    FROM orbit_digipos a  
+                    JOIN data_user b ON b.id_digipos = a.outlet_id
+                    where a.so_date BETWEEN '$m1' AND '$mtd'
+                    $and
+                    $branch
+                    ORDER by b.cluster, b.nama ASC";
+
+            $sales_branch = DB::select($query_branch, [1]);
+            $sales_cluster = DB::select($query_cluster, [1]);
+            $sales = DB::select($query, [1]);
+        } else {
+            $sales_branch = [];
+            $sales_cluster = [];
+            $sales = [];
+        }
+        return view('sales.orbit_digipos.index', compact('sales_branch', 'sales_cluster', 'sales', 'update'));
+    }
+
     public function destroy_orbit($msisdn)
     {
         $orbit = DB::table('sales_copy')->where('msisdn', $msisdn)->update([

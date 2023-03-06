@@ -77,7 +77,8 @@
         </a>
         <div class="flex flex-col w-3/4 mx-6 mt-2 ml-auto overflow-hidden bg-opacity-25 rounded-md bg-slate-800" x-show="sales" x-transition>
             <a href="{{ route('sales.migrasi') }}" class="text-white transition-all border-b hover:bg-white hover:text-slate-800 border-b-slate-400"><span class="inline-block px-2 py-3">Migrasi</span></a>
-            <a href="{{ route('sales.orbit') }}" class="text-white transition-all border-b hover:bg-white hover:text-slate-800 border-b-slate-400"><span class="inline-block px-2 py-3">Orbit</span></a>
+            <a href="{{ route('sales.orbit') }}" class="text-white transition-all border-b hover:bg-white hover:text-slate-800 border-b-slate-400"><span class="inline-block px-2 py-3">Orbit by Youth</span></a>
+            <a href="{{ route('sales.orbit_digipos') }}" class="text-white transition-all border-b hover:bg-white hover:text-slate-800 border-b-slate-400"><span class="inline-block px-2 py-3">Orbit by Digipos</span></a>
             <a href="{{ route('sales.digipos') }}" class="text-white transition-all border-b hover:bg-white hover:text-slate-800 border-b-slate-400"><span class="inline-block px-2 py-3">Digipos</span></a>
             <a href="{{ route('sales.trade') }}" class="text-white transition-all border-b hover:bg-white hover:text-slate-800 border-b-slate-400"><span class="inline-block px-2 py-3">Trade In</span></a>
         </div>

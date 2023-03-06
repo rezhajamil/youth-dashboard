@@ -8,24 +8,24 @@
             </div>
 
             <div class="flex justify-between">
-                <form class="flex flex-wrap items-center my-3 gap-x-4 gap-y-2" action="{{ route('event.index') }}" method="get">
+                <form class="flex flex-wrap items-center my-3 gap-x-4 gap-y-2" action="{{ route('event.resume') }}" method="get">
                     <select name="event" id="event" class="px-4 pr-8 rounded-lg">
                         <option value="" selected disabled>Pilih Event</option>
                         @foreach ($event as $item)
                         <option value="{{ $item->id }}" {{ $item->id==request()->get('event')?'selected':'' }}>{{ $item->singkatan }} | {{$item->tahun}}</option>
                         @endforeach
                     </select>
-                    <select name="kategori" id="kategori" class="px-4 rounded-lg">
+                    {{-- <select name="kategori" id="kategori" class="px-4 rounded-lg">
                         <option value="" selected disabled>Pilih Kategori</option>
                         <option value="All" {{ 'All'==request()->get('kategori')?'selected':'' }}>Semua</option>
                         @foreach ($kategori as $item)
                         <option value="{{ $item->kategori }}" {{ $item->kategori==request()->get('kategori')?'selected':'' }}>{{ $item->kategori }}</option>
                         @endforeach
-                    </select>
+                    </select> --}}
                     <div class="flex gap-x-3">
                         <button class="px-4 py-2 font-bold text-white transition rounded-lg bg-y_premier hover:bg-y_premier"><i class="mr-2 fa-solid fa-magnifying-glass"></i>Cari</button>
-                        @if (request()->get('kategori'))
-                        <a href="{{ route('event.index') }}" class="px-4 py-2 font-bold text-white transition bg-gray-600 rounded-lg hover:bg-gray-800"><i class="mr-2 fa-solid fa-circle-xmark"></i>Reset</a>
+                        @if (request()->get('event'))
+                        <a href="{{ route('event.resume') }}" class="px-4 py-2 font-bold text-white transition bg-gray-600 rounded-lg hover:bg-gray-800"><i class="mr-2 fa-solid fa-circle-xmark"></i>Reset</a>
                         @endif
                     </div>
                 </form>
