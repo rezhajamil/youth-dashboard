@@ -113,7 +113,7 @@
                                 <a href="{{ route('sekolah.show',$data->NPSN) }}" target="_blank" class="block my-1 text-base font-semibold text-teal-600 transition hover:text-teal-800">Detail</a>
                                 <a href="{{ route('sekolah.edit',$data->NPSN) }}" class="block my-1 text-base font-semibold transition text-y_premier hover:text-indigo-800">Edit</a>
                                 @if ($data->LATITUDE&&$data->LONGITUDE)
-                                <a target="_blank" href="http://maps.google.com/maps?z=12&t=m&q=loc:{{$data->LATITUDE}}+{{$data->LONGITUDE}}" class="block my-1 text-base font-semibold transition text-y_sekunder hover:text-teal-600">Search</a>
+                                <a target="_blank" href="http://maps.google.com/maps?z=12&t=m&q=loc:{{$data->LATITUDE}}+{{$data->LONGITUDE}}" class="block my-1 text-base font-semibold transition text-y_sekunder hover:text-teal-600">Cek Lokasi</a>
                                 @endif
                                 {{-- <form action="{{ route('direct_user.change_status',$data->id) }}" method="post">
                                 @csrf
