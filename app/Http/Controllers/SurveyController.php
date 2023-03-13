@@ -176,10 +176,11 @@ class SurveyController extends Controller
     {
         $plain = true;
 
+        // ddd($url);
         if ($request->npsn) {
             // ddd($url);
-            $survey = DB::table('survey_session')->where('status', '1')->where('tipe', 'Siswa')->orderBy('date', 'desc')->first();
-            // $survey = DB::table('survey_session')->where('url', $url)->where('status', '1')->where('tipe', 'Siswa')->orderBy('date', 'desc')->first();
+            // $survey = DB::table('survey_session')->where('status', '1')->where('tipe', 'Siswa')->orderBy('date', 'desc')->first();
+            $survey = DB::table('survey_session')->where('url', $url)->where('tipe', 'Siswa')->orderBy('date', 'desc')->first();
             $survey->soal = json_decode($survey->soal);
             $survey->jenis_soal = json_decode($survey->jenis_soal);
             $survey->opsi = json_decode($survey->opsi);
@@ -386,7 +387,7 @@ class SurveyController extends Controller
         $hasil = [];
 
         $answer = DB::table('survey_answer')->where('session', $request->session)->where('npsn', $request->npsn)->get();
-        $sekolah = DB::table('survey_answer')->select(['Data_Sekolah_Sumatera.NPSN', 'NAMA_SEKOLAH'])->join('Data_Sekolah_Sumatera', 'survey_answer.npsn', '=', 'Data_Sekolah_Sumatera.NPSN')->where('session', $request->session)->distinct()->get();
+        $sekolah = DB::table('Data_Sekolah_Sumatera')->where('NPSN', $request->npsn)->first();
 
         $survey->soal = json_decode($survey->soal);
         $survey->jenis_soal = json_decode($survey->jenis_soal);

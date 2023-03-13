@@ -49,7 +49,7 @@ Route::name('sekolah.')->group(function () {
     Route::post('sekolah/get_kecamatan', [SekolahController::class, 'getKecamatan'])->name('get_kecamatan');
 });
 
-Route::get('/qns/', [QuizController::class, 'answer'])->name('quiz.answer.create');
+Route::get('/qns', [QuizController::class, 'answer'])->name('quiz.answer.create');
 Route::get('/start/quiz/', [QuizController::class, 'start'])->name('quiz.answer.start');
 Route::get('/answer_list/quiz/{id}', [QuizController::class, 'answer_list'])->name('quiz.answer.list');
 Route::post('/store_answer/quiz/', [QuizController::class, 'store_answer'])->name('quiz.answer.store');
@@ -61,7 +61,7 @@ Route::get('/start/survey/{url}', [SurveyController::class, 'start'])->name('sur
 Route::get('/resume/survey/{id}', [SurveyController::class, 'resume'])->name('survey.answer.resume');
 Route::get('/answer_list/survey', [SurveyController::class, 'answer_list'])->name('survey.answer.list');
 Route::post('/store_answer/survey/', [SurveyController::class, 'store_answer'])->name('survey.answer.store');
-Route::get('/qns/{url}', [SurveyController::class, 'redirect_survey'])->name('survey.redirect');
+// Route::get('/qns/{url}', [SurveyController::class, 'redirect_survey'])->name('survey.redirect');
 
 
 Route::post('/find_school', [SurveyController::class, 'find_school']);

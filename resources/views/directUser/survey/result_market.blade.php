@@ -273,7 +273,7 @@
                     html += `
                     <tr>
                     <td rowspan="${row}" class="p-4 font-bold text-center text-gray-700 border border-b-2 border-r-2">${key+1}</td>
-                    <td rowspan="${row}" class="p-4 font-bold text-center text-gray-700 border border-b-2 whitespace-nowrap">
+                    <td rowspan="${row}" class="p-4 font-bold text-center text-gray-700 border border-b-2 whitespace-nowrap underline hover:text-cyan-600 transition-all">
                     <a href="${url}" target="_blank">
                         ${data.NAMA_SEKOLAH}
                     </a>    
@@ -422,7 +422,7 @@
                     });
                     html += ` <tr>
                         <td rowspan="${row}" class="p-4 font-bold text-center text-gray-700 border border-b-2 border-r-2">${key+1}</td>
-                        <td rowspan="${row}" class="p-4 font-bold text-center text-gray-700 border border-b-2 whitespace-nowrap">
+                        <td rowspan="${row}" class="p-4 font-bold text-center text-gray-700 border border-b-2 whitespace-nowrap underline hover:text-cyan-600 transition-all">
                             <a href="${url}" target="_blank">
                                 ${data.NAMA_SEKOLAH}
                             </a>

@@ -3,7 +3,10 @@
 <div class="w-full mx-4">
     <div class="flex flex-col">
         <div class="mt-4">
-            <a href="{{ url()->previous() }}" class="block px-4 py-2 my-2 font-bold text-white bg-y_premier rounded-md w-fit hover:bg-y_premier"><i class="mr-2 fa-solid fa-arrow-left"></i> Kembali</a>
+            <div class="flex">
+                <a href="{{ url()->previous() }}" class="block px-4 py-2 my-2 font-bold text-white rounded-md bg-y_premier w-fit hover:bg-y_premier"><i class="mr-2 fa-solid fa-arrow-left"></i> Kembali</a>
+                <button id="button" class="inline-block px-4 py-2 mx-3 my-2 font-semibold text-white transition-all bg-teal-600 rounded-md hover:bg-teal-800"><i class="mr-2 fa-solid fa-file-arrow-down"></i>Excel</button>
+            </div>
             <h4 class="inline-block mb-2 text-xl font-bold text-gray-600 align-baseline" id="title">{{ $survey->nama }}</h4>
             {{-- <button class="px-2 py-1 ml-2 text-lg text-white transition bg-green-600 rounded-md hover:bg-green-800" id="capture"><i class="fa-regular fa-circle-down"></i></button> --}}
             <input type="hidden" name="sekolah" id="sekolah" value="{{ json_encode($sekolah) }}">
@@ -13,11 +16,11 @@
                 <table class="overflow-auto text-left bg-white border-collapse w-fit" id="table-data">
                     <thead class="border-b" id="thead">
                         {{-- <tr class="border-b">
-                            <th rowspan="3" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">No</th>
-                            <th rowspan="3" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Sekolah</th>
-                            <th rowspan="3" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Soal</th>
-                            <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Opsi</th>
-                            <th colspan="1" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Jumlah</th>
+                            <th rowspan="3" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">No</th>
+                            <th rowspan="3" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">Sekolah</th>
+                            <th rowspan="3" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">Soal</th>
+                            <th colspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">Opsi</th>
+                            <th colspan="1" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">Jumlah</th>
                         </tr> --}}
                     </thead>
                     <tbody class="max-h-screen overflow-y-auto" id="tbody">
@@ -34,12 +37,13 @@
 </div>
 @endsection
 @section('script')
+<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
 <script>
     $(document).ready(function() {
         let title = $("#title").val();
         let filter = $("#filter").val();
         let answer = JSON.parse($('#answer').val());
-        let sekolah = JSON.parse($('#sekolah').val());
+        const sekolah = JSON.parse($('#sekolah').val());
         let survey = JSON.parse($('#survey').val());
         let header, body;
         let pos_head = 0;
@@ -54,8 +58,8 @@
 
             header += `
             <tr class="border-b">
-                <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">No</th>
-                <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier border">Telp</th>
+                <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">No</th>
+                <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">Telp</th>
             `;
 
             survey.soal.map((data, i) => {
@@ -197,6 +201,46 @@
         }
 
         getResult();
+
+        function fnExcelReport()
+        {
+            var tab_text="<table border='2px'><tr bgcolor='#B90027' style='color:#fff'>";
+            var textRange; var j=0;
+            tab = document.getElementById('table-data'); // id of table
+
+            for(j = 0 ; j < tab.rows.length ; j++) 
+            {     
+                tab_text=tab_text+tab.rows[j].innerHTML+"</tr>";
+                //tab_text=tab_text+"</tr>";
+            }
+
+            tab_text=tab_text+"</table>";
+            tab_text= tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
+            tab_text= tab_text.replace(/<img[^>]*>/gi,""); // remove if u want images in your table
+            tab_text= tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+
+            var ua = window.navigator.userAgent;
+            var msie = ua.indexOf("MSIE "); 
+
+            if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+            {
+                txtArea1.document.open("txt/html","replace");
+                txtArea1.document.write(tab_text);
+                txtArea1.document.close();
+                txtArea1.focus(); 
+                sa=txtArea1.document.execCommand("SaveAs",true,"Say Thanks to Sumit.xlss");
+            }  
+            else                 //other browser not tested on IE 11
+                sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));  
+
+            return (sa);
+        }
+
+        $('#button').click(function(){
+            fnExcelReport();
+        })
+
+
 
     });
 
