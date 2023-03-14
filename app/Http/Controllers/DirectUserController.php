@@ -379,10 +379,20 @@ class DirectUserController extends Controller
         $u_cluster = Auth::user()->cluster;
         $where_loc = $u_privilege == 'cluster' ? " a.`cluster`='$u_cluster' AND " : ($u_privilege == 'branch' ? "a.`branch`='$u_branch' AND " : "");
 
+        $target = DB::table('target_ds')->where('status', 1)->get();
+        $list_target = [];
+        $sales = 0;
+        $proses = 0;
+        foreach ($target as $key => $data) {
+            $list_target[$data->item_kpi] = ['target' => $data->unit == 'rupiah' ? number_format("$data->target", 0, ",", ".") : $data->target, 'bobot' => $data->bobot, 'unit' => $data->unit];
+            $sales += $data->kategori == 'sales' ? $data->bobot : 0;
+            $proses += $data->kategori == 'proses' ? $data->bobot : 0;
+        }
+
         if ($request->date) {
             $mtd = $request->date;
             $m1 = date('Y-m-01', strtotime($mtd));
-            $detail = DB::select(" SELECT a.branch,a.cluster,a.nama,a.telp,a.`role`,b.migrasi,c.orbit,d.trade,e.update_data,f.pjp,g.oss_osk,h.quiz,i.survey
+            $detail = DB::select(" SELECT a.branch,a.cluster,a.nama,a.telp,a.`role`,b.migrasi,c.orbit,d.trade,e.update_data,f.pjp,g.oss_osk,h.quiz,i.survey,j.broadband,k.digital
             FROM data_user a
             LEFT JOIN (SELECT outlet_id,COUNT(outlet_id) migrasi FROM `4g_usim_all_trx` WHERE date BETWEEN '$m1' AND '$mtd' AND (status='MIGRATION_SUCCCESS' OR status='USIM_ACTIVE') GROUP BY 1) b ON a.id_digipos=b.outlet_id
             LEFT JOIN (SELECT outlet_id,COUNT(msisdn) orbit FROM orbit_digipos WHERE so_date BETWEEN '$m1' AND '$mtd' GROUP BY 1) c ON a.id_digipos=c.outlet_id
@@ -391,14 +401,35 @@ class DirectUserController extends Controller
             LEFT JOIN (SELECT telp,COUNT(npsn) pjp FROM table_kunjungan WHERE date BETWEEN '$m1' AND '$mtd' GROUP BY 1) f ON a.telp=f.telp
             LEFT JOIN (SELECT telp,COUNT(npsn) oss_osk FROM data_oss_osk WHERE created_at BETWEEN '$m1' AND '$mtd' GROUP BY 1) g ON a.telp=g.telp
             LEFT JOIN (SELECT telp,SUM(hasil) quiz FROM quiz_answer WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) h ON a.telp=h.telp
-            LEFT JOIN (SELECT Data_Sekolah_Sumatera.telp,COUNT(survey_answer.npsn) survey FROM survey_answer JOIN Data_Sekolah_Sumatera ON survey_answer.npsn=Data_Sekolah_Sumatera.NPSN WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) i ON a.telp=i.telp
+            LEFT JOIN (SELECT Data_Sekolah_Sumatera.telp,COUNT(survey_answer.telp_siswa) survey FROM survey_answer JOIN Data_Sekolah_Sumatera ON survey_answer.npsn=Data_Sekolah_Sumatera.NPSN WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) i ON a.telp=i.telp
+            LEFT JOIN (SELECT digipos_ao,SUM(price) broadband FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DATA' GROUP BY 1) j ON a.id_digipos=j.digipos_ao
+            LEFT JOIN (SELECT digipos_ao,SUM(price) digital FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL' GROUP BY 1) k ON a.id_digipos=k.digipos_ao
             WHERE $where_loc a.status=1
             ORDER BY 1,2,3,5;");
+
+            // $detail = json_decode(json_encode($detail), true);
+
+            foreach ($detail as $i_detail => $data) {
+                foreach ($list_target as $i_target => $target) {
+                    $data->{"ach_$i_target"} = intval($data->{$i_target}) / intval($target['target']);
+                    $data->{"ach_$i_target"} = $data->{"ach_$i_target"} < $target['bobot'] ? $data->{"ach_$i_target"} : $target['bobot'];
+                    $data->{"ach_$i_target"} = number_format($data->{"ach_$i_target"}, 2, ',', '.');
+                    if ($target['unit'] == 'rupiah') {
+                        $data->{$i_target} = number_format($data->{$i_target}, 0, ',', '.');
+                    }
+                }
+                $data->{'tot_sales'} = floatval($data->ach_broadband) + floatval($data->ach_digital) + floatval($data->ach_orbit) + floatval($data->ach_migrasi) + floatval($data->ach_trade);
+                $data->{'tot_proses'} = floatval($data->ach_update_data) + floatval($data->ach_pjp) + floatval($data->ach_survey) + floatval($data->ach_oss_osk) + floatval($data->ach_quiz);
+                $data->{'total'} = number_format(floatval($data->tot_sales) + floatval($data->tot_proses), 2, ',', '.');
+            }
+
+            // ddd($detail);
         } else {
             $detail = [];
         }
 
-        return view('directUser.kpi.index', compact('detail'));
+
+        return view('directUser.kpi.index', compact('detail', 'list_target', 'sales', 'proses'));
     }
 
     /**
