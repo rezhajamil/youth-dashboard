@@ -411,15 +411,16 @@ class DirectUserController extends Controller
 
             foreach ($detail as $i_detail => $data) {
                 foreach ($list_target as $i_target => $target) {
-                    $data->{"ach_$i_target"} = intval($data->{$i_target}) / intval($target['target']);
+                    $data->{"ach_$i_target"} = (intval($data->{$i_target}) / intval($target['target'])) * 100;
                     $data->{"ach_$i_target"} = $data->{"ach_$i_target"} < $target['bobot'] ? $data->{"ach_$i_target"} : $target['bobot'];
                     $data->{"ach_$i_target"} = number_format($data->{"ach_$i_target"}, 2, ',', '.');
                     if ($target['unit'] == 'rupiah') {
                         $data->{$i_target} = number_format($data->{$i_target}, 0, ',', '.');
                     }
                 }
-                $data->{'tot_sales'} = floatval($data->ach_broadband) + floatval($data->ach_digital) + floatval($data->ach_orbit) + floatval($data->ach_migrasi) + floatval($data->ach_trade);
-                $data->{'tot_proses'} = floatval($data->ach_update_data) + floatval($data->ach_pjp) + floatval($data->ach_survey) + floatval($data->ach_oss_osk) + floatval($data->ach_quiz);
+                // ddd((float)str_replace(',','.',$data->ach_migrasi));
+                $data->{'tot_sales'} = (float)str_replace(',', '.', $data->ach_broadband) + (float)str_replace(',', '.', $data->ach_digital) + (float)str_replace(',', '.', $data->ach_orbit) + (float)str_replace(',', '.', $data->ach_migrasi) + (float)str_replace(',', '.', $data->ach_trade);
+                $data->{'tot_proses'} = (float)str_replace(',', '.', $data->ach_update_data) + (float)str_replace(',', '.', $data->ach_pjp) + (float)str_replace(',', '.', $data->ach_survey) + (float)str_replace(',', '.', $data->ach_oss_osk) + (float)str_replace(',', '.', $data->ach_quiz);
                 $data->{'total'} = number_format(floatval($data->tot_sales) + floatval($data->tot_proses), 2, ',', '.');
             }
 
