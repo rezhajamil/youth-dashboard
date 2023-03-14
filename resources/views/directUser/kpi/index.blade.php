@@ -1,0 +1,82 @@
+@extends('layouts.dashboard.app')
+@section('body')
+<div class="w-full mx-4">
+    <div class="flex flex-col">
+        <div class="mt-4">
+            <div class="flex items-center mb-6 gap-x-3">
+                <form action="{{route('direct_user.kpi')}}" method="get">
+                    <input type="date" name="date" id="date" class="px-4 rounded-lg" value="{{ request()->get('date') }}" required>
+                    <button type="submit" class="inline-block px-4 py-2 mt-2 mb-6 font-bold text-white transition-all rounded-md bg-y_premier hover:bg-sky-800"><i class="mr-2 fa-solid fa-magnifying-glass"></i>Cari</button>
+                </form>
+            </div>
+            
+            <div class="mb-10 overflow-auto bg-white rounded-md shadow w-fit">
+                <table class="overflow-auto text-left border-collapse w-fit">
+                    <thead class="border-b">
+                        <tr>
+                            <th class="p-3 text-sm font-bold text-gray-100 uppercase border bg-y_premier">No</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase border bg-y_premier">Branch</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase border bg-y_premier">Cluster</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase border bg-y_premier">Nama</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase border bg-y_premier">Telp</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase border bg-y_premier">Role</th>
+
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase border bg-y_tersier">Broadband</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase border bg-y_tersier">Digital</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase border bg-y_tersier">Orbit</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase border bg-y_tersier">Migrasi</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase border bg-y_tersier">Trade In</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase border bg-y_tersier">Sales</th>
+
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase border bg-tersier">Update Data</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase border bg-tersier">Update PJP Harian</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase border bg-tersier">Survey Market</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase border bg-tersier">Channeling OSK & OSS</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase border bg-tersier">Product Knowledge</th>
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase border bg-tersier">Prosess</th>
+
+                            <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-black border">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody class="max-h-screen overflow-y-auto">
+                        @foreach ($detail as $key=>$data)
+                        <tr class="">
+                            <td class="p-2 text-sm font-bold border">{{$key+1}}</td>
+                            <td class="p-2 text-sm border">{{$data->branch}}</td>
+                            <td class="p-2 text-sm border">{{$data->cluster}}</td>
+                            <td class="p-2 text-sm border">{{$data->nama}}</td>
+                            <td class="p-2 text-sm border">{{$data->telp}}</td>
+                            <td class="p-2 text-sm border">{{$data->role}}</td>
+                            
+                            <td class="p-2 text-sm border">{{''}}</td>
+                            <td class="p-2 text-sm border">{{''}}</td>
+                            <td class="p-2 text-sm border">{{$data->orbit??'-'}}</td>
+                            <td class="p-2 text-sm border">{{$data->migrasi??'-'}}</td>
+                            <td class="p-2 text-sm border">{{$data->tdade??'-'}}</td>
+                            <td class="p-2 text-sm border">{{''}}</td>
+                            
+                            <td class="p-2 text-sm border">{{$data->update_data??'-'}}</td>
+                            <td class="p-2 text-sm border">{{$data->pjp??'-'}}</td>
+                            <td class="p-2 text-sm border">{{$data->survey??'-'}}</td>
+                            <td class="p-2 text-sm border">{{$data->oss_osk??'-'}}</td>
+                            <td class="p-2 text-sm border">{{$data->quiz??'-'}}</td>
+                            <td class="p-2 text-sm border">{{''}}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+@endsection
+@section('script')
+<script>
+    $(document).ready(function() {
+
+    })
+
+</script>
+@endsection

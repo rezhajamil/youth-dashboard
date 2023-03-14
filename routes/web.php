@@ -182,6 +182,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('absensi', [DirectUserController::class, 'absensi'])->name('direct_user.absensi');
     Route::get('absensi/show/{telp}', [DirectUserController::class, 'show_absensi'])->name('direct_user.absensi.show');
     Route::get('clock_in', [DirectUserController::class, 'clock_in'])->name('direct_user.clock_in');
+    Route::get('kpi', [DirectUserController::class, 'kpi'])->name('direct_user.kpi');
 
     Route::resource('event', EventController::class);
     Route::get('resume/event', [EventController::class, 'resume'])->name('event.resume');

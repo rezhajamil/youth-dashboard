@@ -81,91 +81,8 @@
             });
             header += '</tr>';
 
-            // sekolah.map((data, key) => {
-            //     let url = "{{ route('survey.answer.list')}}" + `?session=${survey.id}&npsn=${data.NPSN}`;
-            //     let answer = resume.filter(res => res.npsn == data.NPSN);
-            //     // console.log(answer);
-            //     // school = key;
-            //     pos = 0;
-            //     row = 0;
-            //     pr = 0;
-
-            //     survey.soal.map((soal, i_soal) => {
-            //         if (survey.jenis_soal[i_soal] == 'Prioritas') {
-            //             for (let index = 0; index < survey.jumlah_opsi[i_soal]; index++) {
-            //                 row += parseInt(survey.jumlah_opsi[i_soal]);
-            //             }
-            //         } else {
-            //             row += parseInt(survey.jumlah_opsi[i_soal]);
-            //         }
-            //     });
-
-            //     // body += `
-            //     //     <tr>
-            //     //     <td rowspan="${row}" class="p-4 font-bold text-center text-gray-700 border border-b-2 border-r-2">${key+1}</td>
-            //     //     <td rowspan="${row}" class="p-4 font-bold text-center text-gray-700 border border-b-2 whitespace-nowrap">
-            //     //     <a href="${url}" target="_blank" class="block w-full h-full">
-            //     //         ${data.NAMA_SEKOLAH}
-            //     //     </a>    
-            //     //     </td>
-            //     //     `;
-            //     // survey.soal.map((soal, i_soal) => {
-            //     //     let choice = [];
-            //     //     for (let index = pos; index < pos + parseInt(survey.jumlah_opsi[i_soal]); index++) {
-            //     //         if (survey.jenis_soal[i_soal] == 'Prioritas') {
-            //     //             pr += 1;
-            //     //         } else {
-            //     //             break;
-            //     //         }
-            //     //     }
-
-            //     //     body += `
-            //     //         ${i_soal>0?'<tr>':''}
-            //     //         <td rowspan="${survey.jenis_soal[i_soal] != 'Prioritas'?parseInt(survey.jumlah_opsi[i_soal]):parseInt(survey.jumlah_opsi[i_soal])*pr}" class="p-4 text-gray-700 text-xl border border-b-${i_soal>0?4:2}">${soal}</td>
-            //     //         `;
-
-            //     //     answer.map((d_answer, i_answer) => {
-            //     //         choice.push(d_answer.pilihan[i_soal]);
-            //     //     })
-
-
-            //     //     for (let index = pos; index < pos + parseInt(survey.jumlah_opsi[i_soal]); index++) {
-            //     //         let res = 0;
-            //     //         if (survey.jenis_soal[i_soal] != 'Prioritas') {
-            //     //             let count = choice.filter(data => data == survey.opsi[index]).length;
-            //     //             pr = 0;
-
-            //     //             body += `
-            //     //                 ${index>pos?'<tr>':''}
-            //     //                 <td colspan="2" class="p-4 text-white border border-b whitespace-nowrap bg-tersier">${survey.opsi[index]}</td>
-            //     //                 <td class="p-4 text-center text-gray-700 border border-b whitespace-nowrap">${count}</td>
-            //     //                 </tr>
-            //     //                 `;
-            //     //         } else {
-            //     //             body += `
-            //     //                     ${index>pos?'<tr>':''}
-            //     //                     <td colspan="1" rowspan="${pr}" class="p-4 text-white border border-b whitespace-nowrap bg-sekunder">${survey.opsi[index]}</td>`;
-            //     //             for (let i = 1; i <= pr; i++) {
-            //     //                 let count = choice.filter(data => {
-            //     //                     return data[i - 1] == survey.opsi[index];
-            //     //                 }).length;
-
-            //     //                 body += `
-            //     //                     <td colspan="1" class="p-2 text-center text-white border border-b bg-sekunder whitespace-nowrap">${i}</td>
-            //     //                     <td class="p-4 text-center text-gray-700 border border-b whitespace-nowrap">${count}</td>
-            //     //                     </tr>
-            //     //                     `;
-            //     //             }
-            //     //         }
-            //     //     }
-            //     //     pos += parseInt(survey.jumlah_opsi[i_soal]);
-
-            //     // })
-
-            // });
-
             answer.map((data, key) => {
-                console.log(data)
+                // console.log(data)
                 body += `<tr>
                 <td class="p-4 font-bold text-center text-gray-700 border border-b-2 border-r-2">${key+1}</td>
                 <td class="p-4 font-bold text-center text-gray-700 border border-b-2 border-r-2">${data.telp_siswa}</td>
@@ -239,9 +156,6 @@
         $('#button').click(function(){
             fnExcelReport();
         })
-
-
-
     });
 
 </script>

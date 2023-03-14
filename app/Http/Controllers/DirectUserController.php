@@ -372,6 +372,35 @@ class DirectUserController extends Controller
         return view('directUser.clockIn.index', compact('cluster', 'date', 'list_cluster', 'clocks'));
     }
 
+    public function kpi(Request $request)
+    {
+        $u_privilege = Auth::user()->privilege;
+        $u_branch = Auth::user()->branch;
+        $u_cluster = Auth::user()->cluster;
+        $where_loc = $u_privilege == 'cluster' ? " a.`cluster`='$u_cluster' AND " : ($u_privilege == 'branch' ? "a.`branch`='$u_branch' AND " : "");
+
+        if ($request->date) {
+            $mtd = $request->date;
+            $m1 = date('Y-m-01', strtotime($mtd));
+            $detail = DB::select(" SELECT a.branch,a.cluster,a.nama,a.telp,a.`role`,b.migrasi,c.orbit,d.trade,e.update_data,f.pjp,g.oss_osk,h.quiz,i.survey
+            FROM data_user a
+            LEFT JOIN (SELECT outlet_id,COUNT(outlet_id) migrasi FROM `4g_usim_all_trx` WHERE date BETWEEN '$m1' AND '$mtd' AND (status='MIGRATION_SUCCCESS' OR status='USIM_ACTIVE') GROUP BY 1) b ON a.id_digipos=b.outlet_id
+            LEFT JOIN (SELECT outlet_id,COUNT(msisdn) orbit FROM orbit_digipos WHERE so_date BETWEEN '$m1' AND '$mtd' GROUP BY 1) c ON a.id_digipos=c.outlet_id
+            LEFT JOIN (SELECT telp,COUNT(msisdn) trade FROM sales_copy WHERE date BETWEEN '$m1' AND '$mtd' AND kategori='TRADE IN' GROUP BY 1) d ON a.telp=d.telp
+            LEFT JOIN (SELECT telp,COUNT(NPSN) update_data FROM Data_Sekolah_Sumatera WHERE UPDATED_AT BETWEEN '$m1' AND '$mtd' AND LONGITUDE!='' GROUP BY 1) e ON a.telp=e.telp
+            LEFT JOIN (SELECT telp,COUNT(npsn) pjp FROM table_kunjungan WHERE date BETWEEN '$m1' AND '$mtd' GROUP BY 1) f ON a.telp=f.telp
+            LEFT JOIN (SELECT telp,COUNT(npsn) oss_osk FROM data_oss_osk WHERE created_at BETWEEN '$m1' AND '$mtd' GROUP BY 1) g ON a.telp=g.telp
+            LEFT JOIN (SELECT telp,SUM(hasil) quiz FROM quiz_answer WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) h ON a.telp=h.telp
+            LEFT JOIN (SELECT Data_Sekolah_Sumatera.telp,COUNT(survey_answer.npsn) survey FROM survey_answer JOIN Data_Sekolah_Sumatera ON survey_answer.npsn=Data_Sekolah_Sumatera.NPSN WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) i ON a.telp=i.telp
+            WHERE $where_loc a.status=1
+            ORDER BY 1,2,3,5;");
+        } else {
+            $detail = [];
+        }
+
+        return view('directUser.kpi.index', compact('detail'));
+    }
+
     /**
      * Remove the specified resource from storage.
      *
