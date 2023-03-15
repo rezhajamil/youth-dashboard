@@ -18,9 +18,21 @@ class SekolahController extends Controller
 
     public function index(Request $request)
     {
-
+        $privilege = auth()->user()->privilege;
+        $branch = auth()->user()->branch;
+        $cluster = auth()->user()->cluster;
         ini_set('memory_limit', '-1');
-        $provinsi = Sekolah::select('provinsi')->distinct()->whereNotNull('provinsi')->orderBy('provinsi')->get();
+        switch ($privilege) {
+            case 'branch':
+                $provinsi = Sekolah::select('provinsi')->distinct()->whereNotNull('provinsi')->where('branch', $branch)->orderBy('provinsi')->get();
+                break;
+            case 'cluster':
+                $provinsi = Sekolah::select('provinsi')->distinct()->whereNotNull('provinsi')->where('cluster', $cluster)->orderBy('provinsi')->get();
+                break;
+            default:
+                $provinsi = Sekolah::select('provinsi')->distinct()->whereNotNull('provinsi')->orderBy('provinsi')->get();
+                break;
+        }
         $branch = DB::table('wilayah')->select('branch')->distinct()->whereNotNull('branch')->get();
 
         if ($request->kecamatan) {
