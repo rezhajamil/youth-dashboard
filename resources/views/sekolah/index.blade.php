@@ -86,9 +86,7 @@
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Cluster</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">PJP</th>
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">FREKUENSI</th>
-                            @if (Auth::user()->privilege!='cluster')
                             <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Action</th>
-                            @endif
                         </tr>
                     </thead>
                     <tbody class="max-h-screen overflow-y-auto">
@@ -108,10 +106,11 @@
                             <td class="p-4 text-gray-700 border-b cluster">{{ $data->CLUSTER }}</td>
                             <td class="p-4 text-gray-700 border-b ">{{ $data->PJP }}</td>
                             <td class="p-4 text-gray-700 border-b ">{{ $data->FREKUENSI }}</td>
-                            @if (Auth::user()->privilege!='cluster')
                             <td class="p-4 text-gray-700 border-b">
                                 <a href="{{ route('sekolah.show',$data->NPSN) }}" target="_blank" class="block my-1 text-base font-semibold text-teal-600 transition hover:text-teal-800">Detail</a>
+                                @if (Auth::user()->privilege!='cluster')
                                 <a href="{{ route('sekolah.edit',$data->NPSN) }}" class="block my-1 text-base font-semibold transition text-y_premier hover:text-indigo-800">Edit</a>
+                                @endif
                                 @if ($data->LATITUDE&&$data->LONGITUDE)
                                 <a target="_blank" href="http://maps.google.com/maps?z=12&t=m&q=loc:{{$data->LATITUDE}}+{{$data->LONGITUDE}}" class="block my-1 text-base font-semibold transition text-y_sekunder hover:text-teal-600">Cek Lokasi</a>
                                 @endif
@@ -120,7 +119,6 @@
                                 @method('put')
                                 <button class="block my-1 text-base font-semibold text-left text-red-600 transition hover:text-red-800">Ubah Status</button>
                                 </form> --}} 
-                                @endif
                             </td>
                         </tr>
                         @endforeach
