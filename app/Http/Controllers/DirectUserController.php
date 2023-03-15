@@ -428,9 +428,13 @@ class DirectUserController extends Controller
         } else {
             $detail = [];
         }
+        $last_migrasi = DB::table('4g_usim_all_trx')->select('date')->orderBy('date', 'desc')->first();
+        $last_orbit = DB::table('orbit_digipos')->select('so_date as date')->orderBy('so_date', 'desc')->first();
+        $last_trade = DB::table('sales_copy')->select('date')->orderBy('date', 'desc')->first();
+        $last_digipos = DB::table('trx_digipos_ds')->select('event_date as date')->whereNotIn('event_date', ['None'])->orderBy('event_date', 'desc')->first();
 
-
-        return view('directUser.kpi.index', compact('detail', 'list_target', 'sales', 'proses'));
+        // ddd(compact('last_migrasi', 'last_orbit', 'last_trade', 'last_digipos'));
+        return view('directUser.kpi.index', compact('detail', 'list_target', 'sales', 'proses', 'last_migrasi', 'last_orbit', 'last_trade', 'last_digipos'));
     }
 
     /**

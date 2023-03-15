@@ -20,28 +20,28 @@ class OutletController extends Controller
         ini_set('memory_limit', -1);
         $all_site = [];
         $all_outlet = [];
-        if (file_exists('D:/Telkomsel/4g_list_site.csv')) {
-            $file_site = fopen('D:/Telkomsel/4g_list_site.csv', "r");
-            $idx = 0;
-            while (($row = fgetcsv($file_site, 100000, "|")) !== FALSE) {
+        // if (file_exists('D:/Telkomsel/4g_list_site.csv')) {
+        //     $file_site = fopen('D:/Telkomsel/4g_list_site.csv', "r");
+        //     $idx = 0;
+        //     while (($row = fgetcsv($file_site, 100000, "|")) !== FALSE) {
 
-                $data = [
-                    'site_id' => $row[1],
-                    'longitude' => $row[6],
-                    'latitude' => $row[7],
-                ];
+        //         $data = [
+        //             'site_id' => $row[1],
+        //             'longitude' => $row[6],
+        //             'latitude' => $row[7],
+        //         ];
 
-                if ($idx > 0) {
-                    array_push($all_site, $data);
-                    echo '<pre>' . $idx . var_export($all_site, true) . '</pre>';
-                }
-                $idx++;
-            }
-        }
+        //         if ($idx > 0) {
+        //             array_push($all_site, $data);
+        //             echo '<pre>' . $idx . var_export($all_site, true) . '</pre>';
+        //         }
+        //         $idx++;
+        //     }
+        // }
 
-        die();
-        $all_site = DB::table('4g_list_site')->select('*')->get();
-        $all_outlet = DB::table('outlet_preference')->select('*')->get();
+        // die();
+        $all_site = DB::table('4g_list_site')->select(['site_id', 'latitude', 'longitude'])->get();
+        $all_outlet = DB::table('outlet_preference')->select(['outlet_id', 'lattitude', 'longitude'])->get();
         $unit = 'kilometers';
         // ddd('aa');
         // dd($all_outlet);
@@ -99,7 +99,7 @@ class OutletController extends Controller
      * @param  \App\Models\r  $r
      * @return \Illuminate\Http\Response
      */
-    public function show(r $r)
+    public function show($r)
     {
         //
     }
@@ -110,7 +110,7 @@ class OutletController extends Controller
      * @param  \App\Models\r  $r
      * @return \Illuminate\Http\Response
      */
-    public function edit(r $r)
+    public function edit($r)
     {
         //
     }
@@ -122,7 +122,7 @@ class OutletController extends Controller
      * @param  \App\Models\r  $r
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, r $r)
+    public function update(Request $request, $r)
     {
         //
     }
@@ -133,7 +133,7 @@ class OutletController extends Controller
      * @param  \App\Models\r  $r
      * @return \Illuminate\Http\Response
      */
-    public function destroy(r $r)
+    public function destroy($r)
     {
         //
     }
@@ -141,7 +141,7 @@ class OutletController extends Controller
     public function getSiteTerdekat()
     {
         $all_outlet = Outlet::all();
-        $all_site = DB::table('4g_list_site')->select('*')->get();
+        $all_site = DB::table('4g_list_site')->select(['site_id', 'latitude', 'longitude'])->get();
 
         return $all_site;
     }
