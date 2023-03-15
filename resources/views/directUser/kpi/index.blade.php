@@ -3,12 +3,28 @@
 <div class="w-full mx-4">
     <div class="flex flex-col">
         <div class="mt-4">
-            <div class="flex items-center mb-6 gap-x-3">
-                <form action="{{route('direct_user.kpi')}}" method="get">
-                    <input type="date" name="date" id="date" class="px-4 rounded-lg" value="{{ request()->get('date') }}" required>
-                    <button type="submit" class="inline-block px-4 py-2 mt-2 mb-6 font-bold text-white transition-all rounded-md bg-y_premier hover:bg-sky-800"><i class="mr-2 fa-solid fa-magnifying-glass"></i>Cari</button>
-                </form>
+            <div class="flex items-end mb-6 gap-x-3">
+                <div class="pr-4 border-r-4 border-slate-600">
+                    <form action="{{route('direct_user.kpi')}}" method="get">
+                        <input type="date" name="date" id="date" class="px-4 rounded-lg" value="{{ request()->get('date') }}" required>
+                        <button type="submit" class="inline-block px-4 py-2 mt-2 font-bold text-white transition-all rounded-md bg-y_premier hover:bg-sky-800"><i class="mr-2 fa-solid fa-magnifying-glass"></i>Cari</button>
+                    </form>
+                </div>
+                <input type="text" name="search" id="search" placeholder="Filter..." class="px-4 rounded-lg">
+                <div class="flex flex-col">
+                    <span class="font-bold text-gray-600">Berdasarkan</span>
+                    <select name="search_by" id="search_by" class="rounded-lg">
+                        <option value="branch">Branch</option>
+                        <option value="cluster">Cluster</option>
+                        <option value="nama">Nama</option>
+                        <option value="telp">Telp</option>
+                        <option value="role">Role</option>
+                    </select>
+                </div>
             </div>
+            
+            {{-- <div class="flex flex-wrap items-end mb-2 gap-x-4">
+            </div> --}}
             
             <div class="mb-10 overflow-auto bg-white rounded-md shadow w-fit">
                 <table class="overflow-auto text-left border-collapse w-fit">
@@ -67,11 +83,11 @@
                         @foreach ($detail as $key=>$data)
                         <tr class="">
                             <td class="p-2 font-bold border">{{$key+1}}</td>
-                            <td class="p-2 border">{{$data->branch}}</td>
-                            <td class="p-2 border">{{$data->cluster}}</td>
-                            <td class="p-2 border">{{$data->nama}}</td>
-                            <td class="p-2 border">{{$data->telp}}</td>
-                            <td class="p-2 border">{{$data->role}}</td>
+                            <td class="p-2 border branch">{{$data->branch}}</td>
+                            <td class="p-2 border cluster">{{$data->cluster}}</td>
+                            <td class="p-2 border nama">{{$data->nama}}</td>
+                            <td class="p-2 border telp">{{$data->telp}}</td>
+                            <td class="p-2 border role">{{$data->role}}</td>
                             
                             <td class="p-2 border">{{$data->broadband??'-'}}</td>
                             <td class="p-2 border">{{$data->ach_broadband??'-'}}%</td>
@@ -111,7 +127,27 @@
 @section('script')
 <script>
     $(document).ready(function() {
+        $("#search").on("input", function() {
+            find();
+        });
 
+        $("#search_by").on("input", function() {
+            find();
+        });
+
+        const find = () => {
+            let search = $("#search").val();
+            let searchBy = $('#search_by').val();
+            let pattern = new RegExp(search, "i");
+            $(`.${searchBy}`).each(function() {
+                let label = $(this).text();
+                if (pattern.test(label)) {
+                    $(this).parent().show();
+                } else {
+                    $(this).parent().hide();
+                }
+            });
+        }
     })
 
 </script>
