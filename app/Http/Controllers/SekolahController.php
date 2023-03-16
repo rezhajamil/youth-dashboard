@@ -87,9 +87,12 @@ class SekolahController extends Controller
      */
     public function show($id)
     {
-        $sekolah = DB::select("SELECT * FROM Data_Sekolah_Sumatera a LEFT JOIN detail_sekolah b ON a.NPSN=b.npsn WHERE a.NPSN='$id' LIMIT 1;");
+        $sekolah = DB::select("SELECT *,c.nama as ao FROM Data_Sekolah_Sumatera a LEFT JOIN detail_sekolah b ON a.NPSN=b.npsn LEFT JOIN data_user c ON a.TELP=c.telp WHERE a.NPSN='$id' LIMIT 1;");
         $sekolah = $sekolah[0];
-        return view('sekolah.show', compact('sekolah'));
+        $outlet = Sekolah::getNearestOutlet($id);
+        $site = Sekolah::getNearestSite($id);
+
+        return view('sekolah.show', compact('sekolah', 'outlet', 'site'));
     }
 
     /**
