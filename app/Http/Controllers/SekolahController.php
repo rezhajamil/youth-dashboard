@@ -25,15 +25,17 @@ class SekolahController extends Controller
         switch ($privilege) {
             case 'branch':
                 $provinsi = Sekolah::select('provinsi')->distinct()->whereNotNull('provinsi')->where('branch', $branch)->orderBy('provinsi')->get();
+                $branch = DB::table('wilayah')->select('branch')->distinct()->whereNotNull('branch')->where('branch', $branch)->get();
                 break;
             case 'cluster':
                 $provinsi = Sekolah::select('provinsi')->distinct()->whereNotNull('provinsi')->where('cluster', $cluster)->orderBy('provinsi')->get();
+                $branch = [];
                 break;
             default:
                 $provinsi = Sekolah::select('provinsi')->distinct()->whereNotNull('provinsi')->orderBy('provinsi')->get();
+                $branch = DB::table('wilayah')->select('branch')->distinct()->whereNotNull('branch')->get();
                 break;
         }
-        $branch = DB::table('wilayah')->select('branch')->distinct()->whereNotNull('branch')->get();
 
         if ($request->kecamatan) {
             $sekolah = Sekolah::where('kecamatan', $request->kecamatan)->orderBy('nama_sekolah')->get();

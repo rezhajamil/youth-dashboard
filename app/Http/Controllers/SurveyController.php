@@ -306,7 +306,7 @@ class SurveyController extends Controller
         }
 
         if ($request->npsn) {
-            return redirect(URL::to("/qns/$request->url?npsn=$request->npsn&finish=1"));
+            return redirect(URL::to("/qns/survey/$request->url?npsn=$request->npsn&finish=1"));
         } else {
             return redirect(URL::to("/qns/$request->url?telp=$request->telp"));
         }
