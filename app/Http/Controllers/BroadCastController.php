@@ -355,7 +355,7 @@ class BroadCastController extends Controller
     public function release_whitelist(Request $request, $telp)
     {
         $program = $request->program;
-        $whitelist = DB::table('new_data_broadcast')->where('telp', $telp)->where('program', $program)->where('status', '0')->update(
+        $whitelist = DB::table('new_data_campaign')->where('telp', $telp)->where('program', $program)->where('status', '0')->update(
             [
                 'telp' => 'no'
             ]
