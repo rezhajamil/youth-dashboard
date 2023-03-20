@@ -91,8 +91,8 @@ class SekolahController extends Controller
         $sekolah = $sekolah[0];
         $outlet = Sekolah::getNearestOutlet($id);
         $site = Sekolah::getNearestSite($id);
-
-        return view('sekolah.show', compact('sekolah', 'outlet', 'site'));
+        $last_visit = DB::table('table_kunjungan AS a')->join('data_user AS b', 'a.telp', '=', 'b.telp')->where('npsn', $sekolah->NPSN)->orderBy('date', 'DESC')->orderBy('waktu', 'DESC')->first();
+        return view('sekolah.show', compact('sekolah', 'outlet', 'site', 'last_visit'));
     }
 
     /**

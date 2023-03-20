@@ -100,6 +100,35 @@
                     <div id="map" style="width: 100%; height: 350px;margin-top: 16px"></div>
                 </div>
             @endif
+            <div class="mt-4">
+                <h4 class="mb-2 text-xl font-bold text-gray-600 align-baseline">Kunjungan Terakhir</h4>
+
+                <div class="overflow-auto bg-white rounded-md shadow w-fit">
+                    <table class="overflow-auto text-left border-collapse w-fit">
+                        <thead class="border-b">
+                            <tr>
+                                <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-premier">Nama</th>
+                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-premier">Telp</th>
+                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-premier">Role</th>
+                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-premier">Tanggal</th>
+                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-premier">Waktu</th>
+                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-premier">Jarak</th>
+                            </tr>
+                        </thead>
+                        <tbody class="max-h-screen overflow-y-auto">
+                            <tr class="hover:bg-gray-200">
+                                <td class="p-4 font-bold text-gray-700 border-b">{{ $last_visit->nama }}</td>
+                                <td class="p-4 text-gray-700 border-b">{{ $last_visit->telp }}</td>
+                                <td class="p-4 text-gray-700 border-b">{{ $last_visit->role }}</td>
+                                <td class="p-4 text-gray-700 border-b">
+                                    {{ date('d-M-Y', strtotime($last_visit->date)) }}</td>
+                                <td class="p-4 text-gray-700 border-b">{{ $last_visit->waktu }}</td>
+                                <td class="p-4 text-gray-700 border-b">{{ $last_visit->jarak }} Km</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
     </div>
