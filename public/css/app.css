@@ -1117,9 +1117,6 @@ select {
 .w-auto {
   width: auto;
 }
-.w-1 {
-  width: 0.25rem;
-}
 .w-24 {
   width: 6rem;
 }
@@ -1129,11 +1126,8 @@ select {
 .w-6 {
   width: 1.5rem;
 }
-.w-16 {
-  width: 4rem;
-}
-.w-40 {
-  width: 10rem;
+.w-28 {
+  width: 7rem;
 }
 .w-48 {
   width: 12rem;
@@ -1146,6 +1140,9 @@ select {
 }
 .w-4 {
   width: 1rem;
+}
+.w-40 {
+  width: 10rem;
 }
 .min-w-full {
   min-width: 100%;
@@ -1351,9 +1348,6 @@ select {
 .border {
   border-width: 1px;
 }
-.border-4 {
-  border-width: 4px;
-}
 .border-2 {
   border-width: 2px;
 }
@@ -1368,6 +1362,9 @@ select {
 }
 .border-r {
   border-right-width: 1px;
+}
+.border-r-4 {
+  border-right-width: 4px;
 }
 .border-b-2 {
   border-bottom-width: 2px;
@@ -1387,9 +1384,6 @@ select {
 .border-t-4 {
   border-top-width: 4px;
 }
-.border-r-4 {
-  border-right-width: 4px;
-}
 .border-gray-300 {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
@@ -1401,6 +1395,10 @@ select {
 .border-gray-400 {
   --tw-border-opacity: 1;
   border-color: rgb(156 163 175 / var(--tw-border-opacity));
+}
+.border-slate-600 {
+  --tw-border-opacity: 1;
+  border-color: rgb(71 85 105 / var(--tw-border-opacity));
 }
 .border-transparent {
   border-color: transparent;
@@ -1432,14 +1430,6 @@ select {
 .border-white {
   --tw-border-opacity: 1;
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
-}
-.border-black {
-  --tw-border-opacity: 1;
-  border-color: rgb(0 0 0 / var(--tw-border-opacity));
-}
-.border-slate-600 {
-  --tw-border-opacity: 1;
-  border-color: rgb(71 85 105 / var(--tw-border-opacity));
 }
 .border-b-slate-400 {
   --tw-border-opacity: 1;
@@ -1697,6 +1687,9 @@ select {
 .pt-8 {
   padding-top: 2rem;
 }
+.pr-4 {
+  padding-right: 1rem;
+}
 .pr-8 {
   padding-right: 2rem;
 }
@@ -1708,9 +1701,6 @@ select {
 }
 .pl-3 {
   padding-left: 0.75rem;
-}
-.pr-4 {
-  padding-right: 1rem;
 }
 .pt-2 {
   padding-top: 0.5rem;
@@ -2433,6 +2423,11 @@ select {
     margin-bottom: -1px;
   }
 
+  .sm\:mx-4 {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
   .sm\:mt-0 {
     margin-top: 0px;
   }
@@ -2467,6 +2462,14 @@ select {
 
   .sm\:w-1\/2 {
     width: 50%;
+  }
+
+  .sm\:w-16 {
+    width: 4rem;
+  }
+
+  .sm\:w-40 {
+    width: 10rem;
   }
 
   .sm\:w-3\/4 {

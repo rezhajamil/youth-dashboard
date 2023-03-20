@@ -3,7 +3,7 @@
     <input type="hidden" id="sekolah" value="{{ json_encode($sekolah) }}">
     <input type="hidden" id="site" value="{{ json_encode($site) }}">
     <input type="hidden" id="outlet" value="{{ json_encode($outlet) }}">
-    <div class="w-full mx-4">
+    <div class="w-full sm:mx-4">
         <div class="flex flex-col">
             <div class="mt-4">
                 <h4 class="mb-2 text-xl font-bold text-gray-600 align-baseline">Detail {{ $sekolah->NAMA_SEKOLAH }}</h4>
@@ -42,12 +42,12 @@
                 </div>
             </div>
             @if ($site && $outlet && auth()->user()->privilege == 'superadmin')
-                <div class="grid grid-cols-1 mt-4 gap-x-3 sm:grid-cols-2 w-fit">
-                    <div class="w-fit">
+                <div class="grid grid-cols-1 mt-4 gap-y-3 gap-x-3 sm:grid-cols-3 w-full">
+                    <div class="w-full">
                         <h4 class="mb-2 text-xl font-bold text-gray-600 align-baseline">Site Terdekat</h4>
 
-                        <div class="overflow-auto bg-white rounded-md shadow w-fit">
-                            <table class="overflow-auto text-left border-collapse w-fit">
+                        <div class="overflow-auto bg-white rounded-md shadow w-full">
+                            <table class="overflow-auto text-left border-collapse w-full">
                                 <thead class="border-b">
                                     <tr>
                                         <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-premier">ID SITE</th>
@@ -70,11 +70,11 @@
                             </table>
                         </div>
                     </div>
-                    <div class="w-fit">
+                    <div class="w-full">
                         <h4 class="mb-2 text-xl font-bold text-gray-600 align-baseline">Outlet Terdekat</h4>
 
-                        <div class="overflow-auto bg-white rounded-md shadow w-fit">
-                            <table class="overflow-auto text-left border-collapse w-fit">
+                        <div class="overflow-auto bg-white rounded-md shadow w-full">
+                            <table class="overflow-auto text-left border-collapse w-full">
                                 <thead class="border-b">
                                     <tr>
                                         <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-premier">ID Outlet</th>
@@ -97,8 +97,8 @@
                             </table>
                         </div>
                     </div>
+                    <div id="map" style="width: 100%; height: 350px;margin-top: 16px"></div>
                 </div>
-                <div id="map" style="width: 50%; height: 350px;margin-top: 16px"></div>
             @endif
         </div>
 
@@ -121,8 +121,6 @@
             });
 
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png?foo=bar', {
-                // maxZoom: 20,
-                // zoomOffset: 10,
                 attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             }).addTo(map);
 
@@ -134,6 +132,7 @@
             site.map((data, i) => {
                 L.marker([parseFloat(data.latitude), parseFloat(data.longitude)], {
                     icon: iconSite,
+                    riseOnHover: true,
                 }).addTo(
                     map).bindPopup(
                     `<a target='_blank' href='http://maps.google.com/maps?z=12&t=m&q=loc:${data.latitude}+${sekolah.longitude}"'>ID Site : ${data.site}</a>`
@@ -142,16 +141,18 @@
 
             outlet.map((data, i) => {
                 // L.circle([parseFloat(data.lattitude), parseFloat(data.longitude)], {
-                //     color: '#6074B1',
-                //     fillColor: '#6074B1',
+                //     color: '#B90027',
+                //     fillColor: '#B90027',
                 //     fillOpacity: 0.5,
-                //     radius: 30
+                //     radius: 30,
+                //     className: 'fa-solid fa-wifi text-white text-2xl'
                 // }).addTo(map).bindPopup(
                 //     `<a target='_blank' href='http://maps.google.com/maps?z=12&t=m&q=loc:${data.lattitude}+${sekolah.longitude}"'>Outlet : ${data.outlet}</a>`
                 // );
 
                 L.marker([parseFloat(data.lattitude), parseFloat(data.longitude)], {
                     icon: iconOutlet,
+                    riseOnHover: true,
                 }).addTo(
                     map).bindPopup(
                     `<a target='_blank' href='http://maps.google.com/maps?z=12&t=m&q=loc:${data.lattitude}+${sekolah.longitude}"'>Outlet : ${data.outlet}</a>`

@@ -411,8 +411,8 @@ class DirectUserController extends Controller
 
             foreach ($detail as $i_detail => $data) {
                 foreach ($list_target as $i_target => $target) {
-                    $data->{"ach_$i_target"} = (intval($data->{$i_target}) / intval($target['target'])) * 100;
-                    $data->{"ach_$i_target"} = $data->{"ach_$i_target"} < $target['bobot'] ? $data->{"ach_$i_target"} : $target['bobot'];
+                    $data->{"ach_$i_target"} = (intval($data->{$i_target}) / (int)str_replace('.', '', $target['target'])) * 100;
+                    $data->{"ach_$i_target"} = $data->{"ach_$i_target"} < 100 ? intval($data->{"ach_$i_target"}) * ($target['bobot']) / 100 : $target['bobot'];
                     $data->{"ach_$i_target"} = number_format($data->{"ach_$i_target"}, 2, ',', '.');
                     if ($target['unit'] == 'rupiah') {
                         $data->{$i_target} = number_format($data->{$i_target}, 0, ',', '.');
