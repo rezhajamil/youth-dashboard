@@ -447,10 +447,10 @@ class BroadCastController extends Controller
                         'program' => $request->program
                     ];
 
-                    if ($idx > 0 && $idx < 501) {
+                    if ($idx > 0 && $idx < 1001) {
                         // echo '<pre>' . $idx . var_export($data, true) . '</pre>';
                         DB::table('new_data_campaign')->insert($data);
-                    } else if ($idx > 501) {
+                    } else if ($idx > 1001) {
                         break;
                     }
                     $idx++;
