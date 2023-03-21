@@ -41,12 +41,12 @@
                     <table class="overflow-auto text-left border-collapse w-fit">
                         <thead class="border-b">
                             <tr>
-                                <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-premier">No</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-premier">Date</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-premier">Judul</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-premier">Soal</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-premier">Hasil</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-premier">Selesai</th>
+                                <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No</th>
+                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Date</th>
+                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Judul</th>
+                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Soal</th>
+                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Hasil</th>
+                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Selesai</th>
                             </tr>
                         </thead>
                         <tbody class="max-h-screen overflow-y-auto">
@@ -80,11 +80,11 @@
                         <thead class="border-b">
                             <tr>
                                 <th
-                                    class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-premier">
+                                    class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 bg-y_tersier">
                                     Info</th>
                                 @foreach ($period as $data)
                                     <th
-                                        class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 whitespace-nowrap border-tersier bg-premier">
+                                        class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 whitespace-nowrap bg-y_tersier">
                                         {{ date('d', strtotime($data)) }}</th>
                                 @endforeach
                             </tr>
@@ -189,7 +189,7 @@
                     </table>
                 </div>
 
-                <h4 class="mb-2 mt-4 text-xl font-bold text-gray-600 align-baseline">KPI {{ $user->nama }}</h4>
+                <h4 class="mb-2 mt-6 text-xl font-bold text-gray-600 align-baseline">KPI {{ $user->nama }}</h4>
                 <div class="overflow-hidden bg-white rounded-md shadow w-fit">
                     <table class="overflow-auto text-left border-collapse w-fit">
                         <thead class="border-b">

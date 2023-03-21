@@ -24,10 +24,15 @@ class BroadCastController extends Controller
         $last_m1 = date('Y-m-01', strtotime('-1 month', strtotime($request->date)));
         $last_mtd = $this->convDate($mtd);
         $program = $request->program;
-        $dataProgram = DB::table('new_list_program')->select('program')->distinct()->get();
         $branch_broadcast = Auth::user()->privilege == "branch" ? "and data_user.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "and data_user.cluster='" . Auth::user()->cluster . "'" : '');
         $branch_program = Auth::user()->privilege == "branch" ? "data_user.branch ='" . Auth::user()->branch . "' AND" : (Auth::user()->privilege == "branch" ? "data_user.branch ='" . Auth::user()->branch . "' AND" : '');
         $branch_broadcast_cluster = Auth::user()->privilege == "branch" ? "WHERE d.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "WHERE d.branch='" . Auth::user()->cluster . "'" : '');
+
+        if (auth()->user()->privilege == 'superadmin') {
+            $dataProgram = DB::table('new_list_program')->select('program')->where('status', '1')->distinct()->get();
+        } else {
+            $dataProgram = DB::table('new_list_program')->select('program')->where('status', '1')->whereIn('branch', ['ALL', auth()->user()->branch])->distinct()->get();
+        }
 
         $broadcast = DB::select("SELECT 
             `data_user`.nama, `data_user`.cluster, `data_user`.role,
@@ -157,7 +162,12 @@ class BroadCastController extends Controller
     public function broadcast_call(Request $request)
     {
         $program = $request->program;
-        $dataProgram = DB::table('new_list_program')->select('program')->distinct()->get();
+        if (auth()->user()->privilege == 'superadmin') {
+            $dataProgram = DB::table('new_list_program')->select('program')->where('status', '1')->distinct()->get();
+        } else {
+            $dataProgram = DB::table('new_list_program')->select('program')->where('status', '1')->whereIn('branch', ['ALL', auth()->user()->branch])->distinct()->get();
+        }
+
         $call = DB::select("SELECT 
             d.branch,d.cluster,c.*
             FROM 
@@ -212,10 +222,11 @@ class BroadCastController extends Controller
     public function create_campaign()
     {
         $branch = Auth::user()->privilege == 'branch' ? "and branch='ALL' OR branch='" . Auth::user()->branch . "'" : '';
-        $data_program =
-            DB::select("select program from new_list_program where status='1'
-            " . $branch . "
-        ");
+        if (auth()->user()->privilege == 'superadmin') {
+            $data_program = DB::table('new_list_program')->select('program')->distinct()->get();
+        } else {
+            $data_program = DB::table('new_list_program')->select('program')->whereIn('branch', ['ALL', auth()->user()->branch])->distinct()->get();
+        }
         $user_type = DB::table('user_type')->select('user_type')->distinct()->where('status', '1')->orderBy('user_type')->get();
         return view('broadcast.campaign.create', compact('user_type', 'data_program'));
     }
@@ -264,8 +275,15 @@ class BroadCastController extends Controller
     {
         $program = $request->program;
         $program_call = $request->program_call;
-        $dataProgram = DB::table('new_list_program')->select('program')->distinct()->get();
-        $dataProgramCall = DB::table('new_list_program_call')->select('program')->distinct()->get();
+
+        if (auth()->user()->privilege == 'superadmin') {
+            $dataProgram = DB::table('new_list_program')->select('program')->where('status', '1')->distinct()->get();
+            $dataProgramCall = DB::table('new_list_program_call')->select('program')->distinct()->get();
+        } else {
+            $dataProgram = DB::table('new_list_program')->select('program')->where('status', '1')->whereIn('branch', ['ALL', auth()->user()->branch])->distinct()->get();
+            $dataProgramCall = DB::table('new_list_program_call')->select('program')->whereIn('branch', ['ALL', auth()->user()->branch])->distinct()->get();
+        }
+
         $branch = Auth::user()->privilege == "branch" ? "AND b.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "AND b.cluster='" . Auth::user()->cluster . "'" : '');
 
         $whitelist = DB::select("SELECT 
@@ -372,7 +390,12 @@ class BroadCastController extends Controller
         } else {
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->where('branch', Auth::user()->branch)->get();
         }
-        $dataProgram = DB::select("select distinct program from new_list_program where status='1'");
+
+        if (auth()->user()->privilege == 'superadmin') {
+            $dataProgram = DB::table('new_list_program')->select('program')->where('status', '1')->distinct()->get();
+        } else {
+            $dataProgram = DB::table('new_list_program')->select('program')->where('status', '1')->whereIn('branch', ['ALL', auth()->user()->branch])->distinct()->get();
+        }
         // $dataProgramCall = DB::select("select program from new_list_program_call where status='1'" . $branch . "");
 
         // ddd("select program from new_list_program where status='1'
@@ -440,13 +463,18 @@ class BroadCastController extends Controller
 
     public function create_whitelist_distribusi()
     {
-        $branch = Auth::user()->privilege == 'branch' ? "and branch='ALL' OR branch='" . Auth::user()->branch . "'" : '';
         if (Auth::user()->privilege == "superadmin") {
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->orderBy('cluster')->get();
         } else {
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->where('branch', Auth::user()->branch)->orderBy('cluster')->get();
         }
-        $dataProgram = DB::select("select distinct program from new_list_program where status='1' $branch");
+
+        if (auth()->user()->privilege == 'superadmin') {
+            $dataProgram = DB::table('new_list_program')->select('program')->distinct()->get();
+        } else {
+            $dataProgram = DB::table('new_list_program')->select('program')->whereIn('branch', ['ALL', auth()->user()->branch])->distinct()->get();
+        }
+
         $dataRole = DB::select("select distinct user_type as role from user_type where status='1'");
         return view('broadcast.whitelist.distribusi.create', compact('cluster', 'dataProgram', 'dataRole'));
     }
