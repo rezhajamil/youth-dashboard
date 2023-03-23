@@ -42,12 +42,12 @@
                 </div>
             </div>
             @if ($site && $outlet && auth()->user()->privilege == 'superadmin')
-                <div class="grid grid-cols-1 mt-4 gap-y-3 gap-x-3 sm:grid-cols-3 w-full">
+                <div class="grid w-full grid-cols-1 mt-4 gap-y-3 gap-x-3 sm:grid-cols-3">
                     <div class="w-full">
                         <h4 class="mb-2 text-xl font-bold text-gray-600 align-baseline">Site Terdekat</h4>
 
-                        <div class="overflow-auto bg-white rounded-md shadow w-full">
-                            <table class="overflow-auto text-left border-collapse w-full">
+                        <div class="w-full overflow-auto bg-white rounded-md shadow">
+                            <table class="w-full overflow-auto text-left border-collapse">
                                 <thead class="border-b">
                                     <tr>
                                         <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-premier">ID SITE</th>
@@ -73,8 +73,8 @@
                     <div class="w-full">
                         <h4 class="mb-2 text-xl font-bold text-gray-600 align-baseline">Outlet Terdekat</h4>
 
-                        <div class="overflow-auto bg-white rounded-md shadow w-full">
-                            <table class="overflow-auto text-left border-collapse w-full">
+                        <div class="w-full overflow-auto bg-white rounded-md shadow">
+                            <table class="w-full overflow-auto text-left border-collapse">
                                 <thead class="border-b">
                                     <tr>
                                         <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-premier">ID Outlet</th>
@@ -116,15 +116,22 @@
                             </tr>
                         </thead>
                         <tbody class="max-h-screen overflow-y-auto">
-                            <tr class="hover:bg-gray-200">
-                                <td class="p-4 font-bold text-gray-700 border-b">{{ $last_visit->nama }}</td>
-                                <td class="p-4 text-gray-700 border-b">{{ $last_visit->telp }}</td>
-                                <td class="p-4 text-gray-700 border-b">{{ $last_visit->role }}</td>
-                                <td class="p-4 text-gray-700 border-b">
-                                    {{ date('d-M-Y', strtotime($last_visit->date)) }}</td>
-                                <td class="p-4 text-gray-700 border-b">{{ $last_visit->waktu }}</td>
-                                <td class="p-4 text-gray-700 border-b">{{ $last_visit->jarak }} Km</td>
-                            </tr>
+                            @if ($last_visit)
+                                <tr class="hover:bg-gray-200">
+                                    <td class="p-4 font-bold text-gray-700 border-b">{{ $last_visit->nama }}</td>
+                                    <td class="p-4 text-gray-700 border-b">{{ $last_visit->telp }}</td>
+                                    <td class="p-4 text-gray-700 border-b">{{ $last_visit->role }}</td>
+                                    <td class="p-4 text-gray-700 border-b">
+                                        {{ date('d-M-Y', strtotime($last_visit->date)) }}</td>
+                                    <td class="p-4 text-gray-700 border-b">{{ $last_visit->waktu }}</td>
+                                    <td class="p-4 text-gray-700 border-b">{{ $last_visit->jarak }} Km</td>
+                                </tr>
+                            @else
+                                <tr class="hover:bg-gray-200">
+                                    <td colspan="6" class="p-4 font-bold text-center text-gray-700 border-b">Tidak Ada
+                                        Kunjungan</td>
+                                </tr>
+                            @endif
                         </tbody>
                     </table>
                 </div>
