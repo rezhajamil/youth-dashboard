@@ -412,7 +412,7 @@ class SalesContoller extends Controller
     public function product(Request $request)
     {
         $update = DB::select('select max(date) as last_update from sales_copy;');
-        $list_kategori = DB::table('sales_copy')->select('kategori')->whereNotIn('kategori', ['', 'MIGRASI MANUAL', 'ORBIT'])->whereNotNull('kategori')->distinct()->get();
+        $list_kategori = DB::table('sales_copy')->select('kategori')->whereNotIn('kategori', ['', 'ORBIT'])->whereNotNull('kategori')->distinct()->get();
         $kategori = $request->kategori;
 
         if ($request->date && $kategori) {
