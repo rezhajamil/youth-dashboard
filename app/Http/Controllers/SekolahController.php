@@ -87,12 +87,34 @@ class SekolahController extends Controller
      */
     public function show($id)
     {
-        $sekolah = DB::select("SELECT *,c.nama as ao FROM Data_Sekolah_Sumatera a LEFT JOIN detail_sekolah b ON a.NPSN=b.npsn LEFT JOIN data_user c ON a.TELP=c.telp WHERE a.NPSN='$id' LIMIT 1;");
-        $sekolah = $sekolah[0];
+        $list_sekolah = DB::select("SELECT *,c.nama as ao FROM Data_Sekolah_Sumatera a LEFT JOIN detail_sekolah b ON a.NPSN=b.npsn LEFT JOIN data_user c ON a.TELP=c.telp WHERE a.NPSN='$id' LIMIT 1;");
+        $sekolah = $list_sekolah[0];
         $outlet = Sekolah::getNearestOutlet($id);
         $site = Sekolah::getNearestSite($id);
         $last_visit = DB::table('table_kunjungan AS a')->join('data_user AS b', 'a.telp', '=', 'b.telp')->where('npsn', $sekolah->NPSN)->orderBy('date', 'DESC')->orderBy('waktu', 'DESC')->first();
-        return view('sekolah.show', compact('sekolah', 'outlet', 'site', 'last_visit'));
+
+        $last_survey = DB::table('survey_answer')->select(['session', 'time_start'])->distinct()->where('npsn', $sekolah->NPSN)->orderBy('time_start', 'DESC')->first();
+
+        if ($last_survey) {
+            $answer = DB::table('survey_answer')->where('session', $last_survey->session)->get();
+            $survey = DB::table('survey_session')->find($last_survey->session);
+
+            $kode_operator = DB::table('kode_prefix_operator')->get();
+
+            $operator = DB::table('kode_prefix_operator')->select('operator')->distinct()->orderBy('operator', 'desc')->get();
+
+            $survey->soal = json_decode($survey->soal);
+            $survey->jenis_soal = json_decode($survey->jenis_soal);
+            $survey->opsi = json_decode($survey->opsi);
+            $survey->jumlah_opsi = json_decode($survey->jumlah_opsi);
+        } else {
+            $answer = [];
+            $survey = [];
+            $kode_operator = [];
+            $operator = [];
+        }
+
+        return view('sekolah.show', compact('list_sekolah', 'sekolah', 'outlet', 'site', 'last_visit', 'survey', 'answer', 'kode_operator', 'operator'));
     }
 
     /**
