@@ -3,19 +3,28 @@
     <div class="w-full mx-4 my-4">
         <div class="flex flex-col">
             <div class="mt-4">
-                <h4 class="text-xl font-bold text-gray-600 align-baseline">Orbit By Digipos</h4>
+                <h4 class="text-xl font-bold text-gray-600 align-baseline">Sales By Product</h4>
                 <span class="text-sm">Update : {{ $update[0]->last_update }}</span>
                 <div class="flex justify-between mt-4">
-                    <form class="flex flex-wrap items-center mt-4 gap-x-4 gap-y-2" action="{{ route('sales.orbit_digipos') }}"
+                    <form class="flex flex-wrap items-center mt-4 gap-x-4 gap-y-2" action="{{ route('sales.product') }}"
                         method="get">
                         <input type="date" name="date" id="date" class="px-4 rounded-lg"
                             value="{{ request()->get('date') }}" required>
+                        <select name="kategori" id="kategori" class="px-8 rounded-lg" required>
+                            <option value="" selected disabled>Pilih Kategori</option>
+                            @foreach ($list_kategori as $data)
+                                <option value="{{ $data->kategori }}"
+                                    {{ $data->kategori == request()->get('kategori') ? 'selected' : '' }}>
+                                    {{ $data->kategori }}
+                                </option>
+                            @endforeach
+                        </select>
                         <div class="flex gap-x-3">
                             <button
                                 class="px-4 py-2 font-bold text-white transition rounded-lg bg-y_premier hover:bg-y_premier"><i
                                     class="mr-2 fa-solid fa-magnifying-glass"></i>Cari</button>
-                            @if (request()->get('date'))
-                                <a href="{{ route('sales.orbit_digipos') }}"
+                            @if (request()->get('date') || request()->get('kategori'))
+                                <a href="{{ route('sales.product') }}"
                                     class="px-4 py-2 font-bold text-white transition bg-gray-600 rounded-lg hover:bg-gray-800"><i
                                         class="mr-2 fa-solid fa-circle-xmark"></i>Reset</a>
                             @endif
@@ -103,6 +112,7 @@
                                 <option value="nama">Nama</option>
                                 <option value="telp">Telp</option>
                                 <option value="reff">Reff Code</option>
+                                <option value="status">Status</option>
                                 <option value="aktif">Tanggal Lapor</option>
                             </select>
                         </div>
@@ -118,9 +128,10 @@
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Nama</th>
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Telp</th>
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Role</th>
-                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Reff Code</th>
+                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Jenis</th>
+                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Detail</th>
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">MSISDN</th>
-                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">IMEI</th>
+                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">No Kompetitor</th>
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Tanggal Lapor</th>
                                 {{-- <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">MOM</th> --}}
                                 @if (Auth::user()->privilege != 'cluster')
@@ -136,13 +147,16 @@
                                     <td class="p-4 text-gray-700 uppercase border-b nama">{{ $data->nama }}</td>
                                     <td class="p-4 text-gray-700 uppercase border-b telp">{{ $data->telp }}</td>
                                     <td class="p-4 text-gray-700 uppercase border-b role">{{ $data->role }}</td>
-                                    <td class="p-4 text-gray-700 uppercase border-b reff">{{ $data->reff_code }}</td>
+                                    <td class="p-4 text-gray-700 uppercase border-b whitespace-nowrap jenis">
+                                        {{ $data->jenis }}</td>
+                                    <td class="p-4 text-gray-700 uppercase border-b whitespace-nowrap status">
+                                        {{ $data->detail }}</td>
                                     <td class="p-4 text-gray-700 uppercase border-b msisdn">{{ $data->msisdn }}</td>
-                                    <td class="p-4 text-gray-700 uppercase border-b msisdn">{{ $data->imei }}</td>
-                                    <td class="p-4 text-gray-700 uppercase border-b aktif">{{ $data->so_date }}</td>
+                                    <td class="p-4 text-gray-700 uppercase border-b msisdn">{{ $data->serial }}</td>
+                                    <td class="p-4 text-gray-700 uppercase border-b aktif">{{ $data->date }}</td>
                                     @if (Auth::user()->privilege != 'cluster')
                                         <td class="p-4 text-gray-700 border-b">
-                                            <form action="{{ route('sales.orbit.destroy', $data->msisdn) }}"
+                                            <form action="{{ route('sales.product.destroy', $data->msisdn) }}"
                                                 method="post">
                                                 @csrf
                                                 @method('delete')

@@ -285,7 +285,7 @@ class SalesContoller extends Controller
         return back();
     }
 
-    public function destroy_trade($msisdn)
+    public function destroy_product($msisdn)
     {
         $trade = DB::table('sales_copy')->where('msisdn', $msisdn)->update([
             'status' => '1'
@@ -409,10 +409,13 @@ class SalesContoller extends Controller
         return view('sales.digipos.index', compact('sales', 'sales_branch', 'sales_cluster'));
     }
 
-    public function trade(Request $request)
+    public function product(Request $request)
     {
         $update = DB::select('select max(date) as last_update from sales_copy;');
-        if ($request->date) {
+        $list_kategori = DB::table('sales_copy')->select('kategori')->whereNotIn('kategori', ['', 'MIGRASI MANUAL', 'ORBIT'])->whereNotNull('kategori')->distinct()->get();
+        $kategori = $request->kategori;
+
+        if ($request->date && $kategori) {
             $m1 = date('Y-m-01', strtotime($request->date));
             $mtd = date('Y-m-d', strtotime($request->date));
             $last_m1 = date('Y-m-01', strtotime($this->convDate($mtd)));
@@ -426,7 +429,7 @@ class SalesContoller extends Controller
                        COUNT(CASE WHEN a.`date` BETWEEN '" . $last_m1 . "' AND '" . $last_mtd . "' THEN a.msisdn END) last_mtd
                     FROM sales_copy a  
                     JOIN data_user b ON b.telp = a.telp
-                    WHERE a.kategori='TRADE IN' 
+                    WHERE a.kategori='$kategori' 
                     " . $and . "
                     " . $branch . "
                     GROUP BY 1,2;";
@@ -436,7 +439,7 @@ class SalesContoller extends Controller
                        COUNT(CASE WHEN a.`date` BETWEEN '" . $last_m1 . "' AND '" . $last_mtd . "' THEN a.msisdn END) last_mtd
                     FROM sales_copy a  
                     JOIN data_user b ON b.telp = a.telp
-                    WHERE a.kategori='TRADE IN'
+                    WHERE a.kategori='$kategori'
                     " . $and . "
                     " . $branch . "
                     GROUP BY 1;";
@@ -445,7 +448,7 @@ class SalesContoller extends Controller
                     FROM sales_copy a  
                     JOIN data_user b ON b.telp = a.telp
                     where a.date BETWEEN '" . $m1 . "' AND '" . $mtd . "'
-                    and not a.status ='1' and a.kategori='TRADE IN'
+                    and not a.status ='1' and a.kategori='$kategori'
                     " . $and . "
                     " . $branch . "
                     ORDER by b.cluster, b.nama ASC";
@@ -458,7 +461,7 @@ class SalesContoller extends Controller
             $sales_cluster = [];
             $sales = [];
         }
-        return view('sales.trade.index', compact('sales_branch', 'sales_cluster', 'sales', 'update'));
+        return view('sales.product.index', compact('list_kategori', 'sales_branch', 'sales_cluster', 'sales', 'update'));
     }
 
     /**

@@ -161,9 +161,9 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('orbit/sales/destroy/{msisdn}', [SalesContoller::class, 'destroy_orbit'])->name('sales.orbit.destroy');
     Route::get('orbit_digipos/sales', [SalesContoller::class, 'orbit_digipos'])->name('sales.orbit_digipos');
     Route::delete('orbit_digipos/sales/destroy/{msisdn}', [SalesContoller::class, 'destroy_orbit_digipos'])->name('sales.orbit_digipos.destroy');
-    Route::delete('trade/sales/destroy/{msisdn}', [SalesContoller::class, 'destroy_trade'])->name('sales.trade.destroy');
+    Route::delete('product/sales/destroy/{msisdn}', [SalesContoller::class, 'destroy_product'])->name('sales.product.destroy');
     Route::get('digipos/sales', [SalesContoller::class, 'digipos'])->name('sales.digipos');
-    Route::get('trade/sales', [SalesContoller::class, 'trade'])->name('sales.trade');
+    Route::get('product/sales', [SalesContoller::class, 'product'])->name('sales.product');
 
     Route::get("location/taps", [LocationController::class, 'taps'])->name('location.taps');
     Route::get("location/taps/create", [LocationController::class, 'create_taps'])->name('location.taps.create');
