@@ -26,11 +26,11 @@ class DirectSalesContoller extends Controller
             count(if(role='BUDDIES',1,NULL)) as 'buddies',
             count(role) as 'jumlah'
             from data_user
-            where not role='' AND NOT role='TYES' AND NOT role='Pilih Type User' AND NOT role='ORBIT'
+            where not role='' AND NOT role='TYES' AND NOT role='Pilih Type User'
             " . $branch . "
             and status='1'
             GROUP by 1
-            Order by cluster DESC
+            Order by cluster
             "
         );
 
@@ -44,11 +44,11 @@ class DirectSalesContoller extends Controller
             count(if(role='BUDDIES',1,NULL)) as 'buddies',
             count(role) as 'jumlah'
             from data_user
-            where not role='' AND NOT role='TYES' AND NOT role='Pilih Type User' AND NOT role='ORBIT'
+            where not role='' AND NOT role='TYES' AND NOT role='Pilih Type User'
             " . $branch . "
             and status='1'
             GROUP by 1,2
-            Order by regional,branch
+            Order by regional DESC,branch
             "
         );
 

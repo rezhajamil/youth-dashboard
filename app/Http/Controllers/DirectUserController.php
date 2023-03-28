@@ -491,7 +491,7 @@ class DirectUserController extends Controller
         if ($request->date) {
             $mtd = $request->date;
             $m1 = date('Y-m-01', strtotime($mtd));
-            $detail = DB::select(" SELECT a.branch,a.cluster,a.nama,a.telp,a.`role`,b.migrasi,c.orbit,d.trade,e.update_data,f.pjp,g.oss_osk,h.quiz,i.survey,j.broadband,k.digital
+            $detail = DB::select("SELECT a.branch,a.cluster,a.nama,a.telp,a.`role`,b.migrasi,c.orbit,d.trade,e.update_data,f.pjp,g.oss_osk,h.quiz,i.survey,j.broadband,k.digital
             FROM data_user a
             LEFT JOIN (SELECT outlet_id,COUNT(outlet_id) migrasi FROM `4g_usim_all_trx` WHERE date BETWEEN '$m1' AND '$mtd' AND (status='MIGRATION_SUCCCESS' OR status='USIM_ACTIVE') GROUP BY 1) b ON a.id_digipos=b.outlet_id
             LEFT JOIN (SELECT outlet_id,COUNT(msisdn) orbit FROM orbit_digipos WHERE so_date BETWEEN '$m1' AND '$mtd' GROUP BY 1) c ON a.id_digipos=c.outlet_id
@@ -567,6 +567,31 @@ class DirectUserController extends Controller
 
         // ddd(compact('last_migrasi', 'last_orbit', 'last_trade', 'last_digipos'));
         return view('directUser.kpi.index', compact('detail', 'list_target', 'sales', 'proses', 'last_migrasi', 'last_orbit', 'last_trade', 'last_digipos'));
+    }
+
+    public function resume_kpi(Request $request)
+    {
+        ini_set("max_execution_time", "0");
+        $u_privilege = Auth::user()->privilege;
+        $u_branch = Auth::user()->branch;
+        $u_cluster = Auth::user()->cluster;
+        $where_loc = $u_privilege == 'cluster' ? " a.`cluster`='$u_cluster' AND " : ($u_privilege == 'branch' ? "a.`branch`='$u_branch' AND " : "");
+
+        if ($request->date) {
+            $resume_branch = DataUser::resume_kpi($request->date, $where_loc, 'branch');
+            $resume_cluster = DataUser::resume_kpi($request->date, $where_loc, 'cluster');
+        } else {
+            $resume_branch = [];
+            $resume_cluster = [];
+        }
+
+
+        $last_migrasi = DB::table('4g_usim_all_trx')->select('date')->orderBy('date', 'desc')->first();
+        $last_orbit = DB::table('orbit_digipos')->select('so_date as date')->orderBy('so_date', 'desc')->first();
+        $last_trade = DB::table('sales_copy')->select('date')->orderBy('date', 'desc')->first();
+        $last_digipos = DB::table('trx_digipos_ds')->select('event_date as date')->whereNotIn('event_date', ['None'])->orderBy('event_date', 'desc')->first();
+
+        return view('directUser.kpi.resume', compact('resume_branch', 'resume_cluster', 'last_migrasi', 'last_orbit', 'last_trade', 'last_digipos'));
     }
 
     /**

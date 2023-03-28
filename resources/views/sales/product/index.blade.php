@@ -46,7 +46,7 @@
                     </div>
                 </div>
 
-                <span class="block mt-6 mb-2 text-lg font-semibold text-gray-600">Direct Sales By Region</span>
+                <span class="block mt-6 mb-2 text-lg font-semibold text-gray-600">Sales Product By Region</span>
                 <div class="overflow-hidden bg-white rounded-md shadow w-fit" id="table-region">
                     <table class="text-left border-collapse w-fit">
                         <thead class="border-b">
@@ -74,7 +74,7 @@
                     </table>
                 </div>
 
-                <span class="block mt-6 mb-2 text-lg font-semibold text-gray-600">Direct Sales By Cluster</span>
+                <span class="block mt-6 mb-2 text-lg font-semibold text-gray-600">Sales Product By Cluster</span>
                 <div class="overflow-hidden bg-white rounded-md shadow w-fit" id="table-cluster">
                     <table class="text-left border-collapse w-fit">
                         <thead class="border-b">
@@ -100,7 +100,7 @@
                     </table>
                 </div>
 
-                <span class="block mt-6 text-lg font-semibold text-gray-600">Direct Sales Detail</span>
+                <span class="block mt-6 text-lg font-semibold text-gray-600">Sales Product Detail</span>
                 @if (request()->get('date'))
                     <div class="flex items-end mb-2 gap-x-4">
                         <input type="text" name="search" id="search" placeholder="Search..." class="px-4 rounded-lg">
