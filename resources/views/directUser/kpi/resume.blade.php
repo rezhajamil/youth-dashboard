@@ -5,7 +5,7 @@
             <div class="mt-4">
                 <div class="flex items-end mb-6 gap-x-3">
                     <div class="pr-4 border-r-4 border-slate-600">
-                        <form action="{{ route('direct_user.kpi') }}" method="get">
+                        <form action="{{ route('direct_user.resume_kpi') }}" method="get">
                             <input type="date" name="date" id="date" class="px-4 rounded-lg"
                                 value="{{ request()->get('date') }}" required>
                             <button type="submit"
