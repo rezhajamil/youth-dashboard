@@ -17,9 +17,6 @@ class QuizController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->privilege == 'branch') {
-            abort(403);
-        }
         $session = DB::table('quiz_session')->orderBy('date', 'desc')->get();
         return view('directUser.quiz.index', compact('session'));
     }
@@ -31,9 +28,6 @@ class QuizController extends Controller
      */
     public function create()
     {
-        if (Auth::user()->privilege == 'branch') {
-            abort(403);
-        }
         return view('directUser.quiz.create');
     }
 
@@ -45,9 +39,6 @@ class QuizController extends Controller
      */
     public function store(Request $request)
     {
-        if (Auth::user()->privilege == 'branch') {
-            abort(403);
-        }
         $request->validate([
             'nama' => 'required',
             'time' => 'required|numeric',
@@ -77,9 +68,6 @@ class QuizController extends Controller
      */
     public function show($id)
     {
-        if (Auth::user()->privilege == 'branch') {
-            abort(403);
-        }
         $quiz = DB::table('quiz_session')->find($id);
 
         return view('directUser.quiz.show', compact('quiz'));
