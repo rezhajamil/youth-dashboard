@@ -577,10 +577,105 @@ class DirectUserController extends Controller
         $u_cluster = Auth::user()->cluster;
         $where_loc = $u_privilege == 'cluster' ? " a.`cluster`='$u_cluster' AND " : ($u_privilege == 'branch' ? "a.`branch`='$u_branch' AND " : "");
 
+        $target = DB::table('target_ds')->where('status', 1)->get();
+
+        $list_target = [];
+
+        foreach ($target as $data) {
+            $item_kpi = $data->item_kpi;
+            $target_value = $data->unit == 'rupiah'
+                ? number_format($data->target, 0, ",", ".")
+                : $data->target;
+
+            $list_target[$item_kpi] = [
+                'target' => $target_value,
+                'bobot' => $data->bobot,
+                'unit' => $data->unit
+            ];
+        }
+
         if ($request->date) {
+            $resume_region = DataUser::resume_kpi($request->date, $where_loc, 'regional');
             $resume_branch = DataUser::resume_kpi($request->date, $where_loc, 'branch');
             $resume_cluster = DataUser::resume_kpi($request->date, $where_loc, 'cluster');
+            // $resume_branch = [];
+            // $resume_cluster = [];
+
+            $user_region = DB::select("SELECT regional as region,count(role) jumlah FROM data_user WHERE status='1' GROUP BY 1 ORDER BY 1 DESC;");
+            $user_branch = DB::select("SELECT branch,count(role) jumlah FROM data_user WHERE status='1' GROUP BY 1 ORDER BY 1 DESC;");
+            $user_cluster = DB::select("SELECT cluster,count(role) jumlah FROM data_user WHERE status='1' GROUP BY 1 ORDER BY 1 DESC;");
+
+            foreach ($resume_region as $data) {
+                foreach ($list_target as $i_target => $target) {
+                    // ddd($user_region);
+                    foreach ($user_region as $key => $user) {
+                        if ($user->region == $data->regional) {
+                            if ($i_target == 'quiz') {
+                                $ach_target = (intval($data->{$i_target}) / intval($user->jumlah)) * 100;
+                            } else {
+                                $ach_target = (intval($data->{$i_target} / $user->jumlah) / intval(str_replace('.', '', $target['target']))) * 100;
+                            }
+
+                            $data->{"ach_$i_target"} = number_format($ach_target, 2, ',', '.');
+                            $data->{"mom_$i_target"} = number_format(($data->{$i_target} / ($data->{"last_$i_target"} == 0 ? 1 : $data->{"last_$i_target"})) * 100, 2, ',', '.');
+
+                            if ($target['unit'] == 'rupiah') {
+                                $data->{$i_target} = number_format($data->{$i_target}, 0, ',', '.');
+                            }
+                        }
+                    }
+                }
+            }
+            // ddd($resume_region);
+
+            foreach ($resume_branch as $data) {
+                foreach ($list_target as $i_target => $target) {
+                    // ddd($user_branch);
+                    foreach ($user_branch as $key => $user) {
+                        if ($user->branch == $data->branch) {
+                            if ($i_target == 'quiz') {
+                                $ach_target = (intval($data->{$i_target}) / intval($user->jumlah)) * 100;
+                            } else {
+                                $ach_target = (intval($data->{$i_target} / $user->jumlah) / intval(str_replace('.', '', $target['target']))) * 100;
+                            }
+
+                            $data->{"ach_$i_target"} = number_format($ach_target, 2, ',', '.');
+                            $data->{"mom_$i_target"} = number_format(($data->{$i_target} / ($data->{"last_$i_target"} == 0 ? 1 : $data->{"last_$i_target"})) * 100, 2, ',', '.');
+
+                            if ($target['unit'] == 'rupiah') {
+                                $data->{$i_target} = number_format($data->{$i_target}, 0, ',', '.');
+                            }
+                        }
+                    }
+                }
+            }
+
+            foreach ($resume_cluster as $data) {
+                foreach ($list_target as $i_target => $target) {
+                    // ddd($user_cluster);
+                    foreach ($user_cluster as $key => $user) {
+                        if ($user->cluster == $data->cluster) {
+                            if ($i_target == 'quiz') {
+                                $ach_target = (intval($data->{$i_target}) / intval($user->jumlah)) * 100;
+                            } else {
+                                $ach_target = (intval($data->{$i_target} / $user->jumlah) / intval(str_replace('.', '', $target['target']))) * 100;
+                            }
+
+                            $data->{"ach_$i_target"} = number_format($ach_target, 2, ',', '.');
+                            $data->{"mom_$i_target"} = number_format(($data->{$i_target} / ($data->{"last_$i_target"} == 0 ? 1 : $data->{"last_$i_target"})) * 100, 2, ',', '.');
+
+                            if ($target['unit'] == 'rupiah') {
+                                $data->{$i_target} = number_format($data->{$i_target}, 0, ',', '.');
+                            }
+                        }
+                    }
+                }
+            }
+            // foreach ([$resume_region, $resume_branch, $resume_cluster] as $key => $resume) {
+            //     // ddd($resume);
+            // }
         } else {
+            $resume_region = [];
             $resume_branch = [];
             $resume_cluster = [];
         }
@@ -591,7 +686,7 @@ class DirectUserController extends Controller
         $last_trade = DB::table('sales_copy')->select('date')->orderBy('date', 'desc')->first();
         $last_digipos = DB::table('trx_digipos_ds')->select('event_date as date')->whereNotIn('event_date', ['None'])->orderBy('event_date', 'desc')->first();
 
-        return view('directUser.kpi.resume', compact('resume_branch', 'resume_cluster', 'last_migrasi', 'last_orbit', 'last_trade', 'last_digipos'));
+        return view('directUser.kpi.resume', compact('resume_region', 'resume_branch', 'resume_cluster', 'last_migrasi', 'last_orbit', 'last_trade', 'last_digipos'));
     }
 
     /**

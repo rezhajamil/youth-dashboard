@@ -29,6 +29,159 @@
                 {{-- <div class="flex flex-wrap items-end mb-2 gap-x-4">
             </div> --}}
 
+                <span class="block mt-6 mb-2 text-lg font-semibold text-gray-600">KPI By Region</span>
+                <div class="mb-10 overflow-auto bg-white rounded-md shadow w-fit">
+                    <table class="overflow-auto text-left border-collapse w-fit">
+                        <thead class="border-b">
+                            <tr>
+                                <th rowspan="3" class="p-3 font-medium text-gray-100 uppercase border bg-y_premier">
+                                    Region</th>
+                                <th colspan="3"
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">
+                                    Broadband</th>
+                                <th colspan="3"
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">
+                                    Digital</th>
+                                <th colspan="3"
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">Orbit
+                                </th>
+                                <th colspan="3"
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">
+                                    Migrasi</th>
+                                <th colspan="3"
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">Trade
+                                    In</th>
+                                <th colspan="3"
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">Update
+                                    Data</th>
+                                <th colspan="3"
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">Update
+                                    PJP Harian</th>
+                                <th colspan="3"
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">Survey
+                                    Market</th>
+                                <th colspan="3"
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">
+                                    Channeling OSK & OSS</th>
+                                <th colspan="3"
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">Product
+                                    Knowledge</th>
+                            </tr>
+                            <tr>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    MTD</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    MoM</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    %Ach To Target</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    MTD</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    MoM</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    %Ach To Target</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    MTD</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    MoM</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    %Ach To Target</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    MTD</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    MoM</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    %Ach To Target</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    MTD</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    MoM</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    %Ach To Target</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    MTD</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    MoM</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    %Ach To Target</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    MTD</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    MoM</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    %Ach To Target</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    MTD</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    MoM</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    %Ach To Target</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    MTD</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    MoM</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    %Ach To Target</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    MTD</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    MoM</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    %Ach To Target</th>
+                            </tr>
+                        </thead>
+                        <tbody class="max-h-screen overflow-y-auto">
+                            @foreach ($resume_region as $key => $data)
+                                <tr class="">
+                                    <td class="p-2 border region whitespace-nowrap">{{ $data->regional }}</td>
+
+                                    <td class="p-2 border">
+                                        {{ $data->broadband ?? '-' }}
+                                    </td>
+                                    <td class="p-2 border">
+                                        {{ $data->mom_broadband ?? '-' }}%
+                                    <td class="p-2 border">
+                                        {{ $data->ach_broadband }}%
+                                    <td class="p-2 border">
+                                        {{ $data->digital ?? '-' }}
+                                    </td>
+                                    <td class="p-2 border">
+                                        {{ $data->mom_digital ?? '-' }}%
+                                    </td>
+                                    <td class="p-2 border">
+                                        {{ $data->ach_digital }}%
+                                    </td>
+                                    <td class="p-2 border">{{ $data->orbit ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_orbit ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_orbit ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->migrasi ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_migrasi ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_migrasi ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->trade ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_trade ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_trade ?? '-' }}%</td>
+
+                                    <td class="p-2 border">{{ $data->update_data ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_update_data ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_update_data ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->pjp ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_pjp ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_pjp ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->survey ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_survey ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_survey ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->oss_osk ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_oss_osk ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_oss_osk ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->quiz ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_quiz ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_quiz ?? '-' }}%</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+
                 <span class="block mt-6 mb-2 text-lg font-semibold text-gray-600">KPI By Branch</span>
                 <div class="mb-10 overflow-auto bg-white rounded-md shadow w-fit">
                     <table class="overflow-auto text-left border-collapse w-fit">
@@ -36,68 +189,98 @@
                             <tr>
                                 <th rowspan="3" class="p-3 font-medium text-gray-100 uppercase border bg-y_premier">
                                     Branch</th>
-                                <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-y_tersier">
+                                <th colspan="3"
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">
                                     Broadband</th>
-                                <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-y_tersier">
+                                <th colspan="3"
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">
                                     Digital</th>
-                                <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-y_tersier">Orbit
+                                <th colspan="3"
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">Orbit
                                 </th>
-                                <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-y_tersier">
+                                <th colspan="3"
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">
                                     Migrasi</th>
-                                <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-y_tersier">Trade
+                                <th colspan="3"
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">Trade
                                     In</th>
-                                <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-tersier">Update
+                                <th colspan="3"
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">Update
                                     Data</th>
-                                <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-tersier">Update
+                                <th colspan="3"
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">Update
                                     PJP Harian</th>
-                                <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-tersier">Survey
+                                <th colspan="3"
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">Survey
                                     Market</th>
-                                <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-tersier">
+                                <th colspan="3"
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">
                                     Channeling OSK & OSS</th>
-                                <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-tersier">Product
+                                <th colspan="3"
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">Product
                                     Knowledge</th>
                             </tr>
                             <tr>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    M-1</th>
+                                    MTD</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    MoM</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    %Ach To Target</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
                                     MTD</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    M-1</th>
+                                    MoM</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    %Ach To Target</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
                                     MTD</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    M-1</th>
+                                    MoM</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    %Ach To Target</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
                                     MTD</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    M-1</th>
+                                    MoM</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    %Ach To Target</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
                                     MTD</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    M-1</th>
+                                    MoM</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    %Ach To Target</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
                                     MTD</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    M-1</th>
+                                    MoM</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    %Ach To Target</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
                                     MTD</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    M-1</th>
+                                    MoM</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    %Ach To Target</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
                                     MTD</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    M-1</th>
+                                    MoM</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    %Ach To Target</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
                                     MTD</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    M-1</th>
+                                    MoM</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    %Ach To Target</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
                                     MTD</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    M-1</th>
+                                    MoM</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    MTD</th>
+                                    %Ach To Target</th>
                             </tr>
                         </thead>
                         <tbody class="max-h-screen overflow-y-auto">
@@ -106,32 +289,46 @@
                                     <td class="p-2 border branch whitespace-nowrap">{{ $data->branch }}</td>
 
                                     <td class="p-2 border">
-                                        {{ $data->last_broadband ? number_format($data->last_broadband, 0, ',', '.') : '-' }}
+                                        {{ $data->broadband ?? '-' }}
                                     </td>
                                     <td class="p-2 border">
-                                        {{ $data->broadband ? number_format($data->broadband, 0, ',', '.') : '-' }}</td>
+                                        {{ $data->mom_broadband ?? '-' }}%
                                     <td class="p-2 border">
-                                        {{ $data->last_digital ? number_format($data->last_digital, 0, ',', '.') : '-' }}
+                                        {{ $data->ach_broadband }}%
+                                    <td class="p-2 border">
+                                        {{ $data->digital ?? '-' }}
                                     </td>
                                     <td class="p-2 border">
-                                        {{ $data->digital ? number_format($data->digital, 0, ',', '.') : '-' }}</td>
-                                    <td class="p-2 border">{{ $data->last_orbit ?? '-' }}</td>
+                                        {{ $data->mom_digital ?? '-' }}%
+                                    </td>
+                                    <td class="p-2 border">
+                                        {{ $data->ach_digital }}%
+                                    </td>
                                     <td class="p-2 border">{{ $data->orbit ?? '-' }}</td>
-                                    <td class="p-2 border">{{ $data->last_migrasi ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_orbit ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_orbit ?? '-' }}%</td>
                                     <td class="p-2 border">{{ $data->migrasi ?? '-' }}</td>
-                                    <td class="p-2 border">{{ $data->last_trade ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_migrasi ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_migrasi ?? '-' }}%</td>
                                     <td class="p-2 border">{{ $data->trade ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_trade ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_trade ?? '-' }}%</td>
 
-                                    <td class="p-2 border">{{ $data->last_update_data ?? '-' }}</td>
                                     <td class="p-2 border">{{ $data->update_data ?? '-' }}</td>
-                                    <td class="p-2 border">{{ $data->last_pjp ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_update_data ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_update_data ?? '-' }}%</td>
                                     <td class="p-2 border">{{ $data->pjp ?? '-' }}</td>
-                                    <td class="p-2 border">{{ $data->last_survey ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_pjp ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_pjp ?? '-' }}%</td>
                                     <td class="p-2 border">{{ $data->survey ?? '-' }}</td>
-                                    <td class="p-2 border">{{ $data->last_oss_osk ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_survey ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_survey ?? '-' }}%</td>
                                     <td class="p-2 border">{{ $data->oss_osk ?? '-' }}</td>
-                                    <td class="p-2 border">{{ $data->last_quiz ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_oss_osk ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_oss_osk ?? '-' }}%</td>
                                     <td class="p-2 border">{{ $data->quiz ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_quiz ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_quiz ?? '-' }}%</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -145,74 +342,104 @@
                             <tr>
                                 <th rowspan="3" class="p-3 font-medium text-gray-100 uppercase border bg-y_premier">
                                     Cluster</th>
-                                <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-y_tersier">
+                                <th colspan="3"
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">
                                     Broadband</th>
-                                <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-y_tersier">
+                                <th colspan="3"
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">
                                     Digital</th>
-                                <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-y_tersier">
+                                <th colspan="3"
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">
                                     Orbit
                                 </th>
-                                <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-y_tersier">
+                                <th colspan="3"
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">
                                     Migrasi</th>
-                                <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-y_tersier">
+                                <th colspan="3"
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">
                                     Trade
                                     In</th>
-                                <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-tersier">
+                                <th colspan="3"
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">
                                     Update
                                     Data</th>
-                                <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-tersier">
+                                <th colspan="3"
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">
                                     Update
                                     PJP Harian</th>
-                                <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-tersier">
+                                <th colspan="3"
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">
                                     Survey
                                     Market</th>
-                                <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-tersier">
+                                <th colspan="3"
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">
                                     Channeling OSK & OSS</th>
-                                <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-tersier">
+                                <th colspan="3"
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">
                                     Product
                                     Knowledge</th>
                             </tr>
                             <tr>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    M-1</th>
+                                    MTD</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    MoM</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    %Ach To Target</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
                                     MTD</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    M-1</th>
+                                    MoM</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    %Ach To Target</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
                                     MTD</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    M-1</th>
+                                    MoM</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    %Ach To Target</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
                                     MTD</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    M-1</th>
+                                    MoM</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    %Ach To Target</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
                                     MTD</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    M-1</th>
+                                    MoM</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    %Ach To Target</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
                                     MTD</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    M-1</th>
+                                    MoM</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    %Ach To Target</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
                                     MTD</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    M-1</th>
+                                    MoM</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    %Ach To Target</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
                                     MTD</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    M-1</th>
+                                    MoM</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    %Ach To Target</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
                                     MTD</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    M-1</th>
+                                    MoM</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
+                                    %Ach To Target</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
                                     MTD</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    M-1</th>
+                                    MoM</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    MTD</th>
+                                    %Ach To Target</th>
                             </tr>
                         </thead>
                         <tbody class="max-h-screen overflow-y-auto">
@@ -221,32 +448,46 @@
                                     <td class="p-2 border cluster whitespace-nowrap">{{ $data->cluster }}</td>
 
                                     <td class="p-2 border">
-                                        {{ $data->last_broadband ? number_format($data->last_broadband, 0, ',', '.') : '-' }}
+                                        {{ $data->broadband ?? '-' }}
                                     </td>
                                     <td class="p-2 border">
-                                        {{ $data->broadband ? number_format($data->broadband, 0, ',', '.') : '-' }}</td>
+                                        {{ $data->mom_broadband ?? '-' }}%
                                     <td class="p-2 border">
-                                        {{ $data->last_digital ? number_format($data->last_digital, 0, ',', '.') : '-' }}
+                                        {{ $data->ach_broadband }}%
+                                    <td class="p-2 border">
+                                        {{ $data->digital ?? '-' }}
                                     </td>
                                     <td class="p-2 border">
-                                        {{ $data->digital ? number_format($data->digital, 0, ',', '.') : '-' }}</td>
-                                    <td class="p-2 border">{{ $data->last_orbit ?? '-' }}</td>
+                                        {{ $data->mom_digital ?? '-' }}%
+                                    </td>
+                                    <td class="p-2 border">
+                                        {{ $data->ach_digital }}%
+                                    </td>
                                     <td class="p-2 border">{{ $data->orbit ?? '-' }}</td>
-                                    <td class="p-2 border">{{ $data->last_migrasi ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_orbit ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_orbit ?? '-' }}%</td>
                                     <td class="p-2 border">{{ $data->migrasi ?? '-' }}</td>
-                                    <td class="p-2 border">{{ $data->last_trade ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_migrasi ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_migrasi ?? '-' }}%</td>
                                     <td class="p-2 border">{{ $data->trade ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_trade ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_trade ?? '-' }}%</td>
 
-                                    <td class="p-2 border">{{ $data->last_update_data ?? '-' }}</td>
                                     <td class="p-2 border">{{ $data->update_data ?? '-' }}</td>
-                                    <td class="p-2 border">{{ $data->last_pjp ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_update_data ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_update_data ?? '-' }}%</td>
                                     <td class="p-2 border">{{ $data->pjp ?? '-' }}</td>
-                                    <td class="p-2 border">{{ $data->last_survey ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_pjp ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_pjp ?? '-' }}%</td>
                                     <td class="p-2 border">{{ $data->survey ?? '-' }}</td>
-                                    <td class="p-2 border">{{ $data->last_oss_osk ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_survey ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_survey ?? '-' }}%</td>
                                     <td class="p-2 border">{{ $data->oss_osk ?? '-' }}</td>
-                                    <td class="p-2 border">{{ $data->last_quiz ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_oss_osk ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_oss_osk ?? '-' }}%</td>
                                     <td class="p-2 border">{{ $data->quiz ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_quiz ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_quiz ?? '-' }}%</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -254,10 +495,10 @@
                 </div>
 
                 <div class="flex flex-col p-4 bg-white rounded shadow-sm gap-y-2 w-fit">
-                    <span class="text-sm">Last Migrasi : {{ $last_migrasi->date }}</span>
-                    <span class="text-sm">Last Orbit : {{ $last_orbit->date }}</span>
-                    <span class="text-sm">Last Trade : {{ $last_trade->date }}</span>
-                    <span class="text-sm">Last Trx Digipos : {{ $last_digipos->date }}</span>
+                    <span class="text-sm">Last Migrasi : {{ $last_migrasi->date }}</span>%
+                    <span class="text-sm">Last Orbit : {{ $last_orbit->date }}</span>%
+                    <span class="text-sm">Last Trade : {{ $last_trade->date }}</span>%
+                    <span class="text-sm">Last Trx Digipos : {{ $last_digipos->date }}</span>%
                 </div>
 
             </div>
