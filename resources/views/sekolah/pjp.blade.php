@@ -18,6 +18,7 @@
                     <div class="flex flex-col">
                         <span class="font-bold text-gray-600">Berdasarkan</span>
                         <select name="search_by" id="search_by" class="rounded-lg">
+                            <option value="kategori">Kategori</option>
                             <option value="regional">Regional</option>
                             <option value="branch">Branch</option>
                             <option value="cluster">Cluster</option>
