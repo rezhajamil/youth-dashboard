@@ -22,7 +22,8 @@
                             <option value="branch">Branch</option>
                             <option value="cluster">Cluster</option>
                             <option value="npsn">NPSN</option>
-                            <option value="nama">Nama</option>
+                            <option value="nama_sekolah">Nama Sekolah</option>
+                            <option value="nama">Nama AO</option>
                             <option value="telp">Telp</option>
                             <option value="hari">Hari</option>
                             <option value="frekuensi">Frekuensi</option>
@@ -42,7 +43,7 @@
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">NPSN</th>
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Nama Sekolah</th>
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Nama Event</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Telp</th>
+                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Nama AO</th>
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Hari</th>
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Frekuensi</th>
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Waktu</th>
@@ -63,7 +64,7 @@
                                     <td class="p-3 text-gray-700 border-b whitespace-nowrap nama_sekolah">
                                         {{ $data->NAMA_SEKOLAH ?? '-' }}</td>
                                     <td class="p-3 text-gray-700 border-b event">{{ $data->event ?? '-' }}</td>
-                                    <td class="p-3 text-gray-700 border-b telp">{{ $data->telp }}</td>
+                                    <td class="p-3 text-gray-700 border-b nama whitespace-nowrap">{{ $data->nama }}</td>
                                     <td class="p-3 text-gray-700 border-b hari">{{ $data->hari }}</td>
                                     <td class="p-3 text-gray-700 border-b frekuensi">{{ $data->frekuensi }}</td>
                                     @if ($data->date_start || $data->date_end)
