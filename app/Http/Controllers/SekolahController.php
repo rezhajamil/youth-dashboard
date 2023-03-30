@@ -220,8 +220,8 @@ class SekolahController extends Controller
     {
         // $pjp = DB::select("SELECT BRANCH,CLUSTER,PJP,COUNT(PJP) as jumlah FROM Data_Sekolah_Sumatera WHERE PJP IS NOT NULL GROUP BY 1,2,3 ORDER BY 1,2,3;");
         // $where=Auth::user()->privilege=='branch'?"where a.cluster='auth()"
-        $where = Auth::user()->privilege == 'branch' ? "WHERE b.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == 'cluster' ? "WHERE b.cluster='" . Auth::user()->cluster . "'" : '');
-        $pjp = DB::select("SELECT a.*,b.NAMA_SEKOLAH,c.regional,c.branch,c.cluster,c.nama FROM pjp a LEFT JOIN Data_Sekolah_Sumatera b on a.npsn=b.NPSN LEFT JOIN data_user c ON a.telp=c.telp $where ORDER BY a.kategori desc;");
+        $where = Auth::user()->privilege == 'branch' ? " AND b.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == 'cluster' ? " AND b.cluster='" . Auth::user()->cluster . "'" : '');
+        $pjp = DB::select("SELECT a.*,b.NAMA_SEKOLAH,c.regional,c.branch,c.cluster,c.nama FROM pjp a LEFT JOIN Data_Sekolah_Sumatera b on a.npsn=b.NPSN LEFT JOIN data_user c ON a.telp=c.telp WHERE c.status=1 $where ORDER BY a.kategori desc;");
 
         return view('sekolah.pjp', compact('pjp'));
     }
