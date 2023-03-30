@@ -79,17 +79,15 @@
                                     @else
                                         <td class="p-3 text-gray-700 border-b whitespace-nowrap"></td>
                                     @endif
-                                    @if (Auth::user()->privilege == 'superadmin' || Auth::user()->privilege == 'branch')
-                                        <td class="p-3 text-gray-700 border-b whitespace-nowrap action">
-                                            {{-- <a href="{{ route('sekolah.pjp.edit',$data->id) }}" class="block my-1 text-base font-semibold text-blue-600 transition hover:text-blue-800">Edit</a> --}}
-                                            <form action="{{ route('sekolah.pjp.destroy', $data->id) }}" method="post">
-                                                @csrf
-                                                @method('delete')
-                                                <button
-                                                    class="block my-1 text-base font-semibold text-left text-red-600 transition whitespace-nowrap hover:text-red-800">Hapus</button>
-                                            </form>
-                                        </td>
-                                    @endif
+                                    <td class="p-3 text-gray-700 border-b whitespace-nowrap action">
+                                        {{-- <a href="{{ route('sekolah.pjp.edit',$data->id) }}" class="block my-1 text-base font-semibold text-blue-600 transition hover:text-blue-800">Edit</a> --}}
+                                        <form action="{{ route('sekolah.pjp.destroy', $data->id) }}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <button
+                                                class="block my-1 text-base font-semibold text-left text-red-600 transition whitespace-nowrap hover:text-red-800">Hapus</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
