@@ -222,7 +222,7 @@
             operator.map(data => {
                 $("#row-operator").prepend(
                     `<th class="p-3 text-sm text-center text-gray-100 uppercase border bg-y_tersier" id="col-${data.operator.toString().toLowerCase()}">${data.operator}</th>`
-                    );
+                );
             })
 
             $("#filter").change(function() {
@@ -245,10 +245,10 @@
                 operator.map(data => {
                     $("#row-count-operator").prepend(
                         `<td class='border' id="count-${data.operator.toString().toLowerCase()}">0</td>`
-                        )
+                    )
                     $("#row-percent-operator").prepend(
                         `<td class='font-bold border' id="percent-${data.operator.toString().toLowerCase()}">0%</td>`
-                        )
+                    )
                 });
                 $("#row-count-operator").append(`<td class='border' id="count-lainnya">0</td>`);
                 $("#row-percent-operator").append(`<td class='font-bold border' id="percent-lainnya">0%</td>`);
@@ -272,14 +272,14 @@
                                         0, 4)) {
                                     let col_count = $(
                                         `#count-${kode.operator.toString().toLowerCase()}`
-                                        );
+                                    );
                                     let col_percent = $(
                                         `#percent-${kode.operator.toString().toLowerCase()}`
-                                        );
+                                    );
                                     col_count.html(parseInt(col_count.html()) + 1);
                                     col_percent.html(
                                         `${parseInt(((col_count.html()/resume.length).toFixed(2))*100)}%`
-                                        );
+                                    );
                                     // console.log([kode.operator,ans.telp_siswa.toString().slice(0,4)]);
                                     other = true;
                                     return;
@@ -291,7 +291,7 @@
                                 col_count.html(parseInt(col_count.html()) + 1);
                                 col_percent.html(
                                     `${parseInt(((col_count.html()/resume.length).toFixed(2))*100)}%`
-                                    );
+                                );
                             }
                         });
 
@@ -305,7 +305,7 @@
                         survey.soal.map((soal, i_soal) => {
                             if (survey.jenis_soal[i_soal] == 'Prioritas') {
                                 for (let index = 0; index < survey.jumlah_opsi[
-                                    i_soal]; index++) {
+                                        i_soal]; index++) {
                                     row += parseInt(survey.jumlah_opsi[i_soal]);
                                 }
                             } else {
@@ -314,14 +314,14 @@
                         });
 
                         html += `
-                    <tr>
-                    <td rowspan="${row}" class="p-4 font-bold text-center text-gray-700 border border-b-2 border-r-2">${key+1}</td>
-                    <td rowspan="${row}" class="p-4 font-bold text-center text-gray-700 border border-b-2 whitespace-nowrap underline hover:text-cyan-600 transition-all">
-                    <a href="${url}" target="_blank">
-                        ${data.NAMA_SEKOLAH}
-                    </a>    
-                    </td>
-                    `;
+                        <tr>
+                        <td rowspan="${row}" class="p-4 font-bold text-center text-gray-700 border border-b-2 border-r-2">${key+1}</td>
+                        <td rowspan="${row}" class="p-4 font-bold text-center text-gray-700 underline transition-all border border-b-2 whitespace-nowrap hover:text-cyan-600">
+                        <a href="${url}" target="_blank">
+                            ${data.NAMA_SEKOLAH}
+                        </a>    
+                        </td>
+                        `;
                         survey.soal.map((soal, i_soal) => {
                             let choice = [];
                             let choice_all = [];
@@ -332,8 +332,7 @@
                             let label = [];
                             $("#grafik-grid").append(
                                 `<div class="col-span-1"><canvas id="grafik-${i_soal}"></canvas></div>`
-                                );
-
+                            );
 
                             for (let index = pos; index < pos + parseInt(survey.jumlah_opsi[
                                     i_soal]); index++) {
@@ -344,12 +343,10 @@
                                 }
                             }
 
-                            html += `
-                        ${i_soal>0?'<tr>':''}
-                        <td rowspan="${survey.jenis_soal[i_soal] != 'Prioritas'?parseInt(survey.jumlah_opsi[i_soal]):parseInt(survey.jumlah_opsi[i_soal])*pr}" class="p-4 text-gray-700 text-xl border border-b-${i_soal>0?4:2}">${soal}</td>
-                        `;
+                            html +=
+                                `${i_soal>0?'<tr>':''} <td rowspan="${survey.jenis_soal[i_soal] != 'Prioritas'?parseInt(survey.jumlah_opsi[i_soal]):parseInt(survey.jumlah_opsi[i_soal])*pr}" class="p-4 text-gray-700 text-xl border border-b-${i_soal>0?4:2}">${soal}</td>`;
 
-                            answer.map((d_answer, i_answer) => {
+                            resume.map((d_answer, i_answer) => {
                                 choice.push(d_answer.pilihan[i_soal]);
                             });
 
@@ -440,14 +437,14 @@
                                         0, 4)) {
                                     let col_count = $(
                                         `#count-${kode.operator.toString().toLowerCase()}`
-                                        );
+                                    );
                                     let col_percent = $(
                                         `#percent-${kode.operator.toString().toLowerCase()}`
-                                        );
+                                    );
                                     col_count.html(parseInt(col_count.html()) + 1);
                                     col_percent.html(
                                         `${parseInt((col_count.html()/answer.length)*100)}%`
-                                        );
+                                    );
                                     // console.log([kode.operator,ans.telp_siswa.toString().slice(0,4)]);
                                     other = true;
                                     return;
@@ -472,7 +469,7 @@
                         survey.soal.map((soal, i_soal) => {
                             if (survey.jenis_soal[i_soal] == 'Prioritas') {
                                 for (let index = 0; index < survey.jumlah_opsi[
-                                    i_soal]; index++) {
+                                        i_soal]; index++) {
                                     row += parseInt(survey.jumlah_opsi[i_soal]);
                                 }
                             } else {
@@ -481,7 +478,7 @@
                         });
                         html += ` <tr>
                         <td rowspan="${row}" class="p-4 font-bold text-center text-gray-700 border border-b-2 border-r-2">${key+1}</td>
-                        <td rowspan="${row}" class="p-4 font-bold text-center text-gray-700 border border-b-2 whitespace-nowrap underline hover:text-cyan-600 transition-all">
+                        <td rowspan="${row}" class="p-4 font-bold text-center text-gray-700 underline transition-all border border-b-2 whitespace-nowrap hover:text-cyan-600">
                             <a href="${url}" target="_blank">
                                 ${data.NAMA_SEKOLAH}
                             </a>
@@ -497,8 +494,7 @@
                             let label = [];
                             $("#grafik-grid").append(
                                 `<div class="col-span-1"><canvas id="grafik-${i_soal}"></canvas></div>`
-                                );
-
+                            );
 
                             for (let index = pos; index < pos + parseInt(survey.jumlah_opsi[
                                     i_soal]); index++) {
@@ -508,6 +504,7 @@
                                     break;
                                 }
                             }
+
                             html += ` ${i_soal>0?'<tr>':''}
                                 <td rowspan="${survey.jenis_soal[i_soal] != 'Prioritas'?parseInt(survey.jumlah_opsi[i_soal]):parseInt(survey.jumlah_opsi[i_soal])*pr}" class="p-4 text-gray-700 text-xl border border-b-${i_soal>0?4:2}">${soal}</td>
                                 `;
@@ -540,16 +537,16 @@
 
                                     html += `
                                     ${index>pos?'<tr>':''}
-                                <td colspan="2" class="p-4 text-white border border-b whitespace-nowrap bg-tersier">${survey.opsi[index]}</td>
-                                <td class="p-4 font-bold text-center text-gray-700 border border-b whitespace-nowrap">${count}</td>
-                                <td class="p-4 text-center text-gray-700 border border-b whitespace-nowrap">${((count/choice.length)*100).toFixed(1)}%</td>
-                                <td class="p-4 text-center text-gray-700 border border-b whitespace-nowrap">${((count_all/choice_all.length)*100).toFixed(1)}%</td>
-                            </tr>
-                            `;
+                                        <td colspan="2" class="p-4 text-white border border-b whitespace-nowrap bg-tersier">${survey.opsi[index]}</td>
+                                        <td class="p-4 font-bold text-center text-gray-700 border border-b whitespace-nowrap">${count}</td>
+                                        <td class="p-4 text-center text-gray-700 border border-b whitespace-nowrap">${((count/choice.length)*100).toFixed(1)}%</td>
+                                        <td class="p-4 text-center text-gray-700 border border-b whitespace-nowrap">${((count_all/choice_all.length)*100).toFixed(1)}%</td>
+                                    </tr>
+                                    `;
                                 } else {
                                     html +=
                                         `
-                            ${index>pos?'<tr>':''}
+                                ${index>pos?'<tr>':''}
                                 <td colspan="1" rowspan="${pr}" class="p-4 text-white border border-b whitespace-nowrap bg-sekunder">${survey.opsi[index]}</td>`;
 
                                     for (let j = 1; j <= survey.jumlah_opsi[i_soal]; j++) {

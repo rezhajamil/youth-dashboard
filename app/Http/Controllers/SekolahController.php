@@ -96,7 +96,7 @@ class SekolahController extends Controller
         $last_survey = DB::table('survey_answer')->select(['session', 'time_start'])->distinct()->where('npsn', $sekolah->NPSN)->orderBy('time_start', 'DESC')->first();
 
         if ($last_survey) {
-            $answer = DB::table('survey_answer')->where('session', $last_survey->session)->get();
+            $answer = DB::table('survey_answer')->where('session', $last_survey->session)->where('npsn', $sekolah->NPSN)->get();
             $survey = DB::table('survey_session')->find($last_survey->session);
 
             $kode_operator = DB::table('kode_prefix_operator')->get();
