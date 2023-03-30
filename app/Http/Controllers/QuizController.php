@@ -184,6 +184,8 @@ class QuizController extends Controller
 
     public function answer_list($id)
     {
+        $territory_resume = Auth::user()->privilege == "branch" ? "and b.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "and b.cluster='" . Auth::user()->cluster . "'" : '');
+        $territory_answer = Auth::user()->privilege == "branch" ? "and data_user.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "and data_user.cluster='" . Auth::user()->cluster . "'" : '');
         $resume = DB::select("SELECT b.regional,b.branch,b.`cluster`,
                         COUNT(CASE WHEN a.`session`='$id' THEN a.telp END) as partisipan,
                         d.total
@@ -193,13 +195,14 @@ class QuizController extends Controller
                         JOIN (SELECT c.`cluster`,COUNT(c.telp) as total FROM data_user as c 
                         WHERE c.status='1' GROUP BY 1) as d
                         ON b.`cluster`=d.`cluster`
-                        WHERE NOT b.`branch`='ALL'
+                        WHERE NOT b.`branch`='ALL' $territory_resume
                         GROUP BY 1,2,3
                         ORDER BY b.regional desc,b.branch,b.`cluster`;");
         if (request()->get('jenis') == 'event') {
             $answer = DB::table('quiz_answer')->join('user_event', 'user_event.telp', '=', 'quiz_answer.telp')->distinct('nama')->where('session', $id)->orderBy('nama')->get();
         } else {
-            $answer = DB::table('quiz_answer')->select(["quiz_answer.id", "cluster", "nama", "quiz_answer.telp", "role", "session", "hasil", "pilihan"])->join('data_user', 'data_user.telp', '=', 'quiz_answer.telp')->distinct('nama')->where('session', $id)->orderBy('cluster')->orderBy('nama')->get();
+            // $answer = DB::table('quiz_answer')->select(["quiz_answer.id", "cluster", "nama", "quiz_answer.telp", "role", "session", "hasil", "pilihan"])->join('data_user', 'data_user.telp', '=', 'quiz_answer.telp')->distinct('nama')->where('session', $id)->orderBy('cluster')->orderBy('nama')->get();
+            $answer = DB::select("SELECT quiz_answer.id, cluster, nama, quiz_answer.telp, role, session, hasil, pilihan from quiz_answer join data_user on data_user.telp=quiz_answer.telp WHERE session='$id' $territory_answer ORDER BY nama");
         }
         $quiz = DB::table('quiz_session')->find($id);
         return view('directUser.quiz.result', compact('answer', 'quiz', 'resume'));

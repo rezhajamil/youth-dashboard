@@ -132,6 +132,7 @@ class DirectUserController extends Controller
      */
     public function show(Request $request, $id)
     {
+        ini_set("max_execution_time", "0");
         $user = DataUser::find($id);
 
         $month = $request->month ?? date('m');

@@ -11,7 +11,8 @@
                 <a href="{{ route('sekolah.pjp.create') }}"
                     class="inline-block px-4 py-2 my-2 font-bold text-white rounded-md bg-y_premier hover:bg-y_premier"><i
                         class="mr-2 fa-solid fa-plus"></i> Data Kunjungan</a>
-
+                <button class="px-2 py-1 ml-2 text-lg text-white transition bg-green-600 rounded-md hover:bg-green-800"
+                    id="capture"><i class="fa-regular fa-circle-down"></i></button>
                 <div class="flex items-end mb-4 gap-x-3">
                     <input type="text" name="search" id="search" placeholder="Filter..."
                         class="px-4 rounded-lg h-fit">
@@ -32,7 +33,7 @@
                     </div>
                 </div>
 
-                <div class="overflow-auto bg-white rounded-md shadow w-fit">
+                <div class="overflow-auto bg-white rounded-md shadow w-fit" id="pjp-container">
                     <table class="overflow-auto text-left border-collapse w-fit">
                         <thead class="border-b">
                             <tr>
@@ -49,7 +50,8 @@
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Frekuensi</th>
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Waktu</th>
                                 @if (Auth::user()->privilege == 'superadmin' || Auth::user()->privilege == 'branch')
-                                    <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Action</th>
+                                    <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier action">Action
+                                    </th>
                                 @endif
                             </tr>
                         </thead>
@@ -78,7 +80,7 @@
                                         <td class="p-3 text-gray-700 border-b whitespace-nowrap"></td>
                                     @endif
                                     @if (Auth::user()->privilege == 'superadmin' || Auth::user()->privilege == 'branch')
-                                        <td class="p-3 text-gray-700 border-b whitespace-nowrap">
+                                        <td class="p-3 text-gray-700 border-b whitespace-nowrap action">
                                             {{-- <a href="{{ route('sekolah.pjp.edit',$data->id) }}" class="block my-1 text-base font-semibold text-blue-600 transition hover:text-blue-800">Edit</a> --}}
                                             <form action="{{ route('sekolah.pjp.destroy', $data->id) }}" method="post">
                                                 @csrf
@@ -101,8 +103,45 @@
 @endsection
 
 @section('script')
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js">
+    </script>
+    <script>
+        function createPDF() {
+            var pjpTable = document.getElementById('pjp-container').innerHTML;
+
+            var style = "<style>";
+            style = style + "table {width: 100%;font: 17px Calibri;}";
+            style = style + "table, th, td {border: solid 1px #B90027; border-collapse: collapse;}";
+            style = style + "table, th, td {";
+            style = style + "padding: 4px 4px;text-align: center;}";
+            style = style + "</style>";
+
+            // CREATE A WINDOW OBJECT.
+            var win = window.open('', '', 'height=700,width=700');
+
+            win.document.write('<html><head> ');
+            win.document.write(`<title>Data Kunjungan</title>`); // <title> FOR PDF HEADER.
+            win.document.write(style); // ADD STYLE INSIDE THE HEAD TAG.
+            win.document.write('</head>');
+            win.document.write('<body>');
+            win.document.write('<body><h4>Data Kunjungan</h4>');
+            win.document.write(pjpTable); // THE TABLE CONTENTS INSIDE THE BODY TAG.
+            win.document.write('</body> </html > ');
+
+            win.document.close(); // CLOSE THE CURRENT WINDOW.
+
+            win.print(); // PRINT THE CONTENTS.
+        }
+    </script>
     <script>
         $(document).ready(function() {
+            $('#capture').click(function() {
+                $(".action").hide();
+                createPDF()
+                $(".action").show();
+            });
+
             $("#search").on("input", function() {
                 find();
             });
