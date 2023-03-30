@@ -186,6 +186,7 @@ class QuizController extends Controller
     {
         $territory_resume = Auth::user()->privilege == "branch" ? "and b.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "and b.cluster='" . Auth::user()->cluster . "'" : '');
         $territory_answer = Auth::user()->privilege == "branch" ? "and data_user.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "and data_user.cluster='" . Auth::user()->cluster . "'" : '');
+
         $resume = DB::select("SELECT b.regional,b.branch,b.`cluster`,
                         COUNT(CASE WHEN a.`session`='$id' THEN a.telp END) as partisipan,
                         d.total
