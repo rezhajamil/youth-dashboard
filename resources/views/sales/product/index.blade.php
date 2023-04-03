@@ -57,7 +57,8 @@
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">MTD</th>
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">M-1</th>
                                 @if (Request::get('kategori') == 'MY TELKOMSEL')
-                                    <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Revenue</th>
+                                    <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Revenue MTD
+                                    </th>
                                 @endif
                                 {{-- <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Action</th> --}}
                             </tr>
@@ -90,7 +91,8 @@
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">MTD</th>
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">M-1</th>
                                 @if (Request::get('kategori') == 'MY TELKOMSEL')
-                                    <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Revenue</th>
+                                    <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Revenue MTD
+                                    </th>
                                 @endif
                                 {{-- <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Action</th> --}}
                             </tr>
