@@ -415,7 +415,7 @@ class SalesContoller extends Controller
         $list_kategori = DB::table('sales_copy')->select('kategori')->whereNotIn('kategori', ['', 'ORBIT'])->whereNotNull('kategori')->distinct()->get();
         $kategori = $request->kategori;
         $select_mytsel = $kategori == 'MY TELKOMSEL' ? ",c.revenue" : '';
-        $join_mytsel = $kategori == 'MY TELKOMSEL' ? " JOIN validasi_mytsel c ON a.msisdn=c.msisdn" : '';
+        $join_mytsel = $kategori == 'MY TELKOMSEL' ? " LEFT JOIN validasi_mytsel c ON a.msisdn=c.msisdn" : '';
         $sum_mytsel = $kategori == 'MY TELKOMSEL' ? " ,SUM(CASE WHEN c.revenue!='NULL' THEN c.revenue ELSE 0 END) revenue" : '';
 
         if ($request->date && $kategori) {
@@ -463,9 +463,11 @@ class SalesContoller extends Controller
                     " . $branch . "
                     ORDER by b.cluster, b.nama ASC";
 
+
             $sales_branch = DB::select($query_branch, [1]);
             $sales_cluster = DB::select($query_cluster, [1]);
             $sales = DB::select($query, [1]);
+            // ddd($sales);
         } else {
             $sales_branch = [];
             $sales_cluster = [];

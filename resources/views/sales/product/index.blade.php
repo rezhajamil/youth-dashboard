@@ -182,8 +182,9 @@
                                     @endif
                                     <td class="p-4 text-gray-700 uppercase border-b aktif">{{ $data->date }}</td>
                                     @if (Request::get('kategori') == 'MY TELKOMSEL')
-                                        <td class="p-4 text-gray-700 uppercase border-b revenue">
-                                            {{ $data->revenue != 'NULL' ? $data->revenue : '0' }}</td>
+                                        <td class="p-4 text-gray-700 border-b revenue">
+                                            {{ $data->revenue == 'NULL' ? '0' : ($data->revenue === null ? 'Tidak ada validasi' : $data->revenue) }}
+                                        </td>
                                     @endif
                                     @if (Auth::user()->privilege != 'cluster')
                                         <td class="p-4 text-gray-700 border-b action">
