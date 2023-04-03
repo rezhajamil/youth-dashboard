@@ -56,6 +56,9 @@
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Branch</th>
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">MTD</th>
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">M-1</th>
+                                @if (Request::get('kategori') == 'MY TELKOMSEL')
+                                    <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Revenue</th>
+                                @endif
                                 {{-- <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Action</th> --}}
                             </tr>
                         </thead>
@@ -67,6 +70,9 @@
                                     <td class="p-4 text-gray-700 uppercase border-b ">{{ $data->branch }}</td>
                                     <td class="p-4 text-gray-700 uppercase border-b">{{ $data->mtd }}</td>
                                     <td class="p-4 text-gray-700 uppercase border-b">{{ $data->last_mtd }}</td>
+                                    @if (Request::get('kategori') == 'MY TELKOMSEL')
+                                        <td class="p-4 text-gray-700 uppercase border-b">{{ $data->revenue }}</td>
+                                    @endif
                                     {{-- <td class="p-4 text-gray-700 border-b"></td> --}}
                                 </tr>
                             @endforeach
@@ -83,6 +89,9 @@
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Cluster</th>
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">MTD</th>
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">M-1</th>
+                                @if (Request::get('kategori') == 'MY TELKOMSEL')
+                                    <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Revenue</th>
+                                @endif
                                 {{-- <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Action</th> --}}
                             </tr>
                         </thead>
@@ -93,6 +102,9 @@
                                     <td class="p-4 text-gray-700 uppercase border-b ">{{ $data->cluster }}</td>
                                     <td class="p-4 text-gray-700 uppercase border-b">{{ $data->mtd }}</td>
                                     <td class="p-4 text-gray-700 uppercase border-b">{{ $data->last_mtd }}</td>
+                                    @if (Request::get('kategori') == 'MY TELKOMSEL')
+                                        <td class="p-4 text-gray-700 uppercase border-b">{{ $data->revenue }}</td>
+                                    @endif
                                     {{-- <td class="p-4 text-gray-700 border-b"></td> --}}
                                 </tr>
                             @endforeach

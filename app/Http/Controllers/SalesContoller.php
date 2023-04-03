@@ -416,6 +416,7 @@ class SalesContoller extends Controller
         $kategori = $request->kategori;
         $select_mytsel = $kategori == 'MY TELKOMSEL' ? ",c.revenue" : '';
         $join_mytsel = $kategori == 'MY TELKOMSEL' ? " JOIN validasi_mytsel c ON a.msisdn=c.msisdn" : '';
+        $sum_mytsel = $kategori == 'MY TELKOMSEL' ? " ,SUM(CASE WHEN c.revenue!='NULL' THEN c.revenue ELSE 0 END) revenue" : '';
 
         if ($request->date && $kategori) {
             $m1 = date('Y-m-01', strtotime($request->date));
@@ -428,22 +429,26 @@ class SalesContoller extends Controller
 
             $query_branch = "SELECT b.regional, b.branch ,
                     COUNT(CASE WHEN a.`date` BETWEEN '" . $m1 . "' AND '" . $mtd . "' THEN a.msisdn END) mtd,
-                       COUNT(CASE WHEN a.`date` BETWEEN '" . $last_m1 . "' AND '" . $last_mtd . "' THEN a.msisdn END) last_mtd
+                    COUNT(CASE WHEN a.`date` BETWEEN '" . $last_m1 . "' AND '" . $last_mtd . "' THEN a.msisdn END) last_mtd
+                    $sum_mytsel
                     FROM sales_copy a  
                     JOIN data_user b ON b.telp = a.telp
                     $join_mytsel
                     WHERE a.kategori='$kategori' 
+                    AND a.date BETWEEN '" . $m1 . "' AND '" . $mtd . "'
                     " . $and . "
                     " . $branch . "
                     GROUP BY 1,2;";
 
             $query_cluster = "SELECT b.cluster,
                     COUNT(CASE WHEN a.`date` BETWEEN '" . $m1 . "' AND '" . $mtd . "' THEN a.msisdn END) mtd,
-                       COUNT(CASE WHEN a.`date` BETWEEN '" . $last_m1 . "' AND '" . $last_mtd . "' THEN a.msisdn END) last_mtd
+                    COUNT(CASE WHEN a.`date` BETWEEN '" . $last_m1 . "' AND '" . $last_mtd . "' THEN a.msisdn END) last_mtd
+                    $sum_mytsel
                     FROM sales_copy a  
                     JOIN data_user b ON b.telp = a.telp
                     $join_mytsel
                     WHERE a.kategori='$kategori'
+                    AND a.date BETWEEN '" . $m1 . "' AND '" . $mtd . "'
                     " . $and . "
                     " . $branch . "
                     GROUP BY 1;";
