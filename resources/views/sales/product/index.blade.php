@@ -101,6 +101,7 @@
                 </div>
 
                 <span class="block mt-6 text-lg font-semibold text-gray-600">Sales Product Detail</span>
+
                 @if (request()->get('date'))
                     <div class="flex items-end mb-2 gap-x-4">
                         <input type="text" name="search" id="search" placeholder="Search..." class="px-4 rounded-lg">
@@ -116,11 +117,14 @@
                                 <option value="aktif">Tanggal Lapor</option>
                             </select>
                         </div>
+                        {{-- <button id="button"
+                            class="inline-block px-4 py-2 mx-3 font-semibold text-white transition-all bg-teal-600 rounded-md hover:bg-teal-800"><i
+                                class="mr-2 fa-solid fa-file-arrow-down"></i>Excel</button> --}}
                     </div>
                 @endif
 
                 <div class="overflow-hidden bg-white rounded-md shadow w-fit">
-                    <table class="text-left border-collapse w-fit">
+                    <table class="text-left border-collapse w-fit" id="table-data">
                         <thead class="border-b">
                             <tr>
                                 <th class="p-4 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No</th>
@@ -135,7 +139,8 @@
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Tanggal Lapor</th>
                                 {{-- <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">MOM</th> --}}
                                 @if (Auth::user()->privilege != 'cluster')
-                                    <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Action</th>
+                                    <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier action">Action
+                                    </th>
                                 @endif
                             </tr>
                         </thead>
@@ -155,7 +160,7 @@
                                     <td class="p-4 text-gray-700 uppercase border-b msisdn">{{ $data->serial }}</td>
                                     <td class="p-4 text-gray-700 uppercase border-b aktif">{{ $data->date }}</td>
                                     @if (Auth::user()->privilege != 'cluster')
-                                        <td class="p-4 text-gray-700 border-b">
+                                        <td class="p-4 text-gray-700 border-b action">
                                             <form action="{{ route('sales.product.destroy', $data->msisdn) }}"
                                                 method="post">
                                                 @csrf
@@ -176,6 +181,7 @@
     </div>
 @endsection
 @section('script')
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
     <script>
         $(document).ready(function() {
             $("#search").on("input", function() {
@@ -207,6 +213,45 @@
 
             $("#by_cluster").on("change", function() {
                 $("#table-cluster").toggle();
+            })
+
+            function fnExcelReport() {
+                var tab_text = "<table border='2px'><tr bgcolor='#B90027' style='color:#fff'>";
+                var textRange;
+                var j = 0;
+                tab = document.getElementById('table-data'); // id of table
+
+                for (j = 0; j < tab.rows.length; j++) {
+                    tab_text = tab_text + tab.rows[j].innerHTML + "</tr>";
+                    //tab_text=tab_text+"</tr>";
+                }
+
+                tab_text = tab_text + "</table>";
+                tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, ""); //remove if u want links in your table
+                tab_text = tab_text.replace(/<img[^>]*>/gi, ""); // remove if u want images in your table
+                tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+
+                var ua = window.navigator.userAgent;
+                var msie = ua.indexOf("MSIE ");
+
+                if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) // If Internet Explorer
+                {
+                    txtArea1.document.open("txt/html", "replace");
+                    txtArea1.document.write(tab_text);
+                    txtArea1.document.close();
+                    txtArea1.focus();
+                    sa = txtArea1.document.execCommand("SaveAs", true, "Say Thanks to Sumit.xlss");
+                } else //other browser not tested on IE 11
+                    console.log(tab_text);
+                sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
+
+                return (sa);
+            }
+
+            $('#button').click(function() {
+                $(".action").hide()
+                fnExcelReport();
+                $(".action").show()
             })
 
 
