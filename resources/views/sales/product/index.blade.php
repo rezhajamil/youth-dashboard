@@ -135,8 +135,14 @@
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Jenis</th>
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Detail</th>
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">MSISDN</th>
-                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">No Kompetitor</th>
+                                @if (Request::get('kategori') != 'MY TELKOMSEL')
+                                    <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">No Kompetitor
+                                    </th>
+                                @endif
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Tanggal Lapor</th>
+                                @if (Request::get('kategori') == 'MY TELKOMSEL')
+                                    <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Revenue</th>
+                                @endif
                                 {{-- <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">MOM</th> --}}
                                 @if (Auth::user()->privilege != 'cluster')
                                     <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier action">Action
@@ -157,8 +163,14 @@
                                     <td class="p-4 text-gray-700 uppercase border-b whitespace-nowrap status">
                                         {{ $data->detail }}</td>
                                     <td class="p-4 text-gray-700 uppercase border-b msisdn">{{ $data->msisdn }}</td>
-                                    <td class="p-4 text-gray-700 uppercase border-b msisdn">{{ $data->serial }}</td>
+                                    @if (Request::get('kategori') != 'MY TELKOMSEL')
+                                        <td class="p-4 text-gray-700 uppercase border-b serial">{{ $data->serial }}</td>
+                                    @endif
                                     <td class="p-4 text-gray-700 uppercase border-b aktif">{{ $data->date }}</td>
+                                    @if (Request::get('kategori') == 'MY TELKOMSEL')
+                                        <td class="p-4 text-gray-700 uppercase border-b revenue">
+                                            {{ $data->revenue != 'NULL' ? $data->revenue : '0' }}</td>
+                                    @endif
                                     @if (Auth::user()->privilege != 'cluster')
                                         <td class="p-4 text-gray-700 border-b action">
                                             <form action="{{ route('sales.product.destroy', $data->msisdn) }}"

@@ -414,6 +414,8 @@ class SalesContoller extends Controller
         $update = DB::select('select max(date) as last_update from sales_copy;');
         $list_kategori = DB::table('sales_copy')->select('kategori')->whereNotIn('kategori', ['', 'ORBIT'])->whereNotNull('kategori')->distinct()->get();
         $kategori = $request->kategori;
+        $select_mytsel = $kategori == 'MY TELKOMSEL' ? ",c.revenue" : '';
+        $join_mytsel = $kategori == 'MY TELKOMSEL' ? " JOIN validasi_mytsel c ON a.msisdn=c.msisdn" : '';
 
         if ($request->date && $kategori) {
             $m1 = date('Y-m-01', strtotime($request->date));
@@ -429,6 +431,7 @@ class SalesContoller extends Controller
                        COUNT(CASE WHEN a.`date` BETWEEN '" . $last_m1 . "' AND '" . $last_mtd . "' THEN a.msisdn END) last_mtd
                     FROM sales_copy a  
                     JOIN data_user b ON b.telp = a.telp
+                    $join_mytsel
                     WHERE a.kategori='$kategori' 
                     " . $and . "
                     " . $branch . "
@@ -439,14 +442,16 @@ class SalesContoller extends Controller
                        COUNT(CASE WHEN a.`date` BETWEEN '" . $last_m1 . "' AND '" . $last_mtd . "' THEN a.msisdn END) last_mtd
                     FROM sales_copy a  
                     JOIN data_user b ON b.telp = a.telp
+                    $join_mytsel
                     WHERE a.kategori='$kategori'
                     " . $and . "
                     " . $branch . "
                     GROUP BY 1;";
 
-            $query = "SELECT b.nama,b.cluster,b.role,b.telp,b.reff_code, a.msisdn,a.`date`,a.serial,a.jenis,a.detail
+            $query = "SELECT b.nama,b.cluster,b.role,b.telp,b.reff_code, a.msisdn,a.`date`,a.serial,a.jenis,a.detail $select_mytsel
                     FROM sales_copy a  
                     JOIN data_user b ON b.telp = a.telp
+                    $join_mytsel
                     where a.date BETWEEN '" . $m1 . "' AND '" . $mtd . "'
                     and not a.status ='1' and a.kategori='$kategori'
                     " . $and . "
