@@ -131,9 +131,9 @@
                                 <option value="aktif">Tanggal Lapor</option>
                             </select>
                         </div>
-                        {{-- <button id="button"
+                        <button id="button"
                             class="inline-block px-4 py-2 mx-3 font-semibold text-white transition-all bg-teal-600 rounded-md hover:bg-teal-800"><i
-                                class="mr-2 fa-solid fa-file-arrow-down"></i>Excel</button> --}}
+                                class="mr-2 fa-solid fa-file-arrow-down"></i>Excel</button>
                     </div>
                 @endif
 
