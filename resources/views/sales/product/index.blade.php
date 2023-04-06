@@ -114,7 +114,11 @@
                     </table>
                 </div>
 
-                <span class="block mt-6 text-lg font-semibold text-gray-600">Sales Product Detail</span>
+                <span class="block mt-6 text-lg font-semibold text-gray-600">Sales Product Detail
+                    @if (Request::get('kategori') == 'MY TELKOMSEL')
+                        (Last Date : {{ $last_validasi[0]->tanggal }})
+                    @endif
+                </span>
 
                 @if (request()->get('date'))
                     <div class="flex items-end mb-2 gap-x-4">
@@ -142,6 +146,7 @@
                         <thead class="border-b">
                             <tr>
                                 <th class="p-4 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No</th>
+                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Branch</th>
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Cluster</th>
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Nama</th>
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Telp</th>
@@ -168,6 +173,7 @@
                             @foreach ($sales as $key => $data)
                                 <tr class="hover:bg-gray-200">
                                     <td class="p-4 font-bold text-gray-700 border-b">{{ $key + 1 }}</td>
+                                    <td class="p-4 text-gray-700 uppercase border-b branch">{{ $data->branch }}</td>
                                     <td class="p-4 text-gray-700 uppercase border-b cluster">{{ $data->cluster }}</td>
                                     <td class="p-4 text-gray-700 uppercase border-b nama">{{ $data->nama }}</td>
                                     <td class="p-4 text-gray-700 uppercase border-b telp">{{ $data->telp }}</td>
@@ -183,7 +189,7 @@
                                     <td class="p-4 text-gray-700 uppercase border-b aktif">{{ $data->date }}</td>
                                     @if (Request::get('kategori') == 'MY TELKOMSEL')
                                         <td class="p-4 text-gray-700 border-b revenue">
-                                            {{ $data->revenue == 'NULL' ? '0' : ($data->revenue === null ? 'Tidak ada validasi' : $data->revenue) }}
+                                            {{ $data->revenue == 'NULL' ? '0' : ($data->revenue === null ? 'Belum ada validasi' : $data->revenue) }}
                                         </td>
                                     @endif
                                     @if (Auth::user()->privilege != 'cluster')

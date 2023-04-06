@@ -412,6 +412,7 @@ class SalesContoller extends Controller
     public function product(Request $request)
     {
         $update = DB::select('select max(date) as last_update from sales_copy;');
+        $last_validasi = DB::select('select max(tanggal) as tanggal from validasi_mytsel;');
         $list_kategori = DB::table('sales_copy')->select('kategori')->whereNotIn('kategori', ['', 'ORBIT'])->whereNotNull('kategori')->distinct()->get();
         $kategori = $request->kategori;
         $select_mytsel = $kategori == 'MY TELKOMSEL' ? ",c.revenue" : '';
@@ -438,7 +439,8 @@ class SalesContoller extends Controller
                     AND a.date BETWEEN '" . $m1 . "' AND '" . $mtd . "'
                     " . $and . "
                     " . $branch . "
-                    GROUP BY 1,2;";
+                    GROUP BY 1,2
+                    ORDER by 1 DESC,2;";
 
             $query_cluster = "SELECT b.cluster,
                     COUNT(CASE WHEN a.`date` BETWEEN '" . $m1 . "' AND '" . $mtd . "' THEN a.msisdn END) mtd,
@@ -451,9 +453,9 @@ class SalesContoller extends Controller
                     AND a.date BETWEEN '" . $m1 . "' AND '" . $mtd . "'
                     " . $and . "
                     " . $branch . "
-                    GROUP BY 1;";
+                    GROUP BY 1 ;";
 
-            $query = "SELECT b.nama,b.cluster,b.role,b.telp,b.reff_code, a.msisdn,a.`date`,a.serial,a.jenis,a.detail $select_mytsel
+            $query = "SELECT b.nama,b.branch,b.cluster,b.role,b.telp,b.reff_code, a.msisdn,a.`date`,a.serial,a.jenis,a.detail $select_mytsel
                     FROM sales_copy a  
                     JOIN data_user b ON b.telp = a.telp
                     $join_mytsel
@@ -461,7 +463,7 @@ class SalesContoller extends Controller
                     and not a.status ='1' and a.kategori='$kategori'
                     " . $and . "
                     " . $branch . "
-                    ORDER by b.cluster, b.nama ASC";
+                    ORDER by b.regional DESC,b.branch,b.cluster, b.nama ASC";
 
 
             $sales_branch = DB::select($query_branch, [1]);
@@ -473,7 +475,7 @@ class SalesContoller extends Controller
             $sales_cluster = [];
             $sales = [];
         }
-        return view('sales.product.index', compact('list_kategori', 'sales_branch', 'sales_cluster', 'sales', 'update'));
+        return view('sales.product.index', compact('list_kategori', 'sales_branch', 'sales_cluster', 'sales', 'update', 'last_validasi'));
     }
 
     /**
