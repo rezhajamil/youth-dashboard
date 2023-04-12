@@ -121,7 +121,11 @@ class LocationController extends Controller
 
     public function create_poi()
     {
-        $region = DB::table('territory_new')->select('regional')->orderBy('regional', 'desc')->distinct()->get();
+        if (Auth::user()->privilege == 'superadmin') {
+            $region = DB::table('territory_new')->select('regional')->orderBy('regional', 'desc')->distinct()->get();
+        } else {
+            $region = DB::table('territory_new')->select('regional')->orderBy('regional', 'desc')->where('regional', auth()->user()->regional)->distinct()->get();
+        }
         $location = DB::table('location_poi')->select('name')->distinct()->get();
         $keterangan = DB::table('keterangan_poi')->select('name')->distinct()->get();
         $jenis = DB::table('list_poi')->select('jenis_poi')->distinct()->get();

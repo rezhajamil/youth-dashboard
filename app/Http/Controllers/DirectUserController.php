@@ -326,6 +326,7 @@ class DirectUserController extends Controller
 
     public function absensi(Request $request)
     {
+        $role = $request->role == 'All' ? '' : " and role='$request->role'";
         if (Auth::user()->privilege == 'branch') {
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->where('branch', Auth::user()->branch)->whereNotNull('cluster')->orderBy('cluster')->get();
         } else if (Auth::user()->privilege == 'cluster') {
@@ -364,34 +365,34 @@ class DirectUserController extends Controller
 
         if (Auth::user()->privilege == 'superadmin') {
             if ($request->cluster && $request->role) {
-                $absensi = DB::select("SELECT cluster,absen_ao.nama,date,absen_ao.telp,branch 
+                $absensi = DB::select("SELECT cluster,absen_ao.nama,date,absen_ao.telp,branch,role
                         FROM absen_ao
                         JOIN data_user
                         on absen_ao.telp=data_user.telp
                         WHERE MONTH(date)=" . $month . " AND YEAR(date)=" . $year . " 
                         AND CLUSTER='" . $request->cluster . "'
-                        and role='" . $request->role . "'
+                        $role
                         ORDER BY 2,3;");
             } else if ($request->role) {
-                $absensi = DB::select("SELECT cluster,absen_ao.nama,date,absen_ao.telp,branch 
+                $absensi = DB::select("SELECT cluster,absen_ao.nama,date,absen_ao.telp,branch,role 
                         FROM absen_ao
                         JOIN data_user
                         on absen_ao.telp=data_user.telp
                         WHERE MONTH(date)=" . $month . " AND YEAR(date)=" . $year . "
-                        and role='" . $request->role . "'
+                        $role
                         ORDER BY 2,3;");
             } else {
                 $absensi = [];
             }
         } else {
             if ($request->cluster && $request->role) {
-                $absensi = DB::select("SELECT cluster,absen_ao.nama,date,absen_ao.telp,branch 
+                $absensi = DB::select("SELECT cluster,absen_ao.nama,date,absen_ao.telp,branch,role 
                         FROM absen_ao
                         JOIN data_user
                         on absen_ao.telp=data_user.telp
                         WHERE MONTH(date)=" . $month . " AND YEAR(date)=" . $year . " 
                         AND CLUSTER='" . $request->cluster . "'
-                        and role='" . $request->role . "'
+                        $role
                         ORDER BY 2,3;");
             } else {
                 $absensi = [];
