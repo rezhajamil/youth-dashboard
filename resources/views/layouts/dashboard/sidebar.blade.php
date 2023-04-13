@@ -227,7 +227,7 @@
         <a class="flex items-center px-6 py-2 mt-4 text-white transition-all bg-opacity-25 cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100"
             href="{{ route('dokumen.index') }}">
             <i class="fa-solid fa-file"></i>
-            <span class="mx-3">Dokumen</span>
+            <span class="mx-6">Dokumen</span>
         </a>
         {{-- <a href="{{ route('outlet.index') }}" class="items-center hidden px-6 py-2 mt-4 text-gray-500 transition-all cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100" x-on:click="outlet=!outlet">
         <i class="w-6 h-6 fa-solid fa-shop"></i>
