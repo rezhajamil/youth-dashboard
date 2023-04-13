@@ -340,4 +340,40 @@ class ContentController extends Controller
 
         return back();
     }
+
+    public function dokumen()
+    {
+        $dokumen = DB::table('dokumen')->orderBy('judul')->get();
+
+        return view('content.dokumen.index', compact('dokumen'));
+    }
+
+    public function create_dokumen()
+    {
+        return view('content.dokumen.create');
+    }
+
+    public function store_dokumen(Request $request)
+    {
+        $request->validate([
+            'judul' => 'required|string',
+            'deskripsi' => 'string',
+            'url' => 'required|url',
+        ]);
+
+        $dokumen = DB::table('dokumen')->insert([
+            'judul' => $request->judul,
+            'deskripsi' => $request->deskripsi,
+            'url' => $request->url,
+        ]);
+
+        return redirect()->route('dokumen.index');
+    }
+
+    public function destroy_dokumen($id)
+    {
+        DB::table('dokumen')->delete($id);
+
+        return back();
+    }
 }
