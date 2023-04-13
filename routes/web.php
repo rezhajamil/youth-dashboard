@@ -117,6 +117,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('pjp/sekolah/user', [SekolahController::class, 'get_user_pjp'])->name('sekolah.pjp.user');
     Route::get('pjp/sekolah/poi', [SekolahController::class, 'get_poi'])->name('sekolah.pjp.poi');
     Route::get('pjp/sekolah/site', [SekolahController::class, 'get_site'])->name('sekolah.pjp.site');
+    Route::get('pjp/sekolah/outlet', [SekolahController::class, 'get_outlet'])->name('sekolah.pjp.outlet');
 
     Route::get('content/sapaan', [ContentController::class, 'sapaan'])->name('sapaan.index');
     Route::post('content/sapaan', [ContentController::class, 'store_sapaan'])->name('sapaan.store');

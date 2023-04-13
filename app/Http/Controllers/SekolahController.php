@@ -330,6 +330,22 @@ class SekolahController extends Controller
                 'longitude' => $poi->longitude,
                 'latitude' => $poi->latitude,
             ]);
+        } else if ($request->kategori == 'outlet') {
+            $request->validate([
+                'hari' => 'required',
+                'frekuensi' => 'required',
+            ]);
+            $outlet = DB::table('outlet_reference_1022')->where('outlet_id', $request->outlet)->first();
+            $pjp = DB::table('pjp')->insert([
+                'kategori' => $request->kategori,
+                'npsn' => $request->outlet,
+                'telp' => $request->telp,
+                'frekuensi' => $request->frekuensi,
+                'hari' => $request->hari,
+                'lokasi' => $outlet->nama_outlet,
+                'longitude' => $outlet->longitude,
+                'latitude' => $outlet->latitude,
+            ]);
         }
 
         return redirect()->route('sekolah.pjp');
@@ -362,6 +378,13 @@ class SekolahController extends Controller
         $site = DB::table('4g_list_site')->where('cluster', $request->cluster)->orderBy('site_id')->get();
 
         return response()->json(compact('site'));
+    }
+
+    public function get_outlet(Request $request)
+    {
+        $outlet = DB::table('outlet_reference_1022')->where('cluster', $request->cluster)->orderBy('outlet_id')->get();
+
+        return response()->json(compact('outlet'));
     }
 
     public function find_school(Request $request)
