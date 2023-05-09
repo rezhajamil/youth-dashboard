@@ -413,7 +413,7 @@ class SalesContoller extends Controller
     {
         $update = DB::select('select max(date) as last_update from sales_copy;');
         $last_validasi = DB::select('select max(tanggal) as tanggal from validasi_mytsel;');
-        $list_kategori = DB::table('sales_copy')->select('kategori')->whereNotIn('kategori', ['', 'ORBIT'])->whereNotNull('kategori')->distinct()->get();
+        $list_kategori = DB::table('kategori_produk')->select('jenis_produk as kategori')->whereNotIn('jenis_produk', ['', 'ORBIT'])->whereNotNull('jenis_produk')->distinct()->get();
         $kategori = $request->kategori;
         $select_mytsel = $kategori == 'MY TELKOMSEL' ? ",c.revenue" : '';
         $join_mytsel = $kategori == 'MY TELKOMSEL' ? " LEFT JOIN validasi_mytsel c ON a.msisdn=c.msisdn" : '';
