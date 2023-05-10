@@ -217,7 +217,7 @@ class DirectUserController extends Controller
                 + floatval(str_replace(',', '.', $data->ach_digital))
                 + floatval(str_replace(',', '.', $data->ach_orbit))
                 + floatval(str_replace(',', '.', $data->ach_migrasi))
-                + floatval(str_replace(',', '.', $data->ach_trade));
+                + floatval(str_replace(',', '.', $data->ach_byu));
 
             $data->{'tot_proses'} = floatval(str_replace(',', '.', $data->ach_update_data))
                 + floatval(str_replace(',', '.', $data->ach_pjp))
@@ -499,11 +499,11 @@ class DirectUserController extends Controller
             $mtd = $request->date;
             $m1 = date('Y-m-01', strtotime($mtd));
 
-            $detail = DB::select("SELECT a.branch,a.cluster,a.nama,a.telp,a.`role`,b.migrasi,c.orbit,d.trade, g.mytsel,e.update_data,f.pjp,h.quiz,i.survey,j.broadband,k.digital
+            $detail = DB::select("SELECT a.branch,a.cluster,a.nama,a.telp,a.`role`,b.migrasi,c.orbit,d.byu, g.mytsel,e.update_data,f.pjp,h.quiz,i.survey,j.broadband,k.digital
             FROM data_user a
             LEFT JOIN (SELECT outlet_id,COUNT(outlet_id) migrasi FROM `4g_usim_all_trx` WHERE date BETWEEN '$m1' AND '$mtd' AND (status='MIGRATION_SUCCCESS' OR status='USIM_ACTIVE') GROUP BY 1) b ON a.id_digipos=b.outlet_id
             LEFT JOIN (SELECT outlet_id,COUNT(msisdn) orbit FROM orbit_digipos WHERE so_date BETWEEN '$m1' AND '$mtd' GROUP BY 1) c ON a.id_digipos=c.outlet_id
-            LEFT JOIN (SELECT telp,COUNT(msisdn) trade FROM sales_copy WHERE date BETWEEN '$m1' AND '$mtd' AND kategori='TRADE IN' GROUP BY 1) d ON a.telp=d.telp
+            LEFT JOIN (SELECT telp,COUNT(msisdn) byu FROM sales_copy WHERE date BETWEEN '$m1' AND '$mtd' AND kategori='BYU' GROUP BY 1) d ON a.telp=d.telp
             LEFT JOIN (SELECT telp, COUNT(msisdn) mytsel FROM sales_copy WHERE date BETWEEN '$m1' AND '$mtd' AND kategori='MY TELKOMSEL' GROUP BY 1) g ON a.telp = g.telp
             LEFT JOIN (SELECT telp,COUNT(NPSN) update_data FROM Data_Sekolah_Sumatera WHERE UPDATED_AT BETWEEN '$m1' AND '$mtd' AND LONGITUDE!='' GROUP BY 1) e ON a.telp=e.telp
             LEFT JOIN (SELECT telp,COUNT(npsn) pjp FROM table_kunjungan WHERE date BETWEEN '$m1' AND '$mtd' GROUP BY 1) f ON a.telp=f.telp
@@ -546,7 +546,7 @@ class DirectUserController extends Controller
             //         }
             //     }
             //     // ddd((float)str_replace(',','.',$data->ach_migrasi));
-            //     $data->{'tot_sales'} = (float)str_replace(',', '.', $data->ach_broadband) + (float)str_replace(',', '.', $data->ach_digital) + (float)str_replace(',', '.', $data->ach_orbit) + (float)str_replace(',', '.', $data->ach_migrasi) + (float)str_replace(',', '.', $data->ach_trade);
+            //     $data->{'tot_sales'} = (float)str_replace(',', '.', $data->ach_broadband) + (float)str_replace(',', '.', $data->ach_digital) + (float)str_replace(',', '.', $data->ach_orbit) + (float)str_replace(',', '.', $data->ach_migrasi) + (float)str_replace(',', '.', $data->ach_byu);
             //     $data->{'tot_proses'} = (float)str_replace(',', '.', $data->ach_update_data) + (float)str_replace(',', '.', $data->ach_pjp) + (float)str_replace(',', '.', $data->ach_survey) + (float)str_replace(',', '.', $data->ach_oss_osk) + (float)str_replace(',', '.', $data->ach_quiz);
             //     $data->{'total'} = number_format(floatval($data->tot_sales) + floatval($data->tot_proses), 2, ',', '.');
             // }
@@ -572,7 +572,7 @@ class DirectUserController extends Controller
                     + floatval(str_replace(',', '.', $data->ach_digital))
                     + floatval(str_replace(',', '.', $data->ach_orbit))
                     + floatval(str_replace(',', '.', $data->ach_migrasi))
-                    + floatval(str_replace(',', '.', $data->ach_trade))
+                    + floatval(str_replace(',', '.', $data->ach_byu))
                     + floatval(str_replace(',', '.', $data->ach_mytsel));
 
                 $data->{'tot_proses'} = floatval(str_replace(',', '.', $data->ach_update_data))
@@ -590,11 +590,11 @@ class DirectUserController extends Controller
         }
         $last_migrasi = DB::table('4g_usim_all_trx')->select('date')->orderBy('date', 'desc')->first();
         $last_orbit = DB::table('orbit_digipos')->select('so_date as date')->orderBy('so_date', 'desc')->first();
-        $last_trade = DB::table('sales_copy')->select('date')->orderBy('date', 'desc')->first();
+        $last_sales = DB::table('sales_copy')->select('date')->orderBy('date', 'desc')->first();
         $last_digipos = DB::table('trx_digipos_ds')->select('event_date as date')->whereNotIn('event_date', ['None'])->orderBy('event_date', 'desc')->first();
 
         // ddd(compact('last_migrasi', 'last_orbit', 'last_trade', 'last_digipos'));
-        return view('directUser.kpi.index', compact('detail', 'list_target', 'sales', 'proses', 'last_migrasi', 'last_orbit', 'last_trade', 'last_digipos'));
+        return view('directUser.kpi.index', compact('detail', 'list_target', 'sales', 'proses', 'last_migrasi', 'last_orbit', 'last_sales', 'last_digipos'));
     }
 
     public function resume_kpi(Request $request)
@@ -715,10 +715,10 @@ class DirectUserController extends Controller
 
         $last_migrasi = DB::table('4g_usim_all_trx')->select('date')->orderBy('date', 'desc')->first();
         $last_orbit = DB::table('orbit_digipos')->select('so_date as date')->orderBy('so_date', 'desc')->first();
-        $last_trade = DB::table('sales_copy')->select('date')->orderBy('date', 'desc')->first();
+        $last_sales = DB::table('sales_copy')->select('date')->orderBy('date', 'desc')->first();
         $last_digipos = DB::table('trx_digipos_ds')->select('event_date as date')->whereNotIn('event_date', ['None'])->orderBy('event_date', 'desc')->first();
 
-        return view('directUser.kpi.resume', compact('resume_region', 'resume_branch', 'resume_cluster', 'last_migrasi', 'last_orbit', 'last_trade', 'last_digipos'));
+        return view('directUser.kpi.resume', compact('resume_region', 'resume_branch', 'resume_cluster', 'last_migrasi', 'last_orbit', 'last_sales', 'last_digipos'));
     }
 
     /**

@@ -49,8 +49,7 @@
                                     class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">
                                     Migrasi</th>
                                 <th colspan="3"
-                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">Trade
-                                    In</th>
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">BYU</th>
                                 <th colspan="3"
                                     class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">Update
                                     Data</th>
@@ -157,9 +156,9 @@
                                     <td class="p-2 border">{{ $data->migrasi ?? '-' }}</td>
                                     <td class="p-2 border">{{ $data->mom_migrasi ?? '-' }}%</td>
                                     <td class="p-2 border">{{ $data->ach_migrasi ?? '-' }}%</td>
-                                    <td class="p-2 border">{{ $data->trade ?? '-' }}</td>
-                                    <td class="p-2 border">{{ $data->mom_trade ?? '-' }}%</td>
-                                    <td class="p-2 border">{{ $data->ach_trade ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->byu ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_byu ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_byu ?? '-' }}%</td>
 
                                     <td class="p-2 border">{{ $data->update_data ?? '-' }}</td>
                                     <td class="p-2 border">{{ $data->mom_update_data ?? '-' }}%</td>
@@ -202,8 +201,8 @@
                                     class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">
                                     Migrasi</th>
                                 <th colspan="3"
-                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">Trade
-                                    In</th>
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">Byu
+                                </th>
                                 <th colspan="3"
                                     class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">Update
                                     Data</th>
@@ -310,9 +309,9 @@
                                     <td class="p-2 border">{{ $data->migrasi ?? '-' }}</td>
                                     <td class="p-2 border">{{ $data->mom_migrasi ?? '-' }}%</td>
                                     <td class="p-2 border">{{ $data->ach_migrasi ?? '-' }}%</td>
-                                    <td class="p-2 border">{{ $data->trade ?? '-' }}</td>
-                                    <td class="p-2 border">{{ $data->mom_trade ?? '-' }}%</td>
-                                    <td class="p-2 border">{{ $data->ach_trade ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->byu ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_byu ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_byu ?? '-' }}%</td>
 
                                     <td class="p-2 border">{{ $data->update_data ?? '-' }}</td>
                                     <td class="p-2 border">{{ $data->mom_update_data ?? '-' }}%</td>
@@ -357,8 +356,7 @@
                                     Migrasi</th>
                                 <th colspan="3"
                                     class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">
-                                    Trade
-                                    In</th>
+                                    Byu</th>
                                 <th colspan="3"
                                     class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">
                                     Update
@@ -469,9 +467,9 @@
                                     <td class="p-2 border">{{ $data->migrasi ?? '-' }}</td>
                                     <td class="p-2 border">{{ $data->mom_migrasi ?? '-' }}%</td>
                                     <td class="p-2 border">{{ $data->ach_migrasi ?? '-' }}%</td>
-                                    <td class="p-2 border">{{ $data->trade ?? '-' }}</td>
-                                    <td class="p-2 border">{{ $data->mom_trade ?? '-' }}%</td>
-                                    <td class="p-2 border">{{ $data->ach_trade ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->byu ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_byu ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_byu ?? '-' }}%</td>
 
                                     <td class="p-2 border">{{ $data->update_data ?? '-' }}</td>
                                     <td class="p-2 border">{{ $data->mom_update_data ?? '-' }}%</td>
@@ -497,7 +495,7 @@
                 <div class="flex flex-col p-4 bg-white rounded shadow-sm gap-y-2 w-fit">
                     <span class="text-sm">Last Migrasi : {{ $last_migrasi->date }}</span>
                     <span class="text-sm">Last Orbit : {{ $last_orbit->date }}</span>
-                    <span class="text-sm">Last Trade : {{ $last_trade->date }}</span>
+                    <span class="text-sm">Last Sales : {{ $last_sales->date }}</span>
                     <span class="text-sm">Last Trx Digipos : {{ $last_digipos->date }}</span>
                 </div>
 
