@@ -181,14 +181,14 @@ class DirectUserController extends Controller
 
         $mtd = date('Y-m-d');
         $m1 = date('Y-m-01', strtotime($mtd));
-        $kpi = DB::select(" SELECT a.branch,a.cluster,a.nama,a.telp,a.`role`,b.migrasi,c.orbit,d.trade,e.update_data,f.pjp,g.oss_osk,h.quiz,i.survey,j.broadband,k.digital
+        $kpi = DB::select(" SELECT a.branch,a.cluster,a.nama,a.telp,a.`role`,b.migrasi,c.orbit,d.byu, g.mytsel,e.update_data,f.pjp,h.quiz,i.survey,j.broadband,k.digital
             FROM data_user a
             LEFT JOIN (SELECT outlet_id,COUNT(outlet_id) migrasi FROM `4g_usim_all_trx` WHERE date BETWEEN '$m1' AND '$mtd' AND (status='MIGRATION_SUCCCESS' OR status='USIM_ACTIVE') GROUP BY 1) b ON a.id_digipos=b.outlet_id
             LEFT JOIN (SELECT outlet_id,COUNT(msisdn) orbit FROM orbit_digipos WHERE so_date BETWEEN '$m1' AND '$mtd' GROUP BY 1) c ON a.id_digipos=c.outlet_id
-            LEFT JOIN (SELECT telp,COUNT(msisdn) trade FROM sales_copy WHERE date BETWEEN '$m1' AND '$mtd' AND kategori='TRADE IN' GROUP BY 1) d ON a.telp=d.telp
+            LEFT JOIN (SELECT telp,COUNT(msisdn) byu FROM sales_copy WHERE date BETWEEN '$m1' AND '$mtd' AND kategori='BYU' GROUP BY 1) d ON a.telp=d.telp
+            LEFT JOIN (SELECT telp, COUNT(msisdn) mytsel FROM sales_copy WHERE date BETWEEN '$m1' AND '$mtd' AND kategori='MY TELKOMSEL' GROUP BY 1) g ON a.telp = g.telp
             LEFT JOIN (SELECT telp,COUNT(NPSN) update_data FROM Data_Sekolah_Sumatera WHERE UPDATED_AT BETWEEN '$m1' AND '$mtd' AND LONGITUDE!='' GROUP BY 1) e ON a.telp=e.telp
             LEFT JOIN (SELECT telp,COUNT(npsn) pjp FROM table_kunjungan WHERE date BETWEEN '$m1' AND '$mtd' GROUP BY 1) f ON a.telp=f.telp
-            LEFT JOIN (SELECT telp,COUNT(npsn) oss_osk FROM data_oss_osk WHERE created_at BETWEEN '$m1' AND '$mtd' GROUP BY 1) g ON a.telp=g.telp
             LEFT JOIN (SELECT telp,SUM(hasil) quiz FROM quiz_answer WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) h ON a.telp=h.telp
             LEFT JOIN (SELECT Data_Sekolah_Sumatera.telp,COUNT(survey_answer.telp_siswa) survey FROM survey_answer JOIN Data_Sekolah_Sumatera ON survey_answer.npsn=Data_Sekolah_Sumatera.NPSN WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) i ON a.telp=i.telp
             LEFT JOIN (SELECT digipos_ao,SUM(price) broadband FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DATA' GROUP BY 1) j ON a.id_digipos=j.digipos_ao
@@ -217,12 +217,12 @@ class DirectUserController extends Controller
                 + floatval(str_replace(',', '.', $data->ach_digital))
                 + floatval(str_replace(',', '.', $data->ach_orbit))
                 + floatval(str_replace(',', '.', $data->ach_migrasi))
-                + floatval(str_replace(',', '.', $data->ach_byu));
+                + floatval(str_replace(',', '.', $data->ach_byu))
+                + floatval(str_replace(',', '.', $data->ach_mytsel));
 
             $data->{'tot_proses'} = floatval(str_replace(',', '.', $data->ach_update_data))
                 + floatval(str_replace(',', '.', $data->ach_pjp))
                 + floatval(str_replace(',', '.', $data->ach_survey))
-                + floatval(str_replace(',', '.', $data->ach_oss_osk))
                 + floatval(str_replace(',', '.', $data->ach_quiz));
 
             $data->{'total'} = number_format(floatval($data->tot_sales) + floatval($data->tot_proses), 2, ',', '.');

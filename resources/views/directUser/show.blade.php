@@ -213,7 +213,10 @@
                                         Migrasi</th>
                                     <th colspan="2"
                                         class="p-3 font-medium text-gray-100 uppercase border bg-y_tersier">
-                                        Trade In</th>
+                                        Byu</th>
+                                    <th colspan="2"
+                                        class="p-3 font-medium text-gray-100 uppercase border bg-y_tersier">
+                                        My Telkomsel</th>
                                     <th class="p-3 font-medium text-gray-100 uppercase border bg-y_tersier">Sales</th>
 
                                     <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-tersier">
@@ -222,8 +225,6 @@
                                         Update PJP Harian</th>
                                     <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-tersier">
                                         Survey Market</th>
-                                    <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-tersier">
-                                        Channeling OSK & OSS</th>
                                     <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-tersier">
                                         Product Knowledge</th>
                                     <th class="p-3 font-medium text-gray-100 uppercase border bg-tersier">Proses</th>
@@ -248,9 +249,13 @@
                                     <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
                                         {{ $list_target['migrasi']['bobot'] }}%</th>
                                     <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
-                                        {{ $list_target['trade']['target'] }}</th>
+                                        {{ $list_target['byu']['target'] }}</th>
                                     <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
-                                        {{ $list_target['trade']['bobot'] }}%</th>
+                                        {{ $list_target['byu']['bobot'] }}%</th>
+                                    <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
+                                        {{ $list_target['mytsel']['target'] }}</th>
+                                    <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
+                                        {{ $list_target['mytsel']['bobot'] }}%</th>
                                     <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
                                         {{ $sales }}%</th>
                                     <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
@@ -265,10 +270,6 @@
                                         {{ $list_target['survey']['target'] }}</th>
                                     <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
                                         {{ $list_target['survey']['bobot'] }}%</th>
-                                    <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
-                                        {{ $list_target['oss_osk']['target'] }}</th>
-                                    <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
-                                        {{ $list_target['oss_osk']['bobot'] }}%</th>
                                     <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
                                         {{ $list_target['quiz']['target'] }}</th>
                                     <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
@@ -290,8 +291,10 @@
                                         <td class="p-2 border">{{ $data->ach_orbit ?? '-' }}%</td>
                                         <td class="p-2 border">{{ $data->migrasi ?? '-' }}</td>
                                         <td class="p-2 border">{{ $data->ach_migrasi ?? '-' }}%</td>
-                                        <td class="p-2 border">{{ $data->trade ?? '-' }}</td>
-                                        <td class="p-2 border">{{ $data->ach_trade ?? '-' }}%</td>
+                                        <td class="p-2 border">{{ $data->byu ?? '-' }}</td>
+                                        <td class="p-2 border">{{ $data->ach_byu ?? '-' }}%</td>
+                                        <td class="p-2 border">{{ $data->mytsel ?? '-' }}</td>
+                                        <td class="p-2 border">{{ $data->ach_mytsel ?? '-' }}%</td>
                                         <td class="p-2 border">{{ $data->tot_sales }}%</td>
 
                                         <td class="p-2 border">{{ $data->update_data ?? '-' }}</td>
@@ -300,8 +303,6 @@
                                         <td class="p-2 border">{{ $data->ach_pjp ?? '-' }}%</td>
                                         <td class="p-2 border">{{ $data->survey ?? '-' }}</td>
                                         <td class="p-2 border">{{ $data->ach_survey ?? '-' }}%</td>
-                                        <td class="p-2 border">{{ $data->oss_osk ?? '-' }}</td>
-                                        <td class="p-2 border">{{ $data->ach_oss_osk ?? '-' }}%</td>
                                         <td class="p-2 border">{{ $data->quiz ?? '-' }}</td>
                                         <td class="p-2 border">{{ $data->ach_quiz ?? '-' }}%</td>
                                         <td class="p-2 border">{{ $data->tot_proses }}%</td>
