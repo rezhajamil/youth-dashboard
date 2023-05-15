@@ -24,49 +24,48 @@
                         </thead>
                         <tbody class="max-h-screen overflow-y-auto">
                             @foreach ($session as $key => $data)
-                                @if ($data->jenis == 'Youth Apps' && (auth()->user()->privilege == 'superadmin' || !$data->status))
-                                    <tr class="border-b hover:bg-gray-200">
-                                        {{-- {{ ddd($data) }} --}}
-                                        <td class="p-4 font-bold text-gray-700">{{ $key + 1 }}</td>
-                                        <td class="p-4 text-gray-700">{{ date('d-M-Y', strtotime($data->date)) }}</td>
-                                        <td class="p-4 text-gray-700">{{ $data->nama }}</td>
-                                        <td class="p-4 text-gray-700">{{ $data->time }} Menit</td>
-                                        <td class="p-4 text-gray-700">{!! $data->deskripsi !!}</td>
-                                        <td class="p-4 text-gray-700">
-                                            @if ($data->status)
-                                                <div
-                                                    class="flex items-center justify-center px-3 py-1 rounded-full bg-green-200/50">
-                                                    <span class="text-sm font-semibold text-green-900">Aktif</span>
-                                                </div>
-                                            @else
-                                                <div
-                                                    class="flex items-center justify-center px-3 py-1 rounded-full bg-red-200/50">
-                                                    <span class="text-sm font-semibold text-red-900 whitespace-nowrap">Tidak
-                                                        Aktif</span>
-                                                </div>
-                                            @endif
-                                        </td>
+                                <tr class="border-b hover:bg-gray-200">
+                                    {{-- {{ ddd($data) }} --}}
+                                    <td class="p-4 font-bold text-gray-700">{{ $key + 1 }}</td>
+                                    <td class="p-4 text-gray-700">{{ date('d-M-Y', strtotime($data->date)) }}</td>
+                                    <td class="p-4 text-gray-700">{{ $data->nama }}</td>
+                                    <td class="p-4 text-gray-700">{{ $data->time }} Menit</td>
+                                    <td class="p-4 text-gray-700">{!! $data->deskripsi !!}</td>
+                                    <td class="p-4 text-gray-700">
+                                        @if ($data->status)
+                                            <div
+                                                class="flex items-center justify-center px-3 py-1 rounded-full bg-green-200/50">
+                                                <span class="text-sm font-semibold text-green-900">Aktif</span>
+                                            </div>
+                                        @else
+                                            <div
+                                                class="flex items-center justify-center px-3 py-1 rounded-full bg-red-200/50">
+                                                <span class="text-sm font-semibold text-red-900 whitespace-nowrap">Tidak
+                                                    Aktif</span>
+                                            </div>
+                                        @endif
+                                    </td>
 
-                                        <td class="p-4 text-gray-700 gap-x-3">
-                                            <div class="">
+                                    <td class="p-4 text-gray-700 gap-x-3">
+                                        <div class="">
+                                            @if ($data->jenis == 'Youth Apps' && (auth()->user()->privilege == 'superadmin' || !$data->status))
                                                 <a href="{{ route('quiz.show', $data->id) }}"
                                                     class="block my-1 text-base font-semibold transition text-y_premier hover:text-indigo-800">Lihat</a>
-                                                <a href="{{ route('quiz.answer.list', $data->id) }}"
-                                                    class="block my-1 text-base font-semibold text-orange-600 transition hover:text-orange-800">Hasil</a>
-                                                @if (auth()->user()->privilege == 'superadmin')
-                                                    <form action="{{ route('quiz.change_status', $data->id) }}"
-                                                        method="post">
-                                                        @csrf
-                                                        @method('put')
-                                                        <button
-                                                            class="block my-1 text-base font-semibold text-left text-green-600 transition whitespace-nowrap hover:text-green-800">Ubah
-                                                            Status</button>
-                                                    </form>
-                                                @endif
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endif
+                                            @endif
+                                            <a href="{{ route('quiz.answer.list', $data->id) }}"
+                                                class="block my-1 text-base font-semibold text-orange-600 transition hover:text-orange-800">Hasil</a>
+                                            @if (auth()->user()->privilege == 'superadmin')
+                                                <form action="{{ route('quiz.change_status', $data->id) }}" method="post">
+                                                    @csrf
+                                                    @method('put')
+                                                    <button
+                                                        class="block my-1 text-base font-semibold text-left text-green-600 transition whitespace-nowrap hover:text-green-800">Ubah
+                                                        Status</button>
+                                                </form>
+                                            @endif
+                                        </div>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
