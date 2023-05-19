@@ -19,6 +19,17 @@
                                 </option>
                             @endforeach
                         </select>
+                        @if (auth()->user()->privilege == 'superadmin')
+                            <select name="branch" id="branch" class="px-8 rounded-lg">
+                                <option value="" selected disabled>Pilih Branch</option>
+                                @foreach ($list_branch as $data)
+                                    <option value="{{ $data->branch }}"
+                                        {{ $data->branch == request()->get('branch') ? 'selected' : '' }}>
+                                        {{ $data->branch }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        @endif
                         <div class="flex gap-x-3">
                             <button
                                 class="px-4 py-2 font-bold text-white transition rounded-lg bg-y_premier hover:bg-y_premier"><i

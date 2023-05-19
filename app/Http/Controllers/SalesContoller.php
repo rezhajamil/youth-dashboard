@@ -414,6 +414,8 @@ class SalesContoller extends Controller
         $update = DB::select('select max(date) as last_update from sales_copy;');
         $last_validasi = DB::select('select max(tanggal) as tanggal from validasi_mytsel;');
         $list_kategori = DB::table('kategori_produk')->select('jenis_produk as kategori')->whereNotIn('jenis_produk', ['', 'ORBIT'])->whereNotNull('jenis_produk')->distinct()->get();
+        $list_branch = DB::table('territory_new')->select('branch')->distinct()->orderBy('branch')->get();
+
         $kategori = $request->kategori;
         $select_mytsel = $kategori == 'MY TELKOMSEL' ? ",c.revenue" : '';
         $join_mytsel = $kategori == 'MY TELKOMSEL' ? " LEFT JOIN validasi_mytsel c ON a.msisdn=c.msisdn" : '';
@@ -424,9 +426,16 @@ class SalesContoller extends Controller
             $mtd = date('Y-m-d', strtotime($request->date));
             $last_m1 = date('Y-m-01', strtotime($this->convDate($mtd)));
             $last_mtd = $this->convDate($mtd);
-            $branch = Auth::user()->privilege == "branch" ? "branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "b.cluster='" . Auth::user()->cluster . "'" : '');
-            $where = Auth::user()->privilege == "branch" || Auth::user()->privilege == "cluster" ? "where" : "";
-            $and = Auth::user()->privilege == "branch" || Auth::user()->privilege == "cluster" ? "and" : "";
+
+            if ($request->branch) {
+                $branch = "branch='" . $request->branch . "'";
+                $where = "where ";
+                $and = "and ";
+            } else {
+                $branch = Auth::user()->privilege == "branch" ? "branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "b.cluster='" . Auth::user()->cluster . "'" : '');
+                $where = Auth::user()->privilege == "branch" || Auth::user()->privilege == "cluster" ? "where" : "";
+                $and = Auth::user()->privilege == "branch" || Auth::user()->privilege == "cluster" ? "and" : "";
+            }
 
             $query_branch = "SELECT b.regional, b.branch ,
                     COUNT(CASE WHEN a.`date` BETWEEN '" . $m1 . "' AND '" . $mtd . "' THEN a.msisdn END) mtd,
@@ -475,7 +484,7 @@ class SalesContoller extends Controller
             $sales_cluster = [];
             $sales = [];
         }
-        return view('sales.product.index', compact('list_kategori', 'sales_branch', 'sales_cluster', 'sales', 'update', 'last_validasi'));
+        return view('sales.product.index', compact('list_kategori', 'list_branch', 'sales_branch', 'sales_cluster', 'sales', 'update', 'last_validasi'));
     }
 
     /**
