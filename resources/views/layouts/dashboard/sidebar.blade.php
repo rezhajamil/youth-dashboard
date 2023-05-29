@@ -147,6 +147,9 @@
             <a href="{{ route('sales.product') }}"
                 class="text-white transition-all border-b hover:bg-white hover:text-slate-800 border-b-slate-400"><span
                     class="inline-block px-2 py-3">Sales By Product</span></a>
+            <a href="{{ route('sales.location') }}"
+                class="text-white transition-all border-b hover:bg-white hover:text-slate-800 border-b-slate-400"><span
+                    class="inline-block px-2 py-3">Sales By Location</span></a>
         </div>
         <a class="flex items-center px-6 py-2 mt-4 text-white transition-all cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100"
             x-on:click="school=!school">

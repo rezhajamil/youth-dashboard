@@ -487,6 +487,80 @@ class SalesContoller extends Controller
         return view('sales.product.index', compact('list_kategori', 'list_branch', 'sales_branch', 'sales_cluster', 'sales', 'update', 'last_validasi'));
     }
 
+    public function location(Request $request)
+    {
+        $list_location = DB::table('sales_copy')->select(['poi as location'])->whereIn('jenis', ['EVENT', 'SEKOLAH', 'U60', 'ORBIT'])->whereNotNull('poi')->where('poi', '!=', '')->distinct()->orderBy('poi')->join('data_user', 'sales_copy.telp', '=', 'data_user.telp');
+
+        if (auth()->user()->privilege == 'branch') {
+            $list_location->where('data_user.branch', auth()->user()->branch);
+        } else if (auth()->user()->privilege == 'cluster') {
+            $list_location->where('data_user.cluster', auth()->user()->cluster);
+        }
+        $list_location = $list_location->get();
+
+        $location = $request->location;
+
+        if ($request->date && $location) {
+            $m1 = date('Y-m-01', strtotime($request->date));
+            $mtd = date('Y-m-d', strtotime($request->date));
+            $last_m1 = date('Y-m-01', strtotime($this->convDate($mtd)));
+            $last_mtd = $this->convDate($mtd);
+
+            if ($request->branch) {
+                $branch = "branch='" . $request->branch . "'";
+                $where = "where ";
+                $and = "and ";
+            } else {
+                $branch = Auth::user()->privilege == "branch" ? "branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "b.cluster='" . Auth::user()->cluster . "'" : '');
+                $where = Auth::user()->privilege == "branch" || Auth::user()->privilege == "cluster" ? "where" : "";
+                $and = Auth::user()->privilege == "branch" || Auth::user()->privilege == "cluster" ? "and" : "";
+            }
+
+            // $query_branch = "SELECT b.regional, b.branch ,
+            //         COUNT(CASE WHEN a.`date` BETWEEN '" . $m1 . "' AND '" . $mtd . "' THEN a.msisdn END) mtd,
+            //         COUNT(CASE WHEN a.`date` BETWEEN '" . $last_m1 . "' AND '" . $last_mtd . "' THEN a.msisdn END) last_mtd
+            //         FROM sales_copy a  
+            //         JOIN data_user b ON b.telp = a.telp
+            //         WHERE a.poi='$location' 
+            //         AND a.date BETWEEN '" . $m1 . "' AND '" . $mtd . "'
+            //         " . $and . "
+            //         " . $branch . "
+            //         GROUP BY 1,2
+            //         ORDER by 1 DESC,2;";
+
+            // $query_cluster = "SELECT b.cluster,
+            //         COUNT(CASE WHEN a.`date` BETWEEN '" . $m1 . "' AND '" . $mtd . "' THEN a.msisdn END) mtd,
+            //         COUNT(CASE WHEN a.`date` BETWEEN '" . $last_m1 . "' AND '" . $last_mtd . "' THEN a.msisdn END) last_mtd
+            //         FROM sales_copy a  
+            //         JOIN data_user b ON b.telp = a.telp
+            //         WHERE a.poi='$location'
+            //         AND a.date BETWEEN '" . $m1 . "' AND '" . $mtd . "'
+            //         " . $and . "
+            //         " . $branch . "
+            //         GROUP BY 1 ;";
+
+            $query = "SELECT b.nama,b.branch,b.cluster,b.role,b.telp,b.reff_code, a.msisdn,a.`date`,a.serial,a.jenis,a.detail 
+                    FROM sales_copy a  
+                    JOIN data_user b ON b.telp = a.telp
+                    where a.date BETWEEN '" . $m1 . "' AND '" . $mtd . "'
+                    and not a.status ='1' and a.poi='$location'
+                    " . $and . "
+                    " . $branch . "
+                    ORDER by b.regional DESC,b.branch,b.cluster, b.nama ASC";
+
+
+            // $sales_branch = DB::select($query_branch, [1]);
+            // $sales_cluster = DB::select($query_cluster, [1]);
+            $sales = DB::select($query, [1]);
+            // ddd($sales);
+        } else {
+            // $sales_branch = [];
+            // $sales_cluster = [];
+            $sales = [];
+        }
+        return view('sales.location.index', compact('list_location',  'sales'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

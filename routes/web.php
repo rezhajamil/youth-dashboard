@@ -170,6 +170,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('product/sales/destroy/{msisdn}', [SalesContoller::class, 'destroy_product'])->name('sales.product.destroy');
     Route::get('digipos/sales', [SalesContoller::class, 'digipos'])->name('sales.digipos');
     Route::get('product/sales', [SalesContoller::class, 'product'])->name('sales.product');
+    Route::get('location/sales', [SalesContoller::class, 'location'])->name('sales.location');
 
     Route::get("location/taps", [LocationController::class, 'taps'])->name('location.taps');
     Route::get("location/taps/create", [LocationController::class, 'create_taps'])->name('location.taps.create');
