@@ -65,6 +65,7 @@
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Telp</th>
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Role</th>
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Jenis</th>
+                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Kategori</th>
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Detail</th>
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">MSISDN</th>
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Tanggal Lapor</th>
@@ -85,6 +86,8 @@
                                     <td class="p-4 text-gray-700 uppercase border-b role">{{ $data->role }}</td>
                                     <td class="p-4 text-gray-700 uppercase border-b whitespace-nowrap jenis">
                                         {{ $data->jenis }}</td>
+                                    <td class="p-4 text-gray-700 uppercase border-b whitespace-nowrap kategori">
+                                        {{ $data->kategori }}</td>
                                     <td class="p-4 text-gray-700 uppercase border-b whitespace-nowrap status">
                                         {{ $data->detail }}</td>
                                     <td class="p-4 text-gray-700 uppercase border-b msisdn">{{ $data->msisdn }}</td>

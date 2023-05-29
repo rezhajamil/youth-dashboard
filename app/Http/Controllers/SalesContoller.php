@@ -539,7 +539,7 @@ class SalesContoller extends Controller
             //         " . $branch . "
             //         GROUP BY 1 ;";
 
-            $query = "SELECT b.nama,b.branch,b.cluster,b.role,b.telp,b.reff_code, a.msisdn,a.`date`,a.serial,a.jenis,a.detail 
+            $query = "SELECT b.nama,b.branch,b.cluster,b.role,b.telp,b.reff_code, a.msisdn,a.`date`,a.serial,a.jenis,a.kategori,a.detail 
                     FROM sales_copy a  
                     JOIN data_user b ON b.telp = a.telp
                     where a.date BETWEEN '" . $m1 . "' AND '" . $mtd . "'
