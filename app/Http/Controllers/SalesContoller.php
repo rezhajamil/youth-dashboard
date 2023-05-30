@@ -450,7 +450,7 @@ class SalesContoller extends Controller
                     JOIN data_user b ON b.telp = a.telp
                     $join_mytsel
                     WHERE a.kategori='$kategori' 
-                    AND a.date BETWEEN '$m1' AND '$mtd' AND b.status='1'
+                    AND a.date BETWEEN '$last_m1' AND '$mtd' AND b.status='1'
                     $and
                     $branch
                     GROUP BY 1,2
@@ -464,7 +464,7 @@ class SalesContoller extends Controller
                     JOIN data_user b ON b.telp = a.telp
                     $join_mytsel
                     WHERE a.kategori='$kategori'
-                    AND a.date BETWEEN '$m1' AND '$mtd' AND b.status='1'
+                    AND a.date BETWEEN '$last_m1' AND '$mtd' AND b.status='1'
                     $and
                     $branch
                     GROUP BY 1 ;";
@@ -495,6 +495,7 @@ class SalesContoller extends Controller
 
     public function location(Request $request)
     {
+        $list_jenis = DB::table('sales_copy')->select('jenis')->whereIn('jenis', ['EVENT', 'SEKOLAH', 'U60', 'ORBIT'])->distinct()->get();
         $list_location = DB::table('sales_copy')->select(['poi as location'])->whereIn('jenis', ['EVENT', 'SEKOLAH', 'U60', 'ORBIT'])->whereNotNull('poi')->where('poi', '!=', '')->distinct()->orderBy('poi')->join('data_user', 'sales_copy.telp', '=', 'data_user.telp');
 
         if (auth()->user()->privilege == 'branch') {
@@ -522,49 +523,30 @@ class SalesContoller extends Controller
                 $and = Auth::user()->privilege == "branch" || Auth::user()->privilege == "cluster" ? "and" : "";
             }
 
-            // $query_branch = "SELECT b.regional, b.branch ,
-            //         COUNT(CASE WHEN a.`date` BETWEEN '" . $m1 . "' AND '" . $mtd . "' THEN a.msisdn END) mtd,
-            //         COUNT(CASE WHEN a.`date` BETWEEN '" . $last_m1 . "' AND '" . $last_mtd . "' THEN a.msisdn END) last_mtd
-            //         FROM sales_copy a  
-            //         JOIN data_user b ON b.telp = a.telp
-            //         WHERE a.poi='$location' 
-            //         AND a.date BETWEEN '" . $m1 . "' AND '" . $mtd . "'
-            //         " . $and . "
-            //         " . $branch . "
-            //         GROUP BY 1,2
-            //         ORDER by 1 DESC,2;";
 
-            // $query_cluster = "SELECT b.cluster,
-            //         COUNT(CASE WHEN a.`date` BETWEEN '" . $m1 . "' AND '" . $mtd . "' THEN a.msisdn END) mtd,
-            //         COUNT(CASE WHEN a.`date` BETWEEN '" . $last_m1 . "' AND '" . $last_mtd . "' THEN a.msisdn END) last_mtd
-            //         FROM sales_copy a  
-            //         JOIN data_user b ON b.telp = a.telp
-            //         WHERE a.poi='$location'
-            //         AND a.date BETWEEN '" . $m1 . "' AND '" . $mtd . "'
-            //         " . $and . "
-            //         " . $branch . "
-            //         GROUP BY 1 ;";
+            $query_kategori = "SELECT a.date,a.kategori,
+                    COUNT(CASE WHEN a.`date` BETWEEN '$m1' AND '$mtd' THEN a.msisdn END) mtd,
+                    COUNT(CASE WHEN a.`date` BETWEEN '$last_m1' AND '$last_mtd' THEN a.msisdn END) last_mtd
+                    FROM sales_copy a  
+                    WHERE a.poi='$location'
+                    AND a.date BETWEEN '$last_m1' AND '$mtd'
+                    GROUP BY 1,2  ORDER BY 1,2;";
 
             $query = "SELECT b.nama,b.branch,b.cluster,b.role,b.telp,b.reff_code, a.msisdn,a.`date`,a.serial,a.jenis,a.kategori,a.detail 
                     FROM sales_copy a  
                     JOIN data_user b ON b.telp = a.telp
-                    where a.date BETWEEN '" . $m1 . "' AND '" . $mtd . "'
+                    where a.date BETWEEN '$m1' AND '$mtd'
                     and not a.status ='1' and a.poi='$location'
-                    " . $and . "
-                    " . $branch . "
                     ORDER by b.regional DESC,b.branch,b.cluster, b.nama ASC";
 
 
-            // $sales_branch = DB::select($query_branch, [1]);
-            // $sales_cluster = DB::select($query_cluster, [1]);
+            $sales_kategori = DB::select($query_kategori, [1]);
             $sales = DB::select($query, [1]);
-            // ddd($sales);
         } else {
-            // $sales_branch = [];
-            // $sales_cluster = [];
+            $sales_kategori = [];
             $sales = [];
         }
-        return view('sales.location.index', compact('list_location',  'sales'));
+        return view('sales.location.index', compact('list_jenis',  'sales', 'sales_kategori'));
     }
 
     /**
@@ -680,5 +662,20 @@ class SalesContoller extends Controller
             $persen = round(($var2 / $var1 - 1) * 100, 2);
             return number_format($persen, 2, ",", ".");
         }
+    }
+
+    public function getLocation(Request $request)
+    {
+        $list_location = DB::table('sales_copy')->select(['poi as location'])->where('jenis', $request->jenis)->whereNotNull('poi')->where('poi', '!=', '')->distinct()->orderBy('poi')->join('data_user', 'sales_copy.telp', '=', 'data_user.telp');
+
+        if ($request->privilege == 'branch') {
+            $list_location->where('data_user.branch', $request->branch);
+        } else if ($request->privilege == 'cluster') {
+            $list_location->where('data_user.cluster', $request->cluster);
+        }
+
+        $list_location = $list_location->get();
+
+        return response()->json($list_location);
     }
 }

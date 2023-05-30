@@ -10,14 +10,19 @@
                         method="get">
                         <input type="date" name="date" id="date" class="px-4 rounded-lg"
                             value="{{ request()->get('date') }}" required>
-                        <select name="location" id="location" class="px-8 rounded-lg" required>
-                            <option value="" selected disabled>Pilih Location</option>
-                            @foreach ($list_location as $data)
-                                <option value="{{ $data->location }}"
-                                    {{ $data->location == request()->get('location') ? 'selected' : '' }}>
-                                    {{ $data->location }}
+                        <select name="jenis" id="jenis" class="px-8 rounded-lg" required>
+                            <option value="" selected disabled>Pilih Jenis</option>
+                            @foreach ($list_jenis as $data)
+                                <option value="{{ $data->jenis }}"
+                                    {{ $data->jenis == request()->get('jenis') ? 'selected' : '' }}>
+                                    {{ $data->jenis }}
                                 </option>
                             @endforeach
+                        </select>
+                        <select name="location" id="location" class="px-8 rounded-lg" required>
+                            <option value="" selected disabled>Pilih Location</option>
+                            <option value="{{ request()->get('location') }}" selected>{{ request()->get('location') }}
+                            </option>
                         </select>
                         <div class="flex gap-x-3">
                             <button
@@ -30,6 +35,33 @@
                             @endif
                         </div>
                     </form>
+                </div>
+
+
+                <span class="block mt-6 mb-2 text-lg font-semibold text-gray-600">Sales Location By Kategori</span>
+                <div class="overflow-hidden bg-white rounded-md shadow w-fit" id="table-category">
+                    <table class="text-left border-collapse w-fit">
+                        <thead class="border-b">
+                            <tr>
+                                <th class="p-4 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No</th>
+                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Tanggal</th>
+                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Kategori</th>
+                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">MTD</th>
+                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">M-1</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($sales_kategori as $key => $data)
+                                <tr class="hover:bg-gray-200">
+                                    <td class="p-4 font-bold text-gray-700 border-b">{{ $key + 1 }}</td>
+                                    <td class="p-4 text-gray-700 uppercase border-b ">{{ $data->date }}</td>
+                                    <td class="p-4 text-gray-700 uppercase border-b ">{{ $data->kategori }}</td>
+                                    <td class="p-4 text-gray-700 uppercase border-b">{{ $data->mtd }}</td>
+                                    <td class="p-4 text-gray-700 uppercase border-b">{{ $data->last_mtd }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
 
                 <span class="block mt-6 text-lg font-semibold text-gray-600">Sales Location Detail </span>
@@ -189,6 +221,41 @@
             })
 
 
+            $("#jenis").on('change', () => {
+                var jenis = $("#jenis").val();
+                console.log(jenis);
+                $.ajax({
+                    url: "{{ route('sales.get_location') }}",
+                    method: "GET",
+                    dataType: "JSON",
+                    data: {
+                        privilege: "{{ auth()->user()->privilege }}",
+                        branch: "{{ auth()->user()->branch }}",
+                        cluster: "{{ auth()->user()->cluster }}",
+                        jenis: jenis,
+                        _token: "{{ csrf_token() }}"
+                    }
+
+                    ,
+                    success: (data) => {
+                        console.log(data);
+                        $("#location").html(
+                            "<option value='' selected disabled>Pilih Location</option>" +
+                            data.map((item) => {
+                                return `
+                            <option value="${item.location}">${item.location}</option>
+                            `
+                            })
+
+                        )
+                    },
+                    error: (e) => {
+                        console.log(e)
+                        console.log('error');
+                    }
+                });
+
+            })
         })
     </script>
 @endsection

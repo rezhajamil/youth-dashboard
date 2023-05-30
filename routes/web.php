@@ -67,6 +67,8 @@ Route::post('/store_answer/survey/', [SurveyController::class, 'store_answer'])-
 Route::post('/find_school', [SurveyController::class, 'find_school']);
 Route::post('/find_school_pjp', [SekolahController::class, 'find_school']);
 
+Route::get('sales/get_location', [SalesContoller::class, 'getLocation'])->name('sales.get_location');
+
 Route::middleware(['cors'])->group(function () {
     Route::get('/test', [SurveyController::class, 'test']);
     Route::post('/taker/segment2', [TakerController::class, 'segment2']);
