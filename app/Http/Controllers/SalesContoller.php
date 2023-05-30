@@ -411,21 +411,26 @@ class SalesContoller extends Controller
 
     public function product(Request $request)
     {
+        ini_set("max_execution_time", "0");
+
         $update = DB::select('select max(date) as last_update from sales_copy;');
         $last_validasi = DB::select('select max(tanggal) as tanggal from validasi_mytsel;');
-        $list_kategori = DB::table('kategori_produk')->select('jenis_produk as kategori')->whereNotIn('jenis_produk', ['', 'ORBIT'])->whereNotNull('jenis_produk')->distinct()->get();
+        $list_kategori = DB::table('kategori_produk')->select('jenis_produk as kategori')->whereNotIn('jenis_produk', ['', 'ORBIT', 'MY TELKOMSEL'])->whereNotNull('jenis_produk')->distinct()->get();
+        $list_kategori->push((object)['kategori' => 'MYTSEL ENTRY'], (object)['kategori' => 'MYTSEL VALIDASI']);
+
         $list_branch = DB::table('territory_new')->select('branch')->distinct()->orderBy('branch')->get();
 
         $kategori = $request->kategori;
-        $select_mytsel = $kategori == 'MY TELKOMSEL' ? ",c.revenue" : '';
-        $join_mytsel = $kategori == 'MY TELKOMSEL' ? " LEFT JOIN validasi_mytsel c ON a.msisdn=c.msisdn" : '';
-        $sum_mytsel = $kategori == 'MY TELKOMSEL' ? " ,SUM(CASE WHEN c.revenue!='NULL' THEN c.revenue ELSE 0 END) revenue" : '';
+        $select_mytsel = $kategori == 'MYTSEL VALIDASI' ? ",c.revenue" : '';
+        $join_mytsel = $kategori == 'MYTSEL VALIDASI' ? " JOIN validasi_mytsel c ON a.msisdn=c.msisdn" : '';
+        $sum_mytsel = $kategori == 'MYTSEL VALIDASI' ? " ,SUM(CASE WHEN c.revenue!='NULL' THEN c.revenue ELSE 0 END) revenue" : '';
 
         if ($request->date && $kategori) {
             $m1 = date('Y-m-01', strtotime($request->date));
             $mtd = date('Y-m-d', strtotime($request->date));
             $last_m1 = date('Y-m-01', strtotime($this->convDate($mtd)));
             $last_mtd = $this->convDate($mtd);
+            $kategori = in_array($kategori, ['MYTSEL ENTRY', 'MYTSEL VALIDASI'])  ? 'MY TELKOMSEL' : $kategori;
 
             if ($request->branch) {
                 $branch = "branch='" . $request->branch . "'";
@@ -438,42 +443,44 @@ class SalesContoller extends Controller
             }
 
             $query_branch = "SELECT b.regional, b.branch ,
-                    COUNT(CASE WHEN a.`date` BETWEEN '" . $m1 . "' AND '" . $mtd . "' THEN a.msisdn END) mtd,
-                    COUNT(CASE WHEN a.`date` BETWEEN '" . $last_m1 . "' AND '" . $last_mtd . "' THEN a.msisdn END) last_mtd
+                    COUNT(CASE WHEN a.`date` BETWEEN '$m1' AND '$mtd' THEN a.msisdn END) mtd,
+                    COUNT(CASE WHEN a.`date` BETWEEN '$last_m1' AND '$last_mtd' THEN a.msisdn END) last_mtd
                     $sum_mytsel
                     FROM sales_copy a  
                     JOIN data_user b ON b.telp = a.telp
                     $join_mytsel
                     WHERE a.kategori='$kategori' 
-                    AND a.date BETWEEN '" . $m1 . "' AND '" . $mtd . "'
-                    " . $and . "
-                    " . $branch . "
+                    AND a.date BETWEEN '$m1' AND '$mtd' AND b.status='1'
+                    $and
+                    $branch
                     GROUP BY 1,2
                     ORDER by 1 DESC,2;";
 
             $query_cluster = "SELECT b.cluster,
-                    COUNT(CASE WHEN a.`date` BETWEEN '" . $m1 . "' AND '" . $mtd . "' THEN a.msisdn END) mtd,
-                    COUNT(CASE WHEN a.`date` BETWEEN '" . $last_m1 . "' AND '" . $last_mtd . "' THEN a.msisdn END) last_mtd
+                    COUNT(CASE WHEN a.`date` BETWEEN '$m1' AND '$mtd' THEN a.msisdn END) mtd,
+                    COUNT(CASE WHEN a.`date` BETWEEN '$last_m1' AND '$last_mtd' THEN a.msisdn END) last_mtd
                     $sum_mytsel
                     FROM sales_copy a  
                     JOIN data_user b ON b.telp = a.telp
                     $join_mytsel
                     WHERE a.kategori='$kategori'
-                    AND a.date BETWEEN '" . $m1 . "' AND '" . $mtd . "'
-                    " . $and . "
-                    " . $branch . "
+                    AND a.date BETWEEN '$m1' AND '$mtd' AND b.status='1'
+                    $and
+                    $branch
                     GROUP BY 1 ;";
+
 
             $query = "SELECT b.nama,b.branch,b.cluster,b.role,b.telp,b.reff_code, a.msisdn,a.`date`,a.serial,a.jenis,a.detail $select_mytsel
                     FROM sales_copy a  
                     JOIN data_user b ON b.telp = a.telp
                     $join_mytsel
-                    where a.date BETWEEN '" . $m1 . "' AND '" . $mtd . "'
-                    and not a.status ='1' and a.kategori='$kategori'
-                    " . $and . "
-                    " . $branch . "
+                    where a.date BETWEEN '$m1' AND '$mtd'
+                    and a.status ='1' and a.kategori='$kategori' AND b.status='1'
+                    $and
+                    $branch
                     ORDER by b.regional DESC,b.branch,b.cluster, b.nama ASC";
 
+            ddd($query);
 
             $sales_branch = DB::select($query_branch, [1]);
             $sales_cluster = DB::select($query_cluster, [1]);
