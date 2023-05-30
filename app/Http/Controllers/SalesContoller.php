@@ -475,7 +475,7 @@ class SalesContoller extends Controller
                     JOIN data_user b ON b.telp = a.telp
                     $join_mytsel
                     where a.date BETWEEN '$m1' AND '$mtd'
-                    and a.status ='1' and a.kategori='$kategori' AND b.status='1'
+                    and not a.status ='1' and a.kategori='$kategori' AND b.status='1'
                     $and
                     $branch
                     ORDER by b.regional DESC,b.branch,b.cluster, b.nama ASC";
