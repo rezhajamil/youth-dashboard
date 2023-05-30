@@ -480,7 +480,6 @@ class SalesContoller extends Controller
                     $branch
                     ORDER by b.regional DESC,b.branch,b.cluster, b.nama ASC";
 
-            ddd($query);
 
             $sales_branch = DB::select($query_branch, [1]);
             $sales_cluster = DB::select($query_cluster, [1]);
