@@ -43,21 +43,32 @@
                     <table class="text-left border-collapse w-fit">
                         <thead class="border-b">
                             <tr>
-                                <th class="p-4 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No</th>
+                                {{-- <th class="p-4 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No</th>
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Tanggal</th>
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Kategori</th>
-                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">MTD</th>
-                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">M-1</th>
+                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">MTD</th> --}}
+                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Kategori</th>
+                                @foreach ((array_unique(array_column($sales_kategori, 'date'))) as $date)
+                                    <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">
+                                        {{ date('d M', strtotime($date)) }}</th>
+                                @endforeach
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($sales_kategori as $key => $data)
+                            @foreach (array_unique(array_column($sales_kategori, 'kategori')) as $key => $kategori)
                                 <tr class="hover:bg-gray-200">
-                                    <td class="p-4 font-bold text-gray-700 border-b">{{ $key + 1 }}</td>
-                                    <td class="p-4 text-gray-700 uppercase border-b ">{{ $data->date }}</td>
-                                    <td class="p-4 text-gray-700 uppercase border-b ">{{ $data->kategori }}</td>
-                                    <td class="p-4 text-gray-700 uppercase border-b">{{ $data->mtd }}</td>
-                                    <td class="p-4 text-gray-700 uppercase border-b">{{ $data->last_mtd }}</td>
+                                    <th class="p-4 font-bold text-gray-700 border-b">{{ $kategori }}</th>
+                                    @foreach ((array_unique(array_column($sales_kategori, 'date'))) as $date)
+                                        @php
+                                            $entry = current(
+                                                array_filter($sales_kategori, function ($item) use ($date, $kategori) {
+                                                    return $item->date == $date && $item->kategori == $kategori;
+                                                }),
+                                            );
+                                            $mtd = $entry ? $entry->mtd : '-'; // MTD value if entry exists
+                                        @endphp
+                                    <td class="p-4 text-gray-700 uppercase border-b">{{ $mtd }}</td>
+                                    @endforeach
                                 </tr>
                             @endforeach
                         </tbody>

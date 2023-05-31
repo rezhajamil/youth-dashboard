@@ -525,11 +525,10 @@ class SalesContoller extends Controller
 
 
             $query_kategori = "SELECT a.date,a.kategori,
-                    COUNT(CASE WHEN a.`date` BETWEEN '$m1' AND '$mtd' THEN a.msisdn END) mtd,
-                    COUNT(CASE WHEN a.`date` BETWEEN '$last_m1' AND '$last_mtd' THEN a.msisdn END) last_mtd
+                    COUNT(CASE WHEN a.`date` BETWEEN '$m1' AND '$mtd' THEN a.msisdn END) mtd
                     FROM sales_copy a  
                     WHERE a.poi='$location'
-                    AND a.date BETWEEN '$last_m1' AND '$mtd'
+                    AND a.date BETWEEN '$m1' AND '$mtd'
                     GROUP BY 1,2  ORDER BY 1,2;";
 
             $query = "SELECT b.nama,b.branch,b.cluster,b.role,b.telp,b.reff_code, a.msisdn,a.`date`,a.serial,a.jenis,a.kategori,a.detail 
@@ -541,6 +540,7 @@ class SalesContoller extends Controller
 
 
             $sales_kategori = DB::select($query_kategori, [1]);
+            // ddd($sales_kategori);
             $sales = DB::select($query, [1]);
         } else {
             $sales_kategori = [];
