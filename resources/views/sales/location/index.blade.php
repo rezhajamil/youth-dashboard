@@ -43,10 +43,6 @@
                     <table class="text-left border-collapse w-fit">
                         <thead class="border-b">
                             <tr>
-                                {{-- <th class="p-4 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No</th>
-                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Tanggal</th>
-                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Kategori</th>
-                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">MTD</th> --}}
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Kategori</th>
                                 @foreach ((array_unique(array_column($sales_kategori, 'date'))) as $date)
                                     <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">
