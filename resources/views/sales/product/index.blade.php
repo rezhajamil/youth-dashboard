@@ -200,7 +200,7 @@
                                     <td class="p-4 text-gray-700 uppercase border-b aktif">{{ $data->date }}</td>
                                     @if (Request::get('kategori') == 'MYTSEL VALIDASI')
                                         <td class="p-4 text-gray-700 border-b revenue">
-                                            {{ $data->revenue == 'NULL' ? 'Rp.0' : ($data->revenue === null ? 'Belum ada validasi' : 'Rp.' . $data->revenue) }}
+                                            {{ $data->revenue == 'NULL' ? 'Rp.0' : ($data->revenue === null ? 'Belum ada validasi' : 'Rp.' . number_format($data->revenue, 0, ',', '.')) }}
                                         </td>
                                     @endif
                                     @if (Auth::user()->privilege != 'cluster')
