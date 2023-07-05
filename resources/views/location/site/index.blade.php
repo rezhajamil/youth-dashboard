@@ -99,6 +99,8 @@
                                     <td class="p-3 text-gray-700 uppercase border-b longitude">{{ $data->longitude }}</td>
                                     <td class="p-3 text-gray-700 uppercase border-b latitude">{{ $data->latitude }}</td>
                                     <td class="p-3 text-gray-700 border-b">
+                                        <a href="{{ route('location.site.show', $data->id) }}"
+                                            class="block my-1 text-base font-semibold transition text-y_premier hover:text-emerald-800">Detail</a>
                                         <a href="{{ route('location.site.edit', $data->id) }}"
                                             class="block my-1 text-base font-semibold transition text-y_premier hover:text-indigo-800">Edit</a>
                                         @if ($data->latitude && $data->longitude)

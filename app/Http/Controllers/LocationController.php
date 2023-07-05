@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -222,6 +223,17 @@ class LocationController extends Controller
 
         // ddd(compact('site', 'type', 'kategori'));
         return view('location.site.index', compact('site', 'architype', 'kategori'));
+    }
+
+    public function show_site($id)
+    {
+        $outlet = Location::getNearestOutlet($id);
+        $sekolah = Location::getNearestSekolah($id);
+        $site = DB::table('list_site_1022')->where('id', $id)->first();
+        // $site = Sekolah::getNearestSite($id);
+        // ddd($sekolah);
+
+        return view('location.site.show', compact('outlet', 'sekolah', 'site'));
     }
 
     /**

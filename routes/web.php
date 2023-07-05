@@ -190,6 +190,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get("location/site/create", [LocationController::class, 'create_site'])->name('location.site.create');
     Route::post("location/site/post", [LocationController::class, 'store_site'])->name('location.site.store');
     Route::get("location/site/edit/{id}", [LocationController::class, 'edit_site'])->name('location.site.edit');
+    Route::get("location/site/show/{id}", [LocationController::class, 'show_site'])->name('location.site.show');
     Route::put("location/site/update/{id}", [LocationController::class, 'update_site'])->name('location.site.update');
 
     Route::resource('direct_user', DirectUserController::class);
