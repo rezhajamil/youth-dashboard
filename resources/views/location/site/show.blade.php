@@ -15,7 +15,7 @@
                             <table class="w-full overflow-auto text-left border-collapse">
                                 <thead class="border-b">
                                     <tr>
-                                        <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-y_tersier">NPSN</th>
+                                        <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-y_tersier">Nama</th>
                                         <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Jarak</th>
                                     </tr>
                                 </thead>
@@ -43,7 +43,7 @@
                             <table class="w-full overflow-auto text-left border-collapse">
                                 <thead class="border-b">
                                     <tr>
-                                        <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-y_tersier">ID Outlet
+                                        <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-y_tersier">Nama Outlet
                                         </th>
                                         <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Jarak</th>
                                     </tr>
