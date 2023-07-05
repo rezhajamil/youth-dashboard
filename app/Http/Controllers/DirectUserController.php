@@ -499,7 +499,7 @@ class DirectUserController extends Controller
             $mtd = $request->date;
             $m1 = date('Y-m-01', strtotime($mtd));
 
-            $detail = DB::select("SELECT a.branch,a.cluster,a.nama,a.telp,a.`role`,b.migrasi,c.orbit,d.byu, g.mytsel,e.update_data,f.pjp,h.quiz,i.survey,j.broadband,k.digital
+            $detail = DB::select("SELECT a.branch,a.cluster,a.nama,a.telp,a.id_digipos,a.`role`,b.migrasi,c.orbit,d.byu, g.mytsel,e.update_data,f.pjp,h.quiz,i.survey,j.broadband,k.digital
             FROM data_user a
             LEFT JOIN (SELECT outlet_id,COUNT(outlet_id) migrasi FROM `4g_usim_all_trx` WHERE date BETWEEN '$m1' AND '$mtd' AND (status='MIGRATION_SUCCCESS' OR status='USIM_ACTIVE') GROUP BY 1) b ON a.id_digipos=b.outlet_id
             LEFT JOIN (SELECT outlet_id,COUNT(msisdn) orbit FROM orbit_digipos WHERE so_date BETWEEN '$m1' AND '$mtd' GROUP BY 1) c ON a.id_digipos=c.outlet_id

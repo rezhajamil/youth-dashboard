@@ -284,6 +284,7 @@ class ContentController extends Controller
     public function news()
     {
         $news = DB::table('berita')->orderBy('date', 'desc')->get();
+
         return view('content.news.index', compact('news'));
     }
 
@@ -293,6 +294,7 @@ class ContentController extends Controller
         $event = DB::table('daftar_pertemuan')->select('judul')->where('jenis', 'Event')->distinct()->orderBy('judul')->get();
         $meeting = DB::table('daftar_pertemuan')->select('judul')->where('jenis', 'Pertemuan')->distinct()->orderBy('judul')->get();
         $challenge = DB::table('daftar_challege')->select('judul')->distinct()->orderBy('judul')->get();
+
         return view('content.news.create', compact('user_type', 'event', 'meeting', 'challenge'));
     }
 

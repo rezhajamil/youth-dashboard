@@ -179,11 +179,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get("location/taps/edit/{id}", [LocationController::class, 'edit_taps'])->name('location.taps.edit');
     Route::put("location/taps/update/{id}", [LocationController::class, 'update_taps'])->name('location.taps.update');
     Route::post("location/taps/post", [LocationController::class, 'store_taps'])->name('location.taps.store');
+
     Route::get("location/poi", [LocationController::class, 'poi'])->name('location.poi');
     Route::get("location/poi/create", [LocationController::class, 'create_poi'])->name('location.poi.create');
     Route::post("location/poi/post", [LocationController::class, 'store_poi'])->name('location.poi.store');
     Route::get("location/poi/edit/{id}", [LocationController::class, 'edit_poi'])->name('location.poi.edit');
     Route::put("location/poi/update/{id}", [LocationController::class, 'update_poi'])->name('location.poi.update');
+
+    Route::get("location/site", [LocationController::class, 'site'])->name('location.site');
+    Route::get("location/site/create", [LocationController::class, 'create_site'])->name('location.site.create');
+    Route::post("location/site/post", [LocationController::class, 'store_site'])->name('location.site.store');
+    Route::get("location/site/edit/{id}", [LocationController::class, 'edit_site'])->name('location.site.edit');
+    Route::put("location/site/update/{id}", [LocationController::class, 'update_site'])->name('location.site.update');
 
     Route::resource('direct_user', DirectUserController::class);
     Route::put('direct_user/change_status/{direct_user}', [DirectUserController::class, 'changeStatus'])->name('direct_user.change_status');

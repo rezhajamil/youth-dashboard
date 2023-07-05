@@ -194,6 +194,36 @@ class LocationController extends Controller
         return redirect()->route('location.poi');
     }
 
+    public function site(Request $request)
+    {
+        $privilege = Auth::user()->privilege;
+        $territory = $privilege == 'branch' ? Auth::user()->branch : Auth::user()->cluster;
+
+        if ($privilege == 'branch') {
+            $site = DB::table('list_site_1022')->where('branch', $territory);
+        } else if ($privilege == 'cluster') {
+            $site = DB::table('list_site_1022')->where('cluster', $territory);
+        } else {
+            $site = DB::table('list_site_1022');
+        }
+
+        if ($request->kategori) {
+            $site->where('kategori', $request->kategori);
+        }
+
+        if ($request->architype) {
+            $site->where('architype', $request->architype);
+        }
+
+        $site = $site->orderBy('regional', 'desc')->orderBy('branch')->orderBy('cluster')->orderBy('kabupaten')->orderBy('site_id')->paginate(200);
+
+        $architype = DB::table('list_site_1022')->select('architype')->distinct()->get();
+        $kategori = DB::table('list_site_1022')->select('kategori')->distinct()->get();
+
+        // ddd(compact('site', 'type', 'kategori'));
+        return view('location.site.index', compact('site', 'architype', 'kategori'));
+    }
+
     /**
      * Display a listing of the resource.
      *

@@ -20,7 +20,7 @@
                             <option value="branch">Branch</option>
                             <option value="cluster">Cluster</option>
                             <option value="nama">Nama</option>
-                            <option value="telp">Telp</option>
+                            <option value="id_digipos">ID Digipos</option>
                             <option value="role">Role</option>
                         </select>
                     </div>
@@ -40,7 +40,8 @@
                                     Cluster</th>
                                 <th rowspan="3" class="p-3 font-medium text-gray-100 uppercase border bg-y_premier">Nama
                                 </th>
-                                <th rowspan="3" class="p-3 font-medium text-gray-100 uppercase border bg-y_premier">Telp
+                                <th rowspan="3" class="p-3 font-medium text-gray-100 uppercase border bg-y_premier">ID
+                                    Digipos
                                 </th>
                                 <th rowspan="3" class="p-3 font-medium text-gray-100 uppercase border bg-y_premier">Role
                                 </th>
@@ -127,7 +128,7 @@
                                     <td class="p-2 border branch">{{ $data->branch }}</td>
                                     <td class="p-2 border cluster">{{ $data->cluster }}</td>
                                     <td class="p-2 border nama">{{ $data->nama }}</td>
-                                    <td class="p-2 border telp">{{ $data->telp }}</td>
+                                    <td class="p-2 border id_digipos">{{ $data->id_digipos }}</td>
                                     <td class="p-2 border role">{{ $data->role }}</td>
 
                                     <td class="p-2 border">{{ $data->broadband ?? '-' }}</td>
