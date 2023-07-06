@@ -5,9 +5,9 @@
             <div class="mt-4">
                 <h4 class="text-xl font-bold text-gray-600 align-baseline">Data Site</h4>
 
-                <a href="{{ route('location.site.create') }}"
+                {{-- <a href="{{ route('location.site.create') }}"
                     class="inline-block px-4 py-2 my-2 font-bold text-white rounded-md bg-y_premier hover:bg-y_premier"><i
-                        class="mr-2 fa-solid fa-plus"></i> Data SITE Baru</a>
+                        class="mr-2 fa-solid fa-plus"></i> Data SITE Baru</a> --}}
 
                 <div class="flex justify-between my-3">
                     <form class="flex flex-wrap items-center my-3 gap-x-4 gap-y-2" action="{{ route('location.site') }}"
@@ -101,8 +101,8 @@
                                     <td class="p-3 text-gray-700 border-b">
                                         <a href="{{ route('location.site.show', $data->id) }}"
                                             class="block my-1 text-base font-semibold transition text-y_premier hover:text-emerald-800">Detail</a>
-                                        <a href="{{ route('location.site.edit', $data->id) }}"
-                                            class="block my-1 text-base font-semibold transition text-y_premier hover:text-indigo-800">Edit</a>
+                                        {{-- <a href="{{ route('location.site.edit', $data->id) }}"
+                                            class="block my-1 text-base font-semibold transition text-y_premier hover:text-indigo-800">Edit</a> --}}
                                         @if ($data->latitude && $data->longitude)
                                             <a target="_blank"
                                                 href="http://maps.google.com/maps?z=12&t=m&q=loc:{{ $data->latitude }}+{{ $data->longitude }}"

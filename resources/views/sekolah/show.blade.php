@@ -47,7 +47,7 @@
                     </table>
                 </div>
             </div>
-            @if ($site && $outlet && auth()->user()->privilege == 'superadmin')
+            @if ($site && $outlet && in_array(auth()->user()->privilege, ['superadmin', 'branch']))
                 <div class="grid w-full grid-flow-row grid-cols-1 mt-4 gap-y-3 gap-x-3 sm:grid-cols-3 grid-auto-rows-min">
                     <div class="w-full">
                         <h4 class="mb-2 text-xl font-bold text-gray-600 align-baseline">Site Terdekat</h4>
@@ -166,7 +166,6 @@
                         </tbody>
                     </table>
                 </div>
-
             </div>
         </div>
 

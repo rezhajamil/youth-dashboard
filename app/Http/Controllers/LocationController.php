@@ -231,9 +231,36 @@ class LocationController extends Controller
         $sekolah = Location::getNearestSekolah($id);
         $site = DB::table('list_site_1022')->where('id', $id)->first();
         // $site = Sekolah::getNearestSite($id);
-        // ddd($sekolah);
+        $list_sekolah = [];
 
-        return view('location.site.show', compact('outlet', 'sekolah', 'site'));
+        foreach ($sekolah as $key => $data) {
+            array_push($list_sekolah, $data->NPSN);
+        }
+        // ddd($list_sekolah);
+
+        $last_survey = DB::table('survey_answer')->select(['session', 'time_start'])->distinct()->whereIn('npsn', $list_sekolah)->orderBy('time_start', 'DESC')->get();
+        // ddd(count($last_survey));
+
+        if (count($last_survey)) {
+            $answer = DB::table('survey_answer')->where('session', $last_survey[0]->session)->whereIn('npsn', $list_sekolah)->get();
+            $survey = DB::table('survey_session')->find($last_survey[0]->session);
+
+            $kode_operator = DB::table('kode_prefix_operator')->get();
+
+            $operator = DB::table('kode_prefix_operator')->select('operator')->distinct()->orderBy('operator', 'desc')->get();
+
+            $survey->soal = json_decode($survey->soal);
+            $survey->jenis_soal = json_decode($survey->jenis_soal);
+            $survey->opsi = json_decode($survey->opsi);
+            $survey->jumlah_opsi = json_decode($survey->jumlah_opsi);
+        } else {
+            $answer = [];
+            $survey = [];
+            $kode_operator = [];
+            $operator = [];
+        }
+
+        return view('location.site.show', compact('outlet', 'sekolah', 'site', 'answer', 'survey', 'kode_operator', 'operator'));
     }
 
     /**
