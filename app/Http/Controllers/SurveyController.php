@@ -281,7 +281,7 @@ class SurveyController extends Controller
         }
 
         if ($request->npsn) {
-            $answer = DB::table('survey_answer')->where('session', $request->session)->where('telp_siswa', $request->jawaban_0[0])->count();
+            $answer = DB::table('survey_answer')->where('session', $request->session)->where('telp_siswa', $request->jawaban_0[0])->whereMonth('time_start', date('m'))->whereYear('time_start', date('Y'))->count();
             // ddd($request->session);
             if ($answer < 1) {
                 $sekolah = Sekolah::where('npsn', $request->npsn)->first();
@@ -296,7 +296,7 @@ class SurveyController extends Controller
                     'finish' => '1'
                 ]);
             } else {
-                return redirect(URL::to("/survey/$request->url?npsn=$request->npsn&finish=1"));
+                return redirect(URL::to("/qns/survey/$request->url?npsn=$request->npsn&finish=1"));
             }
         } else {
             DB::table('survey_answer')->where('session', $request->session)->where('telp', $request->telp)->where('telp_siswa', $request->telp_siswa)->update([
