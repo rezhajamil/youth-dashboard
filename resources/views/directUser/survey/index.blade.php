@@ -9,6 +9,7 @@
                             class="mr-2 fa-solid fa-plus"></i> Data Survey Baru</a>
                 @endif
                 <h4 class="mt-6 mb-2 text-xl font-bold text-gray-600 align-baseline">Survey</h4>
+                <input type="hidden" name="url" id="url">
                 <div class="overflow-auto bg-white rounded-md shadow w-fit">
                     <table class="overflow-auto text-left border-collapse w-fit">
                         <thead class="border-b">
@@ -37,8 +38,10 @@
                                     <td class="p-4 text-gray-700">{{ $data->cluster }}</td>
                                     <td class="p-4 text-gray-700">{{ $data->role }}</td>
                                     <td class="p-4 text-gray-700">{{ $data->nama }}</td>
-                                    <td class="p-4 text-gray-700">{!! $data->deskripsi !!}</td>
-                                    <td class="p-4 italic text-gray-700">{{ $data->url }}</td>
+                                    <td class="p-4 text-gray-700 truncate">{!! $data->deskripsi !!}</td>
+                                    <td class="p-4 italic text-gray-700"><span
+                                            class="font-semibold transition-all cursor-pointer url hover:text-indigo-600 hover:font-bold"
+                                            url='{{ URL::to("/qns/survey/$data->url") }}'>{{ $data->url }}</span></td>
                                     <td class="p-4 text-gray-700">
                                         @if ($data->status)
                                             <div
@@ -57,8 +60,13 @@
                                     <td class="p-4 text-gray-700 gap-x-3">
                                         <div class="">
                                             {{-- <a href="{{ route('survey.show',$data->id) }}" class="block my-1 text-base font-semibold transition text-y_premier hover:text-indigo-800">Lihat</a> --}}
-                                            <a href="{{ route('survey.answer.resume', $data->id) }}"
-                                                class="block my-1 text-base font-semibold text-orange-600 transition hover:text-orange-800">Hasil</a>
+                                            @if ($data->tipe == 'Travel')
+                                                <a href="{{ route('survey.answer.list', ['session' => $data->id]) }}"
+                                                    class="block my-1 text-base font-semibold text-orange-600 transition hover:text-orange-800">Hasil</a>
+                                            @else
+                                                <a href="{{ route('survey.answer.resume', $data->id) }}"
+                                                    class="block my-1 text-base font-semibold text-orange-600 transition hover:text-orange-800">Hasil</a>
+                                            @endif
                                             @if (auth()->user()->privilege == 'superadmin')
                                                 <form action="{{ route('survey.change_status', $data->id) }}"
                                                     method="post">
@@ -84,7 +92,14 @@
 @section('script')
     <script>
         $(document).ready(function() {
+            $(".url").on('click', function() {
+                var copyText = document.getElementById("url");
+                copyText.value = $(this).attr('url');
+                navigator.clipboard.writeText(copyText.value);
 
+                // Alert the copied text
+                alert("URL di copy: " + copyText.value);
+            })
         })
     </script>
 @endsection
