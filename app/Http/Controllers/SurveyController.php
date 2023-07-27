@@ -187,6 +187,8 @@ class SurveyController extends Controller
             $survey->jumlah_opsi = json_decode($survey->jumlah_opsi);
             $survey->validasi = json_decode($survey->validasi);
 
+            // ddd($survey);
+
             if ($request->npsn) {
                 $sekolah = DB::table('Data_Sekolah_Sumatera')->where('NPSN', $request->npsn)->first();
             } else {
@@ -242,7 +244,7 @@ class SurveyController extends Controller
                 return redirect(URL::to('/qns/survey?telp=' . $request->telp . '&npsn=' . $request->npsn . '&kelas=' . $request->kelas . '&telp_siswa=' . $request->telp_siswa));
             }
         } else {
-            DB::table('survey_answer')->insert([
+            DB::table('survey_travel_answer')->insert([
                 'session' => $survey->id,
                 'telp' => $request->telp,
                 'time_start' => date('Y-m-d H:i:s'),
@@ -314,13 +316,19 @@ class SurveyController extends Controller
                 return redirect(URL::to("/qns/survey/$request->url?npsn=$request->npsn&finish=1"));
             }
         } else if ($request->telp) {
-            $answer = DB::table('survey_answer')->where('session', $request->session)->where('telp_pic', $request->jawaban_3[0])->where('id_digipos', $request->jawaban_7[1])->count();
+            $answer = DB::table('survey_travel_answer')->where('session', $request->session)->where('telp_pic', $request->jawaban_3[0]);
+
+            if ($request->jawaban_7[0] != "Belum Punya") {
+                $answer->orWhere('id_digipos', $request->jawaban_8[0]);
+            }
+
+            $answer = $answer->count();
             // ddd($request->session);
             if ($answer < 1) {
-                DB::table('survey_answer')->insert([
+                DB::table('survey_travel_answer')->insert([
                     'session' => $request->session,
                     'telp' => $request->telp,
-                    'id_digipos' => $request->jawaban_7[1],
+                    'id_digipos' => $request->jawaban_8[0],
                     'pilihan' => json_encode($pilihan),
                     'telp_pic' => $request->jawaban_3[0],
                     'time_start' => date('Y-m-d H:i:s'),
@@ -449,7 +457,7 @@ class SurveyController extends Controller
 
             return view('directUser.survey.result_list_market', compact('answer', 'survey', 'hasil', 'sekolah'));
         } else if ($survey->tipe == 'Travel') {
-            $answer = DB::table('survey_answer')->join('data_user', 'survey_answer.telp', '=', 'data_user.telp')->where('session', $request->session)->get();
+            $answer = DB::table('survey_travel_answer')->join('data_user', 'survey_travel_answer.telp', '=', 'data_user.telp')->where('session', $request->session)->get();
 
             return view('directUser.survey.result_list_travel', compact('answer', 'survey', 'hasil'));
         }
