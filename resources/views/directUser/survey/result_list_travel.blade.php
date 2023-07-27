@@ -71,7 +71,7 @@
 
                 survey.soal.map((data, i) => {
                     header += `
-                <th colspan="${survey.jenis_soal[i]=='Prioritas'?survey.jumlah_opsi[i]:1}" rowspan="${survey.jenis_soal[i]=='Prioritas'?1:2}" class="p-3 text-sm font-bold text-center text-gray-100 border bg-sekunder whitespace-nowrap">${data}</th>
+                <th colspan="${survey.jenis_soal[i]=='Prioritas'?survey.jumlah_opsi[i]:1}" rowspan="${survey.jenis_soal[i]=='Prioritas'?1:2}" class="p-3 text-sm font-bold text-center text-gray-100 whitespace-normal border bg-sekunder">${data}</th>
                 ${i==survey.soal.length-1??'</tr>'}
                 `;
                 });
