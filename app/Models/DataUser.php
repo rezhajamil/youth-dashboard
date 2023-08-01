@@ -83,4 +83,19 @@ class DataUser extends Model
 
         return $resume;
     }
+
+    public function threads()
+    {
+        return $this->hasMany(Thread::class, 'telp', 'telp');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(ThreadComment::class, 'telp', 'telp');
+    }
+
+    public function votes()
+    {
+        return $this->hasMany(ThreadVote::class, 'telp', 'telp');
+    }
 }

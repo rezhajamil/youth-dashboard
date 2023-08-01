@@ -8,11 +8,13 @@ use App\Http\Controllers\DirectUserController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\OutletController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\SalesContoller;
 use App\Http\Controllers\SekolahController;
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\TakerController;
+use App\Http\Controllers\ThreadController;
 use App\Http\Controllers\WilayahController;
 use Illuminate\Support\Facades\Route;
 
@@ -47,6 +49,12 @@ Route::name('wilayah.')->group(function () {
 Route::name('sekolah.')->group(function () {
     Route::post('sekolah/get_kabupaten', [SekolahController::class, 'getKabupaten'])->name('get_kabupaten');
     Route::post('sekolah/get_kecamatan', [SekolahController::class, 'getKecamatan'])->name('get_kecamatan');
+});
+
+Route::resource('thread', ThreadController::class);
+Route::name('thread.')->prefix('thread')->group(function () {
+    Route::post('vote', [ThreadController::class, 'vote'])->name('vote');
+    Route::post('comment/store', [ThreadController::class, 'store_comment'])->name('comment.store');
 });
 
 Route::get('/qns', [QuizController::class, 'answer'])->name('quiz.answer.create');

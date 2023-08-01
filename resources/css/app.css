@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.tab-active {
+    @apply text-white bg-gradient-to-br from-y_premier to-y_sekunder hover:border-2 hover:border-y_premier;
+}
+
+.btn-comment-active {
+    @apply bg-y_sekunder text-white;
+}
