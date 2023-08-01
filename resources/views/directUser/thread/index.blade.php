@@ -51,10 +51,10 @@
                             </span>
                         </div>
                     </div>
-                    <div class="mb-1">
+                    <div class="mb-1 border-b">
                         <p class="">{!! $thread->message !!}</p>
                     </div>
-                    <div class="flex gap-x-2">
+                    <div class="flex mb-2 gap-x-2">
                         <form action="{{ route('thread.vote') }}" method="post">
                             @csrf
                             <input type="hidden" name="telp" value="{{ $user->telp }}">

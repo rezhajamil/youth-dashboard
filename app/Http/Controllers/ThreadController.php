@@ -160,6 +160,8 @@ class ThreadController extends Controller
             'created_at' => date('Y-m-d H:i:s'),
         ]);
 
+        // ddd($comment->thread_id);
+
         return back();
     }
 }
