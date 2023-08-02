@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BroadCastController;
+use App\Http\Controllers\ByuController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DirectSalesContoller;
@@ -229,6 +230,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::put('/change_status/quiz/{id}', [QuizController::class, 'change_status'])->name('quiz.change_status');
     Route::put('/change_status/survey/{id}', [SurveyController::class, 'change_status'])->name('survey.change_status');
+
+    Route::resource('byu', ByuController::class);
+    Route::get('byu/report/create', [ByuController::class, 'create_report'])->name('byu.report.create');
+    Route::post('byu/report/store', [ByuController::class, 'store_report'])->name('byu.report.store');
 });
 
 require __DIR__ . '/auth.php';

@@ -1598,6 +1598,16 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(96 176 191 / var(--tw-bg-opacity));
 }
+.bg-gray-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(107 114 128 / var(--tw-bg-opacity));
+}
+.bg-y_kuartener\/80 {
+  background-color: rgb(239 142 141 / 0.8);
+}
+.bg-yellow-300\/60 {
+  background-color: rgb(253 224 71 / 0.6);
+}
 .bg-blue-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(37 99 235 / var(--tw-bg-opacity));
@@ -1980,6 +1990,10 @@ select {
   --tw-text-opacity: 1;
   color: rgb(206 85 161 / var(--tw-text-opacity));
 }
+.text-gray-800 {
+  --tw-text-opacity: 1;
+  color: rgb(31 41 55 / var(--tw-text-opacity));
+}
 .text-sekunder {
   --tw-text-opacity: 1;
   color: rgb(2 25 66 / var(--tw-text-opacity));
@@ -2011,10 +2025,6 @@ select {
 .text-indigo-700 {
   --tw-text-opacity: 1;
   color: rgb(67 56 202 / var(--tw-text-opacity));
-}
-.text-gray-800 {
-  --tw-text-opacity: 1;
-  color: rgb(31 41 55 / var(--tw-text-opacity));
 }
 .underline {
   -webkit-text-decoration-line: underline;

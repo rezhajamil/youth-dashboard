@@ -231,6 +231,12 @@
         @endif
 
         <a class="flex items-center px-6 py-2 mt-4 text-white transition-all bg-opacity-25 cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100"
+            href="{{ route('byu.index') }}">
+            <i class="fa-solid fa-sim-card"></i>
+            <span class="mx-6">By.U</span>
+        </a>
+
+        <a class="flex items-center px-6 py-2 mt-4 text-white transition-all bg-opacity-25 cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100"
             href="{{ route('dokumen.index') }}">
             <i class="fa-solid fa-file"></i>
             <span class="mx-6">Dokumen</span>
