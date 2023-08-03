@@ -6,7 +6,7 @@
                 <a href="{{ route('byu.index') }}"
                     class="inline-block px-4 py-2 font-bold text-white transition-all rounded-md bg-y_premier hover:bg-y_premier"><i
                         class="mr-2 fa-solid fa-arrow-left"></i> Kembali</a>
-                <h4 class="text-xl font-bold text-gray-600 align-baseline my-4">Tambah Data Report ByU</h4>
+                <h4 class="my-4 text-xl font-bold text-gray-600 align-baseline">Tambah Data Report ByU</h4>
 
                 <div class="px-6 py-4 mx-auto overflow-auto bg-white rounded-md shadow sm:mx-0 w-fit">
                     <form action="{{ route('byu.report.store') }}" method="POST" class="">
@@ -65,20 +65,20 @@
                                 @enderror
                             </div>
                             <div>
-                                <label class="text-gray-700" for="outlet_st">ST Outlet</label>
+                                <label class="text-gray-700" for="st_outlet">ST Outlet</label>
                                 <input class="w-full rounded-md form-input focus:border-indigo-600" type="number"
-                                    name="outlet_st" placeholder="ST Outlet" value="{{ old('outlet_st') }}">
+                                    name="st_outlet" placeholder="ST Outlet" value="{{ old('st_outlet') }}">
 
-                                @error('outlet_st')
+                                @error('st_outlet')
                                     <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div>
-                                <label class="text-gray-700" for="jlh_ds">Jumlah DS</label>
+                                <label class="text-gray-700" for="jumlah_ds">Jumlah DS</label>
                                 <input class="w-full rounded-md form-input focus:border-indigo-600" type="number"
-                                    name="jlh_ds" placeholder="Jumlah DS" value="{{ old('jlh_ds') }}">
+                                    name="jumlah_ds" placeholder="Jumlah DS" value="{{ old('jumlah_ds') }}">
 
-                                @error('jlh_ds')
+                                @error('jumlah_ds')
                                     <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -104,7 +104,9 @@
 
                         <div class="flex justify-end mt-4">
                             <button
-                                class="w-full px-4 py-2 font-bold text-white bg-y_premier rounded-md hover:bg-y_sekunder focus:outline-none focus:bg-y_sekunder">Submit</button>
+                                class="w-full px-4 py-2 font-bold text-white rounded-md bg-y_premier hover:bg-y_sekunder focus:outline-none focus:bg-y_sekunder">
+                                Submit
+                            </button>
                         </div>
                     </form>
                 </div>

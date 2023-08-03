@@ -6,12 +6,12 @@
                 <a href="{{ route('byu.index') }}"
                     class="inline-block px-4 py-2 font-bold text-white transition-all rounded-md bg-y_premier hover:bg-y_premier"><i
                         class="mr-2 fa-solid fa-arrow-left"></i> Kembali</a>
-                <h4 class="text-xl font-bold text-gray-600 align-baseline my-4">Tambah Data Distribusi ByU</h4>
+                <h4 class="my-4 text-xl font-bold text-gray-600 align-baseline">Tambah Data Distribusi ByU</h4>
 
                 <div class="px-6 py-4 mx-auto overflow-auto bg-white rounded-md shadow sm:mx-0 w-fit">
                     <form action="{{ route('byu.store') }}" method="POST" class="">
                         @csrf
-                        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-3">
+                        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
                             <div class="w-full">
                                 <label class="block text-gray-700" for="cluster">Cluster</label>
                                 <select name="cluster" id="cluster" class="w-full rounded-md">
@@ -37,16 +37,6 @@
                                     <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="w-full">
-                                <label class="block text-gray-700" for="status">Status</label>
-                                <select name="status" id="status" class="w-full rounded-md">
-                                    <option value="" selected disabled>Pilih Status</option>
-                                </select>
-                                @error('status')
-                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
-                                @enderror
-                            </div>
-
                             <div>
                                 <label class="text-gray-700" for="date">Tanggal</label>
                                 <input class="w-full rounded-md form-input focus:border-indigo-600" type="date"
@@ -63,13 +53,12 @@
                                 @error('jumlah')
                                     <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
-
                             </div>
                         </div>
 
                         <div class="flex justify-end mt-4">
                             <button
-                                class="w-full px-4 py-2 font-bold text-white bg-y_premier rounded-md hover:bg-y_sekunder focus:outline-none focus:bg-y_sekunder">Submit</button>
+                                class="w-full px-4 py-2 font-bold text-white rounded-md bg-y_premier hover:bg-y_sekunder focus:outline-none focus:bg-y_sekunder">Submit</button>
                         </div>
                     </form>
                 </div>

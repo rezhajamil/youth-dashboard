@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Territory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ByuController extends Controller
 {
@@ -37,7 +38,21 @@ class ByuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'cluster' => 'required',
+            'city' => 'required',
+            'date' => 'required',
+            'jumlah' => 'required|numeric',
+        ]);
+
+        $distribusi = DB::table('byu_distribusi')->insert([
+            'cluster' => $request->cluster,
+            'city' => $request->city,
+            'date' => $request->date,
+            'jumlah' => $request->jumlah,
+        ]);
+
+        return redirect()->route('byu.index');
     }
 
     /**
@@ -90,5 +105,34 @@ class ByuController extends Controller
         $cluster = Territory::getCluster();
 
         return view('byu.report.create', compact('cluster'));
+    }
+
+    public function store_report(Request $request)
+    {
+        $request->validate([
+            'cluster' => 'required',
+            'city' => 'required',
+            'injected' => 'required',
+            'redeem_all' => 'required',
+            'outlet_st' => 'required',
+            'st_outlet' => 'required',
+            'jumlah_ds' => 'required',
+            'ds_redeem' => 'required',
+            'st_ds' => 'required',
+        ]);
+
+        $report = DB::table('byu_report')->insert([
+            'cluster' => $request->cluster,
+            'city' => $request->city,
+            'injected' => $request->injected,
+            'redeem_all' => $request->redeem_all,
+            'outlet_st' => $request->outlet_st,
+            'st_outlet' => $request->st_outlet,
+            'jumlah_ds' => $request->jumlah_ds,
+            'ds_redeem' => $request->ds_redeem,
+            'st_ds' => $request->st_ds,
+        ]);
+
+        return redirect()->route('byu.index');
     }
 }
