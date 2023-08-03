@@ -6,6 +6,9 @@
                 <a href="{{ route('byu.index') }}"
                     class="inline-block px-4 py-2 font-bold text-white transition-all rounded-md bg-y_premier hover:bg-y_premier"><i
                         class="mr-2 fa-solid fa-arrow-left"></i> Kembali</a>
+                <a href="{{ route('byu.distribusi.view') }}" target="_blank"
+                    class="inline-block px-4 py-2 my-2 font-bold text-white rounded-md bg-y_tersier hover:bg-y_tersier"><i
+                        class="mr-2 fa-solid fa-list"></i> Hasil Input Distribusi ByU</a>
                 <h4 class="my-4 text-xl font-bold text-gray-600 align-baseline">Tambah Data Distribusi ByU</h4>
 
                 <div class="flex flex-col justify-between gap-4">

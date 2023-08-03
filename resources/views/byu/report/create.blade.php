@@ -6,6 +6,9 @@
                 <a href="{{ route('byu.index') }}"
                     class="inline-block px-4 py-2 font-bold text-white transition-all rounded-md bg-y_premier hover:bg-y_premier"><i
                         class="mr-2 fa-solid fa-arrow-left"></i> Kembali</a>
+                <a href="{{ route('byu.report.view') }}" target="_blank"
+                    class="inline-block px-4 py-2 my-2 font-bold text-white rounded-md bg-y_tersier hover:bg-y_tersier"><i
+                        class="mr-2 fa-solid fa-list"></i> Hasil Input Report ByU</a>
                 <h4 class="my-4 text-xl font-bold text-gray-600 align-baseline">Tambah Data Report ByU</h4>
 
                 <div class="px-6 py-4 mx-auto overflow-auto bg-white rounded-md shadow sm:mx-0 w-fit">
@@ -47,11 +50,10 @@
                                 @enderror
                             </div>
                             <div>
-                                <label class="text-gray-700" for="redeem_all">Redeem All</label>
+                                <label class="text-gray-700" for="redeem_outlet">Redeem Outlet</label>
                                 <input class="w-full rounded-md form-input focus:border-indigo-600" type="number"
-                                    name="redeem_all" placeholder="Redeem All" value="{{ old('redeem_all') }}">
-
-                                @error('redeem_all')
+                                    name="redeem_outlet" placeholder="Redeem Outlet" value="{{ old('redeem_outlet') }}">
+                                @error('redeem_outlet')
                                     <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
                             </div>

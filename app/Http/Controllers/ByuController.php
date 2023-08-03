@@ -151,7 +151,7 @@ class ByuController extends Controller
             'cluster' => 'required',
             'city' => 'required',
             'injected' => 'required',
-            'redeem_all' => 'required',
+            'redeem_outlet' => 'required',
             'ds_redeem' => 'required',
         ]);
 
@@ -159,8 +159,9 @@ class ByuController extends Controller
             'cluster' => $request->cluster,
             'city' => $request->city,
             'injected' => $request->injected,
-            'redeem_all' => $request->redeem_all,
+            'redeem_outlet' => $request->redeem_outlet,
             'ds_redeem' => $request->ds_redeem,
+            'created_at' => date('Y-m-d'),
         ]);
 
         return redirect()->route('byu.index');
@@ -171,5 +172,75 @@ class ByuController extends Controller
         $outlet = DB::table('outlet_preference_new')->where('kabupaten', $request->city)->where('fisik', 'FISIK')->orderBy('nama_outlet')->get();
 
         return response()->json($outlet);
+    }
+
+    public function view_stok(Request $request)
+    {
+        $privilege = auth()->user()->privilege;
+        $branch = auth()->user()->branch;
+        $cluster = auth()->user()->cluster;
+
+        if ($request->start_date && $request->end_date) {
+
+            if ($privilege == 'branch') {
+                $stok = DB::select("SELECT * FROM byu_stok a JOIN territory_new b on a.`cluster`=b.`cluster` WHERE branch='$branch' AND date BETWEEN '$request->start_date' AND '$request->end_date' ORDER BY date desc, cluster,city;");
+            } else if ($privilege == 'cluster') {
+                $stok = DB::select("SELECT * FROM byu_stok a WHERE cluster='$cluster' AND date BETWEEN '$request->start_date' AND '$request->end_date' ORDER BY date desc, cluster,city;");
+            } else {
+                $stok = DB::select("SELECT * FROM byu_stok a WHERE date BETWEEN '$request->start_date' AND '$request->end_date' ORDER BY date desc, cluster,city;");
+            }
+        } else {
+            $stok = [];
+        }
+
+        return view('byu.stok.view', compact('stok'));
+    }
+
+    public function view_report(Request $request)
+    {
+        $privilege = auth()->user()->privilege;
+        $branch = auth()->user()->branch;
+        $cluster = auth()->user()->cluster;
+
+        if ($request->start_date && $request->end_date) {
+
+            if ($privilege == 'branch') {
+                $report = DB::select("SELECT * FROM byu_report a JOIN territory_new b on a.`cluster`=b.`cluster` WHERE branch='$branch' AND created_at BETWEEN '$request->start_date' AND '$request->end_date' ORDER BY created_at desc, cluster,city;");
+            } else if ($privilege == 'cluster') {
+                $report = DB::select("SELECT * FROM byu_report a WHERE cluster='$cluster' AND created_at BETWEEN '$request->start_date' AND '$request->end_date' ORDER BY created_at desc, cluster,city;");
+            } else {
+                $report = DB::select("SELECT * FROM byu_report a WHERE created_at BETWEEN '$request->start_date' AND '$request->end_date' ORDER BY created_at desc, cluster,city;");
+            }
+        } else {
+            $report = [];
+        }
+
+        return view('byu.report.view', compact('report'));
+    }
+
+    public function view_distribusi(Request $request)
+    {
+        $privilege = auth()->user()->privilege;
+        $branch = auth()->user()->branch;
+        $cluster = auth()->user()->cluster;
+
+        if ($request->start_date && $request->end_date) {
+
+            if ($privilege == 'branch') {
+                $ds = DB::select("SELECT * FROM byu_distribusi a JOIN data_user b on a.`id_digipos`=b.`id_digipos` WHERE type='DS' AND b.branch='$branch' AND date BETWEEN '$request->start_date' AND '$request->end_date' ORDER BY date desc;");
+                $outlet = DB::select("SELECT * FROM byu_distribusi a JOIN outlet_preference_new b on a.`id_digipos`=b.`outlet_id` WHERE type='Outlet' AND b.branch='$branch' AND date BETWEEN '$request->start_date' AND '$request->end_date' ORDER BY date desc;");
+            } else if ($privilege == 'cluster') {
+                $ds = DB::select("SELECT * FROM byu_distribusi a JOIN data_user b on a.`id_digipos`=b.`id_digipos` WHERE type='DS' AND b.cluster='$cluster' AND date BETWEEN '$request->start_date' AND '$request->end_date' ORDER BY date desc;");
+                $outlet = DB::select("SELECT * FROM byu_distribusi a JOIN outlet_preference_new b on a.`id_digipos`=b.`outlet_id` WHERE type='Outlet' AND b.cluster='$cluster' AND date BETWEEN '$request->start_date' AND '$request->end_date' ORDER BY date desc;");
+            } else {
+                $ds = DB::select("SELECT * FROM byu_distribusi a JOIN data_user b on a.`id_digipos`=b.`id_digipos` WHERE type='DS' AND date BETWEEN '$request->start_date' AND '$request->end_date' ORDER BY date desc;");
+                $outlet = DB::select("SELECT * FROM byu_distribusi a JOIN outlet_preference_new b on a.`id_digipos`=b.`outlet_id` WHERE type='Outlet' AND date BETWEEN '$request->start_date' AND '$request->end_date' ORDER BY date desc;");
+            }
+        } else {
+            $ds = [];
+        }
+
+
+        return view('byu.distribusi.view', compact('ds', 'outlet'));
     }
 }
