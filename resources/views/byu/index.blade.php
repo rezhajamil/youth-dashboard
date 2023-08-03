@@ -27,6 +27,26 @@
                     class="inline-block px-4 py-2 my-2 font-bold text-white rounded-md bg-y_sekunder hover:bg-y_sekunder"><i
                         class="mr-2 fa-solid fa-plus"></i> Data Report</a>
 
+                <form action="{{ route('byu.index') }}" method="get" class="my-6">
+                    <select name="month" id="month" required>
+                        <option value="" selected disabled>Pilih Bulan</option>
+                        @for ($i = 1; $i < 13; $i++)
+                            <option value="{{ $i }}" {{ request()->get('month') == $i ? 'selected' : '' }}>
+                                {{ $i }}
+                            </option>
+                        @endfor
+                    </select>
+                    <select name="year" id="year" required>
+                        <option value="" selected disabled>Pilih Tahun</option>
+                        @for ($i = date('Y') - 2; $i <= date('Y'); $i++)
+                            <option value="{{ $i }}" {{ request()->get('year') == $i ? 'selected' : '' }}>
+                                {{ $i }}
+                            </option>
+                        @endfor
+                    </select>
+                    <button class="px-4 py-2 font-bold text-white transition rounded-lg bg-y_premier hover:bg-y_premier"><i
+                            class="mr-2 fa-solid fa-magnifying-glass"></i>Cari</button>
+                </form>
                 <div class="overflow-auto bg-white rounded-md shadow w-fit">
                     <table class="overflow-auto text-left border-collapse w-fit">
                         <thead class="border-b">
