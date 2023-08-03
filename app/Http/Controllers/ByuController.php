@@ -116,7 +116,6 @@ class ByuController extends Controller
             'redeem_all' => 'required',
             'outlet_st' => 'required',
             'st_outlet' => 'required',
-            'jumlah_ds' => 'required',
             'ds_redeem' => 'required',
             'st_ds' => 'required',
         ]);
@@ -128,7 +127,6 @@ class ByuController extends Controller
             'redeem_all' => $request->redeem_all,
             'outlet_st' => $request->outlet_st,
             'st_outlet' => $request->st_outlet,
-            'jumlah_ds' => $request->jumlah_ds,
             'ds_redeem' => $request->ds_redeem,
             'st_ds' => $request->st_ds,
         ]);

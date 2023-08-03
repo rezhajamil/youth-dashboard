@@ -74,15 +74,6 @@
                                 @enderror
                             </div>
                             <div>
-                                <label class="text-gray-700" for="jumlah_ds">Jumlah DS</label>
-                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="number"
-                                    name="jumlah_ds" placeholder="Jumlah DS" value="{{ old('jumlah_ds') }}">
-
-                                @error('jumlah_ds')
-                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div>
                                 <label class="text-gray-700" for="ds_redeem">DS Redeem</label>
                                 <input class="w-full rounded-md form-input focus:border-indigo-600" type="number"
                                     name="ds_redeem" placeholder="DS Redeem" value="{{ old('ds_redeem') }}">
