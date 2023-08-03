@@ -6,6 +6,9 @@
                 <h4 class="text-xl font-bold text-gray-600 align-baseline">ByU</h4>
 
                 <a href="{{ route('byu.create') }}"
+                    class="inline-block px-4 py-2 my-2 font-bold text-white rounded-md bg-y_tersier hover:bg-y_tersier"><i
+                        class="mr-2 fa-solid fa-plus"></i> Data Stok ByU</a>
+                <a href="{{ route('byu.distribusi.create') }}"
                     class="inline-block px-4 py-2 my-2 font-bold text-white rounded-md bg-y_premier hover:bg-y_premier"><i
                         class="mr-2 fa-solid fa-plus"></i> Data Distribusi</a>
                 <a href="{{ route('byu.report.create') }}"

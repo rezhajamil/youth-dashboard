@@ -45,6 +45,7 @@ Route::name('wilayah.')->group(function () {
     Route::post('wilayah/get_kecamatan', [WilayahController::class, 'getKecamatan'])->name('get_kecamatan');
     Route::post('wilayah/get_kelurahan', [WilayahController::class, 'getKelurahan'])->name('get_kelurahan');
     Route::post('wilayah/get_tap', [WilayahController::class, 'getTap'])->name('get_tap');
+    Route::post('wilayah/get_lbo_city', [WilayahController::class, 'getLboCity'])->name('get_lbo_city');
 });
 
 Route::name('sekolah.')->group(function () {
@@ -234,6 +235,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('byu', ByuController::class);
     Route::get('byu/report/create', [ByuController::class, 'create_report'])->name('byu.report.create');
     Route::post('byu/report/store', [ByuController::class, 'store_report'])->name('byu.report.store');
+    Route::get('byu/distribusi/create', [ByuController::class, 'create_distribusi'])->name('byu.distribusi.create');
+    Route::post('byu/distribusi/store', [ByuController::class, 'store_distribusi'])->name('byu.distribusi.store');
+    Route::post('byu/get_outlet', [ByuController::class, 'get_outlet'])->name('byu.get_outlet');
 });
 
 require __DIR__ . '/auth.php';

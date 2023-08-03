@@ -27,7 +27,7 @@ class ByuController extends Controller
     {
         $cluster = Territory::getCluster();
 
-        return view('byu.distribusi.create', compact('cluster'));
+        return view('byu.stok.create', compact('cluster'));
     }
 
     /**
@@ -45,7 +45,7 @@ class ByuController extends Controller
             'jumlah' => 'required|numeric',
         ]);
 
-        $distribusi = DB::table('byu_distribusi')->insert([
+        $stok = DB::table('byu_stok')->insert([
             'cluster' => $request->cluster,
             'city' => $request->city,
             'date' => $request->date,
@@ -100,6 +100,44 @@ class ByuController extends Controller
         //
     }
 
+    public function create_distribusi()
+    {
+        $privilege = auth()->user()->privilege;
+        $branch = auth()->user()->branch;
+        $cluster = auth()->user()->cluster;
+
+        $ds = DB::table('data_user')->where('status', 1)->orderBy('nama');
+        if ($privilege == 'branch') {
+            $ds = $ds->where('branch', $branch);
+        } else if ($privilege == 'cluster') {
+            $ds = $ds->where('cluster', $cluster);
+        }
+        $ds = $ds->get();
+
+        $list_cluster = Territory::getCluster();
+
+        return view('byu.distribusi.create', compact('ds', 'list_cluster'));
+    }
+
+    public function store_distribusi(Request $request)
+    {
+        $request->validate([
+            'type' => 'required',
+            'id_digipos' => 'required',
+            'date' => 'required',
+            'jumlah' => 'required|numeric',
+        ]);
+
+        $distribusi = DB::table('byu_distribusi')->insert([
+            'type' => $request->type,
+            'id_digipos' => $request->id_digipos,
+            'date' => $request->date,
+            'jumlah' => $request->jumlah,
+        ]);
+
+        return redirect()->route('byu.index');
+    }
+
     public function create_report()
     {
         $cluster = Territory::getCluster();
@@ -114,10 +152,7 @@ class ByuController extends Controller
             'city' => 'required',
             'injected' => 'required',
             'redeem_all' => 'required',
-            'outlet_st' => 'required',
-            'st_outlet' => 'required',
             'ds_redeem' => 'required',
-            'st_ds' => 'required',
         ]);
 
         $report = DB::table('byu_report')->insert([
@@ -125,12 +160,16 @@ class ByuController extends Controller
             'city' => $request->city,
             'injected' => $request->injected,
             'redeem_all' => $request->redeem_all,
-            'outlet_st' => $request->outlet_st,
-            'st_outlet' => $request->st_outlet,
             'ds_redeem' => $request->ds_redeem,
-            'st_ds' => $request->st_ds,
         ]);
 
         return redirect()->route('byu.index');
+    }
+
+    public function get_outlet(Request $request)
+    {
+        $outlet = DB::table('outlet_preference_new')->where('kabupaten', $request->city)->where('fisik', 'FISIK')->orderBy('nama_outlet')->get();
+
+        return response()->json($outlet);
     }
 }
