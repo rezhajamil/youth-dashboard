@@ -238,6 +238,7 @@ class ByuController extends Controller
             }
         } else {
             $ds = [];
+            $outlet = [];
         }
 
 
