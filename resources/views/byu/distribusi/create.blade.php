@@ -19,6 +19,31 @@
                             <input type="hidden" name="type" value="DS">
                             <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
                                 <div class="w-full">
+                                    <label class="block text-gray-700" for="cluster">Cluster</label>
+                                    <select name="cluster" id="cluster_ds" class="w-full rounded-md">
+                                        <option value="" selected disabled>Pilih Cluster</option>
+                                        @foreach ($list_cluster as $item)
+                                            <option value="{{ $item->cluster }}"
+                                                {{ old('cluster') == $item->cluster ? 'selected' : '' }}>
+                                                {{ $item->cluster }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('cluster')
+                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="w-full">
+                                    <label class="block text-gray-700" for="city">City</label>
+                                    <select name="city" id="city_ds" class="w-full rounded-md">
+                                        <option value="" selected disabled>Pilih City</option>
+                                    </select>
+                                    @error('city')
+                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="w-full">
                                     <label class="block text-gray-700" for="id_digipos">Pilih DS</label>
                                     <select name="id_digipos" id="id_digipos" class="w-full rounded-md">
                                         <option value="" selected disabled>Pilih DS</option>
@@ -65,7 +90,7 @@
                             <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
                                 <div class="w-full">
                                     <label class="block text-gray-700" for="cluster">Cluster</label>
-                                    <select name="cluster" id="cluster" class="w-full rounded-md">
+                                    <select name="cluster" id="cluster_outlet" class="w-full rounded-md">
                                         <option value="" selected disabled>Pilih Cluster</option>
                                         @foreach ($list_cluster as $item)
                                             <option value="{{ $item->cluster }}"
@@ -81,7 +106,7 @@
 
                                 <div class="w-full">
                                     <label class="block text-gray-700" for="city">City</label>
-                                    <select name="city" id="city" class="w-full rounded-md">
+                                    <select name="city" id="city_outlet" class="w-full rounded-md">
                                         <option value="" selected disabled>Pilih City</option>
                                     </select>
                                     @error('city')
@@ -131,20 +156,19 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            $("#cluster").on('input', () => {
-                var cluster = $("#cluster").val();
-                console.log(cluster)
+            $("#cluster_ds").on('input', () => {
+                let cluster_ds = $("#cluster_ds").val();
                 $.ajax({
                     url: "{{ route('wilayah.get_lbo_city') }}",
                     method: "POST",
                     dataType: "JSON",
                     data: {
-                        cluster: cluster,
+                        cluster: cluster_ds,
                         _token: "{{ csrf_token() }}"
                     },
                     success: (data) => {
                         console.log(data)
-                        $("#city").html(
+                        $("#city_ds").html(
                             "<option selected disabled>Pilih City</option>" +
                             data.map((item) => {
                                 return `
@@ -161,10 +185,37 @@
                 })
             })
 
+            $("#cluster_outlet").on('input', () => {
+                let cluster_outlet = $("#cluster_outlet").val();
+                $.ajax({
+                    url: "{{ route('wilayah.get_lbo_city') }}",
+                    method: "POST",
+                    dataType: "JSON",
+                    data: {
+                        cluster: cluster_outlet,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: (data) => {
+                        console.log(data)
+                        $("#city_outlet").html(
+                            "<option selected disabled>Pilih City</option>" +
+                            data.map((item) => {
+                                return `
+                    <option value="${item.kabupaten}">${item.kabupaten}</option>
+                    `
+                            })
 
-            $("#city").on('input', () => {
-                var city = $("#city").val();
-                // console.log(cluster)
+                        )
+
+                    },
+                    error: (e) => {
+                        console.log(e)
+                    }
+                })
+            })
+
+            $("#city_outlet").on('input', () => {
+                var city = $("#city_outlet").val();
                 $.ajax({
                     url: "{{ route('byu.get_outlet') }}",
                     method: "POST",

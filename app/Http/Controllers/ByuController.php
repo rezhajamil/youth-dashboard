@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Byu;
 use App\Models\Territory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,9 +14,14 @@ class ByuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('byu.index');
+        $month = $request->month ?? date('m');
+        $year = $request->year ?? date('Y');
+
+        $resume = Byu::getResume($month, $year);
+
+        return view('byu.index', compact('resume'));
     }
 
     /**
@@ -122,6 +128,8 @@ class ByuController extends Controller
     public function store_distribusi(Request $request)
     {
         $request->validate([
+            'cluster' => 'required',
+            'city' => 'required',
             'type' => 'required',
             'id_digipos' => 'required',
             'date' => 'required',
@@ -129,6 +137,8 @@ class ByuController extends Controller
         ]);
 
         $distribusi = DB::table('byu_distribusi')->insert([
+            'cluster' => $request->cluster,
+            'city' => $request->city,
             'type' => $request->type,
             'id_digipos' => $request->id_digipos,
             'date' => $request->date,
@@ -165,13 +175,6 @@ class ByuController extends Controller
         ]);
 
         return redirect()->route('byu.index');
-    }
-
-    public function get_outlet(Request $request)
-    {
-        $outlet = DB::table('outlet_preference_new')->where('kabupaten', $request->city)->where('fisik', 'FISIK')->orderBy('nama_outlet')->get();
-
-        return response()->json($outlet);
     }
 
     public function view_stok(Request $request)
@@ -243,5 +246,13 @@ class ByuController extends Controller
 
 
         return view('byu.distribusi.view', compact('ds', 'outlet'));
+    }
+
+
+    public function get_outlet(Request $request)
+    {
+        $outlet = DB::table('outlet_preference_new')->where('kabupaten', $request->city)->where('fisik', 'FISIK')->orderBy('nama_outlet')->get();
+
+        return response()->json($outlet);
     }
 }

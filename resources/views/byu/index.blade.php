@@ -1,5 +1,17 @@
 @extends('layouts.dashboard.app')
 @section('body')
+    @php
+        function ach($a, $b, $n = 1, $x = 100)
+        {
+            if ($b != 0) {
+                $res = number_format((intval($a) / intval($b)) * $x, $n, ',', '.');
+            } else {
+                $res = number_format(0, $n, ',', '.');
+            }
+        
+            return $res;
+        }
+    @endphp
     <div class="w-full mx-4 my-4">
         <div class="flex flex-col">
             <div class="mt-2">
@@ -25,23 +37,23 @@
                                 </th>
                                 <th rowspan="2"
                                     class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
-                                    Branch
+                                    Cluster
                                 </th>
                                 <th rowspan="2"
                                     class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
-                                    Cluster
+                                    City
                                 </th>
-                                <th colspan="9"
+                                <th colspan="8"
                                     class="p-3 text-sm font-semibold text-center text-gray-800 uppercase border border-white bg-y_kuartener/80">
                                     Distribution
                                     Mgt.
                                 </th>
-                                <th colspan="4"
+                                <th colspan="6"
                                     class="p-3 text-sm font-semibold text-center text-gray-800 uppercase border border-white bg-y_kuartener/80">
                                     Outlet
                                     Mgt.
                                 </th>
-                                <th colspan="4"
+                                <th colspan="5"
                                     class="p-3 text-sm font-semibold text-center text-gray-800 uppercase border border-white bg-y_kuartener/80">
                                     DS
                                     Mgt.
@@ -50,80 +62,153 @@
                             <tr>
                                 <th
                                     class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
-                                    Target Distribusi ByU
+                                    A.Target Distribusi ByU
                                 </th>
                                 <th
                                     class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
-                                    Actual Distribusi
+                                    B.Actual Distribusi HQ to TAP
                                 </th>
                                 <th
                                     class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
-                                    ST All <br> (Qty)
+                                    C.Injected <br> (Qty)
                                 </th>
                                 <th
                                     class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
-                                    Injected<br> (Qty)
-                                </th>
-                                <th
-                                    class="p-3 text-sm font-semibold text-center text-gray-800 uppercase border border-white bg-yellow-300/60">
-                                    Not Injected<br> (Qty)
+                                    D.ST All <br> (Qty) <br> (L+P)
                                 </th>
                                 <th
                                     class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
-                                    Stock Gudang<br> (Target Dist. - ST)
+                                    E.Stock Gudang<br> (A-D)
                                 </th>
                                 <th
                                     class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
-                                    %Inject To Target Distribusi
+                                    F.%Inject To Target Distribusi
                                 </th>
                                 <th
                                     class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
-                                    Redeem All
+                                    G.Redeem All <br> (M+Q)
                                 </th>
                                 <th
                                     class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
-                                    %Redeem To Inject
+                                    H.%Redeem To Inject
                                 </th>
                                 <th
                                     class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
-                                    Target Outlet ST
+                                    I.Target Outlet ST
                                 </th>
                                 <th
                                     class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
-                                    Outlet ST
+                                    J.Outlet ST
                                 </th>
                                 <th
                                     class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
-                                    %Ach Outlet ST
+                                    K.%Ach Outlet ST
                                 </th>
                                 <th
                                     class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
-                                    ST Outlet<br> (Qty)
+                                    L.ST Outlet<br> (Qty)
                                 </th>
                                 <th
                                     class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
-                                    Jlh DS
-                                </th>
-                                <th
-                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
-                                    DS Redeem
-                                </th>
-                                <th
-                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
-                                    ST DS<br> (Qty)
+                                    M.Outlet Redeem<br> (Qty)
                                 </th>
                                 <th
                                     class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
-                                    Ach Redeem / DS
+                                    N.%Redeem Outlet
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
+                                    O.Jlh DS
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
+                                    P.ST DS <br> (Qty)
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
+                                    Q.DS Redeem
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
+                                    R.%Redeem DS
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
+                                    S.Ach Redeem / DS
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- @foreach ($users as $key => $data)
+                            @foreach ($resume as $key => $data)
                                 <tr class="hover:bg-gray-200">
-                                    <td class="p-3 font-bold text-gray-700 border border-b border-white">{{ $key + 1 }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border border-b border-white regional">{{ $data->regional }}</td>
-                            @endforeach --}}
+                                    <td class="p-3 text-gray-700 uppercase border border-b border-white regional">
+                                        {{ $data->regional }}
+                                    </td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b border-white branch">
+                                        {{ $data->cluster }}
+                                    </td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b border-white city">
+                                        {{ $data->city }}
+                                    </td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b border-white">
+                                        {{ $data->target_distribusi ?? 0 }}
+                                    </td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b border-white">
+                                        {{ $data->target_distribusi ?? 0 }}
+                                    </td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b border-white">
+                                        {{ $data->injected ?? 0 }}
+                                    </td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b border-white">
+                                        {{ $data->st_all ?? 0 }}
+                                    </td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b border-white">
+                                        {{ intval($data->target_distribusi) - intval($data->st_all) }}
+                                    </td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b border-white">
+                                        {{ ach($data->injected, $data->target_distribusi) }}%
+                                    </td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b border-white">
+                                        {{ $data->redeem_all ?? 0 }}
+                                    </td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b border-white">
+                                        {{ ach($data->redeem_all, $data->injected) }}%
+                                    </td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b border-white">
+                                        {{ $data->target_outlet_st ?? 0 }}
+                                    </td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b border-white">
+                                        {{ $data->outlet_st ?? 0 }}
+                                    </td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b border-white">
+                                        {{ ach($data->outlet_st, $data->target_outlet_st) }}%
+                                    </td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b border-white">
+                                        {{ $data->st_outlet ?? 0 }}
+                                    </td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b border-white">
+                                        {{ $data->outlet_redeem ?? 0 }}
+                                    </td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b border-white">
+                                        {{ ach($data->outlet_redeem, $data->st_outlet) ?? 0 }}%
+                                    </td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b border-white">
+                                        {{ $data->jlh_ds ?? 0 }}
+                                    </td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b border-white">
+                                        {{ $data->st_ds ?? 0 }}
+                                    </td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b border-white">
+                                        {{ $data->ds_redeem ?? 0 }}
+                                    </td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b border-white">
+                                        {{ ach($data->ds_redeem, $data->st_ds) }}%
+                                    </td>
+                                    <td class="p-3 text-gray-700 uppercase border border-b border-white">
+                                        {{ ach($data->ds_redeem, $data->jlh_ds, 0, 1) }}
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
