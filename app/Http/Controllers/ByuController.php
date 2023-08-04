@@ -131,19 +131,68 @@ class ByuController extends Controller
             'cluster' => 'required',
             'city' => 'required',
             'type' => 'required',
-            'id_digipos' => 'required',
-            'date' => 'required',
-            'jumlah' => 'required|numeric',
         ]);
 
-        $distribusi = DB::table('byu_distribusi')->insert([
-            'cluster' => $request->cluster,
-            'city' => $request->city,
-            'type' => $request->type,
-            'id_digipos' => $request->id_digipos,
-            'date' => $request->date,
-            'jumlah' => $request->jumlah,
-        ]);
+        if ($request->hasFile('file')) {
+            $request->validate([
+                'file' => 'required|file'
+            ]);
+
+            if (file_exists($request->file)) {
+                $file = fopen($request->file, "r");
+
+                $idx = 0;
+
+                $get_row = fgetcsv($file, 10000, ";");
+
+                $distribusi = [];
+
+                if (count($get_row) <= 1) {
+                    $a = str_split($get_row[0]);
+                    return back()->with('error', "Format CSV salah. Format adalah 'id_digipos;nama_outlet;sn;date'");
+                }
+
+                while (($row = fgetcsv($file, 10000, ";")) !== FALSE) {
+                    // ddd($row);
+                    if ($idx < 1001) {
+                        $data = [
+                            'cluster' => $request->cluster,
+                            'city' => $request->city,
+                            'type' => $request->type,
+                            'id_digipos' => $row[0],
+                            'nama_outlet' => $request->type == 'Outlet' ? $row[1] : '',
+                            'nama_ds' => $request->type == 'DS' ? $row[1] : '',
+                            'sn' => $row[2],
+                            'date' => date('Y-m-d', strtotime($row[3])),
+                        ];
+
+                        array_push($distribusi, $data);
+                        // echo '<pre>' . $idx . var_export($data, true) . '</pre>';
+                    } else if ($idx > 1001) {
+                        break;
+                    }
+                    $idx++;
+                }
+
+                if (count($distribusi)) {
+                    DB::table('byu_distribusi')->insert($distribusi);
+                }
+            }
+        } else {
+            $request->validate([
+                'id_digipos' => 'required',
+                'date' => 'required',
+            ]);
+            $distribusi = DB::table('byu_distribusi')->insert([
+                'cluster' => $request->cluster,
+                'city' => $request->city,
+                'type' => $request->type,
+                'id_digipos' => $request->id_digipos,
+                'date' => $request->date,
+                'jumlah' => $request->jumlah,
+            ]);
+        }
+
 
         return redirect()->route('byu.index');
     }
@@ -254,5 +303,9 @@ class ByuController extends Controller
         $outlet = DB::table('outlet_preference_new')->where('kabupaten', $request->city)->where('fisik', 'FISIK')->orderBy('nama_outlet')->get();
 
         return response()->json($outlet);
+    }
+
+    public function get_max_input(Request $request)
+    {
     }
 }

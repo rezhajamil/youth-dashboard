@@ -237,10 +237,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('byu/report/store', [ByuController::class, 'store_report'])->name('byu.report.store');
     Route::get('byu/distribusi/create', [ByuController::class, 'create_distribusi'])->name('byu.distribusi.create');
     Route::post('byu/distribusi/store', [ByuController::class, 'store_distribusi'])->name('byu.distribusi.store');
-    Route::post('byu/get_outlet', [ByuController::class, 'get_outlet'])->name('byu.get_outlet');
     Route::get('byu/distribusi/view', [ByuController::class, 'view_distribusi'])->name('byu.distribusi.view');
     Route::get('byu/stok/view', [ByuController::class, 'view_stok'])->name('byu.stok.view');
     Route::get('byu/report/view', [ByuController::class, 'view_report'])->name('byu.report.view');
+    Route::post('byu/get_outlet', [ByuController::class, 'get_outlet'])->name('byu.get_outlet');
+    Route::post('byu/get_max_input', [ByuController::class, 'get_max_input'])->name('byu.get_max_input');
 });
 
 require __DIR__ . '/auth.php';

@@ -51,15 +51,15 @@
                     <table class="overflow-auto text-left border-collapse w-fit">
                         <thead class="border-b">
                             <tr>
-                                <th rowspan="2"
+                                <th rowspan="3"
                                     class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
                                     Region
                                 </th>
-                                <th rowspan="2"
+                                <th rowspan="3"
                                     class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
                                     Cluster
                                 </th>
-                                <th rowspan="2"
+                                <th rowspan="3"
                                     class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
                                     City
                                 </th>
@@ -81,80 +81,158 @@
                             </tr>
                             <tr>
                                 <th
-                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
-                                    A.Target Distribusi ByU
-                                </th>
-                                <th
-                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
-                                    B.Actual Distribusi HQ to TAP
-                                </th>
-                                <th
-                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
-                                    C.Injected <br> (Qty)
-                                </th>
-                                <th
-                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
-                                    D.ST All <br> (Qty) <br> (L+P)
-                                </th>
-                                <th
-                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
-                                    E.Stock Gudang<br> (A-D)
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
+                                    A
                                 </th>
                                 <th
                                     class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
-                                    F.%Inject To Target Distribusi
-                                </th>
-                                <th
-                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
-                                    G.Redeem All <br> (M+Q)
+                                    B
                                 </th>
                                 <th
                                     class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
-                                    H.%Redeem To Inject
-                                </th>
-                                <th
-                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
-                                    I.Target Outlet ST
-                                </th>
-                                <th
-                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
-                                    J.Outlet ST
+                                    C
                                 </th>
                                 <th
                                     class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
-                                    K.%Ach Outlet ST
-                                </th>
-                                <th
-                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
-                                    L.ST Outlet<br> (Qty)
-                                </th>
-                                <th
-                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
-                                    M.Outlet Redeem<br> (Qty)
+                                    D
                                 </th>
                                 <th
                                     class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
-                                    N.%Redeem Outlet
-                                </th>
-                                <th
-                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
-                                    O.Jlh DS
-                                </th>
-                                <th
-                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
-                                    P.ST DS <br> (Qty)
-                                </th>
-                                <th
-                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
-                                    Q.DS Redeem
+                                    E
                                 </th>
                                 <th
                                     class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
-                                    R.%Redeem DS
+                                    F
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
+                                    G
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
+                                    H
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
+                                    I
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
+                                    J
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
+                                    K
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
+                                    L
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
+                                    M
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
+                                    N
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
+                                    O
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
+                                    P
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
+                                    Q
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
+                                    R
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
+                                    S
+                                </th>
+                            </tr>
+                            <tr>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
+                                    Target Distribusi ByU
                                 </th>
                                 <th
                                     class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
-                                    S.Ach Redeem / DS
+                                    Actual Distribusi HQ to TAP
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
+                                    Injected <br> (Qty)
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
+                                    ST All <br> (Qty) <br> (L+P)
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
+                                    Stock Gudang<br> (A-D)
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
+                                    %Inject To Target Distribusi
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
+                                    Redeem All <br> (M+Q)
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
+                                    %Redeem To Inject
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
+                                    Target Outlet ST
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
+                                    Outlet ST
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
+                                    %Ach Outlet ST
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
+                                    ST Outlet<br> (Qty)
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
+                                    Outlet Redeem<br> (Qty)
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
+                                    %Redeem Outlet
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
+                                    Jlh DS
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
+                                    ST DS <br> (Qty)
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
+                                    DS Redeem
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase bg-gray-500 border border-white">
+                                    %Redeem DS
+                                </th>
+                                <th
+                                    class="p-3 text-sm font-semibold text-center text-white uppercase border border-white bg-premier">
+                                    Ach Redeem / DS
                                 </th>
                             </tr>
                         </thead>

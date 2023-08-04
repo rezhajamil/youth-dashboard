@@ -1167,6 +1167,12 @@ select {
 .w-4 {
   width: 1rem;
 }
+.w-64 {
+  width: 16rem;
+}
+.w-72 {
+  width: 18rem;
+}
 .min-w-full {
   min-width: 100%;
 }
@@ -1434,6 +1440,9 @@ select {
 }
 .border-l-4 {
   border-left-width: 4px;
+}
+.border-t-2 {
+  border-top-width: 2px;
 }
 .border-gray-300 {
   --tw-border-opacity: 1;

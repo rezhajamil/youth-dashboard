@@ -14,13 +14,14 @@
                 <div class="flex flex-col justify-between gap-4">
                     <div class="w-full px-6 py-4 mx-auto overflow-auto bg-white rounded-md shadow sm:mx-0">
                         <span class="text-lg font-semibold">Distribusi DS</span>
-                        <form action="{{ route('byu.distribusi.store') }}" method="POST" class="">
+                        <form action="{{ route('byu.distribusi.store') }}" method="POST" class=""
+                            enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="type" value="DS">
                             <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
                                 <div class="w-full">
                                     <label class="block text-gray-700" for="cluster">Cluster</label>
-                                    <select name="cluster" id="cluster_ds" class="w-full rounded-md">
+                                    <select name="cluster" id="cluster_ds" class="w-full rounded-md" required>
                                         <option value="" selected disabled>Pilih Cluster</option>
                                         @foreach ($list_cluster as $item)
                                             <option value="{{ $item->cluster }}"
@@ -36,7 +37,7 @@
 
                                 <div class="w-full">
                                     <label class="block text-gray-700" for="city">City</label>
-                                    <select name="city" id="city_ds" class="w-full rounded-md">
+                                    <select name="city" id="city_ds" class="w-full rounded-md" required>
                                         <option value="" selected disabled>Pilih City</option>
                                     </select>
                                     @error('city')
@@ -64,12 +65,18 @@
                                         <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div>
-                                    <label class="text-gray-700" for="jumlah">Jumlah</label>
-                                    <input class="w-full rounded-md form-input focus:border-indigo-600" type="number"
-                                        name="jumlah" placeholder="Jumlah" value="{{ old('jumlah') }}">
+                                <div class="pt-4 border-0 border-t-2 col-span-full">
+                                    <label class="flex items-end mb-2 text-gray-700 gap-x-4" for="file">atau Upload
+                                        File
+                                    </label>
+                                    <div class="flex gap-x-4">
+                                        <input class="w-full rounded-md form-input focus:border-indigo-600" type="file"
+                                            name="file" placeholder="File" value="{{ old('file') }}">
+                                        <img src="{{ asset('images/contoh-distribusi-ds.jpg') }}" class="w-72"
+                                            alt="Contoh">
+                                    </div>
 
-                                    @error('jumlah')
+                                    @error('file')
                                         <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -84,13 +91,14 @@
 
                     <div class="w-full px-6 py-4 mx-auto overflow-auto bg-white rounded-md shadow sm:mx-0">
                         <span class="text-lg font-semibold">Distribusi Outlet</span>
-                        <form action="{{ route('byu.distribusi.store') }}" method="POST" class="">
+                        <form action="{{ route('byu.distribusi.store') }}" method="POST" class=""
+                            enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="type" value="Outlet">
                             <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
                                 <div class="w-full">
                                     <label class="block text-gray-700" for="cluster">Cluster</label>
-                                    <select name="cluster" id="cluster_outlet" class="w-full rounded-md">
+                                    <select name="cluster" id="cluster_outlet" class="w-full rounded-md" required>
                                         <option value="" selected disabled>Pilih Cluster</option>
                                         @foreach ($list_cluster as $item)
                                             <option value="{{ $item->cluster }}"
@@ -106,7 +114,7 @@
 
                                 <div class="w-full">
                                     <label class="block text-gray-700" for="city">City</label>
-                                    <select name="city" id="city_outlet" class="w-full rounded-md">
+                                    <select name="city" id="city_outlet" class="w-full rounded-md" required>
                                         <option value="" selected disabled>Pilih City</option>
                                     </select>
                                     @error('city')
@@ -130,12 +138,18 @@
                                         <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div>
-                                    <label class="text-gray-700" for="jumlah">Jumlah</label>
-                                    <input class="w-full rounded-md form-input focus:border-indigo-600" type="number"
-                                        name="jumlah" placeholder="Jumlah" value="{{ old('jumlah') }}">
+                                <div class="pt-4 border-0 border-t-2 col-span-full">
+                                    <label class="flex items-end mb-2 text-gray-700 gap-x-4" for="file">atau Upload
+                                        File
+                                    </label>
+                                    <div class="flex gap-x-4">
+                                        <input class="w-full rounded-md form-input focus:border-indigo-600" type="file"
+                                            name="file" placeholder="File" value="{{ old('file') }}">
+                                        <img src="{{ asset('images/contoh-distribusi-outlet.jpg') }}" class="w-72"
+                                            alt="Contoh">
+                                    </div>
 
-                                    @error('jumlah')
+                                    @error('file')
                                         <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -169,7 +183,7 @@
                     success: (data) => {
                         console.log(data)
                         $("#city_ds").html(
-                            "<option selected disabled>Pilih City</option>" +
+                            "<option value='' selected disabled>Pilih City</option>" +
                             data.map((item) => {
                                 return `
                     <option value="${item.kabupaten}">${item.kabupaten}</option>
@@ -227,7 +241,7 @@
                     success: (data) => {
                         console.log(data)
                         $("#id_digipos_outlet").html(
-                            "<option selected disabled>Pilih Outlet</option>" +
+                            "<option value='' selected disabled>Pilih Outlet</option>" +
                             data.map((item) => {
                                 return `
                     <option value="${item.outlet_id}">${item.nama_outlet} | ${item.outlet_id}</option>

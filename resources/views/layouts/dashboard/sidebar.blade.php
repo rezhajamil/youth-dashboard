@@ -9,10 +9,10 @@
         </div>
     </div>
 
-    <nav class="mt-10" x-data="{ sales: false, direct: false, school: false, broadcast: false, content: false, event: false, market: false, location: false }">
+    <nav class="mt-10" x-data="{ sales: false, direct: false, school: false, broadcast: false, content: false, event: false, market: false, location: false, channel: false }">
         <a class="flex items-center px-6 py-2 mt-4 text-gray-100 bg-opacity-25 bg-slate-800"
             href="{{ URL::to('/dashboard') }}">
-            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            <svg class="w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
@@ -26,7 +26,7 @@
         @if (auth()->user()->privilege == 'superadmin')
             <a class="flex items-center px-6 py-2 mt-4 text-white transition-all cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100"
                 x-on:click="content=!content">
-                <i class="w-6 h-6 fa-solid fa-list-check"></i>
+                <i class="w-6 fa-solid fa-list-check"></i>
                 <span class="mx-3 text-white select-none">Content Management</span>
                 <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right"
                     :class="{ 'rotate-90': content, 'rotate-0': !content }"></i>
@@ -59,7 +59,7 @@
 
         <a class="flex items-center px-6 py-2 mt-4 text-white transition-all cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100"
             x-on:click="direct=!direct">
-            <i class="w-6 h-6 fa-solid fa-user-group"></i>
+            <i class="w-6 fa-solid fa-user-group"></i>
             <span class="mx-3 text-white select-none">Direct Sales</span>
             <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right"
                 :class="{ 'rotate-90': direct, 'rotate-0': !direct }"></i>
@@ -91,7 +91,7 @@
 
         <a class="flex items-center px-6 py-2 mt-4 text-white transition-all cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100"
             x-on:click="location=!location">
-            <i class="w-6 h-6 fa-solid fa-location-dot"></i>
+            <i class="w-6 fa-solid fa-location-dot"></i>
             <span class="mx-3 text-white select-none">Location</span>
             <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right"
                 :class="{ 'rotate-90': location, 'rotate-0': !location }"></i>
@@ -111,7 +111,7 @@
 
         <a class="flex items-center px-6 py-2 mt-4 text-white transition-all cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100"
             x-on:click="market=!market">
-            <i class="w-6 h-6 fa-solid fa-shop"></i>
+            <i class="w-6 fa-solid fa-shop"></i>
             <span class="mx-3 text-white select-none">Market</span>
             <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right"
                 :class="{ 'rotate-90': market, 'rotate-0': !market }"></i>
@@ -128,7 +128,7 @@
 
         <a class="flex items-center px-6 py-2 mt-4 text-white transition-all cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100"
             x-on:click="sales=!sales">
-            <i class="w-6 h-6 fa-solid fa-chart-line"></i>
+            <i class="w-6 fa-solid fa-chart-line"></i>
             <span class="mx-3 text-white select-none">Sales</span>
             <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right"
                 :class="{ 'rotate-90': sales, 'rotate-0': !sales }"></i>
@@ -154,9 +154,14 @@
                 class="text-white transition-all border-b hover:bg-white hover:text-slate-800 border-b-slate-400"><span
                     class="inline-block px-2 py-3">Sales By Location</span></a>
         </div>
+        <a class="flex items-center px-6 py-2 mt-4 text-white transition-all bg-opacity-25 cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100"
+            href="{{ route('byu.index') }}">
+            <i class="fa-solid fa-sim-card"></i>
+            <span class="mx-6">By.U</span>
+        </a>
         <a class="flex items-center px-6 py-2 mt-4 text-white transition-all cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100"
             x-on:click="school=!school">
-            <i class="w-6 h-6 fa-solid fa-school"></i>
+            <i class="w-6 fa-solid fa-school"></i>
             <span class="mx-3 text-white select-none">Sekolah</span>
             <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right"
                 :class="{ 'rotate-90': school, 'rotate-0': !school }"></i>
@@ -172,14 +177,24 @@
             <a href="{{ route('sekolah.pjp') }}"
                 class="text-white transition-all border-b hover:bg-white hover:text-slate-800 border-b-slate-400"><span
                     class="inline-block px-2 py-3">PJP</span></a>
-            <a href="{{ route('sekolah.oss_osk') }}"
-                class="text-white transition-all border-b hover:bg-white hover:text-slate-800 border-b-slate-400"><span
-                    class="inline-block px-2 py-3">OSS OSK</span></a>
             {{-- <a href="{{ route('sales.orbit') }}" class="text-white transition-all border-b hover:bg-white hover:text-slate-800 border-b-slate-400"><span class="inline-block px-2 py-3">Orbit</span></a> --}}
         </div>
         <a class="flex items-center px-6 py-2 mt-4 text-white transition-all cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100"
+            x-on:click="channel=!channel">
+            <i class="w-6 fa-solid fa-tv"></i>
+            <span class="mx-3 text-white select-none">Channel</span>
+            <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right"
+                :class="{ 'rotate-90': channel, 'rotate-0': !channel }"></i>
+        </a>
+        <div class="flex flex-col w-3/4 mx-6 mt-2 ml-auto overflow-hidden bg-opacity-25 rounded-md bg-slate-800"
+            x-show="channel" x-transition>
+            <a href="{{ route('sekolah.oss_osk') }}"
+                class="text-white transition-all border-b hover:bg-white hover:text-slate-800 border-b-slate-400"><span
+                    class="inline-block px-2 py-3">OSS OSK</span></a>
+        </div>
+        <a class="flex items-center px-6 py-2 mt-4 text-white transition-all cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100"
             x-on:click="broadcast=!broadcast">
-            <i class="w-6 h-6 fa-solid fa-tower-broadcast"></i>
+            <i class="w-6 fa-solid fa-tower-broadcast"></i>
             <span class="mx-3 text-white select-none">Campaign</span>
             <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right"
                 :class="{ 'rotate-90': broadcast, 'rotate-0': !broadcast }"></i>
@@ -205,7 +220,7 @@
         @if (auth()->user()->privilege != 'cluster')
             <a class="flex items-center px-6 py-2 mt-4 text-white transition-all cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100"
                 x-on:click="event=!event">
-                <i class="w-6 h-6 fa-solid fa-calendar"></i>
+                <i class="w-6 fa-solid fa-calendar"></i>
                 <span class="mx-3 text-white select-none">Event</span>
                 <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right"
                     :class="{ 'rotate-90': event, 'rotate-0': !event }"></i>
@@ -230,11 +245,6 @@
             </div>
         @endif
 
-        <a class="flex items-center px-6 py-2 mt-4 text-white transition-all bg-opacity-25 cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100"
-            href="{{ route('byu.index') }}">
-            <i class="fa-solid fa-sim-card"></i>
-            <span class="mx-6">By.U</span>
-        </a>
 
         <a class="flex items-center px-6 py-2 mt-4 text-white transition-all bg-opacity-25 cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100"
             href="{{ route('dokumen.index') }}">
@@ -242,14 +252,14 @@
             <span class="mx-6">Dokumen</span>
         </a>
         {{-- <a href="{{ route('outlet.index') }}" class="items-center hidden px-6 py-2 mt-4 text-gray-500 transition-all cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100" x-on:click="outlet=!outlet">
-        <i class="w-6 h-6 fa-solid fa-shop"></i>
+        <i class="w-6 fa-solid fa-shop"></i>
         <span class="mx-3 text-white select-none">Outlet</span>
         <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right" :class="{'rotate-90': outlet, 'rotate-0': !outlet}"></i>
         </a> --}}
 
 
         {{-- <a href="{{ route('direct_user.index') }}" class="flex items-center px-6 py-2 mt-4 text-white transition-all cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100">
-        <i class="w-6 h-6 fa-solid fa-users"></i>
+        <i class="w-6 fa-solid fa-users"></i>
         <span class="mx-3 text-white select-none">Database Direct User</span>
         </a> --}}
 
