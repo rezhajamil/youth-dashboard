@@ -12,6 +12,20 @@ class Byu extends Model
 
     public static function getResume($month, $year)
     {
+        $privilege = auth()->user()->privilege;
+        $branch = auth()->user()->branch;
+        $cluster = auth()->user()->cluster;
+
+        $filter = "";
+
+        if ($privilege == 'branch') {
+            $filter = " AND a.branch='$branch'";
+        }
+
+        if ($privilege == 'cluster') {
+            $filter = " AND a.cluster='$cluster'";
+        }
+
         $resume = DB::select(
             "SELECT a.regional, a.cluster, a.kab_new AS city, 
                 b.*, c.*, d.*, e.*
@@ -45,7 +59,7 @@ class Byu extends Model
                 GROUP BY 1
             ) AS d ON a.kab_new = d.city
             RIGHT JOIN byu_target_city AS e ON a.kab_new = e.city
-            WHERE a.lbo_city = 1
+            WHERE a.lbo_city = 1 $filter
             GROUP BY 1, 2, 3, 4,5,6,7,8,9,10,11,12,13,14,15,16
             ORDER BY 1 DESC, 2, 3;"
         );

@@ -1605,9 +1605,6 @@ select {
 .bg-y_kuartener\/80 {
   background-color: rgb(239 142 141 / 0.8);
 }
-.bg-yellow-300\/60 {
-  background-color: rgb(253 224 71 / 0.6);
-}
 .bg-blue-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(37 99 235 / var(--tw-bg-opacity));
@@ -2255,6 +2252,11 @@ select {
   background-color: rgb(22 101 52 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-y_tersier:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(206 85 161 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-orange-800:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(154 52 18 / var(--tw-bg-opacity));
@@ -2267,11 +2269,6 @@ select {
 .hover\:bg-gray-50:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-y_tersier:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(206 85 161 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-orange-700:hover {

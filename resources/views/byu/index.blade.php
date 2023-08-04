@@ -160,7 +160,7 @@
                         </thead>
                         <tbody>
                             @foreach ($resume as $key => $data)
-                                <tr class="hover:bg-gray-200">
+                                <tr class="hover:bg-gray-200 {{ $key % 2 ? 'bg-gray-100' : '' }}">
                                     <td class="p-3 text-gray-700 uppercase border border-b border-white regional">
                                         {{ $data->regional }}
                                     </td>
