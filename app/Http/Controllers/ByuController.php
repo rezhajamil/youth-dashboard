@@ -199,7 +199,7 @@ class ByuController extends Controller
                 while (($row = fgetcsv($file, 10000, ";")) !== FALSE) {
                     // ddd($row);
                     if ($idx < 1001) {
-
+                        ddd($row[0]);
                         if (strlen($row[0]) != 10) {
                             return back()->withErrors("id_digipos harus 10 digit");
                         }
