@@ -157,7 +157,7 @@
                                         <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                     @if ($errors->any())
-                                        {{-- {{ ddd($errors) }} --}}
+                                        {{-- {{ ddd($errors->all()) }} --}}
                                         <span
                                             class="block mt-1 text-sm italic text-red-600">{{ $errors->all()[0] }}</span>
                                     @endif
