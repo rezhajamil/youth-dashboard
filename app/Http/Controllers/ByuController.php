@@ -25,7 +25,7 @@ class ByuController extends Controller
         $sumbagsel = [];
         $area = [];
 
-        ddd($resume);
+        ddd([$resume, $month, $year]);
 
         foreach ($resume as $idx => $data) {
             // $keys = array_keys($data);
