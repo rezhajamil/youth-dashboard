@@ -62,7 +62,7 @@ class ByuController extends Controller
                 }
             }
         }
-        // ddd($sumbagteng['st_ds']);
+        // ddd($sumbagsel);
         // ddd([$sumbagut, $sumbagteng, $sumbagsel, $area]);
 
         return view('byu.index', compact('resume', 'sumbagut', 'sumbagteng', 'sumbagsel', 'area'));
