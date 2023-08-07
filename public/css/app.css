@@ -2448,6 +2448,11 @@ select {
   color: rgb(30 64 175 / var(--tw-text-opacity));
 }
 
+.hover\:text-y_tersier:hover {
+  --tw-text-opacity: 1;
+  color: rgb(206 85 161 / var(--tw-text-opacity));
+}
+
 .hover\:underline:hover {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;

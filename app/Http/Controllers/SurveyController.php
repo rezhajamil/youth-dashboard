@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DataUser;
 use App\Models\Sekolah;
+use App\Models\Territory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -358,6 +359,8 @@ class SurveyController extends Controller
         $month = $request->month ?? date('m');
         $year = $request->year ?? date('Y');
 
+        $city = Territory::getCity();
+
         $survey = DB::table('survey_session')->find($id);
 
         $kode_operator = DB::table('kode_prefix_operator')->get();
@@ -419,7 +422,7 @@ class SurveyController extends Controller
             $survey->opsi = json_decode($survey->opsi);
             $survey->jumlah_opsi = json_decode($survey->jumlah_opsi);
 
-            return view('directUser.survey.result_market', compact('kode_operator', 'operator', 'answer', 'survey', 'resume', 'hasil', 'sekolah'));
+            return view('directUser.survey.result_market', compact('kode_operator', 'operator', 'answer', 'survey', 'resume', 'hasil', 'sekolah', 'city'));
         } else {
             $answer = DB::table('survey_answer')->where('session', $id)->get();
             if (auth()->user()->privilege == 'branch') {
@@ -435,7 +438,7 @@ class SurveyController extends Controller
             $survey->opsi = json_decode($survey->opsi);
             $survey->jumlah_opsi = json_decode($survey->jumlah_opsi);
 
-            return view('directUser.survey.result_travel', compact('kode_operator', 'operator', 'answer', 'survey', 'resume'));
+            return view('directUser.survey.result_travel', compact('kode_operator', 'operator', 'answer', 'survey', 'resume', 'city'));
         }
     }
 
@@ -504,16 +507,30 @@ class SurveyController extends Controller
 
     public function find_school(Request $request)
     {
-        $name = $request->name;
-        $sekolah = DB::table('Data_Sekolah_Sumatera')->select(['NPSN', 'NAMA_SEKOLAH'])->where('PROVINSI', 'Sumatera Utara')->where('NAMA_SEKOLAH', 'like', '%' . $name . '%')->orderBy('NAMA_SEKOLAH')->limit('10')->get();
-
+        if ($request->name) {
+            $name = $request->name;
+            $sekolah = DB::table('Data_Sekolah_Sumatera')->select(['NPSN', 'NAMA_SEKOLAH'])->where('PROVINSI', 'Sumatera Utara')->where('NAMA_SEKOLAH', 'like', '%' . $name . '%')->orderBy('NAMA_SEKOLAH')->limit('10')->get();
+        }
         return response()->json($sekolah);
     }
 
     public function test(Request $request)
     {
-        $name = $request->name;
-        $sekolah = DB::table('Data_Sekolah_Sumatera')->select(['NPSN', 'NAMA_SEKOLAH'])->where('PROVINSI', 'Sumatera Utara')->where('NAMA_SEKOLAH', 'like', '%' . $name . '%')->orderBy('NAMA_SEKOLAH')->limit('10')->get();
+        if ($request->name) {
+            $name = $request->name;
+            $sekolah = DB::table('Data_Sekolah_Sumatera')->select(['NPSN', 'NAMA_SEKOLAH'])->where('PROVINSI', 'Sumatera Utara')->where('NAMA_SEKOLAH', 'like', '%' . $name . '%')->orderBy('NAMA_SEKOLAH')->limit('10')->get();
+        } else if ($request->city) {
+            $city = $request->city;
+            $sekolah = DB::table('Data_Sekolah_Sumatera')->select(['NPSN', 'NAMA_SEKOLAH'])->where('KAB_KOTA', $city)->orderBy('NAMA_SEKOLAH')->get();
+        }
+
+        return response()->json($sekolah);
+    }
+
+    public function get_resume_school(Request $request)
+    {
+        $city = $request->city;
+        $sekolah = DB::table('Data_Sekolah_Sumatera')->select(['Data_Sekolah_Sumatera.NPSN', 'NAMA_SEKOLAH'])->join('survey_answer', "survey_answer.npsn", "=", "Data_Sekolah_Sumatera.NPSN")->where('KAB_KOTA', $city)->whereMonth("time_start", $request->month)->whereYear("time_start", $request->year)->distinct()->orderBy('NAMA_SEKOLAH')->get();
 
         return response()->json($sekolah);
     }

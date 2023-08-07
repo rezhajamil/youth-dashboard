@@ -74,7 +74,8 @@ Route::post('/store_answer/survey/', [SurveyController::class, 'store_answer'])-
 // Route::get('/qns/{url}', [SurveyController::class, 'redirect_survey'])->name('survey.redirect');
 
 
-Route::post('/find_school', [SurveyController::class, 'find_school']);
+Route::get('/get_resume_school', [SurveyController::class, 'get_resume_school']);
+Route::get('/find_school', [SurveyController::class, 'find_school']);
 Route::post('/find_school_pjp', [SekolahController::class, 'find_school']);
 
 Route::get('sales/get_location', [SalesContoller::class, 'getLocation'])->name('sales.get_location');

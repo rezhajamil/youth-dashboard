@@ -34,13 +34,20 @@
                 </div>
                 <div class="flex items-center my-4 mt-2 gap-x-4">
                     <select name="filter" id="filter" class="block rounded">
+                        <option value="" selected disabled>Pilih City</option>
+                        @foreach ($city as $key => $data)
+                            <option value="{{ $data->city }}">
+                                {{ $data->city }}</option>
+                        @endforeach
+                    </select>
+                    {{-- <select name="filter" id="filter" class="block rounded">
                         <option value="" disabled>Pilih Sekolah</option>
                         <option value="">Semua</option>
                         @foreach ($sekolah as $key => $data)
                             <option value="{{ $data->NAMA_SEKOLAH }}" {{ $key == 0 ? 'selected' : '' }}>
                                 {{ $data->NAMA_SEKOLAH }}</option>
                         @endforeach
-                    </select>
+                    </select> --}}
                     {{-- <button id="btn-excel" class="px-2 py-3 text-white transition-all bg-green-600 rounded hover:bg-green-800">Download as Excel</button> --}}
                     <button id="btn-grafik"
                         class="px-4 py-2 text-white transition-all rounded bg-y_tersier hover:bg-red-800"><i
@@ -62,8 +69,8 @@
                             </tr>
                         </thead>
                         <tbody class="max-h-screen overflow-y-auto" id="tbody-operator">
-                            <tr id="row-count-operator" class="text-center"></tr>
-                            <tr id="row-percent-operator" class="text-center"></tr>
+                            {{-- <tr id="row-count-operator" class="text-center"></tr> --}}
+                            {{-- <tr id="row-percent-operator" class="text-center"></tr> --}}
                             <tr id="load-operator" class="font-semibold text-center text-white bg-tersier">
                                 <td colspan="8">Memuat Data...</td>
                             </tr>
@@ -219,15 +226,110 @@
 
             survey.jenis_soal = survey.jenis_soal.filter((data, i) => data != 'Isian');
 
-            operator.map(data => {
+            operator.map((data, idx) => {
                 $("#row-operator").prepend(
                     `<th class="p-3 text-sm text-center text-gray-100 uppercase border bg-y_tersier" id="col-${data.operator.toString().toLowerCase()}">${data.operator}</th>`
                 );
             })
+            $("#row-operator").prepend(
+                `<th class="p-3 text-sm text-center text-gray-100 uppercase border bg-y_tersier">Sekolah</th>`
+            );
 
             $("#filter").change(function() {
-                getResume($(this).val());
+                // $("#row-count-operator").html('');
+                // $("#row-percent-operator").html('');
+                $("#load").show();
+                $("#tbody").html("")
+                $("#tbody-operator").html("")
+
+
+                $.ajax({
+                    url: "{{ URL::to('/get_resume_school') }}",
+                    method: "GET",
+                    dataType: "JSON",
+                    data: {
+                        city: $(this).val(),
+                        month: $("#month").val(),
+                        year: $("#year").val(),
+                    },
+                    success: (data) => {
+                        data.map((data) => {
+                            let answer = resume.filter(res => res.npsn == data.NPSN);
+
+                            $("#tbody-operator").prepend(
+                                `<tr><td class='p-3 border'><span class="font-semibold underline cursor-pointer resume-sekolah text-y_premier hover:text-y_tersier">${data.NAMA_SEKOLAH}</span></td>` +
+                                operator.toReversed().map(operator => {
+                                    return `<td class='text-center border' id="count-${operator.operator.toString().toLowerCase()}-${data.NPSN}">0</td>`;
+                                }) +
+                                `<td class='text-center border' id="count-lainnya-${data.NPSN}">0</td>`
+                            )
+
+                            // operator.map(operator => {
+                            //     $("#tbody-operator").append(
+                            //         `<td class='border' id="count-${operator.operator.toString().toLowerCase()}-${data.NPSN}">0</td>`
+                            //     )
+                            //     // $("#row-percent-operator").prepend(
+                            //     //     `<td class='font-bold border' id="percent-${data.operator.toString().toLowerCase()}">0%</td>`
+                            //     // )
+                            // });
+                            // $("#tbody-operator").append(
+                            //     `<td class='border' id="count-lainnya-${data.NPSN}">0</td>`
+                            // );
+                            // $("#row-percent-operator").append(
+                            //     `<td class='font-bold border' id="percent-lainnya">0%</td>`
+                            // );
+
+                            answer.map((ans, idx) => {
+                                let other = false;
+                                kode_operator.forEach(kode => {
+                                    if (kode.kode_prefix == ans
+                                        .telp_siswa.toString().slice(
+                                            0, 4)) {
+                                        let col_count = $(
+                                            `#count-${kode.operator.toString().toLowerCase()}-${data.NPSN}`
+                                        );
+                                        // let col_percent = $(
+                                        //     `#percent-${kode.operator.toString().toLowerCase()}-${data.NPSN}`
+                                        // );
+                                        col_count.html(parseInt(
+                                                col_count.html()) +
+                                            1);
+                                        // col_percent.html(
+                                        //     `${parseInt(((col_count.html()/resume.length).toFixed(2))*100)}%`
+                                        // );
+                                        // console.log([kode.operator,ans.telp_siswa.toString().slice(0,4)]);
+                                        other = true;
+                                        return;
+                                    }
+                                });
+                                if (!other) {
+                                    let col_count = $(
+                                        `#count-lainnya-${data.NPSN}`);
+                                    // let col_percent = $(`#percent-lainnya`);
+                                    col_count.html(parseInt(col_count.html()) +
+                                        1);
+                                    // col_percent.html(
+                                    //     `${parseInt(((col_count.html()/resume.length).toFixed(2))*100)}%`
+                                    // );
+                                }
+                            });
+                            $("#tbody-operator").append("</tr>")
+                        })
+
+                        $("#load-operator").hide();
+                    },
+                    error: (e) => {
+                        console.log('error', e);
+                    }
+                })
             })
+
+            $(document).on("click", ".resume-sekolah", function() {
+                console.log($(this).text());
+                $("#tbody-operator").html("")
+                getResume($(this).text());
+            })
+
 
             const getResume = (filter) => {
                 $("#tbody").html('');
@@ -236,6 +338,8 @@
                 $("#row-percent-operator").html('');
                 $("#load").show();
                 html = '';
+
+                sekolah.filter(res => res.NAMA_SEKOLAH == filter);
 
                 if (sekolah.length == 0) {
                     $("#load-operator").hide();
