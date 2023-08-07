@@ -306,7 +306,265 @@
                                         {{ ach($data->ds_redeem, $data->jlh_ds, 0, 1) }}
                                     </td>
                                 </tr>
+
+                                @if ($resume[$key]->regional == 'SUMBAGUT' && $resume[$key + 1]->regional == 'SUMBAGTENG')
+                                    <tr class="bg-gray-600">
+                                        <td colspan="3"
+                                            class="p-3 text-center text-white uppercase border border-b border-white regional">
+                                            SUMBAGUT TOTAL
+                                        </td>
+                                        <td class="p-3 text-white uppercase border border-b border-white">
+                                            {{ $sumbagut['target_distribusi'] ?? 0 }}
+                                        </td>
+                                        <td class="p-3 text-white uppercase border border-b border-white">
+                                            {{ $sumbagut['target_distribusi'] ?? 0 }}
+                                        </td>
+                                        <td class="p-3 text-white uppercase border border-b border-white">
+                                            {{ $sumbagut['injected'] ?? 0 }}
+                                        </td>
+                                        <td class="p-3 text-white uppercase border border-b border-white">
+                                            {{ $sumbagut['st_all'] ?? 0 }}
+                                        </td>
+                                        <td class="p-3 text-white uppercase border border-b border-white">
+                                            {{ intval($sumbagut['target_distribusi']) - intval($sumbagut['st_all']) }}
+                                        </td>
+                                        <td class="p-3 text-white uppercase border border-b border-white">
+                                            {{ ach($sumbagut['injected'], $sumbagut['target_distribusi']) }}%
+                                        </td>
+                                        <td class="p-3 text-white uppercase border border-b border-white">
+                                            {{ $sumbagut['redeem_all'] ?? 0 }}
+                                        </td>
+                                        <td class="p-3 text-white uppercase border border-b border-white">
+                                            {{ ach($sumbagut['redeem_all'], $sumbagut['injected']) }}%
+                                        </td>
+                                        <td class="p-3 text-white uppercase border border-b border-white">
+                                            {{ $sumbagut['target_outlet_st'] ?? 0 }}
+                                        </td>
+                                        <td class="p-3 text-white uppercase border border-b border-white">
+                                            {{ $sumbagut['outlet_st'] ?? 0 }}
+                                        </td>
+                                        <td class="p-3 text-white uppercase border border-b border-white">
+                                            {{ ach($sumbagut['outlet_st'], $sumbagut['target_outlet_st']) }}%
+                                        </td>
+                                        <td class="p-3 text-white uppercase border border-b border-white">
+                                            {{ $sumbagut['st_outlet'] ?? 0 }}
+                                        </td>
+                                        <td class="p-3 text-white uppercase border border-b border-white">
+                                            {{ $sumbagut['outlet_redeem'] ?? 0 }}
+                                        </td>
+                                        <td class="p-3 text-white uppercase border border-b border-white">
+                                            {{ ach($sumbagut['outlet_redeem'], $sumbagut['st_outlet']) ?? 0 }}%
+                                        </td>
+                                        <td class="p-3 text-white uppercase border border-b border-white">
+                                            {{ $sumbagut['jlh_ds'] ?? 0 }}
+                                        </td>
+                                        <td class="p-3 text-white uppercase border border-b border-white">
+                                            {{ $sumbagut['st_ds'] ?? 0 }}
+                                        </td>
+                                        <td class="p-3 text-white uppercase border border-b border-white">
+                                            {{ $sumbagut['ds_redeem'] ?? 0 }}
+                                        </td>
+                                        <td class="p-3 text-white uppercase border border-b border-white">
+                                            {{ ach($sumbagut['ds_redeem'], $sumbagut['st_ds']) }}%
+                                        </td>
+                                        <td class="p-3 text-white uppercase border border-b border-white">
+                                            {{ ach($sumbagut['ds_redeem'], $sumbagut['jlh_ds'], 0, 1) }}
+                                        </td>
+                                    </tr>
+                                @else
+                                    @if ($resume[$key]->regional == 'SUMBAGTENG' && $resume[$key + 1]->regional == 'SUMBAGSEL')
+                                        <tr class="bg-gray-600">
+                                            <td colspan="3"
+                                                class="p-3 text-center text-white uppercase border border-b border-white regional">
+                                                SUMBAGTENG TOTAL
+                                            </td>
+                                            <td class="p-3 text-white uppercase border border-b border-white">
+                                                {{ $sumbagteng['target_distribusi'] ?? 0 }}
+                                            </td>
+                                            <td class="p-3 text-white uppercase border border-b border-white">
+                                                {{ $sumbagteng['target_distribusi'] ?? 0 }}
+                                            </td>
+                                            <td class="p-3 text-white uppercase border border-b border-white">
+                                                {{ $sumbagteng['injected'] ?? 0 }}
+                                            </td>
+                                            <td class="p-3 text-white uppercase border border-b border-white">
+                                                {{ $sumbagteng['st_all'] ?? 0 }}
+                                            </td>
+                                            <td class="p-3 text-white uppercase border border-b border-white">
+                                                {{ intval($sumbagteng['target_distribusi']) - intval($sumbagteng['st_all']) }}
+                                            </td>
+                                            <td class="p-3 text-white uppercase border border-b border-white">
+                                                {{ ach($sumbagteng['injected'], $sumbagteng['target_distribusi']) }}%
+                                            </td>
+                                            <td class="p-3 text-white uppercase border border-b border-white">
+                                                {{ $sumbagteng['redeem_all'] ?? 0 }}
+                                            </td>
+                                            <td class="p-3 text-white uppercase border border-b border-white">
+                                                {{ ach($sumbagteng['redeem_all'], $sumbagteng['injected']) }}%
+                                            </td>
+                                            <td class="p-3 text-white uppercase border border-b border-white">
+                                                {{ $sumbagteng['target_outlet_st'] ?? 0 }}
+                                            </td>
+                                            <td class="p-3 text-white uppercase border border-b border-white">
+                                                {{ $sumbagteng['outlet_st'] ?? 0 }}
+                                            </td>
+                                            <td class="p-3 text-white uppercase border border-b border-white">
+                                                {{ ach($sumbagteng['outlet_st'], $sumbagteng['target_outlet_st']) }}%
+                                            </td>
+                                            <td class="p-3 text-white uppercase border border-b border-white">
+                                                {{ $sumbagteng['st_outlet'] ?? 0 }}
+                                            </td>
+                                            <td class="p-3 text-white uppercase border border-b border-white">
+                                                {{ $sumbagteng['outlet_redeem'] ?? 0 }}
+                                            </td>
+                                            <td class="p-3 text-white uppercase border border-b border-white">
+                                                {{ ach($sumbagteng['outlet_redeem'], $sumbagteng['st_outlet']) ?? 0 }}%
+                                            </td>
+                                            <td class="p-3 text-white uppercase border border-b border-white">
+                                                {{ $sumbagteng['jlh_ds'] ?? 0 }}
+                                            </td>
+                                            <td class="p-3 text-white uppercase border border-b border-white">
+                                                {{ $sumbagteng['st_ds'] ?? 0 }}
+                                            </td>
+                                            <td class="p-3 text-white uppercase border border-b border-white">
+                                                {{ $sumbagteng['ds_redeem'] ?? 0 }}
+                                            </td>
+                                            <td class="p-3 text-white uppercase border border-b border-white">
+                                                {{ ach($sumbagteng['ds_redeem'], $sumbagteng['st_ds']) }}%
+                                            </td>
+                                            <td class="p-3 text-white uppercase border border-b border-white">
+                                                {{ ach($sumbagteng['ds_redeem'], $sumbagteng['jlh_ds'], 0, 1) }}
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @endif
                             @endforeach
+                            <tr class="bg-gray-600">
+                                <td colspan="3"
+                                    class="p-3 text-center text-white uppercase border border-b border-white regional">
+                                    SUMBAGSEL TOTAL
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ $sumbagsel['target_distribusi'] ?? 0 }}
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ $sumbagsel['target_distribusi'] ?? 0 }}
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ $sumbagsel['injected'] ?? 0 }}
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ $sumbagsel['st_all'] ?? 0 }}
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ intval($sumbagsel['target_distribusi']) - intval($sumbagsel['st_all']) }}
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ ach($sumbagsel['injected'], $sumbagsel['target_distribusi']) }}%
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ $sumbagsel['redeem_all'] ?? 0 }}
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ ach($sumbagsel['redeem_all'], $sumbagsel['injected']) }}%
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ $sumbagsel['target_outlet_st'] ?? 0 }}
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ $sumbagsel['outlet_st'] ?? 0 }}
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ ach($sumbagsel['outlet_st'], $sumbagsel['target_outlet_st']) }}%
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ $sumbagsel['st_outlet'] ?? 0 }}
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ $sumbagsel['outlet_redeem'] ?? 0 }}
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ ach($sumbagsel['outlet_redeem'], $sumbagsel['st_outlet']) ?? 0 }}%
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ $sumbagsel['jlh_ds'] ?? 0 }}
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ $sumbagsel['st_ds'] ?? 0 }}
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ $sumbagsel['ds_redeem'] ?? 0 }}
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ ach($sumbagsel['ds_redeem'], $sumbagsel['st_ds']) }}%
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ ach($sumbagsel['ds_redeem'], $sumbagsel['jlh_ds'], 0, 1) }}
+                                </td>
+                            </tr>
+                            <tr class="bg-gray-600">
+                                <td colspan="3"
+                                    class="p-3 text-center text-white uppercase border border-b border-white regional">
+                                    AREA TOTAL
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ $area['target_distribusi'] ?? 0 }}
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ $area['target_distribusi'] ?? 0 }}
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ $area['injected'] ?? 0 }}
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ $area['st_all'] ?? 0 }}
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ intval($area['target_distribusi']) - intval($area['st_all']) }}
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ ach($area['injected'], $area['target_distribusi']) }}%
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ $area['redeem_all'] ?? 0 }}
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ ach($area['redeem_all'], $area['injected']) }}%
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ $area['target_outlet_st'] ?? 0 }}
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ $area['outlet_st'] ?? 0 }}
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ ach($area['outlet_st'], $area['target_outlet_st']) }}%
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ $area['st_outlet'] ?? 0 }}
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ $area['outlet_redeem'] ?? 0 }}
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ ach($area['outlet_redeem'], $area['st_outlet']) ?? 0 }}%
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ $area['jlh_ds'] ?? 0 }}
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ $area['st_ds'] ?? 0 }}
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ $area['ds_redeem'] ?? 0 }}
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ ach($area['ds_redeem'], $area['st_ds']) }}%
+                                </td>
+                                <td class="p-3 text-white uppercase border border-b border-white">
+                                    {{ ach($area['ds_redeem'], $area['jlh_ds'], 0, 1) }}
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

@@ -20,8 +20,50 @@ class ByuController extends Controller
         $year = $request->year ?? date('Y');
 
         $resume = Byu::getResume($month, $year);
+        $sumbagut = [];
+        $sumbagteng = [];
+        $sumbagsel = [];
+        $area = [];
 
-        return view('byu.index', compact('resume'));
+        foreach ($resume as $idx => $data) {
+            // $keys = array_keys($data);
+            foreach ($data as $key => $value) {
+                // ddd($data->regional);
+                // array_push($sumbagut, ['data' => $value]);
+                if (is_numeric($value) || $value === null) {
+                    if ($data->regional == 'SUMBAGUT') {
+                        if (!isset($sumbagut[$key])) {
+                            $sumbagut[$key] = 0;
+                        }
+                        $sumbagut[$key] += $value;
+                    }
+
+                    if ($data->regional == 'SUMBAGTENG') {
+                        // ddd($data);
+                        if (!isset($sumbagteng[$key])) {
+                            $sumbagteng[$key] = 0;
+                        }
+                        $sumbagteng[$key] += $value;
+                    }
+
+                    if ($data->regional == 'SUMBAGSEL') {
+                        if (!isset($sumbagsel[$key])) {
+                            $sumbagsel[$key] = 0;
+                        }
+                        $sumbagsel[$key] += $value;
+                    }
+
+                    if (!isset($area[$key])) {
+                        $area[$key] = 0;
+                    }
+                    $area[$key] += $value;
+                }
+            }
+        }
+        // ddd($sumbagteng['st_ds']);
+        // ddd([$sumbagut, $sumbagteng, $sumbagsel, $area]);
+
+        return view('byu.index', compact('resume', 'sumbagut', 'sumbagteng', 'sumbagsel', 'area'));
     }
 
     /**
