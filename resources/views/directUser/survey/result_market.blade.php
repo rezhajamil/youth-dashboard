@@ -32,7 +32,7 @@
                             Tanggal</button>
                     </form>
                 </div>
-                <div class="flex items-center my-4 mt-2 gap-x-4">
+                <div class="flex items-center my-4 mt-2 gap-x-2">
                     <select name="filter" id="filter" class="block rounded">
                         <option value="" selected disabled>Pilih City</option>
                         @foreach ($city as $key => $data)
@@ -52,6 +52,9 @@
                     <button id="btn-grafik"
                         class="px-4 py-2 text-white transition-all rounded bg-y_tersier hover:bg-red-800"><i
                             class="mr-2 fa-solid fa-chart-column"></i>Grafik</button>
+                    <button id="btn-excel"
+                        class="inline-block px-4 py-2 my-2 font-semibold text-white transition-all bg-teal-600 rounded-md hover:bg-teal-800"><i
+                            class="mr-2 fa-solid fa-file-arrow-down"></i>Excel</button>
                     <span class="font-semibold">Jumlah Partisipan : <span id="partisipan"></span></span>
                 </div>
                 <input type="hidden" name="sekolah" id="sekolah" value="{{ json_encode($sekolah) }}">
@@ -60,7 +63,7 @@
                 <input type="hidden" name="survey" id="survey" value="{{ json_encode($survey) }}">
                 <input type="hidden" name="resume" id="resume" value="{{ json_encode($resume) }}">
 
-                <div class="mb-8 overflow-auto bg-white rounded-md shadow w-fit">
+                <div class="mb-8 overflow-auto bg-white rounded-md shadow w-fit" id="operator-container">
                     <table class="overflow-auto text-left bg-white border-collapse w-fit" id="table-operator">
                         <thead class="border-b">
                             <tr class="border-b" id="row-operator">
@@ -135,6 +138,7 @@
     </div>
 @endsection
 @section('script')
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
     <script>
         $(document).ready(function() {
             let title = $("#title").val();
@@ -147,7 +151,7 @@
             let school, pos, html, chartBar;
 
             $("#btn-excel").click(function() {
-                exportTableToExcel('table-data', `${title}`);
+                exportTableToExcel('operator-container', `${title}`);
             });
 
             $("#btn-grafik").click(function() {
