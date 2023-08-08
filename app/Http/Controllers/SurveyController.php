@@ -530,7 +530,7 @@ class SurveyController extends Controller
     public function get_resume_school(Request $request)
     {
         $city = $request->city;
-        $sekolah = DB::table('Data_Sekolah_Sumatera')->select(['Data_Sekolah_Sumatera.NPSN', 'NAMA_SEKOLAH'])->join('survey_answer', "survey_answer.npsn", "=", "Data_Sekolah_Sumatera.NPSN")->where('KAB_KOTA', $city)->whereMonth("time_start", $request->month)->whereYear("time_start", $request->year)->distinct()->orderBy('NAMA_SEKOLAH')->get();
+        $sekolah = DB::table('Data_Sekolah_Sumatera')->select(['Data_Sekolah_Sumatera.NPSN', 'NAMA_SEKOLAH'])->join('survey_answer', "survey_answer.npsn", "=", "Data_Sekolah_Sumatera.NPSN")->where('KAB_KOTA', $city)->whereMonth("time_start", $request->month)->whereYear("time_start", $request->year)->distinct()->orderBy('NAMA_SEKOLAH', 'asc')->get();
 
         return response()->json($sekolah);
     }

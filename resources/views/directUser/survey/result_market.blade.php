@@ -71,7 +71,8 @@
                         <tbody class="max-h-screen overflow-y-auto" id="tbody-operator">
                             {{-- <tr id="row-count-operator" class="text-center"></tr> --}}
                             {{-- <tr id="row-percent-operator" class="text-center"></tr> --}}
-                            <tr id="load-operator" class="font-semibold text-center text-white bg-tersier">
+                            <tr id="load-operator" class="font-semibold text-center text-white bg-tersier"
+                                style="display: none">
                                 <td colspan="8">Memuat Data...</td>
                             </tr>
                         </tbody>

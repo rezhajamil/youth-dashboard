@@ -61,17 +61,17 @@
 
                 header += `
             <tr class="border-b">
-                <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">No</th>
-                <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">Region</th>
-                <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">Branch</th>
-                <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">Cluster</th>
-                <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">Nama</th>
-                <th rowspan="2" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">Telp</th>
+                <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">No</th>
+                <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">Region</th>
+                <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">Branch</th>
+                <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">Cluster</th>
+                <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">Nama</th>
+                <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">Telp</th>
             `;
 
                 survey.soal.map((data, i) => {
                     header += `
-                <th colspan="${survey.jenis_soal[i]=='Prioritas'?survey.jumlah_opsi[i]:1}" rowspan="${survey.jenis_soal[i]=='Prioritas'?1:2}" class="p-3 text-sm font-bold text-center text-gray-100 whitespace-normal border bg-sekunder">${data}</th>
+                <th  class="p-3 text-sm font-bold text-center text-gray-100 whitespace-normal border bg-sekunder"><p class="truncate max-w-[250px]">${data}</p></th>
                 ${i==survey.soal.length-1??'</tr>'}
                 `;
                 });
@@ -150,15 +150,15 @@
                 var ua = window.navigator.userAgent;
                 var msie = ua.indexOf("MSIE ");
 
-                if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) // If Internet Explorer
-                {
-                    txtArea1.document.open("txt/html", "replace");
-                    txtArea1.document.write(tab_text);
-                    txtArea1.document.close();
-                    txtArea1.focus();
-                    sa = txtArea1.document.execCommand("SaveAs", true, "Say Thanks to Sumit.xlss");
-                } else //other browser not tested on IE 11
-                    sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
+                // if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) // If Internet Explorer
+                // {
+                //     txtArea1.document.open("txt/html", "replace");
+                //     txtArea1.document.write(tab_text);
+                //     txtArea1.document.close();
+                //     txtArea1.focus();
+                //     sa = txtArea1.document.execCommand("SaveAs", true, "Say Thanks to Sumit.xlss");
+                // } else //other browser not tested on IE 11
+                sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
 
                 return (sa);
             }
