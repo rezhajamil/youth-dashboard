@@ -88,7 +88,7 @@
                         </button>
                     </div>
                     @if (count($thread->comments))
-                        <div class="flex flex-col hidden px-3" id="comment-{{ $thread->id }}">
+                        <div class="flex flex-col hidden px-3 mt-2" id="comment-{{ $thread->id }}">
                             @foreach ($thread->comments as $comment)
                                 <div class="flex justify-between mb-1">
                                     <div class="flex flex-col">
@@ -130,7 +130,7 @@
                 </div>
             @endforelse
         </div>
-        <a href="{{ route('thread.create') }}"
+        <a href="{{ route('thread.create', ['telp' => request()->get('telp')]) }}"
             class="fixed flex items-center justify-center px-4 py-3 text-white transition-all rounded-full shadow-2xl hover:to-y_tersier right-4 bottom-3 bg-gradient-to-br from-y_premier to-y_sekunder aspect-square">
             <i class="text-2xl fa-solid fa-pen-to-square"></i>
         </a>
@@ -251,7 +251,7 @@
                         _token: formData._token,
                     },
                     success: (data) => {
-                        console.log(data);
+                        // console.log(data);
                         if (formData.type == 'up') {
                             btnUp.attr('disabled', true);
                             btnDown.attr('disabled', false);

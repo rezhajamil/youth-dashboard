@@ -85,7 +85,7 @@ class ThreadController extends Controller
      */
     public function create()
     {
-        //
+        return view('directUser.thread.create');
     }
 
     /**
@@ -96,7 +96,17 @@ class ThreadController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'telp' => ['required'],
+            'message' => ['required'],
+        ]);
+
+        $thread = Thread::create([
+            'telp' => $request->telp,
+            'message' => $request->message,
+        ]);
+
+        return redirect()->route('thread.index', ['telp' => $request->telp, 'tab' => 'saya']);
     }
 
     /**

@@ -1711,6 +1711,11 @@ select {
   --tw-gradient-to: rgb(96 116 177 / 0);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
+.from-y_sekunder {
+  --tw-gradient-from: #60B0BF;
+  --tw-gradient-to: rgb(96 176 191 / 0);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
 .to-y_tersier {
   --tw-gradient-to: #CE55A1;
 }
