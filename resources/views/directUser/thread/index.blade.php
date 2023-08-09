@@ -87,25 +87,25 @@
                             <span class="text-sm">Comment</span>
                         </button>
                     </div>
-                    @if (count($thread->comments))
-                        <div class="flex flex-col hidden px-3 mt-2" id="comment-{{ $thread->id }}">
-                            @foreach ($thread->comments as $comment)
-                                <div class="flex justify-between mb-1">
-                                    <div class="flex flex-col">
-                                        <span
-                                            class="text-xs font-semibold text-gray-500">{{ ucwords(strtolower($comment->user->nama)) }}</span>
-                                        <span class="text-[10px] text-gray-400">{{ $comment->user->cluster }}</span>
-                                    </div>
-                                    <div class="flex items-start gap-x-3">
-                                        <span class="text-gray-600 text-[10px]">{{ $comment->time }}</span>
-                                    </div>
+                    {{-- @if (count($thread->comments)) --}}
+                    <div class="flex flex-col hidden px-3 mt-2" id="comment-{{ $thread->id }}">
+                        @foreach ($thread->comments as $comment)
+                            <div class="flex justify-between mb-1">
+                                <div class="flex flex-col">
+                                    <span
+                                        class="text-xs font-semibold text-gray-500">{{ ucwords(strtolower($comment->user->nama)) }}</span>
+                                    <span class="text-[10px] text-gray-400">{{ $comment->user->cluster }}</span>
                                 </div>
-                                <div class="mb-2 border-b">
-                                    <p class="text-sm">{!! $comment->message !!}</p>
+                                <div class="flex items-start gap-x-3">
+                                    <span class="text-gray-600 text-[10px]">{{ $comment->time }}</span>
                                 </div>
-                            @endforeach
-                        </div>
-                    @endif
+                            </div>
+                            <div class="mb-2 border-b">
+                                <p class="text-sm">{!! $comment->message !!}</p>
+                            </div>
+                        @endforeach
+                    </div>
+                    {{-- @endif --}}
                     <span class="block w-full my-2 text-center text-y_tersier" id="loading-comment-{{ $thread->id }}"
                         style="display: none">
                         <i class="fa-solid fa-spinner animate-spin"></i>
