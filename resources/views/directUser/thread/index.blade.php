@@ -76,13 +76,13 @@
                             <input type="hidden" name="type" value="down">
                             <button id="btn-down-{{ $thread->id }}"
                                 {{ $thread->votes && $thread->votes->type == 'down' ? 'disabled' : '' }}
-                                class="px-2 py-1 font-semibold rounded text-y_tersier hover:bg-y_tersier hover:text-white disabled:bg-y_tersier disabled:text-white">
+                                class="px-1 py-1 font-semibold rounded text-y_tersier hover:bg-y_tersier hover:text-white disabled:bg-y_tersier disabled:text-white">
                                 <i class="fa-solid fa-square-caret-down"></i>
                                 <span class="text-xs">Down</span>
                             </button>
                         </form>
                         <button id="btn-comment{{ $thread->id }}" thread="{{ $thread->id }}"
-                            class="px-2 py-1 font-semibold rounded text-y_sekunder hover:bg-y_sekunder hover:text-white btn-comment">
+                            class="px-1 py-1 font-semibold rounded text-y_sekunder hover:bg-y_sekunder hover:text-white btn-comment">
                             <i class="fa-solid fa-comment-dots"></i>
                             <span class="text-xs tracking-wide">Comment
                                 {{ count($thread->comments) ? '(' . count($thread->comments) . ')' : '' }}</span>
