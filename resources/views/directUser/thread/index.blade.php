@@ -84,7 +84,8 @@
                         <button id="btn-comment{{ $thread->id }}" thread="{{ $thread->id }}"
                             class="px-2 py-1 font-semibold rounded text-y_sekunder hover:bg-y_sekunder hover:text-white btn-comment">
                             <i class="fa-solid fa-comment-dots"></i>
-                            <span class="text-sm">Comment</span>
+                            <span class="text-sm tracking-wide">Comment
+                                {{ count($thread->comments) ? '(' . count($thread->comments) . ')' : '' }}</span>
                         </button>
                     </div>
                     {{-- @if (count($thread->comments)) --}}
