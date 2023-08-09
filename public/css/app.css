@@ -1120,6 +1120,12 @@ select {
 .h-7 {
   height: 1.75rem;
 }
+.h-80 {
+  height: 20rem;
+}
+.h-72 {
+  height: 18rem;
+}
 .max-h-screen {
   max-height: 100vh;
 }
@@ -1719,11 +1725,22 @@ select {
   --tw-gradient-to: rgb(96 176 191 / 0);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
+.from-y_tersier {
+  --tw-gradient-from: #CE55A1;
+  --tw-gradient-to: rgb(206 85 161 / 0);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
 .to-y_tersier {
   --tw-gradient-to: #CE55A1;
 }
 .to-y_sekunder {
   --tw-gradient-to: #60B0BF;
+}
+.to-y_tersier\/80 {
+  --tw-gradient-to: rgb(206 85 161 / 0.8);
+}
+.to-y_tersier\/60 {
+  --tw-gradient-to: rgb(206 85 161 / 0.6);
 }
 .bg-clip-text {
   -webkit-background-clip: text;
@@ -2366,6 +2383,10 @@ select {
 
 .hover\:to-y_tersier:hover {
   --tw-gradient-to: #CE55A1;
+}
+
+.hover\:\!to-y_tersier:hover {
+  --tw-gradient-to: #CE55A1 !important;
 }
 
 .hover\:font-bold:hover {
