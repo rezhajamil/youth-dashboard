@@ -54,7 +54,7 @@
                     <div class="mb-1 border-b">
                         <p class="text-sm">{!! $thread->message !!}</p>
                     </div>
-                    <div class="flex mb-2 gap-x-2">
+                    <div class="flex gap-x-2">
                         <form action="{{ route('thread.vote') }}" method="post" id="form-vote-up-{{ $thread->id }}"
                             thread="{{ $thread->id }}" class="form-vote">
                             @csrf
@@ -65,7 +65,7 @@
                                 {{ $thread->votes && $thread->votes->type == 'up' ? 'disabled' : '' }}
                                 class="px-2 py-1 font-semibold rounded text-y_premier hover:bg-y_premier hover:text-white disabled:bg-y_premier disabled:text-white">
                                 <i class="fa-solid fa-square-caret-up"></i>
-                                <span class="text-sm">Up</span>
+                                <span class="text-xs">Up</span>
                             </button>
                         </form>
                         <form action="{{ route('thread.vote') }}" method="post" id="form-vote-down-{{ $thread->id }}"
@@ -78,13 +78,13 @@
                                 {{ $thread->votes && $thread->votes->type == 'down' ? 'disabled' : '' }}
                                 class="px-2 py-1 font-semibold rounded text-y_tersier hover:bg-y_tersier hover:text-white disabled:bg-y_tersier disabled:text-white">
                                 <i class="fa-solid fa-square-caret-down"></i>
-                                <span class="text-sm">Down</span>
+                                <span class="text-xs">Down</span>
                             </button>
                         </form>
                         <button id="btn-comment{{ $thread->id }}" thread="{{ $thread->id }}"
                             class="px-2 py-1 font-semibold rounded text-y_sekunder hover:bg-y_sekunder hover:text-white btn-comment">
                             <i class="fa-solid fa-comment-dots"></i>
-                            <span class="text-sm tracking-wide">Comment
+                            <span class="text-xs tracking-wide">Comment
                                 {{ count($thread->comments) ? '(' . count($thread->comments) . ')' : '' }}</span>
                         </button>
                     </div>
