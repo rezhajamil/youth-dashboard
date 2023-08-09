@@ -145,9 +145,9 @@
                 $(this).toggleClass('btn-comment-active');
                 $(`#comment-${thread}`).toggleClass('hidden');
                 $(`#form-comment-${thread}`).toggleClass('hidden');
-                $([document.documentElement, document.body]).animate({
-                    scrollTop: $(`#form-comment-${thread}`).offset().top
-                }, 2000);
+                // $([document.documentElement, document.body]).animate({
+                //     scrollTop: $(`#form-comment-${thread}`).offset().top
+                // }, 2000);
             });
 
             $(".form-comment").on("submit", function() {
