@@ -1,11 +1,11 @@
 @extends('layouts.dashboard.app', ['plain' => true])
 @section('body')
     <section class="flex flex-col w-full h-full min-h-screen px-2 py-4 bg-gray-100 font-caregold">
-        <div class="flex items-center justify-center w-full mb-4 gap-x-2">
-            {{-- <img src="{{ asset('images/logo-new.png') }}" alt="Logo Yout" class="h-7"> --}}
+        {{-- <div class="flex items-center justify-center w-full mb-4 gap-x-2">
+            <img src="{{ asset('images/logo-new.png') }}" alt="Logo Yout" class="h-7">
             <span
                 class="text-lg font-bold text-transparent bg-gradient-to-br from-y_premier to-y_tersier font-batik bg-clip-text">Threads</span>
-        </div>
+        </div> --}}
         <div class="w-full mb-2">
             <div class="relative right-0">
                 <ul class="relative flex flex-wrap p-1 list-none rounded shadow-sm bg-gray-300/50" data-tabs="tabs"

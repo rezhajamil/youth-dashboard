@@ -27,4 +27,11 @@ class Thread extends Model
     {
         return $this->hasOne(ThreadVote::class);
     }
+
+    public function daily_clear()
+    {
+        Thread::where('created_at', '<', date('Y-m-d H:i:s'))->delete();
+        ThreadComment::where('created_at', '<', date('Y-m-d H:i:s'))->delete();
+        ThreadVote::where('created_at', '<', date('Y-m-d H:i:s'))->delete();
+    }
 }
