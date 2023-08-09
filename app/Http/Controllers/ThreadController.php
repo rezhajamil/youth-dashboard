@@ -31,7 +31,7 @@ class ThreadController extends Controller
         } else if ($tab == 'terbaru') {
             $threads = $threads->orderBy('threads.created_at', 'desc')->get();
         } else if ($tab == 'saya') {
-            $threads = $threads->where('threads.telp', $user->telp)->get();
+            $threads = $threads->where('threads.telp', $user->telp)->orderBy('threads.created_at', 'desc')->get();
         }
         // ddd($threads);
         foreach ($threads as $idx_t => $thread) {
