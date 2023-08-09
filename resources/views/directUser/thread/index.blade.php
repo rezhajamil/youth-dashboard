@@ -10,21 +10,21 @@
             <div class="relative right-0">
                 <ul class="relative flex flex-wrap p-1 list-none rounded shadow-sm bg-gray-300/50" data-tabs="tabs"
                     role="list">
-                    <li class="z-30 flex-auto text-center">
+                    <li class="z-30 flex-auto text-center tab-link">
                         <a href="{{ route('thread.index', ['telp' => Request::get('telp') ?? '', 'tab' => 'populer']) }}"
                             class="z-30 flex items-center justify-center w-full px-0 py-1 mb-0 font-semibold transition-all ease-in-out border-0 rounded cursor-pointer text-slate-700/60 bg-inherit {{ !$tab || $tab == 'populer' ? 'tab-active' : '' }}"
                             data-tab-target="" active role="tab" aria-selected="true">
                             <span class="ml-1 text-sm">Populer</span>
                         </a>
                     </li>
-                    <li class="z-30 flex-auto text-center">
+                    <li class="z-30 flex-auto text-center tab-link">
                         <a href="{{ route('thread.index', ['telp' => Request::get('telp') ?? '', 'tab' => 'terbaru']) }}"
                             class="z-30 flex items-center justify-center w-full px-0 py-1 mb-0 font-semibold transition-all ease-in-out border-0 rounded cursor-pointer text-slate-700/60 bg-inherit {{ $tab == 'terbaru' ? 'tab-active' : '' }}"
                             data-tab-target="" role="tab" aria-selected="false">
                             <span class="ml-1 text-sm">Terbaru</span>
                         </a>
                     </li>
-                    <li class="z-30 flex-auto text-center">
+                    <li class="z-30 flex-auto text-center tab-link">
                         <a href="{{ route('thread.index', ['telp' => Request::get('telp') ?? '', 'tab' => 'saya']) }}"
                             class="z-30 flex items-center justify-center w-full px-0 py-1 mb-0 font-semibold transition-all ease-in-out border-0 rounded cursor-pointer text-slate-700/60 bg-inherit {{ $tab == 'saya' ? 'tab-active' : '' }}"
                             data-tab-target="" role="tab" aria-selected="false">
@@ -135,6 +135,10 @@
             <i class="text-2xl fa-solid fa-pen-to-square"></i>
         </a> --}}
     </section>
+    <div class="fixed inset-0 z-30 flex items-center justify-center w-full h-full bg-white/60" id="loading-page"
+        style="display: none">
+        <img src="{{ asset('images/loading.svg') }}" alt="Loading" class="block">
+    </div>
 @endsection
 @section('script')
     <script>
@@ -149,6 +153,10 @@
                 //     scrollTop: $(`#form-comment-${thread}`).offset().top
                 // }, 2000);
             });
+
+            $(".tab-link").on("click", function() {
+                $("#loading-page").show();
+            })
 
             $(".form-comment").on("submit", function() {
                 let thread = $(this).attr('thread');

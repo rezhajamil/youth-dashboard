@@ -907,6 +907,9 @@ select {
 .col-span-3 {
   grid-column: span 3 / span 3;
 }
+.m-auto {
+  margin: auto;
+}
 .mx-4 {
   margin-left: 1rem;
   margin-right: 1rem;
@@ -1705,6 +1708,15 @@ select {
 .bg-gray-400 {
   --tw-bg-opacity: 1;
   background-color: rgb(156 163 175 / var(--tw-bg-opacity));
+}
+.bg-gray-600\/40 {
+  background-color: rgb(75 85 99 / 0.4);
+}
+.bg-white\/40 {
+  background-color: rgb(255 255 255 / 0.4);
+}
+.bg-white\/60 {
+  background-color: rgb(255 255 255 / 0.6);
 }
 .bg-opacity-25 {
   --tw-bg-opacity: 0.25;
