@@ -1,10 +1,10 @@
 @extends('layouts.dashboard.app', ['plain' => true])
 @section('body')
-    <section class="flex flex-col w-full h-full min-h-screen px-2 py-4 bg-gray-100">
+    <section class="flex flex-col w-full h-full min-h-screen px-2 py-4 bg-gray-100 font-caregold">
         <div class="flex items-center justify-center w-full mb-4 gap-x-2">
-            <img src="{{ asset('images/logo-new.png') }}" alt="Logo Yout" class="h-10">
+            <img src="{{ asset('images/logo-new.png') }}" alt="Logo Yout" class="h-7">
             <span
-                class="text-2xl font-bold text-transparent bg-gradient-to-br from-y_premier to-y_tersier font-batik bg-clip-text">Threads</span>
+                class="text-lg font-bold text-transparent bg-gradient-to-br from-y_premier to-y_tersier font-batik bg-clip-text">Threads</span>
         </div>
         <div class="w-full mb-2">
             <div class="relative right-0">
@@ -14,21 +14,21 @@
                         <a href="{{ route('thread.index', ['telp' => Request::get('telp') ?? '', 'tab' => 'populer']) }}"
                             class="z-30 flex items-center justify-center w-full px-0 py-1 mb-0 font-semibold transition-all ease-in-out border-0 rounded cursor-pointer text-slate-700/60 bg-inherit {{ !$tab || $tab == 'populer' ? 'tab-active' : '' }}"
                             data-tab-target="" active role="tab" aria-selected="true">
-                            <span class="ml-1">Populer</span>
+                            <span class="ml-1 text-sm">Populer</span>
                         </a>
                     </li>
                     <li class="z-30 flex-auto text-center">
                         <a href="{{ route('thread.index', ['telp' => Request::get('telp') ?? '', 'tab' => 'terbaru']) }}"
                             class="z-30 flex items-center justify-center w-full px-0 py-1 mb-0 font-semibold transition-all ease-in-out border-0 rounded cursor-pointer text-slate-700/60 bg-inherit {{ $tab == 'terbaru' ? 'tab-active' : '' }}"
                             data-tab-target="" role="tab" aria-selected="false">
-                            <span class="ml-1">Terbaru</span>
+                            <span class="ml-1 text-sm">Terbaru</span>
                         </a>
                     </li>
                     <li class="z-30 flex-auto text-center">
                         <a href="{{ route('thread.index', ['telp' => Request::get('telp') ?? '', 'tab' => 'saya']) }}"
                             class="z-30 flex items-center justify-center w-full px-0 py-1 mb-0 font-semibold transition-all ease-in-out border-0 rounded cursor-pointer text-slate-700/60 bg-inherit {{ $tab == 'saya' ? 'tab-active' : '' }}"
                             data-tab-target="" role="tab" aria-selected="false">
-                            <span class="ml-1">Thread Saya</span>
+                            <span class="ml-1 text-sm">Thread Saya</span>
                         </a>
                     </li>
                 </ul>
@@ -40,7 +40,7 @@
                     <div class="flex justify-between mb-2">
                         <div class="flex flex-col">
                             <span
-                                class="text-sm font-semibold text-gray-500">{{ ucwords(strtolower($thread->user->nama)) }}</span>
+                                class="text-xs font-semibold text-gray-500">{{ ucwords(strtolower($thread->user->nama)) }}</span>
                             <span class="text-[10px] text-gray-400">{{ $thread->user->cluster }}</span>
                         </div>
                         <div class="flex items-start gap-x-3">
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                     <div class="mb-1 border-b">
-                        <p class="">{!! $thread->message !!}</p>
+                        <p class="text-sm">{!! $thread->message !!}</p>
                     </div>
                     <div class="flex mb-2 gap-x-2">
                         <form action="{{ route('thread.vote') }}" method="post" id="form-vote-up-{{ $thread->id }}"
@@ -130,10 +130,10 @@
                 </div>
             @endforelse
         </div>
-        <a href="{{ route('thread.create', ['telp' => request()->get('telp')]) }}"
+        {{-- <a href="{{ route('thread.create', ['telp' => request()->get('telp')]) }}"
             class="fixed flex items-center justify-center px-4 py-3 text-white transition-all rounded-full shadow-2xl hover:to-y_tersier right-4 bottom-3 bg-gradient-to-br from-y_premier to-y_sekunder aspect-square">
             <i class="text-2xl fa-solid fa-pen-to-square"></i>
-        </a>
+        </a> --}}
     </section>
 @endsection
 @section('script')

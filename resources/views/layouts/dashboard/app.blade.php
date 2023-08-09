@@ -48,8 +48,19 @@
             /*memanggil file font eksternalnya di folder nexa*/
         }
 
+        @font-face {
+            font-family: 'Caregold';
+            /*memberikan nama bebas untuk font*/
+            src: url("{{ asset('font/Caregold.otf') }}");
+            /*memanggil file font eksternalnya di folder nexa*/
+        }
+
         .font-batik {
             font-family: 'Telkomsel Batik';
+        }
+
+        .font-caregold {
+            font-family: 'Caregold';
         }
 
         trix-toolbar [data-trix-button-group="file-tools"] {
