@@ -53,11 +53,6 @@ Route::name('sekolah.')->group(function () {
     Route::post('sekolah/get_kecamatan', [SekolahController::class, 'getKecamatan'])->name('get_kecamatan');
 });
 
-Route::resource('thread', ThreadController::class);
-Route::name('thread.')->prefix('thread')->group(function () {
-    Route::post('vote', [ThreadController::class, 'vote'])->name('vote');
-    Route::post('comment/store', [ThreadController::class, 'store_comment'])->name('comment.store');
-});
 
 Route::get('/qns', [QuizController::class, 'answer'])->name('quiz.answer.create');
 Route::get('/start/quiz/', [QuizController::class, 'start'])->name('quiz.answer.start');
@@ -246,3 +241,4 @@ Route::middleware(['auth'])->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+require __DIR__ . '/thread.php';

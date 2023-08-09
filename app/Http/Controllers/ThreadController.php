@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Thread;
 use App\Models\ThreadComment;
+use App\Models\ThreadVote;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +22,9 @@ class ThreadController extends Controller
         $user = DB::table('data_user')->where('telp', $request->telp)->first();
 
         // $threads = DB::table('threads')->select('data_user.telp', 'data_user.nama', 'data_user.cluster', 'threads.message', 'threads.vote as score', 'threads.created_at as thread_create', 'threads.updated_at as thread_update', 'thread_comments.message as comment', 'thread_comments.created_at as comment_create', 'thread_votes.vote')
-        $threads = Thread::with(['user', 'comments', 'votes']);
+        $threads = Thread::with(['user', 'comments', 'votes' => function ($query) use ($user) {
+            $query->where('telp', $user->telp);
+        }]);
 
         if ($tab == '' || $tab == "populer") {
             $threads = $threads->orderBy('threads.vote', 'desc')->orderBy('threads.created_at', 'asc')->get();
@@ -71,7 +74,7 @@ class ThreadController extends Controller
             }
         }
 
-        // ddd($threads);
+        // ddd($threads[0]->votes);
         return view('directUser.thread.index', compact('user', 'threads', 'tab'));
     }
 
@@ -163,5 +166,68 @@ class ThreadController extends Controller
         // ddd($comment->thread_id);
 
         return back();
+    }
+
+    public function store_comment_api(Request $request)
+    {
+        $request->validate([
+            'thread' => ['required'],
+            'telp' => ['required'],
+            'message' => ['required'],
+        ]);
+
+        $comment = ThreadComment::insert([
+            'thread_id' => $request->thread,
+            'telp' => $request->telp,
+            'message' => $request->message,
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        // ddd($comment->thread_id);
+
+        return response()->json($comment);
+    }
+
+    public function vote_api(Request $request)
+    {
+        $request->validate([
+            'telp' => ['required'],
+            'thread' => ['required'],
+            'type' => ['required'],
+        ]);
+
+        $vote = ThreadVote::where('thread_id', $request->thread)->where('telp', $request->telp)->first();
+
+        if ($request->type == 'up') {
+            $thread = Thread::find($request->thread);
+
+            if ($vote) {
+                $thread->vote = $thread->vote + 2;
+                ThreadVote::where('thread_id', $request->thread)->where('telp', $request->telp)->delete();
+            } else {
+                $thread->vote = $thread->vote + 1;
+            }
+
+            $thread->save();
+        } else if ($request->type == 'down') {
+            $thread = Thread::find($request->thread);
+
+            if ($vote) {
+                $thread->vote = $thread->vote - 2;
+                ThreadVote::where('thread_id', $request->thread)->where('telp', $request->telp)->delete();
+            } else {
+                $thread->vote = $thread->vote - 1;
+            }
+
+            $thread->save();
+        }
+
+        ThreadVote::create([
+            'thread_id' => $request->thread,
+            'telp' => $request->telp,
+            'type' => $request->type,
+        ]);
+
+        return response()->json($thread);
     }
 }

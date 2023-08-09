@@ -25,6 +25,6 @@ class Thread extends Model
 
     public function votes()
     {
-        return $this->hasMany(ThreadVote::class);
+        return $this->hasOne(ThreadVote::class);
     }
 }
