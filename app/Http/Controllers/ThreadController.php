@@ -151,7 +151,11 @@ class ThreadController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $thread = Thread::where('id', $id)->delete();
+        $thread_comments = ThreadComment::where('thread_id', $id)->delete();
+        $thread_votes = ThreadVote::where('thread_id', $id)->delete();
+
+        return back()->with('success', 'Berhasil Menghapus Thread');
     }
 
     public function vote(Request $request)

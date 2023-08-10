@@ -36,7 +36,8 @@
         </div>
         <div class="flex flex-col w-full gap-2 py-2 mb-10">
             @forelse ($threads as $key=>$thread)
-                <div class="w-full px-3 py-2 bg-white rounded shadow-lg h-fit">
+                <div class="w-full px-3 py-2 bg-white rounded shadow-lg h-fit @if (request()->get('tab') == 'saya') card @endif"
+                    thread="{{ $thread->id }}">
                     <div class="flex justify-between mb-2">
                         <div class="flex flex-col">
                             <span
@@ -124,6 +125,25 @@
                             <i class="fa-solid fa-paper-plane"></i></button>
                     </form>
                 </div>
+                @if (request()->get('tab') == 'saya')
+                    <div class="fixed inset-0 z-20 flex items-center justify-center w-full h-full bg-white/60"
+                        id="action-modal-{{ $thread->id }}" style="display: none">
+                        <div class="bg-white px-4 py-4 rounded-md shadow-xl w-2/3">
+                            <span class="font-semibold mb-6 inline-block">Hapus Thread?</span>
+                            <div class="flex gap-x-3 items-end justify-between">
+                                <span class="text-gray-400 font-semibold cursor-pointer cancel-modal"
+                                    thread="{{ $thread->id }}">Cancel
+                                </span>
+                                <form action="{{ route('thread.destroy', $thread->id) }}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit"
+                                        class="bg-y_tersier rounded-md px-3 py-1 text-white font-semibold">Hapus</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                @endif
             @empty
                 <div class="flex flex-col items-center justify-center w-full py-6">
                     <i class="text-[50px] fa-solid fa-newspaper text-gray-400"></i>
@@ -140,10 +160,18 @@
         style="display: none">
         <img src="{{ asset('images/loading.svg') }}" alt="Loading" class="block">
     </div>
+    @if (session('success'))
+        <div id="session-alert"
+            class="bg-gradient-to-br to-y_tersier from-pink-600 drop-shadow-2xl  px-3 py-2 w-3/4 rounded-md shadow-2xl fixed bottom-3 inset-x-0 mx-auto flex items-center justify-between">
+            <span class="text-white font-semibold">{{ session('success') }}</span>
+            <i class="fa-solid fa-circle-xmark text-white text-lg" id="close-session-alert"></i>
+        </div>
+    @endif
 @endsection
 @section('script')
     <script>
         $(document).ready(function() {
+            var longClickTimeout;
             $(".btn-comment").on("click", function() {
                 let thread = $(this).attr('thread');
 
@@ -157,6 +185,29 @@
 
             $(".tab-link").on("click", function() {
                 $("#loading-page").show();
+            })
+
+            $(".card").on("mousedown", function() {
+                let thread = $(this).attr('thread');
+                longClickTimeout = setTimeout(function() {
+                    // Long click event handler
+                    $(`#action-modal-${thread}`).show();
+                    console.log('asda');
+                    console.log(thread);
+                    console.log($(`#action-modal-${thread}`));
+
+                }, 500); // Change the timeout value to adjust the long click duration
+            }).on("mouseup mouseleave", function() {
+                clearTimeout(longClickTimeout);
+            });
+
+            $(".cancel-modal").click(function() {
+                let thread = $(this).attr('thread');
+                $(`#action-modal-${thread}`).hide();
+            })
+
+            $("#close-session-alert").click(function() {
+                $("#session-alert").hide();
             })
 
             $(".form-comment").on("submit", function() {
