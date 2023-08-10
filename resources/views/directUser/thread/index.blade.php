@@ -162,9 +162,9 @@
     </div>
     @if (session('success'))
         <div id="session-alert"
-            class="bg-gradient-to-br to-y_tersier from-pink-600 drop-shadow-2xl  px-3 py-2 w-3/4 rounded-md shadow-2xl fixed bottom-3 inset-x-0 mx-auto flex items-center justify-between">
-            <span class="text-white font-semibold">{{ session('success') }}</span>
-            <i class="fa-solid fa-circle-xmark text-white text-lg" id="close-session-alert"></i>
+            class="bg-gradient-to-br to-y_tersier from-pink-600 drop-shadow-2xl  px-3 py-2 w-fit rounded-md shadow-2xl fixed bottom-3 inset-x-0 mr-auto ml-3 flex items-center justify-between">
+            <span class="text-white font-semibold">{{ session('success') ?? 'Berhasil Menghapus Thread' }}</span>
+            <i class="fa-solid fa-circle-xmark text-white text-lg ml-3" id="close-session-alert"></i>
         </div>
     @endif
 @endsection

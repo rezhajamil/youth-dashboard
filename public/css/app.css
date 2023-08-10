@@ -877,6 +877,9 @@ select {
 .bottom-3 {
   bottom: 0.75rem;
 }
+.top-3 {
+  top: 0.75rem;
+}
 .isolate {
   isolation: isolate;
 }
