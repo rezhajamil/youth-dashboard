@@ -201,6 +201,21 @@
                 clearTimeout(longClickTimeout);
             });
 
+            $(".card").on("touchstart", function() {
+                let thread = $(this).attr('thread');
+                e.preventDefault();
+                longClickTimeout = setTimeout(function() {
+                    // Long click event handler
+                    $(`#action-modal-${thread}`).show();
+                    console.log('asda');
+                    console.log(thread);
+                    console.log($(`#action-modal-${thread}`));
+
+                }, 500); // Change the timeout value to adjust the long click duration
+            }).on("touchend touchcancel", function() {
+                clearTimeout(longClickTimeout);
+            });
+
             $(".cancel-modal").click(function() {
                 let thread = $(this).attr('thread');
                 $(`#action-modal-${thread}`).hide();
