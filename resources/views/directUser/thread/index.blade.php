@@ -201,7 +201,7 @@
                 clearTimeout(longClickTimeout);
             });
 
-            $(".card").on("touchstart", function() {
+            $(".card").on("touchstart", function(e) {
                 let thread = $(this).attr('thread');
                 e.preventDefault();
                 longClickTimeout = setTimeout(function() {
