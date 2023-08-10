@@ -63,7 +63,7 @@
                             <input type="hidden" name="type" value="up">
                             <button id="btn-up-{{ $thread->id }}"
                                 {{ $thread->votes && $thread->votes->type == 'up' ? 'disabled' : '' }}
-                                class="px-2 py-1 font-semibold rounded text-y_premier hover:bg-y_premier hover:text-white disabled:bg-y_premier disabled:text-white">
+                                class="px-2 py-1 font-semibold rounded text-y_premier hover:bg-y_premier hover:text-white disabled:bg-y_premier disabled:text-white btn-vote">
                                 <i class="fa-solid fa-square-caret-up"></i>
                                 <span class="text-xs">Up</span>
                             </button>
@@ -76,7 +76,7 @@
                             <input type="hidden" name="type" value="down">
                             <button id="btn-down-{{ $thread->id }}"
                                 {{ $thread->votes && $thread->votes->type == 'down' ? 'disabled' : '' }}
-                                class="px-1 py-1 font-semibold rounded text-y_tersier hover:bg-y_tersier hover:text-white disabled:bg-y_tersier disabled:text-white">
+                                class="px-1 py-1 font-semibold rounded text-y_tersier hover:bg-y_tersier hover:text-white disabled:bg-y_tersier disabled:text-white btn-vote">
                                 <i class="fa-solid fa-square-caret-down"></i>
                                 <span class="text-xs">Down</span>
                             </button>
@@ -195,13 +195,14 @@
                 new URLSearchParams(formData).forEach(function(value, key) {
                     parsedData[key] = value;
                 });
-
+                $(`#btn-${parsedData.type}-${thread}`).attr('disabled', true);
                 let btn_up = $(`#btn-up-${thread}`);
                 let btn_down = $(`#btn-down-${thread}`);
 
                 try {
                     storeVote(parsedData, btn_up, btn_down, vote);
                 } catch (error) {
+                    $(`#btn-${parsedData.type}-${thread}`).attr('disabled', false);
                     alert(error);
                 }
 
