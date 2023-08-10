@@ -207,29 +207,32 @@ class ThreadController extends Controller
         ]);
 
         $vote = ThreadVote::where('thread_id', $request->thread)->where('telp', $request->telp)->first();
+        $same_vote = ThreadVote::where('thread_id', $request->thread)->where('telp', $request->telp)->where('type', $request->type)->first();
 
-        if ($request->type == 'up') {
-            $thread = Thread::find($request->thread);
+        if (!$same_vote) {
+            if ($request->type == 'up') {
+                $thread = Thread::find($request->thread);
 
-            if ($vote) {
-                $thread->vote = $thread->vote + 2;
-                ThreadVote::where('thread_id', $request->thread)->where('telp', $request->telp)->delete();
-            } else {
-                $thread->vote = $thread->vote + 1;
+                if ($vote) {
+                    $thread->vote = $thread->vote + 2;
+                    ThreadVote::where('thread_id', $request->thread)->where('telp', $request->telp)->delete();
+                } else {
+                    $thread->vote = $thread->vote + 1;
+                }
+
+                $thread->save();
+            } else if ($request->type == 'down') {
+                $thread = Thread::find($request->thread);
+
+                if ($vote) {
+                    $thread->vote = $thread->vote - 2;
+                    ThreadVote::where('thread_id', $request->thread)->where('telp', $request->telp)->delete();
+                } else {
+                    $thread->vote = $thread->vote - 1;
+                }
+
+                $thread->save();
             }
-
-            $thread->save();
-        } else if ($request->type == 'down') {
-            $thread = Thread::find($request->thread);
-
-            if ($vote) {
-                $thread->vote = $thread->vote - 2;
-                ThreadVote::where('thread_id', $request->thread)->where('telp', $request->telp)->delete();
-            } else {
-                $thread->vote = $thread->vote - 1;
-            }
-
-            $thread->save();
         }
 
         ThreadVote::create([
