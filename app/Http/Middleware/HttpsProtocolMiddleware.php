@@ -17,7 +17,11 @@ class HttpsProtocolMiddleware
     public function handle(Request $request, Closure $next)
     {
         if (!$request->secure() && app()->environment('production')) {
-            ddd(explode('/', $request->getRequestUri()));
+            $arr = explode('/', $request->getRequestUri());
+            array_shift($arr);
+            array_shift($arr);
+            $url = implode('/', $arr);
+            ddd($arr);
             return redirect()->secure($request->getRequestUri());
         }
 
