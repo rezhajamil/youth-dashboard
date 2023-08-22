@@ -26,7 +26,7 @@ class HttpsProtocolMiddleware
         // }
 
         if (!$request->secure() && app()->environment('production')) {
-            return redirect()->secure($request->path());
+            return redirect(env('APP_URL') . $request->path());
         }
 
         return $next($request);
