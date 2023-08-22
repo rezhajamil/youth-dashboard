@@ -16,18 +16,18 @@ class HttpsProtocolMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        // if (!$request->secure() && app()->environment('production')) {
-        //     $arr = explode('/', $request->getRequestUri());
-        //     array_shift($arr);
-        //     array_shift($arr);
-        //     $url = implode('/', $arr);
-        //     // ddd($arr);
-        //     return redirect()->secure($url);
-        // }
-
         if (!$request->secure() && app()->environment('production')) {
-            return redirect(env('APP_URL') . $request->path());
+            $arr = explode('/', $request->getRequestUri());
+            array_shift($arr);
+            array_shift($arr);
+            $url = implode('/', $arr);
+            ddd($url);
+            return redirect()->secure($url);
         }
+
+        // if (!$request->secure() && app()->environment('production')) {
+        //     return redirect(env('APP_URL') . $request->path());
+        // }
 
         return $next($request);
     }
