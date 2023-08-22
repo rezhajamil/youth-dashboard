@@ -21,7 +21,7 @@ class HttpsProtocolMiddleware
             array_shift($arr);
             array_shift($arr);
             $url = implode('/', $arr);
-            ddd($arr);
+            // ddd($arr);
             return redirect()->secure($request->getRequestUri());
         }
 
