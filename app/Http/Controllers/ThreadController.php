@@ -26,9 +26,9 @@ class ThreadController extends Controller
             $query->where('telp', $user->telp);
         }]);
 
-        if ($tab == '' || $tab == "populer") {
+        if ($tab == "populer") {
             $threads = $threads->orderBy('threads.vote', 'desc')->orderBy('threads.created_at', 'asc')->get();
-        } else if ($tab == 'terbaru') {
+        } else if ($tab == '' || $tab == 'terbaru') {
             $threads = $threads->orderBy('threads.created_at', 'desc')->get();
         } else if ($tab == 'saya') {
             $threads = $threads->where('threads.telp', $user->telp)->orderBy('threads.created_at', 'desc')->get();

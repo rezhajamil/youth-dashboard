@@ -12,14 +12,14 @@
                     role="list">
                     <li class="z-30 flex-auto text-center tab-link">
                         <a href="{{ route('thread.index', ['telp' => Request::get('telp') ?? '', 'tab' => 'populer']) }}"
-                            class="z-30 flex items-center justify-center w-full px-0 py-1 mb-0 font-semibold transition-all ease-in-out border-0 rounded cursor-pointer text-slate-700/60 bg-inherit {{ !$tab || $tab == 'populer' ? 'tab-active' : '' }}"
+                            class="z-30 flex items-center justify-center w-full px-0 py-1 mb-0 font-semibold transition-all ease-in-out border-0 rounded cursor-pointer text-slate-700/60 bg-inherit {{ $tab == 'populer' ? 'tab-active' : '' }}"
                             data-tab-target="" active role="tab" aria-selected="true">
                             <span class="ml-1 text-sm">Populer</span>
                         </a>
                     </li>
                     <li class="z-30 flex-auto text-center tab-link">
                         <a href="{{ route('thread.index', ['telp' => Request::get('telp') ?? '', 'tab' => 'terbaru']) }}"
-                            class="z-30 flex items-center justify-center w-full px-0 py-1 mb-0 font-semibold transition-all ease-in-out border-0 rounded cursor-pointer text-slate-700/60 bg-inherit {{ $tab == 'terbaru' ? 'tab-active' : '' }}"
+                            class="z-30 flex items-center justify-center w-full px-0 py-1 mb-0 font-semibold transition-all ease-in-out border-0 rounded cursor-pointer text-slate-700/60 bg-inherit {{ !$tab || $tab == 'terbaru' ? 'tab-active' : '' }}"
                             data-tab-target="" role="tab" aria-selected="false">
                             <span class="ml-1 text-sm">Terbaru</span>
                         </a>
@@ -128,17 +128,17 @@
                 @if (request()->get('tab') == 'saya')
                     <div class="fixed inset-0 z-20 flex items-center justify-center w-full h-full bg-white/60"
                         id="action-modal-{{ $thread->id }}" style="display: none">
-                        <div class="bg-white px-4 py-4 rounded-md shadow-xl w-2/3">
-                            <span class="font-semibold mb-6 inline-block">Hapus Thread?</span>
-                            <div class="flex gap-x-3 items-end justify-between">
-                                <span class="text-gray-400 font-semibold cursor-pointer cancel-modal"
+                        <div class="w-2/3 px-4 py-4 bg-white rounded-md shadow-xl">
+                            <span class="inline-block mb-6 font-semibold">Hapus Thread?</span>
+                            <div class="flex items-end justify-between gap-x-3">
+                                <span class="font-semibold text-gray-400 cursor-pointer cancel-modal"
                                     thread="{{ $thread->id }}">Cancel
                                 </span>
                                 <form action="{{ route('thread.destroy', $thread->id) }}" method="post">
                                     @csrf
                                     @method('delete')
                                     <button type="submit"
-                                        class="bg-y_tersier rounded-md px-3 py-1 text-white font-semibold">Hapus</button>
+                                        class="px-3 py-1 font-semibold text-white rounded-md bg-y_tersier">Hapus</button>
                                 </form>
                             </div>
                         </div>
@@ -162,9 +162,9 @@
     </div>
     @if (session('success'))
         <div id="session-alert"
-            class="bg-gradient-to-br to-y_tersier from-pink-600 drop-shadow-2xl  px-3 py-2 w-fit rounded-md shadow-2xl fixed bottom-3 inset-x-0 mr-auto ml-3 flex items-center justify-between">
-            <span class="text-white font-semibold">{{ session('success') ?? 'Berhasil Menghapus Thread' }}</span>
-            <i class="fa-solid fa-circle-xmark text-white text-lg ml-3" id="close-session-alert"></i>
+            class="fixed inset-x-0 flex items-center justify-between px-3 py-2 ml-3 mr-auto rounded-md shadow-2xl bg-gradient-to-br to-y_tersier from-pink-600 drop-shadow-2xl w-fit bottom-3">
+            <span class="font-semibold text-white">{{ session('success') ?? 'Berhasil Menghapus Thread' }}</span>
+            <i class="ml-3 text-lg text-white fa-solid fa-circle-xmark" id="close-session-alert"></i>
         </div>
     @endif
 @endsection
