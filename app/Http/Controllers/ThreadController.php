@@ -218,14 +218,10 @@ class ThreadController extends Controller
                 $thread = Thread::find($request->thread);
 
                 if ($vote) {
-                    Thread::where('id', $thread->id)->update([
-                        'vote' => $thread->vote + 2
-                    ]);
+                    $thread->vote = $thread->vote + 2;
                     ThreadVote::where('thread_id', $request->thread)->where('telp', $request->telp)->delete();
                 } else {
-                    Thread::where('id', $thread->id)->update([
-                        'vote' => $thread->vote + 1
-                    ]);
+                    $thread->vote = $thread->vote + 1;
                 }
 
                 $thread->save();
@@ -233,16 +229,10 @@ class ThreadController extends Controller
                 $thread = Thread::find($request->thread);
 
                 if ($vote) {
-                    // $thread->vote = $thread->vote - 2;
-                    Thread::where('id', $thread->id)->update([
-                        'vote' => $thread->vote - 2
-                    ]);
+                    $thread->vote = $thread->vote - 2;
                     ThreadVote::where('thread_id', $request->thread)->where('telp', $request->telp)->delete();
                 } else {
-                    // $thread->vote = $thread->vote - 1;
-                    Thread::where('id', $thread->id)->update([
-                        'vote' => $thread->vote - 1
-                    ]);
+                    $thread->vote = $thread->vote - 1;
                 }
 
                 $thread->save();
