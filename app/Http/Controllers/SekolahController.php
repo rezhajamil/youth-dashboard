@@ -207,11 +207,13 @@ class SekolahController extends Controller
 
         if ($privilege != 'superadmin') {
             $resume = DB::select("SELECT BRANCH,CLUSTER,COUNT(data_oss_osk.npsn) as jumlah FROM data_oss_osk JOIN Data_Sekolah_Sumatera ON data_oss_osk.npsn=Data_Sekolah_Sumatera.NPSN $territory GROUP BY 1,2 ORDER BY 1,2;");
-            $sekolah = DB::select("SELECT * FROM data_oss_osk JOIN Data_Sekolah_Sumatera ON data_oss_osk.npsn=Data_Sekolah_Sumatera.NPSN $territory ORDER BY `CLUSTER`,KATEGORI_JENJANG,data_oss_osk.kecamatan,data_oss_osk.nama_sekolah");
+            $sekolah = Sekolah::getDetailOssOsk($territory);
         } else {
             $resume = DB::select("SELECT BRANCH,CLUSTER,COUNT(data_oss_osk.npsn) as jumlah FROM data_oss_osk JOIN Data_Sekolah_Sumatera ON data_oss_osk.npsn=Data_Sekolah_Sumatera.NPSN GROUP BY 1,2 ORDER BY 1,2;");
-            $sekolah = DB::select("SELECT * FROM data_oss_osk JOIN Data_Sekolah_Sumatera ON data_oss_osk.npsn=Data_Sekolah_Sumatera.NPSN ORDER BY `CLUSTER`,KATEGORI_JENJANG,data_oss_osk.kecamatan,data_oss_osk.nama_sekolah");
+            $sekolah = Sekolah::getDetailOssOsk();
         }
+
+        // ddd($sekolah);
 
         return view('sekolah.oss_osk', compact('sekolah', 'resume'));
     }

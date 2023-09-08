@@ -44,4 +44,26 @@ class Sekolah extends Model
 
         return $data;
     }
+
+    public static function getDetailOssOsk($territory = "")
+    {
+        $query = "SELECT
+                *,
+                ROUND(111.111 * DEGREES(ACOS(COS(RADIANS(CAST(outlet_reference_1022.latitude AS DECIMAL (10, 6)))) * COS(RADIANS(CAST(Data_Sekolah_Sumatera.LATITUDE AS DECIMAL (10, 6)))) * COS(RADIANS(CAST(outlet_reference_1022.longitude AS DECIMAL (10, 6)) - CAST(Data_Sekolah_Sumatera.LONGITUDE AS DECIMAL (10, 6)))) + SIN(RADIANS(CAST(outlet_reference_1022.latitude AS DECIMAL (10, 6)))) * SIN(RADIANS(CAST(Data_Sekolah_Sumatera.LATITUDE AS DECIMAL (10, 6)))))), 2) AS jarak
+            FROM
+                data_oss_osk
+                LEFT JOIN data_user ON data_oss_osk.telp = data_user.telp
+                JOIN Data_Sekolah_Sumatera ON data_oss_osk.npsn = Data_Sekolah_Sumatera.NPSN
+                JOIN outlet_reference_1022 ON data_oss_osk.outlet_id=outlet_reference_1022.outlet_id
+                $territory
+            ORDER BY
+                Data_Sekolah_Sumatera.`CLUSTER`,
+                KATEGORI_JENJANG,
+                data_oss_osk.kecamatan,
+                data_oss_osk.nama_sekolah;";
+
+        $data = DB::select($query);
+
+        return $data;
+    }
 }
