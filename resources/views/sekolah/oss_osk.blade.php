@@ -52,6 +52,7 @@
                                     Sekolah-Outlet</th>
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Nama DS</th>
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Telp PIC</th>
+                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Action</th>
                             </tr>
                         </thead>
                         <tbody class="max-h-screen overflow-y-auto">
