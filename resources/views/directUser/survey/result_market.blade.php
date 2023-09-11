@@ -11,7 +11,7 @@
                 {{-- <button class="px-2 py-1 ml-2 text-lg text-white transition bg-green-600 rounded-md hover:bg-green-800" id="capture"><i class="fa-regular fa-circle-down"></i></button> --}}
                 <div class="flex items-center gap-x-3">
                     <form action="{{ route('survey.answer.resume', $survey->id) }}" method="get">
-                        <select name="month" id="month" required>
+                        {{-- <select name="month" id="month" required>
                             <option value="" selected disabled>Pilih Bulan</option>
                             @for ($i = 1; $i < 13; $i++)
                                 <option value="{{ $i }}"
@@ -26,9 +26,14 @@
                                     {{ request()->get('year') == $i ? 'selected' : (date('Y') == $i && !request()->get('year') ? 'selected' : '') }}>
                                     {{ $i }}</option>
                             @endfor
-                        </select>
+                        </select> --}}
+                        <input class="rounded" type="date" name="start_date" id="start_date"
+                            value="{{ Request::get('start_date') }}" required>
+                        <span class="inline-block mx-2 font-bold">s/d</span>
+                        <input class="rounded" type="date" name="end_date" id="end_date"
+                            value="{{ Request::get('end_date') }}" required>
                         <button type="submit"
-                            class="inline-block px-4 py-2 my-2 font-bold text-white transition-all rounded-md bg-y_premier hover:bg-y_premier">Ganti
+                            class="inline-block px-4 py-2 my-2 ml-3 font-bold text-white transition-all rounded-md bg-y_premier hover:bg-y_premier">Ganti
                             Tanggal</button>
                     </form>
                 </div>
@@ -254,10 +259,13 @@
                     dataType: "JSON",
                     data: {
                         city: $(this).val(),
-                        month: $("#month").val(),
-                        year: $("#year").val(),
+                        // month: $("#month").val(),
+                        // year: $("#year").val(),
+                        start_date: $("#start_date").val(),
+                        end_date: $("#end_date").val(),
                     },
                     success: (data) => {
+                        console.log(data);
                         data.map((data) => {
                             let answer = resume.filter(res => res.npsn == data.NPSN);
 
