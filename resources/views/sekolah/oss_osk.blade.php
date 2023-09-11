@@ -33,11 +33,15 @@
                     </table>
                 </div>
 
-                <div class="flex justify-between mb-4">
+                <div class="flex items-center mb-4 gap-x-4">
                     <h4 class="text-xl font-bold text-gray-600 align-baseline">Data OSS OSK</h4>
+                    <button id="btn-excel"
+                        class="inline-block px-4 py-2 my-2 font-semibold text-white transition-all bg-teal-600 rounded-md hover:bg-teal-800"><i
+                            class="mr-2 fa-solid fa-file-arrow-down"></i>Excel
+                    </button>
                 </div>
 
-                <div class="overflow-auto bg-white rounded-md shadow w-fit">
+                <div class="overflow-auto bg-white rounded-md shadow w-fit" id="detail-container">
                     <table class="overflow-auto text-left border-collapse w-fit">
                         <thead class="border-b">
                             <tr>
@@ -52,7 +56,7 @@
                                     Sekolah-Outlet</th>
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Nama DS</th>
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Telp PIC</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Action</th>
+                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier action">Action</th>
                             </tr>
                         </thead>
                         <tbody class="max-h-screen overflow-y-auto">
@@ -68,6 +72,16 @@
                                     <td class="p-4 text-gray-700 border-b nama">{{ $data->jarak }} Km</td>
                                     <td class="p-4 text-gray-700 border-b status">{{ $data->nama }}</td>
                                     <td class="p-4 text-gray-700 border-b status">{{ $data->{'telp pic'} }}</td>
+                                    <td class="p-4 text-gray-700 border-b action">
+
+                                        {{-- <a href="{{ route('sekolah.edit',$data->NPSN) }}" class="block my-1 text-base font-semibold transition text-y_premier hover:text-indigo-800">Edit</a> --}}
+                                        <form action="{{ route('sekolah.oss_osk.destroy', $data->id) }}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <button
+                                                class="block my-1 text-base font-semibold text-left text-red-600 transition hover:text-red-800">Hapus</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -78,4 +92,47 @@
         </div>
 
     </div>
+@endsection
+@section('script')
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#btn-excel").click(function() {
+                $(".action").hide()
+                exportTableToExcel('detail-container', 'Data OSS OSK');
+                $(".action").show()
+            });
+
+            function exportTableToExcel(tableID, filename = '') {
+                var downloadLink;
+                var dataType = 'application/vnd.ms-excel';
+                var tableSelect = document.getElementById(tableID);
+                var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+
+                // Specify file name
+                filename = filename ? filename + '.xls' : 'excel_data.xls';
+
+                // Create download link element
+                downloadLink = document.createElement("a");
+
+                document.body.appendChild(downloadLink);
+
+                if (navigator.msSaveOrOpenBlob) {
+                    var blob = new Blob(['\ufeff', tableHTML], {
+                        type: dataType
+                    });
+                    navigator.msSaveOrOpenBlob(blob, filename);
+                } else {
+                    // Create a link to the file
+                    downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+
+                    // Setting the file name
+                    downloadLink.download = filename;
+
+                    //triggering the function
+                    downloadLink.click();
+                }
+            }
+        })
+    </script>
 @endsection

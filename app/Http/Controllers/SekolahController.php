@@ -213,9 +213,16 @@ class SekolahController extends Controller
             $sekolah = Sekolah::getDetailOssOsk();
         }
 
-        // ddd($sekolah);
+        // ddd($sekolah[0]);
 
         return view('sekolah.oss_osk', compact('sekolah', 'resume'));
+    }
+
+    public function destroy_oss_osk($id)
+    {
+        $data = DB::delete("DELETE from data_oss_osk where id='$id'");
+
+        return back();
     }
 
     public function pjp()

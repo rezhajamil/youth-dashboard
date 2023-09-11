@@ -116,6 +116,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('sekolah/{npsn}/edit', [SekolahController::class, 'edit'])->name('sekolah.edit');
     Route::get('resume/sekolah', [SekolahController::class, 'resume'])->name('sekolah.resume');
     Route::get('oss_osk/sekolah', [SekolahController::class, 'oss_osk'])->name('sekolah.oss_osk');
+    Route::delete('oss_osk/sekolah/destroy/{id}', [SekolahController::class, 'destroy_oss_osk'])->name('sekolah.oss_osk.destroy');
     Route::get('pjp/sekolah', [SekolahController::class, 'pjp'])->name('sekolah.pjp');
     Route::get('pjp/sekolah/create', [SekolahController::class, 'create_pjp'])->name('sekolah.pjp.create');
     Route::post('pjp/sekolah/store', [SekolahController::class, 'store_pjp'])->name('sekolah.pjp.store');

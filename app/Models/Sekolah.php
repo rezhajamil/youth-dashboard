@@ -48,7 +48,15 @@ class Sekolah extends Model
     public static function getDetailOssOsk($territory = "")
     {
         $query = "SELECT
-                *,
+                data_oss_osk.id,
+                Data_Sekolah_Sumatera.CLUSTER,
+                data_oss_osk.kecamatan,
+                data_oss_osk.npsn,
+                data_oss_osk.nama_sekolah,
+                data_oss_osk.outlet_id,
+                data_oss_osk.nama_outlet,
+                data_oss_osk.`telp pic`,
+                data_user.nama,
                 ROUND(111.111 * DEGREES(ACOS(COS(RADIANS(CAST(outlet_reference_1022.latitude AS DECIMAL (10, 6)))) * COS(RADIANS(CAST(Data_Sekolah_Sumatera.LATITUDE AS DECIMAL (10, 6)))) * COS(RADIANS(CAST(outlet_reference_1022.longitude AS DECIMAL (10, 6)) - CAST(Data_Sekolah_Sumatera.LONGITUDE AS DECIMAL (10, 6)))) + SIN(RADIANS(CAST(outlet_reference_1022.latitude AS DECIMAL (10, 6)))) * SIN(RADIANS(CAST(Data_Sekolah_Sumatera.LATITUDE AS DECIMAL (10, 6)))))), 2) AS jarak
             FROM
                 data_oss_osk
@@ -61,6 +69,8 @@ class Sekolah extends Model
                 KATEGORI_JENJANG,
                 data_oss_osk.kecamatan,
                 data_oss_osk.nama_sekolah;";
+
+        // ddd($query);
 
         $data = DB::select($query);
 
