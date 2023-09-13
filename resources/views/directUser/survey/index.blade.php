@@ -38,7 +38,7 @@
                                     <td class="p-4 text-gray-700">{{ $data->cluster }}</td>
                                     <td class="p-4 text-gray-700">{{ $data->role }}</td>
                                     <td class="p-4 text-gray-700">{{ $data->nama }}</td>
-                                    <td class="p-4 text-gray-700 truncate">{!! $data->deskripsi !!}</td>
+                                    <td class="p-4 text-gray-700 truncate whitespace-normal">{!! $data->deskripsi !!}</td>
                                     <td class="p-4 italic text-gray-700"><span
                                             class="font-semibold transition-all cursor-pointer url hover:text-indigo-600 hover:font-bold"
                                             url='{{ URL::to("/qns/survey/$data->url") }}'>{{ $data->url }}</span></td>

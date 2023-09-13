@@ -17,6 +17,9 @@
                                 <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No</th>
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Branch</th>
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Cluster</th>
+                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">
+                                    <=1 Km</th>
+                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">>1 Km</th>
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Jumlah</th>
                             </tr>
                         </thead>
@@ -26,6 +29,8 @@
                                     <td class="p-4 font-bold text-gray-700 border-b">{{ $key + 1 }}</td>
                                     <td class="p-4 text-gray-700 border-b npsn">{{ $data->BRANCH }}</td>
                                     <td class="p-4 text-gray-700 border-b npsn">{{ $data->CLUSTER }}</td>
+                                    <td class="p-4 text-gray-700 border-b provinsi">{{ $data->dekat }}</td>
+                                    <td class="p-4 text-gray-700 border-b provinsi">{{ $data->jauh }}</td>
                                     <td class="p-4 text-gray-700 border-b provinsi">{{ $data->jumlah }}</td>
                                 </tr>
                             @endforeach

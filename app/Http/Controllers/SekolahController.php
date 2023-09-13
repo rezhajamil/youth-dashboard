@@ -206,10 +206,10 @@ class SekolahController extends Controller
         $territory = 'WHERE ' . ($privilege == 'branch' ? "Data_Sekolah_Sumatera.branch='" . Auth::user()->branch . "'" : "Data_Sekolah_Sumatera.cluster='" . Auth::user()->cluster . "'");
 
         if ($privilege != 'superadmin') {
-            $resume = DB::select("SELECT BRANCH,CLUSTER,COUNT(data_oss_osk.npsn) as jumlah FROM data_oss_osk JOIN Data_Sekolah_Sumatera ON data_oss_osk.npsn=Data_Sekolah_Sumatera.NPSN $territory GROUP BY 1,2 ORDER BY 1,2;");
+            $resume = Sekolah::getResumeOssOsk($territory);
             $sekolah = Sekolah::getDetailOssOsk($territory);
         } else {
-            $resume = DB::select("SELECT BRANCH,CLUSTER,COUNT(data_oss_osk.npsn) as jumlah FROM data_oss_osk JOIN Data_Sekolah_Sumatera ON data_oss_osk.npsn=Data_Sekolah_Sumatera.NPSN GROUP BY 1,2 ORDER BY 1,2;");
+            $resume = Sekolah::getResumeOssOsk();
             $sekolah = Sekolah::getDetailOssOsk();
         }
 
@@ -366,7 +366,6 @@ class SekolahController extends Controller
 
         return back();
     }
-
 
     public function get_user_pjp(Request $request)
     {

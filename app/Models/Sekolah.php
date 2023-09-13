@@ -76,4 +76,18 @@ class Sekolah extends Model
 
         return $data;
     }
+    public static function getResumeOssOsk($territory = "")
+    {
+        $query = "SELECT Data_Sekolah_Sumatera.BRANCH,
+        Data_Sekolah_Sumatera.CLUSTER,
+        COUNT(CASE WHEN (ROUND(111.111 * DEGREES(ACOS(COS(RADIANS(CAST(outlet_reference_1022.latitude AS DECIMAL (10, 6)))) * COS(RADIANS(CAST(Data_Sekolah_Sumatera.LATITUDE AS DECIMAL (10, 6)))) * COS(RADIANS(CAST(outlet_reference_1022.longitude AS DECIMAL (10, 6)) - CAST(Data_Sekolah_Sumatera.LONGITUDE AS DECIMAL (10, 6)))) + SIN(RADIANS(CAST(outlet_reference_1022.latitude AS DECIMAL (10, 6)))) * SIN(RADIANS(CAST(Data_Sekolah_Sumatera.LATITUDE AS DECIMAL (10, 6)))))), 2))<=1 THEN 1 END) AS dekat,
+        COUNT(CASE WHEN (ROUND(111.111 * DEGREES(ACOS(COS(RADIANS(CAST(outlet_reference_1022.latitude AS DECIMAL (10, 6)))) * COS(RADIANS(CAST(Data_Sekolah_Sumatera.LATITUDE AS DECIMAL (10, 6)))) * COS(RADIANS(CAST(outlet_reference_1022.longitude AS DECIMAL (10, 6)) - CAST(Data_Sekolah_Sumatera.LONGITUDE AS DECIMAL (10, 6)))) + SIN(RADIANS(CAST(outlet_reference_1022.latitude AS DECIMAL (10, 6)))) * SIN(RADIANS(CAST(Data_Sekolah_Sumatera.LATITUDE AS DECIMAL (10, 6)))))), 2))>1 THEN 1 END) AS jauh,
+        COUNT(data_oss_osk.npsn) as jumlah FROM data_oss_osk JOIN Data_Sekolah_Sumatera ON data_oss_osk.npsn=Data_Sekolah_Sumatera.NPSN JOIN outlet_reference_1022 ON data_oss_osk.outlet_id=outlet_reference_1022.outlet_id $territory GROUP BY 1,2 ORDER BY 1,2;";
+
+        // ddd($query);
+
+        $data = DB::select($query);
+
+        return $data;
+    }
 }
