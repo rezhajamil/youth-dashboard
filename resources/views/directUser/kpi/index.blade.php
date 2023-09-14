@@ -24,26 +24,32 @@
                             <option value="role">Role</option>
                         </select>
                     </div>
+                    @if (count($detail))
+                        <button id="btn-excel"
+                            class="inline-block px-4 py-2 font-semibold text-white transition-all bg-teal-600 rounded-md hover:bg-teal-800"><i
+                                class="mr-2 fa-solid fa-file-arrow-down"></i>Excel
+                        </button>
+                    @endif
                 </div>
 
                 {{-- <div class="flex flex-wrap items-end mb-2 gap-x-4">
             </div> --}}
 
-                <div class="mb-10 overflow-auto bg-white rounded-md shadow w-fit">
+                <div class="mb-10 overflow-auto bg-white rounded-md shadow w-fit" id="table-container">
                     <table class="overflow-auto text-left border-collapse w-fit">
                         <thead class="border-b">
                             <tr>
-                                <th rowspan="3" class="p-3 font-bold text-gray-100 uppercase border bg-y_premier">No</th>
-                                <th rowspan="3" class="p-3 font-medium text-gray-100 uppercase border bg-y_premier">
+                                <th rowspan="2" class="p-3 font-bold text-gray-100 uppercase border bg-y_premier">No</th>
+                                <th rowspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-y_premier">
                                     Branch</th>
-                                <th rowspan="3" class="p-3 font-medium text-gray-100 uppercase border bg-y_premier">
+                                <th rowspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-y_premier">
                                     Cluster</th>
-                                <th rowspan="3" class="p-3 font-medium text-gray-100 uppercase border bg-y_premier">Nama
+                                <th rowspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-y_premier">Nama
                                 </th>
-                                <th rowspan="3" class="p-3 font-medium text-gray-100 uppercase border bg-y_premier">ID
+                                <th rowspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-y_premier">ID
                                     Digipos
                                 </th>
-                                <th rowspan="3" class="p-3 font-medium text-gray-100 uppercase border bg-y_premier">Role
+                                <th rowspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-y_premier">Role
                                 </th>
 
                                 <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-y_tersier">
@@ -173,6 +179,7 @@
     </div>
 @endsection
 @section('script')
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
     <script>
         $(document).ready(function() {
             $("#search").on("input", function() {
@@ -182,6 +189,43 @@
             $("#search_by").on("input", function() {
                 find();
             });
+
+            $("#btn-excel").click(function() {
+                $(".action").hide()
+                exportTableToExcel('table-container', 'Data KPI');
+                $(".action").show()
+            });
+
+            function exportTableToExcel(tableID, filename = '') {
+                var downloadLink;
+                var dataType = 'application/vnd.ms-excel';
+                var tableSelect = document.getElementById(tableID);
+                var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+
+                // Specify file name
+                filename = filename ? filename + '.xls' : 'excel_data.xls';
+
+                // Create download link element
+                downloadLink = document.createElement("a");
+
+                document.body.appendChild(downloadLink);
+
+                if (navigator.msSaveOrOpenBlob) {
+                    var blob = new Blob(['\ufeff', tableHTML], {
+                        type: dataType
+                    });
+                    navigator.msSaveOrOpenBlob(blob, filename);
+                } else {
+                    // Create a link to the file
+                    downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+
+                    // Setting the file name
+                    downloadLink.download = filename;
+
+                    //triggering the function
+                    downloadLink.click();
+                }
+            }
 
             const find = () => {
                 let search = $("#search").val();

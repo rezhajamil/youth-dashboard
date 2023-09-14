@@ -251,7 +251,7 @@
                 $("#load").show();
                 $("#tbody").html("")
                 $("#tbody-operator").html("")
-
+                let other_count = 0;
 
                 $.ajax({
                     url: "{{ URL::to('/get_resume_school') }}",
@@ -265,7 +265,14 @@
                         end_date: $("#end_date").val(),
                     },
                     success: (data) => {
-                        console.log(data);
+
+                        console.log({
+                            data
+                        });
+
+                        operator.map(data => {
+                            data.jumlah = 0;
+                        })
                         data.map((data) => {
                             let answer = resume.filter(res => res.npsn == data.NPSN);
 
@@ -276,6 +283,7 @@
                                 }) +
                                 `<td class='text-center border' id="count-lainnya-${data.NPSN}">0</td>`
                             )
+
 
                             // operator.map(operator => {
                             //     $("#tbody-operator").append(
@@ -307,6 +315,12 @@
                                         col_count.html(parseInt(
                                                 col_count.html()) +
                                             1);
+
+                                        const foundOperator = operator
+                                            .find(operatorObj =>
+                                                operatorObj.operator ===
+                                                kode.operator);
+                                        foundOperator.jumlah += 1;
                                         // col_percent.html(
                                         //     `${parseInt(((col_count.html()/resume.length).toFixed(2))*100)}%`
                                         // );
@@ -321,6 +335,11 @@
                                     // let col_percent = $(`#percent-lainnya`);
                                     col_count.html(parseInt(col_count.html()) +
                                         1);
+                                    // const foundOperator = operator
+                                    //     .find(operatorObj =>
+                                    //         operatorObj.operator ===
+                                    //         kode.operator);
+                                    other_count += 1;
                                     // col_percent.html(
                                     //     `${parseInt(((col_count.html()/resume.length).toFixed(2))*100)}%`
                                     // );
@@ -328,6 +347,21 @@
                             });
                             $("#tbody-operator").append("</tr>")
                         })
+
+                        console.log({
+                            operator
+                        });
+
+                        console.log({
+                            other_count
+                        });
+                        $("#tbody-operator").prepend(
+                            `<tr class='text-white bg-y_premier'><td class='p-3 border'><span class="font-semibold">TOTAL</span></td>` +
+                            operator.toReversed().map(operator => {
+                                return `<td class='text-center border' id="total-${operator.operator.toString().toLowerCase()}-${data.NPSN}">${operator.jumlah}</td>`;
+                            }) +
+                            `<td class='text-center border' id="total-lainnya-${data.NPSN}">${other_count}</td>`
+                        )
 
                         $("#load-operator").hide();
                     },
