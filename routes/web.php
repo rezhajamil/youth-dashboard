@@ -66,7 +66,7 @@ Route::get('/start/survey/{url}', [SurveyController::class, 'start'])->name('sur
 Route::get('/resume/survey/{id}', [SurveyController::class, 'resume'])->name('survey.answer.resume');
 Route::get('/answer_list/survey', [SurveyController::class, 'answer_list'])->name('survey.answer.list');
 Route::post('/store_answer/survey/', [SurveyController::class, 'store_answer'])->name('survey.answer.store');
-Route::get('/resume_territory/survey', [SurveyController::class, 'resume_territory'])->name('survey.resume_territory');
+Route::get('/resume_territory/survey/{survey}', [SurveyController::class, 'resume_territory'])->name('survey.resume_territory');
 // Route::get('/qns/{url}', [SurveyController::class, 'redirect_survey'])->name('survey.redirect');
 
 

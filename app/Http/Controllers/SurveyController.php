@@ -542,13 +542,25 @@ class SurveyController extends Controller
         return response()->json($sekolah);
     }
 
-    public function resume_territory(Request $request)
+    public function resume_territory(Request $request, $id)
     {
         $start_date = $request->start_date;
         $end_date = $request->end_date;
         $privilege = Auth::user()->privilege;
         $where = $privilege == 'superadmin' ? "" : "and $privilege='" . Auth::user()->{$privilege} . "'";
 
-        $resume_region=
+        $survey = DB::table('survey_session')->find($id);
+
+        if ($start_date && $end_date) {
+            $kode_operator = DB::table('kode_prefix_operator')->get();
+            $operator = DB::table('kode_prefix_operator')->select('operator')->distinct()->orderBy('operator', 'desc')->get();
+            $resume_region = DB::select("SELECT a.regional,a.telp FROM data_user a JOIN survey_answer b WHERE b.time_start BETWEEN '2023-09-01' AND '2023-09-15' $where ORDER BY regional DESC,branch,`cluster`;");
+        } else {
+            $kode_operator = [];
+            $operator = [];
+            $resume_region = [];
+        }
+
+        return view('directUser.survey.resume_territory', compact('survey', 'kode_operator', 'operator', 'resume_region'));
     }
 }

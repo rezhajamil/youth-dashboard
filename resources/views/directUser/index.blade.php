@@ -75,7 +75,8 @@
                                         @if ($data->status)
                                             <div
                                                 class="flex items-center justify-center px-3 py-1 rounded-full bg-green-200/50">
-                                                <span class="text-sm font-semibold text-green-900 status">Aktif</span>
+                                                <span class="text-sm font-semibold text-green-900 status"
+                                                    status="Aktif">Aktif</span>
                                             </div>
                                             {{-- <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-green-900">
                                     <span aria-hidden class="absolute inset-0 bg-green-200 rounded-full opacity-50"></span>
@@ -84,9 +85,8 @@
                                         @else
                                             <div
                                                 class="flex items-center justify-center px-3 py-1 rounded-full bg-red-200/50">
-                                                <span
-                                                    class="text-sm font-semibold text-red-900 whitespace-nowrap status">Tidak
-                                                    Aktif</span>
+                                                <span class="text-sm font-semibold text-red-900 whitespace-nowrap status"
+                                                    status="Tidak Aktif">Tidak Aktif</span>
                                             </div>
                                             {{-- <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-red-900">
                                     <span aria-hidden class="absolute inset-0 bg-red-200 rounded-full opacity-50"></span>
@@ -156,7 +156,7 @@
                 let searchBy = $('#search_by').val();
                 let pattern = new RegExp(search, "i");
                 $(`.${searchBy}`).each(function() {
-                    let label = $(this).text();
+                    let label = $(this).attr('status');
                     if (pattern.test(label)) {
                         $(this).parent().show();
                     } else {
@@ -169,6 +169,7 @@
                 let filter_status = $('#filter_status').val();
                 $(`.status`).each(function() {
                     let label = $(this).text();
+                    console.log(label);
                     if (filter_status == '') {
                         $(this).parent().parent().parent().show();
                     } else {

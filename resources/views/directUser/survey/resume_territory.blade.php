@@ -10,23 +10,7 @@
                     {{ $survey->nama }}</h4>
                 {{-- <button class="px-2 py-1 ml-2 text-lg text-white transition bg-green-600 rounded-md hover:bg-green-800" id="capture"><i class="fa-regular fa-circle-down"></i></button> --}}
                 <div class="flex items-center gap-x-3">
-                    <form action="{{ route('survey.answer.resume', $survey->id) }}" method="get">
-                        {{-- <select name="month" id="month" required>
-                            <option value="" selected disabled>Pilih Bulan</option>
-                            @for ($i = 1; $i < 13; $i++)
-                                <option value="{{ $i }}"
-                                    {{ request()->get('month') == $i ? 'selected' : (date('n') == $i && !request()->get('month') ? 'selected' : '') }}>
-                                    {{ $i }}</option>
-                            @endfor
-                        </select>
-                        <select name="year" id="year" required>
-                            <option value="" selected disabled>Pilih Tahun</option>
-                            @for ($i = date('Y') - 2; $i <= date('Y'); $i++)
-                                <option value="{{ $i }}"
-                                    {{ request()->get('year') == $i ? 'selected' : (date('Y') == $i && !request()->get('year') ? 'selected' : '') }}>
-                                    {{ $i }}</option>
-                            @endfor
-                        </select> --}}
+                    <form action="{{ route('survey.resume', $survey->id) }}" method="get">
                         <input class="rounded" type="date" name="start_date" id="start_date"
                             value="{{ Request::get('start_date') }}" required>
                         <span class="inline-block mx-2 font-bold">s/d</span>
@@ -36,33 +20,6 @@
                             class="inline-block px-4 py-2 my-2 ml-3 font-bold text-white transition-all rounded-md bg-y_premier hover:bg-y_premier">Ganti
                             Tanggal</button>
                     </form>
-                </div>
-                <div class="flex items-center my-4 mt-2 gap-x-2">
-                    <select name="filter" id="filter" class="block rounded">
-                        <option value="" selected disabled>Pilih City</option>
-                        @foreach ($city as $key => $data)
-                            <option value="{{ $data->city }}">
-                                {{ $data->city }}</option>
-                        @endforeach
-                    </select>
-                    {{-- <select name="filter" id="filter" class="block rounded">
-                        <option value="" disabled>Pilih Sekolah</option>
-                        <option value="">Semua</option>
-                        @foreach ($sekolah as $key => $data)
-                            <option value="{{ $data->NAMA_SEKOLAH }}" {{ $key == 0 ? 'selected' : '' }}>
-                                {{ $data->NAMA_SEKOLAH }}</option>
-                        @endforeach
-                    </select> --}}
-                    {{-- <button id="btn-excel" class="px-2 py-3 text-white transition-all bg-green-600 rounded hover:bg-green-800">Download as Excel</button> --}}
-                    <button id="btn-grafik"
-                        class="px-4 py-2 text-white transition-all rounded bg-y_tersier hover:bg-red-800"><i
-                            class="mr-2 fa-solid fa-chart-column"></i>Grafik</button>
-                    <button id="btn-excel"
-                        class="inline-block px-4 py-2 my-2 font-semibold text-white transition-all bg-teal-600 rounded-md hover:bg-teal-800"><i
-                            class="mr-2 fa-solid fa-file-arrow-down"></i>Excel</button>
-                    <a href="{{ route('survey.resume_territory', $survey->id) }}"
-                        class="inline-block px-4 py-2 my-2 font-semibold text-white transition-all rounded-md bg-y_sekunder hover:bg-y_sekunder"><i
-                            class="mr-2 fa-solid fa-book"></i>Resume</a>
                 </div>
                 <input type="hidden" name="sekolah" id="sekolah" value="{{ json_encode($sekolah) }}">
                 <input type="hidden" name="operator" id="operator" value="{{ json_encode($operator) }}">
