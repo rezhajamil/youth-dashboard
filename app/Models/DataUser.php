@@ -78,7 +78,7 @@ class DataUser extends Model
                 LEFT JOIN (SELECT digipos_ao,SUM(CASE WHEN event_date BETWEEN '$m1' AND '$mtd' THEN price ELSE 0 END) digital,SUM(CASE WHEN event_date BETWEEN '$last_m1' AND '$last_mtd' THEN price ELSE 0 END) last_digital FROM trx_digipos_ds WHERE event_date BETWEEN '$last_m1' AND '$mtd' AND trx_type='DIGITAL' GROUP BY 1) k ON a.id_digipos=k.digipos_ao
                 WHERE $where_loc a.status=1
                 GROUP BY 1
-                ORDER BY 1;"
+                ORDER BY regional DESC,branch,cluster;"
         );
 
         return $resume;

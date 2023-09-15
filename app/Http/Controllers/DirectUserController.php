@@ -633,9 +633,9 @@ class DirectUserController extends Controller
             // $resume_branch = [];
             // $resume_cluster = [];
 
-            $user_region = DB::select("SELECT regional as region,count(role) jumlah FROM data_user WHERE status='1' GROUP BY 1 ORDER BY 1 DESC;");
-            $user_branch = DB::select("SELECT branch,count(role) jumlah FROM data_user WHERE status='1' GROUP BY 1 ORDER BY 1 DESC;");
-            $user_cluster = DB::select("SELECT cluster,count(role) jumlah FROM data_user WHERE status='1' GROUP BY 1 ORDER BY 1 DESC;");
+            $user_region = DB::select("SELECT regional as region,count(role) jumlah FROM data_user WHERE status='1' GROUP BY 1 ORDER BY regional DESC,branch,cluster;");
+            $user_branch = DB::select("SELECT branch,count(role) jumlah FROM data_user WHERE status='1' GROUP BY 1 ORDER BY regional DESC,branch,cluster;");
+            $user_cluster = DB::select("SELECT cluster,count(role) jumlah FROM data_user WHERE status='1' GROUP BY 1 ORDER BY regional DESC,branch,cluster;");
 
             foreach ($resume_region as $data) {
                 foreach ($list_target as $i_target => $target) {
