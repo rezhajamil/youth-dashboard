@@ -134,7 +134,7 @@ class BroadCastController extends Controller
 
             JOIN territory_new d ON c.cluster=d.cluster
             $branch_broadcast_cluster
-            GROUP BY 1,2
+            GROUP BY 1,2,3,4,5,6,7,8,9,10,11
             ORDER BY 1,2;"
         );
 
@@ -168,7 +168,8 @@ class BroadCastController extends Controller
             $dataProgram = DB::table('new_list_program')->select('program')->where('status', '1')->whereIn('branch', ['ALL', auth()->user()->branch])->distinct()->get();
         }
 
-        $call = DB::select("SELECT 
+        if ($program) {
+            $query = "SELECT 
             d.branch,d.cluster,c.*
             FROM 
             (SELECT b.cluster,
@@ -185,14 +186,20 @@ class BroadCastController extends Controller
             LEFT JOIN data_user b ON a.telp=b.telp
 
             WHERE a.program='$program'  
-            -- AND a.date BETWEEN '2022-11-01' AND '2022-12-21'
 
             GROUP BY 1
             ORDER BY 1) c
 
             JOIN territory_new d ON c.cluster=d.cluster
-            GROUP BY 1,2
-            ORDER BY 1,2;");
+            GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12
+            ORDER BY 1,2;";
+
+            // ddd($query);
+
+            $call = DB::select($query);
+        } else {
+            $call = [];
+        }
 
         return view('broadcast.call', compact('call', 'dataProgram'));
     }

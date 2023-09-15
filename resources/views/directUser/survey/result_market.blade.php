@@ -60,7 +60,9 @@
                     <button id="btn-excel"
                         class="inline-block px-4 py-2 my-2 font-semibold text-white transition-all bg-teal-600 rounded-md hover:bg-teal-800"><i
                             class="mr-2 fa-solid fa-file-arrow-down"></i>Excel</button>
-                    <span class="font-semibold">Jumlah Partisipan : <span id="partisipan"></span></span>
+                    <a href=""
+                        class="inline-block px-4 py-2 my-2 font-semibold text-white transition-all rounded-md bg-y_sekunder hover:bg-y_sekunder"><i
+                            class="mr-2 fa-solid fa-book"></i>Resume</a>
                 </div>
                 <input type="hidden" name="sekolah" id="sekolah" value="{{ json_encode($sekolah) }}">
                 <input type="hidden" name="operator" id="operator" value="{{ json_encode($operator) }}">
@@ -68,6 +70,7 @@
                 <input type="hidden" name="survey" id="survey" value="{{ json_encode($survey) }}">
                 <input type="hidden" name="resume" id="resume" value="{{ json_encode($resume) }}">
 
+                <span class="font-semibold">Jumlah Partisipan : <span id="partisipan"></span></span>
                 <div class="mb-8 overflow-auto bg-white rounded-md shadow w-fit" id="operator-container">
                     <table class="overflow-auto text-left bg-white border-collapse w-fit" id="table-operator">
                         <thead class="border-b">

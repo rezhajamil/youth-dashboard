@@ -541,4 +541,14 @@ class SurveyController extends Controller
 
         return response()->json($sekolah);
     }
+
+    public function resume_territory(Request $request)
+    {
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+        $privilege = Auth::user()->privilege;
+        $where = $privilege == 'superadmin' ? "" : "and $privilege='" . Auth::user()->{$privilege} . "'";
+
+        $resume_region=
+    }
 }
