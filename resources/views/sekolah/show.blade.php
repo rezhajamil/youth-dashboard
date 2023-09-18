@@ -25,23 +25,52 @@
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">PIC</th>
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Telp PIC</th>
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Kepala Sekolah</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Jumlah Siswa</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Tanggal Update</th>
+                                {{-- <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Tanggal Update</th> --}}
                             </tr>
                         </thead>
                         <tbody class="max-h-screen overflow-y-auto">
                             <tr class="hover:bg-gray-200">
                                 {{-- {{ ddd($data) }} --}}
-                                <td class="p-4 font-bold text-gray-700 border-b">{{ $sekolah->NPSN }}</td>
-                                <td class="p-4 text-gray-700 border-b">{{ $sekolah->CITY }}</td>
-                                <td class="p-4 text-gray-700 border-b">{{ $sekolah->ALAMAT }}</td>
-                                <td class="p-4 text-gray-700 border-b">{{ $sekolah->ao }}</td>
-                                <td class="p-4 text-gray-700 border-b">{{ $sekolah->pic }}</td>
-                                <td class="p-4 text-gray-700 border-b">{{ $sekolah->telp_pic }}</td>
-                                <td class="p-4 text-gray-700 border-b">{{ $sekolah->kepala_sekolah }}</td>
-                                <td class="p-4 text-gray-700 border-b">{{ $sekolah->siswa }}</td>
-                                <td class="p-4 text-gray-700 border-b">
-                                    {{ $sekolah->update_date ? date('Y-m-d', strtotime($sekolah->update_date)) : '' }}</td>
+                                <td class="p-4 font-bold text-gray-700 border-b">{{ $sekolah->NPSN ?? '' }}</td>
+                                <td class="p-4 text-gray-700 border-b">{{ $sekolah->CITY ?? '' }}</td>
+                                <td class="p-4 text-gray-700 border-b">{{ $sekolah->ALAMAT ?? '' }}</td>
+                                <td class="p-4 text-gray-700 border-b">{{ $sekolah->ao ?? '' }}</td>
+                                <td class="p-4 text-gray-700 border-b">{{ $sekolah->pic ?? '' }}</td>
+                                <td class="p-4 text-gray-700 border-b">{{ $sekolah->telp_pic ?? '' }}</td>
+                                <td class="p-4 text-gray-700 border-b">{{ $sekolah->kepala_sekolah ?? '' }}</td>
+                                {{-- <td class="p-4 text-gray-700 border-b">
+                                    {{ $sekolah->update_date ? date('Y-m-d', strtotime($sekolah->update_date)) : '' }}
+                                </td> --}}
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <h4 class="mb-2 text-xl font-bold text-gray-600 align-baseline">Profil {{ $sekolah->NAMA_SEKOLAH }}</h4>
+
+                <div class="overflow-auto bg-white rounded-md shadow w-fit">
+                    <table class="overflow-auto text-left border-collapse w-fit">
+                        <thead class="border-b">
+                            <tr>
+                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Jumlah Kelas</th>
+                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Jumlah Siswa</th>
+                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Jumlah Guru</th>
+                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Jumlah Pegawai</th>
+                                {{-- <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Tanggal Update</th> --}}
+                            </tr>
+                        </thead>
+                        <tbody class="max-h-screen overflow-y-auto">
+                            <tr class="hover:bg-gray-200">
+                                {{-- {{ ddd($data) }} --}}
+                                <td class="p-4 text-gray-700 border-b">{{ $sekolah->kelas ?? '' }}</td>
+                                <td class="p-4 text-gray-700 border-b">{{ $sekolah->siswa ?? '' }}</td>
+                                <td class="p-4 text-gray-700 border-b">{{ $sekolah->guru ?? '' }}</td>
+                                <td class="p-4 text-gray-700 border-b">{{ $sekolah->pegawai ?? '' }}</td>
+                                {{-- <td class="p-4 text-gray-700 border-b">
+                                    {{ $sekolah->update_date ? date('Y-m-d', strtotime($sekolah->update_date)) : '' }}
+                                </td> --}}
                             </tr>
                         </tbody>
                     </table>
