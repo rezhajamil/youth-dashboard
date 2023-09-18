@@ -554,13 +554,21 @@ class SurveyController extends Controller
         if ($start_date && $end_date) {
             $kode_operator = DB::table('kode_prefix_operator')->get();
             $operator = DB::table('kode_prefix_operator')->select('operator')->distinct()->orderBy('operator', 'desc')->get();
-            $resume_region = DB::select("SELECT a.regional,a.telp FROM data_user a JOIN survey_answer b WHERE b.time_start BETWEEN '2023-09-01' AND '2023-09-15' $where ORDER BY regional DESC,branch,`cluster`;");
+            $resume = DB::select("SELECT a.REGIONAL,a.BRANCH,a.CLUSTER,a.KAB_KOTA as CITY,b.telp_siswa FROM Data_Sekolah_Sumatera a JOIN survey_answer b ON a.NPSN=b.npsn WHERE b.session=$id AND b.time_start BETWEEN '$start_date' AND '$end_date' $where ORDER BY 1 DESC,2,3,4;");
+            $region = DB::select("SELECT DISTINCT a.REGIONAL FROM Data_Sekolah_Sumatera a JOIN survey_answer b ON a.NPSN=b.npsn WHERE b.session=$id AND b.time_start BETWEEN '$start_date' AND '$end_date' $where ORDER BY REGIONAL DESC,BRANCH,CLUSTER,KAB_KOTA;");
+            $branch = DB::select("SELECT DISTINCT a.BRANCH FROM Data_Sekolah_Sumatera a JOIN survey_answer b ON a.NPSN=b.npsn WHERE b.session=$id AND b.time_start BETWEEN '$start_date' AND '$end_date' $where ORDER BY REGIONAL DESC,BRANCH,CLUSTER,KAB_KOTA;");
+            $cluster = DB::select("SELECT DISTINCT a.CLUSTER FROM Data_Sekolah_Sumatera a JOIN survey_answer b ON a.NPSN=b.npsn WHERE b.session=$id AND b.time_start BETWEEN '$start_date' AND '$end_date' $where ORDER BY REGIONAL DESC,BRANCH,CLUSTER,KAB_KOTA;");
+            $city = DB::select("SELECT DISTINCT a.KAB_KOTA as CITY FROM Data_Sekolah_Sumatera a JOIN survey_answer b ON a.NPSN=b.npsn WHERE b.session=$id AND b.time_start BETWEEN '$start_date' AND '$end_date' $where ORDER BY REGIONAL DESC,BRANCH,CLUSTER,KAB_KOTA;");
         } else {
             $kode_operator = [];
             $operator = [];
-            $resume_region = [];
+            $resume = [];
+            $region = [];
+            $branch = [];
+            $cluster = [];
+            $city = [];
         }
 
-        return view('directUser.survey.resume_territory', compact('survey', 'kode_operator', 'operator', 'resume_region'));
+        return view('directUser.survey.resume_territory', compact('survey', 'kode_operator', 'operator', 'resume', 'region', 'branch', 'cluster', 'city'));
     }
 }

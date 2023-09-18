@@ -60,7 +60,7 @@
                     <button id="btn-excel"
                         class="inline-block px-4 py-2 my-2 font-semibold text-white transition-all bg-teal-600 rounded-md hover:bg-teal-800"><i
                             class="mr-2 fa-solid fa-file-arrow-down"></i>Excel</button>
-                    <a href="{{ route('survey.resume_territory', $survey->id) }}"
+                    <a href="{{ route('survey.resume_territory', $survey->id) }}" target="_blank"
                         class="inline-block px-4 py-2 my-2 font-semibold text-white transition-all rounded-md bg-y_sekunder hover:bg-y_sekunder"><i
                             class="mr-2 fa-solid fa-book"></i>Resume</a>
                 </div>
