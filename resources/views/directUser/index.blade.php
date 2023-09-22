@@ -141,9 +141,11 @@
 
             $("#search_by").on("input", function() {
                 find();
+                filter_status();
             });
 
             $("#filter_status").on("input", function() {
+                find();
                 filter_status();
             });
 
@@ -156,7 +158,7 @@
                 let searchBy = $('#search_by').val();
                 let pattern = new RegExp(search, "i");
                 $(`.${searchBy}`).each(function() {
-                    let label = $(this).attr('status');
+                    let label = $(this).text();
                     if (pattern.test(label)) {
                         $(this).parent().show();
                     } else {
@@ -168,7 +170,7 @@
             const filter_status = () => {
                 let filter_status = $('#filter_status').val();
                 $(`.status`).each(function() {
-                    let label = $(this).text();
+                    let label = $(this).attr('status');
                     console.log(label);
                     if (filter_status == '') {
                         $(this).parent().parent().parent().show();
