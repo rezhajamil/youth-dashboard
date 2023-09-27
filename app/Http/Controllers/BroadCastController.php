@@ -162,6 +162,8 @@ class BroadCastController extends Controller
     public function broadcast_call(Request $request)
     {
         $program = $request->program;
+        // $start_date = $request->start_date;
+        // $end_date = $request->end_date;
         if (auth()->user()->privilege == 'superadmin') {
             $dataProgram = DB::table('new_list_program')->select('program')->where('status', '1')->distinct()->get();
         } else {
@@ -194,14 +196,34 @@ class BroadCastController extends Controller
             GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12
             ORDER BY 1,2;";
 
+            $query_detail = "
+            SELECT b.regional,b.branch,b.cluster,b.nama,b.telp,
+            COUNT(a.msisdn) As 'total', 
+            COUNT(IF(a.connect='Connected',1,Null))AS 'connect', 
+            COUNT(IF(a.connect='Not Connected',1,Null))AS 'not_connect',
+            COUNT(IF(a.angkat='Diangkat',1,Null))AS 'angkat',
+            COUNT(IF(a.angkat='Tidak Diangkat',1,Null))AS 'not_angkat',
+            COUNT(IF(a.respon='ditutup',1,Null))AS 'res_ditutup',
+            COUNT(IF(a.respon='mengira penipuan',1,Null))AS 'res_penipuan',
+            COUNT(IF(a.respon='Setuju ganti Kartu',1,Null))AS 'res_setuju',
+            COUNT(IF(a.respon='tidak mau ganti',1,Null))AS 'res_tolak'
+            FROM new_after_call a
+             JOIN data_user b ON a.telp=b.telp
+
+            WHERE a.program='$program'  
+	        GROUP BY 1,2,3,4,5
+            ORDER BY 1 DESC,2,3,4;";
+
             // ddd($query);
 
             $call = DB::select($query);
+            $detail_call = DB::select($query_detail);
         } else {
             $call = [];
+            $detail_call = [];
         }
 
-        return view('broadcast.call', compact('call', 'dataProgram'));
+        return view('broadcast.call', compact('detail_call', 'call', 'dataProgram'));
     }
 
     public function campaign()
