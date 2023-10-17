@@ -55,29 +55,32 @@
                                     class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
                                     Branch</th>
                                 <th
-                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_premier">
                                     Outlet MTD</th>
                                 <th
-                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_premier">
                                     Outlet M-1</th>
                                 <th
-                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
-                                    MOM</th>
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_premier">
+                                    Outlet MOM</th>
                                 <th
-                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_sekunder">
                                     DS MTD</th>
                                 <th
-                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_sekunder">
                                     DS M-1</th>
                                 <th
-                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_sekunder">
                                     DS MOM</th>
                                 <th
-                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-slate-600">
                                     Total MTD</th>
                                 <th
-                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-slate-600">
                                     Total M-1</th>
+                                <th
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-slate-600">
+                                    Total MOM</th>
                                 {{-- <th class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">Action</th> --}}
                             </tr>
                         </thead>
@@ -90,12 +93,13 @@
                                     <td class="p-3 text-gray-700 uppercase border">{{ $data->mtd - $data->ds_mtd }}</td>
                                     <td class="p-3 text-gray-700 uppercase border">
                                         {{ $data->last_mtd - $data->last_ds_mtd }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border">{{ $data->mom }}%</td>
+                                    <td class="p-3 text-gray-700 uppercase border">{{ $data->outlet_mom }}%</td>
                                     <td class="p-3 text-gray-700 border">{{ $data->ds_mtd }}</td>
                                     <td class="p-3 text-gray-700 border">{{ $data->last_ds_mtd }}</td>
                                     <td class="p-3 text-gray-700 border">{{ $data->ds_mom }}%</td>
                                     <td class="p-3 text-gray-700 border">{{ $data->mtd }}</td>
                                     <td class="p-3 text-gray-700 border">{{ $data->last_mtd }}</td>
+                                    <td class="p-3 text-gray-700 border">{{ $data->mom }}%</td>
                                     {{-- <td class="p-3 text-gray-700 border"></td> --}}
                                 </tr>
                             @endforeach
@@ -114,29 +118,32 @@
                                     class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
                                     Cluster</th>
                                 <th
-                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_premier">
                                     Outlet MTD</th>
                                 <th
-                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_premier">
                                     Outlet M-1</th>
                                 <th
-                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
-                                    MOM</th>
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_premier">
+                                    Outlet MOM</th>
                                 <th
-                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_sekunder">
                                     DS MTD</th>
                                 <th
-                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_sekunder">
                                     DS M-1</th>
                                 <th
-                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_sekunder">
                                     DS MOM</th>
                                 <th
-                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-slate-600">
                                     Total MTD</th>
                                 <th
-                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-slate-600">
                                     Total M-1</th>
+                                <th
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-slate-600">
+                                    Total MOM</th>
                                 {{-- <th class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">Action</th> --}}
                             </tr>
                         </thead>
@@ -148,12 +155,13 @@
                                     <td class="p-3 text-gray-700 uppercase border">{{ $data->mtd - $data->ds_mtd }}</td>
                                     <td class="p-3 text-gray-700 uppercase border">
                                         {{ $data->last_mtd - $data->last_ds_mtd }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border">{{ $data->mom }}%</td>
+                                    <td class="p-3 text-gray-700 uppercase border">{{ $data->outlet_mom }}%</td>
                                     <td class="p-3 text-gray-700 border">{{ $data->ds_mtd }}</td>
                                     <td class="p-3 text-gray-700 border">{{ $data->last_ds_mtd }}</td>
                                     <td class="p-3 text-gray-700 border">{{ $data->ds_mom }}%</td>
                                     <td class="p-3 text-gray-700 border">{{ $data->mtd }}</td>
                                     <td class="p-3 text-gray-700 border">{{ $data->last_mtd }}</td>
+                                    <td class="p-3 text-gray-700 border">{{ $data->mom }}%</td>
                                     {{-- <td class="p-3 text-gray-700 border"></td> --}}
                                 </tr>
                             @endforeach
@@ -237,29 +245,32 @@
                                     class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
                                     Cluster</th>
                                 <th
-                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_premier">
                                     Outlet MTD</th>
                                 <th
-                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_premier">
                                     Outlet M-1</th>
                                 <th
-                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
-                                    MOM</th>
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_premier">
+                                    Outlet MOM</th>
                                 <th
-                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_sekunder">
                                     DS MTD</th>
                                 <th
-                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_sekunder">
                                     DS M-1</th>
                                 <th
-                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_sekunder">
                                     DS MOM</th>
                                 <th
-                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-slate-600">
                                     Total MTD</th>
                                 <th
-                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-slate-600">
                                     Total M-1</th>
+                                <th
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-slate-600">
+                                    Total MOM</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -272,12 +283,13 @@
                                     <td class="p-3 text-gray-700 uppercase border">{{ $data->mtd - $data->ds_mtd }}</td>
                                     <td class="p-3 text-gray-700 uppercase border">
                                         {{ $data->last_mtd - $data->last_ds_mtd }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border">{{ $data->mom }}%</td>
+                                    <td class="p-3 text-gray-700 uppercase border">{{ $data->outlet_mom }}%</td>
                                     <td class="p-3 text-gray-700 border">{{ $data->ds_mtd }}</td>
                                     <td class="p-3 text-gray-700 border">{{ $data->last_ds_mtd }}</td>
                                     <td class="p-3 text-gray-700 border">{{ $data->ds_mom }}%</td>
                                     <td class="p-3 text-gray-700 border">{{ $data->mtd }}</td>
                                     <td class="p-3 text-gray-700 border">{{ $data->last_mtd }}</td>
+                                    <td class="p-3 text-gray-700 border">{{ $data->mom }}%</td>
                                     {{-- <td class="p-3 text-gray-700 border"></td> --}}
                                 </tr>
                             @endforeach

@@ -74,11 +74,13 @@ class SalesContoller extends Controller
             foreach ($sales_cluster as $key => $data) {
                 $data->mom = $this->persen($data->last_mtd, $data->mtd);
                 $data->ds_mom = $this->persen($data->last_ds_mtd, $data->ds_mtd);
+                $data->outlet_mom = $this->persen($data->last_mtd - $data->last_ds_mtd, $data->mtd - $data->ds_mtd);
             }
 
             foreach ($sales_branch as $key => $data) {
                 $data->mom = $this->persen($data->last_mtd, $data->mtd);
                 $data->ds_mom = $this->persen($data->last_ds_mtd, $data->ds_mtd);
+                $data->outlet_mom = $this->persen($data->last_mtd - $data->last_ds_mtd, $data->mtd - $data->ds_mtd);
             }
         } else {
             $sales = [];
@@ -174,15 +176,18 @@ class SalesContoller extends Controller
             foreach ($sales_cluster as $key => $data) {
                 $data->mom = $this->persen($data->last_mtd, $data->mtd);
                 $data->ds_mom = $this->persen($data->last_ds_mtd, $data->ds_mtd);
+                $data->outlet_mom = $this->persen($data->last_mtd - $data->last_ds_mtd, $data->mtd - $data->ds_mtd);
             }
 
             foreach ($sales_branch as $key => $data) {
                 $data->mom = $this->persen($data->last_mtd, $data->mtd);
                 $data->ds_mom = $this->persen($data->last_ds_mtd, $data->ds_mtd);
+                $data->outlet_mom = $this->persen($data->last_mtd - $data->last_ds_mtd, $data->mtd - $data->ds_mtd);
             }
             foreach ($sales_full as $key => $data) {
                 $data->mom = $this->persen($data->last_mtd, $data->mtd);
                 $data->ds_mom = $this->persen($data->last_ds_mtd, $data->ds_mtd);
+                $data->outlet_mom = $this->persen($data->last_mtd - $data->last_ds_mtd, $data->mtd - $data->ds_mtd);
             }
         } else {
             $sales = [];
