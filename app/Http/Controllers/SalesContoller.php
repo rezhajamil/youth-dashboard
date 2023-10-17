@@ -62,6 +62,7 @@ class SalesContoller extends Controller
                     WHERE a.status='MIGRATION_SUCCCESS' OR a.status='USIM_ACTIVE'
                     GROUP BY 1,2;";
 
+
             $sales = DB::select($query, [1]);
             $sales_cluster = DB::select($query_cluster, [1]);
             $sales_branch = DB::select($query_branch, [1]);
@@ -144,9 +145,27 @@ class SalesContoller extends Controller
                     " . $where_branch . "
                     GROUP BY 1,2;";
 
+            $query_full = "
+            SELECT b.regional,b.branch,b.cluster,
+            COUNT(DISTINCT CASE WHEN a.date BETWEEN '" . $m1 . "' and '" . $mtd . "' then outlet_id end) ds_mtd,
+            COUNT(DISTINCT CASE WHEN a.date BETWEEN '" . $last_m1 . "' and '" . $last_mtd . "' then outlet_id end) last_ds_mtd,
+            COUNT(CASE WHEN a.date BETWEEN '" . $m1 . "' and '" . $mtd . "' then outlet_id end) mtd,
+            COUNT(CASE WHEN a.date BETWEEN '" . $last_m1 . "' and '" . $last_mtd . "' then outlet_id end) last_mtd
+                
+            FROM 4g_usim_all_trx a 
+            
+            INNER JOIN data_user b ON a.outlet_id=b.id_digipos
+            
+            WHERE a.status='MIGRATION_SUCCCESS' OR a.status='USIM_ACTIVE'
+            " . $where_branch . "
+            GROUP BY 1,2,3
+            ORDER BY 1 DESC,2,3;";
+
+
             $sales = DB::select($query, [1]);
             $sales_cluster = DB::select($query_cluster, [1]);
             $sales_branch = DB::select($query_branch, [1]);
+            $sales_full = DB::select($query_full, [1]);
 
             foreach ($sales as $key => $data) {
                 $data->mom = $this->persen($data->last_mtd, $data->mtd);
@@ -161,12 +180,17 @@ class SalesContoller extends Controller
                 $data->mom = $this->persen($data->last_mtd, $data->mtd);
                 $data->ds_mom = $this->persen($data->last_ds_mtd, $data->ds_mtd);
             }
+            foreach ($sales_full as $key => $data) {
+                $data->mom = $this->persen($data->last_mtd, $data->mtd);
+                $data->ds_mom = $this->persen($data->last_ds_mtd, $data->ds_mtd);
+            }
         } else {
             $sales = [];
             $sales_cluster = [];
             $sales_branch = [];
+            $sales_full = [];
         }
-        return view('sales.migrasi.index', compact('sales', 'sales_cluster', 'sales_branch', 'update'));
+        return view('sales.migrasi.index', compact('sales', 'sales_cluster', 'sales_branch', 'sales_full', 'update'));
     }
 
     public function orbit(Request $request)
