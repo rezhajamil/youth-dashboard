@@ -94,6 +94,9 @@ class SalesContoller extends Controller
     public function migrasi(Request $request)
     {
         $update = DB::select('select max(date) as last_update from 4g_usim_all_trx;');
+
+        $sales_area = [];
+
         if ($request->date) {
             $m1 = date('Y-m-01', strtotime($request->date));
             $mtd = date('Y-m-d', strtotime($request->date));
@@ -185,7 +188,6 @@ class SalesContoller extends Controller
             $sales_branch = DB::select($query_branch, [1]);
             $sales_region = DB::select($query_region, [1]);
             $sales_full = DB::select($query_full, [1]);
-            $sales_area = [];
 
             foreach ($sales as $key => $data) {
                 $data->mom = $this->persen($data->last_mtd, $data->mtd);

@@ -99,24 +99,28 @@
                                     {{-- <td class="p-3 text-gray-700 border"></td> --}}
                                 </tr>
                             @endforeach
-                            <tr class="font-bold bg-gray-200">
-                                <td colspan="2" class="p-3 text-center text-gray-700 uppercase border border-white ">AREA
-                                </td>
-                                <td class="p-3 text-gray-700 uppercase border border-white">
-                                    {{ $sales_area->mtd - $sales_area->ds_mtd }}
-                                </td>
-                                <td class="p-3 text-gray-700 uppercase border border-white">
-                                    {{ $sales_area->last_mtd - $sales_area->last_ds_mtd }}</td>
-                                <td class="p-3 text-gray-700 uppercase border border-white">{{ $sales_area->outlet_mom }}%
-                                </td>
-                                <td class="p-3 text-gray-700 border border-white">{{ $sales_area->ds_mtd }}</td>
-                                <td class="p-3 text-gray-700 border border-white">{{ $sales_area->last_ds_mtd }}</td>
-                                <td class="p-3 text-gray-700 border border-white">{{ $sales_area->ds_mom }}%</td>
-                                <td class="p-3 text-gray-700 border border-white">{{ $sales_area->mtd }}</td>
-                                <td class="p-3 text-gray-700 border border-white">{{ $sales_area->last_mtd }}</td>
-                                <td class="p-3 text-gray-700 border border-white">{{ $sales_area->mom }}%</td>
-                                {{-- <td class="p-3 text-gray-700 border"></td> --}}
-                            </tr>
+                            @if ($sales_area && $sales_region)
+                                <tr class="font-bold bg-gray-200">
+                                    <td colspan="2" class="p-3 text-center text-gray-700 uppercase border border-white ">
+                                        AREA
+                                    </td>
+                                    <td class="p-3 text-gray-700 uppercase border border-white">
+                                        {{ $sales_area->mtd - $sales_area->ds_mtd }}
+                                    </td>
+                                    <td class="p-3 text-gray-700 uppercase border border-white">
+                                        {{ $sales_area->last_mtd - $sales_area->last_ds_mtd }}</td>
+                                    <td class="p-3 text-gray-700 uppercase border border-white">
+                                        {{ $sales_area->outlet_mom }}%
+                                    </td>
+                                    <td class="p-3 text-gray-700 border border-white">{{ $sales_area->ds_mtd }}</td>
+                                    <td class="p-3 text-gray-700 border border-white">{{ $sales_area->last_ds_mtd }}</td>
+                                    <td class="p-3 text-gray-700 border border-white">{{ $sales_area->ds_mom }}%</td>
+                                    <td class="p-3 text-gray-700 border border-white">{{ $sales_area->mtd }}</td>
+                                    <td class="p-3 text-gray-700 border border-white">{{ $sales_area->last_mtd }}</td>
+                                    <td class="p-3 text-gray-700 border border-white">{{ $sales_area->mom }}%</td>
+                                    {{-- <td class="p-3 text-gray-700 border"></td> --}}
+                                </tr>
+                            @endif
                         </tbody>
                     </table>
                 </div>
