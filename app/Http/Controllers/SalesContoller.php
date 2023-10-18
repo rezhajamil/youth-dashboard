@@ -114,14 +114,15 @@ class SalesContoller extends Controller
                     
                     INNER JOIN data_user b ON a.outlet_id=b.id_digipos
                     
-                    WHERE a.status='MIGRATION_SUCCCESS' OR a.status='USIM_ACTIVE'
+                    WHERE a.status IN ('USIM_ACTIVE','MIGRATION_SUCCESS')
+                    AND a.date BETWEEN '$last_m1' AND '$mtd'
                     " . $where_branch . "
                     GROUP BY 1,2,3
                     ORDER BY 1,2,3;
             ";
 
             $query_cluster = "
-            SELECT b.`cluster`,
+            SELECT a.`cluster`,
             COUNT(DISTINCT CASE WHEN a.date BETWEEN '" . $m1 . "' and '" . $mtd . "' then outlet_id end) ds_mtd,
             COUNT(DISTINCT CASE WHEN a.date BETWEEN '" . $last_m1 . "' and '" . $last_mtd . "' then outlet_id end) last_ds_mtd,
             COUNT(CASE WHEN a.date BETWEEN '" . $m1 . "' and '" . $mtd . "' then outlet_id end) mtd,
@@ -129,9 +130,9 @@ class SalesContoller extends Controller
                         
                     FROM 4g_usim_all_trx a 
                     
-                    INNER JOIN data_user b ON a.outlet_id=b.id_digipos
-                    
-                    WHERE a.status='MIGRATION_SUCCCESS' OR a.status='USIM_ACTIVE'
+                    WHERE a.status IN ('USIM_ACTIVE','MIGRATION_SUCCESS')
+                    and a.regional IN ('SUMBAGUT','SUMBAGTENG','SUMBAGSEL')
+                    AND a.date BETWEEN '$last_m1' AND '$mtd'
                     " . $where_branch . "
                     GROUP BY 1;";
 
@@ -146,12 +147,13 @@ class SalesContoller extends Controller
                     
                     INNER JOIN data_user b ON a.outlet_id=b.id_digipos
                     
-                    WHERE a.status='MIGRATION_SUCCCESS' OR a.status='USIM_ACTIVE'
+                    WHERE a.status IN ('USIM_ACTIVE','MIGRATION_SUCCESS')
+                    AND a.date BETWEEN '$last_m1' AND '$mtd'
                     " . $where_branch . "
                     GROUP BY 1,2;";
 
             $query_region = "
-            SELECT b.regional,
+            SELECT a.regional,
             COUNT(DISTINCT CASE WHEN a.date BETWEEN '" . $m1 . "' and '" . $mtd . "' then outlet_id end) ds_mtd,
             COUNT(DISTINCT CASE WHEN a.date BETWEEN '" . $last_m1 . "' and '" . $last_mtd . "' then outlet_id end) last_ds_mtd,
             COUNT(CASE WHEN a.date BETWEEN '" . $m1 . "' and '" . $mtd . "' then outlet_id end) mtd,
@@ -159,12 +161,14 @@ class SalesContoller extends Controller
                         
                     FROM 4g_usim_all_trx a 
                     
-                    INNER JOIN data_user b ON a.outlet_id=b.id_digipos
-                    
-                    WHERE a.status='MIGRATION_SUCCCESS' OR a.status='USIM_ACTIVE'
+                    WHERE a.status IN ('USIM_ACTIVE','MIGRATION_SUCCESS')
+                    and a.regional IN ('SUMBAGUT','SUMBAGTENG','SUMBAGSEL')
+                    AND a.date BETWEEN '$last_m1' AND '$mtd'
+
                     " . $where_branch . "
                     GROUP BY 1
                     ORDER BY 1 DESC;";
+
 
             $query_full = "
             SELECT b.regional,b.branch,b.cluster,
@@ -175,13 +179,13 @@ class SalesContoller extends Controller
                 
             FROM 4g_usim_all_trx a 
             
-            INNER JOIN data_user b ON a.outlet_id=b.id_digipos
+            JOIN territory_new b ON a.`cluster`=b.`cluster`
             
             WHERE a.status='MIGRATION_SUCCCESS' OR a.status='USIM_ACTIVE'
             " . $where_branch . "
             GROUP BY 1,2,3
             ORDER BY 1 DESC,2,3;";
-
+            // ddd($query_full);
 
             $sales = DB::select($query, [1]);
             $sales_cluster = DB::select($query_cluster, [1]);
