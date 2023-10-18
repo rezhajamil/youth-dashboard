@@ -30,6 +30,10 @@
                             <input type="checkbox" id="by_region" checked>
                         </div>
                         <div class="p-3 bg-white rounded w-fit h-fit">
+                            <label for="by_branch" class="mr-1 font-semibold text-slate-600">By Branch</label>
+                            <input type="checkbox" id="by_branch" checked>
+                        </div>
+                        <div class="p-3 bg-white rounded w-fit h-fit">
                             <label for="by_cluster" class="mr-1 font-semibold text-slate-600">By Cluster</label>
                             <input type="checkbox" id="by_cluster" checked>
                         </div>
@@ -126,7 +130,7 @@
                 </div>
 
                 <span class="block mt-6 mb-2 text-lg font-semibold text-gray-600">Direct Sales By Branch</span>
-                <div class="overflow-hidden bg-white rounded-md shadow w-fit" id="table-region">
+                <div class="overflow-hidden bg-white rounded-md shadow w-fit" id="table-branch">
                     <table class="text-left border-collapse w-fit">
                         <thead class="border">
                             <tr>
@@ -414,6 +418,10 @@
 
             $("#by_region").on("change", function() {
                 $("#table-region").toggle();
+            })
+
+            $("#by_branch").on("change", function() {
+                $("#table-branch").toggle();
             })
 
             $("#by_cluster").on("change", function() {

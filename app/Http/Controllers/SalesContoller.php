@@ -129,7 +129,6 @@ class SalesContoller extends Controller
             COUNT(CASE WHEN a.date BETWEEN '" . $last_m1 . "' and '" . $last_mtd . "' then outlet_id end) last_mtd
                         
                     FROM 4g_usim_all_trx a 
-                    
                     WHERE a.status IN ('USIM_ACTIVE','MIGRATION_SUCCESS')
                     and a.regional IN ('SUMBAGUT','SUMBAGTENG','SUMBAGSEL')
                     AND a.date BETWEEN '$last_m1' AND '$mtd'
@@ -137,20 +136,26 @@ class SalesContoller extends Controller
                     GROUP BY 1;";
 
             $query_branch = "
-            SELECT b.regional,b.branch,
-            COUNT(DISTINCT CASE WHEN a.date BETWEEN '" . $m1 . "' and '" . $mtd . "' then outlet_id end) ds_mtd,
-            COUNT(DISTINCT CASE WHEN a.date BETWEEN '" . $last_m1 . "' and '" . $last_mtd . "' then outlet_id end) last_ds_mtd,
-            COUNT(CASE WHEN a.date BETWEEN '" . $m1 . "' and '" . $mtd . "' then outlet_id end) mtd,
-            COUNT(CASE WHEN a.date BETWEEN '" . $last_m1 . "' and '" . $last_mtd . "' then outlet_id end) last_mtd
-                        
-                    FROM 4g_usim_all_trx a 
-                    
-                    INNER JOIN data_user b ON a.outlet_id=b.id_digipos
-                    
-                    WHERE a.status IN ('USIM_ACTIVE','MIGRATION_SUCCESS')
-                    AND a.date BETWEEN '$last_m1' AND '$mtd'
-                    " . $where_branch . "
-                    GROUP BY 1,2;";
+            SELECT c.regional,c.branch,
+            COUNT(DISTINCT CASE WHEN c.date BETWEEN '$m1' and '$mtd' then c.outlet_id end) ds_mtd,
+            COUNT(DISTINCT CASE WHEN c.date BETWEEN '$last_m1' and '$last_mtd' then c.outlet_id end) last_ds_mtd,
+            COUNT(CASE WHEN c.date BETWEEN '$m1' and '$mtd' then c.outlet_id end) mtd,
+            COUNT(CASE WHEN c.date BETWEEN '$last_m1' and '$last_mtd' then c.outlet_id end) last_mtd
+            
+            from (
+            SELECT a.regional,b.branch,a.`cluster`,a.date,a.outlet_id,a.status 
+            FROM `4g_usim_all_trx` a 
+            INNER JOIN territory_new b ON a.`cluster`=b.`cluster`
+            WHERE a.status IN ('USIM_ACTIVE','MIGRATION_SUCCESS')            
+        	and a.regional IN ('SUMBAGUT','SUMBAGTENG','SUMBAGSEL')      
+            AND a.date BETWEEN '2023-09-01' AND '2023-10-18'
+            $where_branch
+            GROUP BY 1,2,3,4,5,6
+            )c
+                
+            GROUP BY 1,2
+            ORDER BY 1 DESC,2;
+";
 
             $query_region = "
             SELECT a.regional,
@@ -160,7 +165,7 @@ class SalesContoller extends Controller
             COUNT(CASE WHEN a.date BETWEEN '" . $last_m1 . "' and '" . $last_mtd . "' then outlet_id end) last_mtd
                         
                     FROM 4g_usim_all_trx a 
-                    
+
                     WHERE a.status IN ('USIM_ACTIVE','MIGRATION_SUCCESS')
                     and a.regional IN ('SUMBAGUT','SUMBAGTENG','SUMBAGSEL')
                     AND a.date BETWEEN '$last_m1' AND '$mtd'
