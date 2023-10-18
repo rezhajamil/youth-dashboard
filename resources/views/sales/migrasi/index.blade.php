@@ -52,6 +52,86 @@
                                     class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
                                     Regional</th>
                                 <th
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_premier">
+                                    Outlet MTD</th>
+                                <th
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_premier">
+                                    Outlet M-1</th>
+                                <th
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_premier">
+                                    Outlet MOM</th>
+                                <th
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_sekunder">
+                                    DS MTD</th>
+                                <th
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_sekunder">
+                                    DS M-1</th>
+                                <th
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_sekunder">
+                                    DS MOM</th>
+                                <th
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-slate-600">
+                                    Total MTD</th>
+                                <th
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-slate-600">
+                                    Total M-1</th>
+                                <th
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-slate-600">
+                                    Total MOM</th>
+                                {{-- <th class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">Action</th> --}}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($sales_region as $key => $data)
+                                <tr class="hover:bg-gray-200">
+                                    <td class="p-3 font-bold text-gray-700 border">{{ $key + 1 }}</td>
+                                    <td class="p-3 text-gray-700 uppercase border ">{{ $data->regional }}</td>
+                                    <td class="p-3 text-gray-700 uppercase border">{{ $data->mtd - $data->ds_mtd }}</td>
+                                    <td class="p-3 text-gray-700 uppercase border">
+                                        {{ $data->last_mtd - $data->last_ds_mtd }}</td>
+                                    <td class="p-3 text-gray-700 uppercase border">{{ $data->outlet_mom }}%</td>
+                                    <td class="p-3 text-gray-700 border">{{ $data->ds_mtd }}</td>
+                                    <td class="p-3 text-gray-700 border">{{ $data->last_ds_mtd }}</td>
+                                    <td class="p-3 text-gray-700 border">{{ $data->ds_mom }}%</td>
+                                    <td class="p-3 text-gray-700 border">{{ $data->mtd }}</td>
+                                    <td class="p-3 text-gray-700 border">{{ $data->last_mtd }}</td>
+                                    <td class="p-3 text-gray-700 border">{{ $data->mom }}%</td>
+                                    {{-- <td class="p-3 text-gray-700 border"></td> --}}
+                                </tr>
+                            @endforeach
+                            <tr class="font-bold bg-gray-200">
+                                <td colspan="2" class="p-3 text-center text-gray-700 uppercase border border-white ">AREA
+                                </td>
+                                <td class="p-3 text-gray-700 uppercase border border-white">
+                                    {{ $sales_area->mtd - $sales_area->ds_mtd }}
+                                </td>
+                                <td class="p-3 text-gray-700 uppercase border border-white">
+                                    {{ $sales_area->last_mtd - $sales_area->last_ds_mtd }}</td>
+                                <td class="p-3 text-gray-700 uppercase border border-white">{{ $sales_area->outlet_mom }}%
+                                </td>
+                                <td class="p-3 text-gray-700 border border-white">{{ $sales_area->ds_mtd }}</td>
+                                <td class="p-3 text-gray-700 border border-white">{{ $sales_area->last_ds_mtd }}</td>
+                                <td class="p-3 text-gray-700 border border-white">{{ $sales_area->ds_mom }}%</td>
+                                <td class="p-3 text-gray-700 border border-white">{{ $sales_area->mtd }}</td>
+                                <td class="p-3 text-gray-700 border border-white">{{ $sales_area->last_mtd }}</td>
+                                <td class="p-3 text-gray-700 border border-white">{{ $sales_area->mom }}%</td>
+                                {{-- <td class="p-3 text-gray-700 border"></td> --}}
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <span class="block mt-6 mb-2 text-lg font-semibold text-gray-600">Direct Sales By Branch</span>
+                <div class="overflow-hidden bg-white rounded-md shadow w-fit" id="table-region">
+                    <table class="text-left border-collapse w-fit">
+                        <thead class="border">
+                            <tr>
+                                <th class="p-3 text-sm font-bold text-gray-100 uppercase border border-white bg-y_tersier">
+                                    No</th>
+                                <th
+                                    class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    Regional</th>
+                                <th
                                     class="p-3 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
                                     Branch</th>
                                 <th
@@ -172,7 +252,8 @@
                 <span class="inline-block mt-6 text-lg font-semibold text-gray-600">Direct Sales Detail</span>
                 @if (request()->get('date'))
                     <div class="flex items-end mb-2 gap-x-4">
-                        <input type="text" name="search" id="search" placeholder="Search..." class="px-4 rounded-lg">
+                        <input type="text" name="search" id="search" placeholder="Search..."
+                            class="px-4 rounded-lg">
                         <div class="flex flex-col">
                             <span class="font-bold text-gray-600">Berdasarkan</span>
                             <select name="search_by" id="search_by" class="rounded-lg">
