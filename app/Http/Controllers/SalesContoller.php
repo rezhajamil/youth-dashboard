@@ -163,7 +163,8 @@ class SalesContoller extends Controller
                     
                     WHERE a.status='MIGRATION_SUCCCESS' OR a.status='USIM_ACTIVE'
                     " . $where_branch . "
-                    GROUP BY 1;";
+                    GROUP BY 1
+                    ORDER BY 1 DESC;";
 
             $query_full = "
             SELECT b.regional,b.branch,b.cluster,
