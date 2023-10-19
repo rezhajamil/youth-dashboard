@@ -143,11 +143,11 @@ class SekolahController extends Controller
     public function update(Request $request, $npsn)
     {
         $request->validate([
-            'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric',
-            'pjp' => 'required',
-            'frekuensi' => 'required',
-            'telp' => 'required|numeric',
+            'latitude' => 'nullable|numeric',
+            'longitude' => 'nullable|numeric',
+            'pjp' => 'nullable',
+            'frekuensi' => 'nullable',
+            'telp' => 'nullable|numeric',
         ]);
 
 

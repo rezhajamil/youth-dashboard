@@ -30,10 +30,12 @@
                             </div>
                             <div class="w-full">
                                 <label class="block text-gray-700" for="pjp">PJP</label>
-                                <select name="pjp" id="pjp" class="w-full rounded-md" required>
+                                <select name="pjp" id="pjp" class="w-full rounded-md">
                                     <option value="" selected disabled>Pilih PJP</option>
-                                    <option value="PJP" {{ old('pjp', $sekolah->PJP) == 'PJP' ? 'selected' : '' }}>PJP</option>
-                                    <option value="NON PJP" {{ old('pjp', $sekolah->PJP) == 'NON PJP' ? 'selected' : '' }}>NON PJP
+                                    <option value="PJP" {{ old('pjp', $sekolah->PJP) == 'PJP' ? 'selected' : '' }}>PJP
+                                    </option>
+                                    <option value="NON PJP" {{ old('pjp', $sekolah->PJP) == 'NON PJP' ? 'selected' : '' }}>
+                                        NON PJP
                                     </option>
                                 </select>
                                 @error('pjp')
@@ -42,15 +44,19 @@
                             </div>
                             <div class="w-full">
                                 <label class="block text-gray-700" for="frekuensi">Frekuensi Kunjungan</label>
-                                <select name="frekuensi" id="frekuensi" class="w-full rounded-md" required>
+                                <select name="frekuensi" id="frekuensi" class="w-full rounded-md">
                                     <option value="" selected disabled>Pilih Frekuensi</option>
-                                    <option value="F1" {{ old('frekuensi', $sekolah->FREKUENSI) == 'F1' ? 'selected' : '' }}>
+                                    <option value="F1"
+                                        {{ old('frekuensi', $sekolah->FREKUENSI) == 'F1' ? 'selected' : '' }}>
                                         F1</option>
-                                    <option value="F2" {{ old('frekuensi', $sekolah->FREKUENSI) == 'F2' ? 'selected' : '' }}>
+                                    <option value="F2"
+                                        {{ old('frekuensi', $sekolah->FREKUENSI) == 'F2' ? 'selected' : '' }}>
                                         F2</option>
-                                    <option value="F3" {{ old('frekuensi', $sekolah->FREKUENSI) == 'F3' ? 'selected' : '' }}>
+                                    <option value="F3"
+                                        {{ old('frekuensi', $sekolah->FREKUENSI) == 'F3' ? 'selected' : '' }}>
                                         F3</option>
-                                    <option value="F4" {{ old('frekuensi', $sekolah->FREKUENSI) == 'F4' ? 'selected' : '' }}>
+                                    <option value="F4"
+                                        {{ old('frekuensi', $sekolah->FREKUENSI) == 'F4' ? 'selected' : '' }}>
                                         F4</option>
                                 </select>
                                 @error('frekuensi')
@@ -59,7 +65,7 @@
                             </div>
                             <div class="w-full">
                                 <label class="block text-gray-700" for="telp">Telp</label>
-                                <select name="telp" id="telp" class="w-full rounded-md" required>
+                                <select name="telp" id="telp" class="w-full rounded-md">
                                     <option value="" selected disabled>Pilih Telp</option>
                                     @foreach ($user as $data)
                                         <option value="{{ $data->telp }}"
