@@ -85,22 +85,52 @@
 
                 <div class="overflow-auto bg-white rounded-md shadow w-fit">
                     <table class="overflow-auto text-left border-collapse w-fit">
-                        <thead class="border-b">
+                        <thead class="border">
                             <tr>
-                                <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">NPSN</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Provinsi</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Kabupaten</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Kecamatan</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Nama Sekolah</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Status</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Jenjang</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Regional</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Branch</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Cluster</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">PJP</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">FREKUENSI</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Action</th>
+                                <th class="p-2 text-sm font-bold text-gray-100 uppercase border border-white bg-y_tersier">
+                                    No</th>
+                                <th
+                                    class="p-2 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    Status</th>
+                                <th
+                                    class="p-2 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    NPSN</th>
+                                <th
+                                    class="p-2 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    Provinsi</th>
+                                <th
+                                    class="p-2 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    Kabupaten</th>
+                                <th
+                                    class="p-2 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    Kecamatan</th>
+                                <th
+                                    class="p-2 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    Nama Sekolah</th>
+                                <th
+                                    class="p-2 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    Status</th>
+                                <th
+                                    class="p-2 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    Jenjang</th>
+                                <th
+                                    class="p-2 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    Regional</th>
+                                <th
+                                    class="p-2 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    Branch</th>
+                                <th
+                                    class="p-2 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    Cluster</th>
+                                <th
+                                    class="p-2 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    PJP</th>
+                                <th
+                                    class="p-2 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    FREKUENSI</th>
+                                <th
+                                    class="p-2 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    Action</th>
                             </tr>
                         </thead>
                         @php
@@ -111,30 +141,34 @@
                                 @if ($data->LATITUDE && $data->LONGITUDE)
                                     <tr class="hover:bg-gray-200">
                                         {{-- {{ ddd($data) }} --}}
-                                        <td class="p-4 font-bold text-gray-700 border-b">{{ ++$no }}</td>
-                                        <td class="p-4 text-gray-700 border-b npsn">{{ $data->NPSN }}</td>
-                                        <td class="p-4 text-gray-700 border-b provinsi">{{ $data->PROVINSI }}</td>
-                                        <td class="p-4 text-gray-700 border-b kabupaten">{{ $data->KAB_KOTA }}</td>
-                                        <td class="p-4 text-gray-700 border-b kecamatan">{{ $data->KECAMATAN }}</td>
-                                        <td class="p-4 text-gray-700 border-b nama">{{ $data->NAMA_SEKOLAH }}</td>
-                                        <td class="p-4 text-gray-700 border-b status">{{ $data->STATUS_SEKOLAH }}</td>
-                                        <td class="p-4 text-gray-700 border-b jenjang">{{ $data->JENJANG }}</td>
-                                        <td class="p-4 text-gray-700 border-b regional">{{ $data->REGIONAL }}</td>
-                                        <td class="p-4 text-gray-700 border-b branch">{{ $data->BRANCH }}</td>
-                                        <td class="p-4 text-gray-700 border-b cluster">{{ $data->CLUSTER }}</td>
-                                        <td class="p-4 text-gray-700 border-b ">{{ $data->PJP }}</td>
-                                        <td class="p-4 text-gray-700 border-b ">{{ $data->FREKUENSI }}</td>
-                                        <td class="p-4 text-gray-700 border-b">
+                                        <td class="p-2 font-bold text-gray-700 border">{{ ++$no }}</td>
+                                        <td class="p-2 font-bold text-center text-gray-700 border">
+                                            @if ($data->status == 'P1')
+                                                <i class="text-3xl fa-solid fa-medal text-y_tersier" @endif
+                                        </td>
+                                        <td class="p-2 text-gray-700 border npsn">{{ $data->NPSN }}</td>
+                                        <td class="p-2 text-gray-700 border provinsi">{{ $data->PROVINSI }}</td>
+                                        <td class="p-2 text-gray-700 border kabupaten">{{ $data->KAB_KOTA }}</td>
+                                        <td class="p-2 text-gray-700 border kecamatan">{{ $data->KECAMATAN }}</td>
+                                        <td class="p-2 text-gray-700 border nama">{{ $data->NAMA_SEKOLAH }}</td>
+                                        <td class="p-2 text-gray-700 border status">{{ $data->STATUS_SEKOLAH }}</td>
+                                        <td class="p-2 text-gray-700 border jenjang">{{ $data->JENJANG }}</td>
+                                        <td class="p-2 text-gray-700 border regional">{{ $data->REGIONAL }}</td>
+                                        <td class="p-2 text-gray-700 border branch">{{ $data->BRANCH }}</td>
+                                        <td class="p-2 text-gray-700 border cluster">{{ $data->CLUSTER }}</td>
+                                        <td class="p-2 text-gray-700 border ">{{ $data->PJP }}</td>
+                                        <td class="p-2 text-gray-700 border ">{{ $data->FREKUENSI }}</td>
+                                        <td class="p-2 text-gray-700 border">
                                             <a href="{{ route('sekolah.show', $data->NPSN) }}" target="_blank"
                                                 class="block my-1 text-base font-semibold text-teal-600 transition hover:text-teal-800">Detail</a>
                                             @if (Auth::user()->privilege != 'cluster')
-                                                <a href="{{ route('sekolah.edit', $data->NPSN) }}"
+                                                <a href="{{ route('sekolah.edit', $data->NPSN) }}" target="_blank"
                                                     class="block my-1 text-base font-semibold transition text-y_premier hover:text-indigo-800">Edit</a>
                                             @endif
                                             @if ($data->LATITUDE && $data->LONGITUDE)
                                                 <a target="_blank"
                                                     href="http://maps.google.com/maps?z=12&t=m&q=loc:{{ $data->LATITUDE }}+{{ $data->LONGITUDE }}"
-                                                    class="block my-1 text-base font-semibold transition text-y_sekunder hover:text-teal-600">Cek
+                                                    class="block my-1 text-base font-semibold transition text-y_sekunder whitespace-nowrap hover:text-teal-600">Cek
                                                     Lokasi</a>
                                             @endif
                                             {{-- <form action="{{ route('direct_user.change_status',$data->id) }}" method="post">
@@ -150,20 +184,24 @@
                                 @if (!$data->LATITUDE || !$data->LONGITUDE)
                                     <tr class="hover:bg-gray-200">
                                         {{-- {{ ddd($data) }} --}}
-                                        <td class="p-4 font-bold text-gray-700 border-b">{{ ++$no }}</td>
-                                        <td class="p-4 text-gray-700 border-b npsn">{{ $data->NPSN }}</td>
-                                        <td class="p-4 text-gray-700 border-b provinsi">{{ $data->PROVINSI }}</td>
-                                        <td class="p-4 text-gray-700 border-b kabupaten">{{ $data->KAB_KOTA }}</td>
-                                        <td class="p-4 text-gray-700 border-b kecamatan">{{ $data->KECAMATAN }}</td>
-                                        <td class="p-4 text-gray-700 border-b nama">{{ $data->NAMA_SEKOLAH }}</td>
-                                        <td class="p-4 text-gray-700 border-b status">{{ $data->STATUS_SEKOLAH }}</td>
-                                        <td class="p-4 text-gray-700 border-b jenjang">{{ $data->JENJANG }}</td>
-                                        <td class="p-4 text-gray-700 border-b regional">{{ $data->REGIONAL }}</td>
-                                        <td class="p-4 text-gray-700 border-b branch">{{ $data->BRANCH }}</td>
-                                        <td class="p-4 text-gray-700 border-b cluster">{{ $data->CLUSTER }}</td>
-                                        <td class="p-4 text-gray-700 border-b ">{{ $data->PJP }}</td>
-                                        <td class="p-4 text-gray-700 border-b ">{{ $data->FREKUENSI }}</td>
-                                        <td class="p-4 text-gray-700 border-b">
+                                        <td class="p-2 font-bold text-gray-700 border">{{ ++$no }}</td>
+                                        <td class="p-2 font-bold text-center text-gray-700 border">
+                                            @if ($data->status == 'P1')
+                                                <i class="text-3xl fa-solid fa-medal text-y_tersier" @endif
+                                        </td>
+                                        <td class="p-2 text-gray-700 border npsn">{{ $data->NPSN }}</td>
+                                        <td class="p-2 text-gray-700 border provinsi">{{ $data->PROVINSI }}</td>
+                                        <td class="p-2 text-gray-700 border kabupaten">{{ $data->KAB_KOTA }}</td>
+                                        <td class="p-2 text-gray-700 border kecamatan">{{ $data->KECAMATAN }}</td>
+                                        <td class="p-2 text-gray-700 border nama">{{ $data->NAMA_SEKOLAH }}</td>
+                                        <td class="p-2 text-gray-700 border status">{{ $data->STATUS_SEKOLAH }}</td>
+                                        <td class="p-2 text-gray-700 border jenjang">{{ $data->JENJANG }}</td>
+                                        <td class="p-2 text-gray-700 border regional">{{ $data->REGIONAL }}</td>
+                                        <td class="p-2 text-gray-700 border branch">{{ $data->BRANCH }}</td>
+                                        <td class="p-2 text-gray-700 border cluster">{{ $data->CLUSTER }}</td>
+                                        <td class="p-2 text-gray-700 border ">{{ $data->PJP }}</td>
+                                        <td class="p-2 text-gray-700 border ">{{ $data->FREKUENSI }}</td>
+                                        <td class="p-2 text-gray-700 border">
                                             <a href="{{ route('sekolah.show', $data->NPSN) }}" target="_blank"
                                                 class="block my-1 text-base font-semibold text-teal-600 transition hover:text-teal-800">Detail</a>
                                             @if (Auth::user()->privilege != 'cluster')
@@ -173,7 +211,7 @@
                                             @if ($data->LATITUDE && $data->LONGITUDE)
                                                 <a target="_blank"
                                                     href="http://maps.google.com/maps?z=12&t=m&q=loc:{{ $data->LATITUDE }}+{{ $data->LONGITUDE }}"
-                                                    class="block my-1 text-base font-semibold transition text-y_sekunder hover:text-teal-600">Cek
+                                                    class="block my-1 text-base font-semibold transition text-y_sekunder whitespace-nowrap hover:text-teal-600">Cek
                                                     Lokasi</a>
                                             @endif
                                             {{-- <form action="{{ route('direct_user.change_status',$data->id) }}" method="post">

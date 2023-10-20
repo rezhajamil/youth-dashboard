@@ -22,25 +22,14 @@
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Kabupaten</th>
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Alamat</th>
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">AO</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">PIC</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Telp PIC</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Kepala Sekolah</th>
-                                {{-- <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Tanggal Update</th> --}}
                             </tr>
                         </thead>
                         <tbody class="max-h-screen overflow-y-auto">
                             <tr class="hover:bg-gray-200">
-                                {{-- {{ ddd($data) }} --}}
-                                <td class="p-4 font-bold text-gray-700 border-b">{{ $sekolah->NPSN ?? '' }}</td>
+                                <td class="p-4 font-bold border-b t ext-gray-700">{{ $sekolah->NPSN ?? '' }}</td>
                                 <td class="p-4 text-gray-700 border-b">{{ $sekolah->CITY ?? '' }}</td>
                                 <td class="p-4 text-gray-700 border-b">{{ $sekolah->ALAMAT ?? '' }}</td>
                                 <td class="p-4 text-gray-700 border-b">{{ $sekolah->ao ?? '' }}</td>
-                                <td class="p-4 text-gray-700 border-b">{{ $sekolah->pic ?? '' }}</td>
-                                <td class="p-4 text-gray-700 border-b">{{ $sekolah->telp_pic ?? '' }}</td>
-                                <td class="p-4 text-gray-700 border-b">{{ $sekolah->kepala_sekolah ?? '' }}</td>
-                                {{-- <td class="p-4 text-gray-700 border-b">
-                                    {{ $sekolah->update_date ? date('Y-m-d', strtotime($sekolah->update_date)) : '' }}
-                                </td> --}}
                             </tr>
                         </tbody>
                     </table>
@@ -76,6 +65,45 @@
                     </table>
                 </div>
             </div>
+            @if ($sekolah->status == 'P1')
+                <div class="mt-4">
+                    <h4 class="mb-2 text-xl font-bold text-gray-600 align-baseline">Data P1 </h4>
+                    <div class="overflow-auto bg-white rounded-md shadow w-fit">
+                        <table class="overflow-auto text-left border-collapse w-fit">
+                            <thead class="border-b">
+                                <tr>
+                                    <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">
+                                        Kepala Sekolah
+                                    </th>
+                                    <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">
+                                        Operator Sekolah
+                                    </th>
+                                    <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">
+                                        Akses Internet
+                                    </th>
+                                    <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">
+                                        Sumber Listrik
+                                    </th>
+                                    <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Siswa Laki-laki
+                                    </th>
+                                    <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Siswa Perempuan
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="max-h-screen overflow-y-auto">
+                                <tr class="hover:bg-gray-200">
+                                    <td class="p-3 text-gray-700 border-b">{{ $sekolah->nama_kepala_sekolah ?? '' }}</td>
+                                    <td class="p-3 text-gray-700 border-b">{{ $sekolah->nama_operator ?? '' }}</td>
+                                    <td class="p-3 text-gray-700 border-b">{{ $sekolah->akses_internet ?? '' }}</td>
+                                    <td class="p-3 text-gray-700 border-b">{{ $sekolah->sumber_listrik ?? '' }}</td>
+                                    <td class="p-3 text-gray-700 border-b">{{ $sekolah->jlh_siswa_lk ?? '' }}</td>
+                                    <td class="p-3 text-gray-700 border-b">{{ $sekolah->jlh_siswa_pr ?? '' }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            @endif
             @if ($site && $outlet && in_array(auth()->user()->privilege, ['superadmin', 'branch']))
                 <div class="grid w-full grid-flow-row grid-cols-1 mt-4 gap-y-3 gap-x-3 sm:grid-cols-3 grid-auto-rows-min">
                     <div class="w-full">
@@ -122,7 +150,8 @@
                                     @foreach ($outlet as $data)
                                         <tr class="hover:bg-gray-200">
                                             <td class="p-4 font-bold text-gray-700 border-b">{{ $data->outlet }}</td>
-                                            <td class="p-4 text-gray-700 border-b whitespace-nowrap">{{ $data->jarak }} Km
+                                            <td class="p-4 text-gray-700 border-b whitespace-nowrap">{{ $data->jarak }}
+                                                Km
                                             </td>
                                         </tr>
                                         @php
@@ -155,15 +184,17 @@
                         </thead>
                         <tbody class="max-h-screen overflow-y-auto">
                             @if ($last_visit)
-                                <tr class="hover:bg-gray-200">
-                                    <td class="p-4 font-bold text-gray-700 border-b">{{ $last_visit->nama }}</td>
-                                    <td class="p-4 text-gray-700 border-b">{{ $last_visit->telp }}</td>
-                                    <td class="p-4 text-gray-700 border-b">{{ $last_visit->role }}</td>
-                                    <td class="p-4 text-gray-700 border-b">
-                                        {{ date('d-M-Y', strtotime($last_visit->date)) }}</td>
-                                    <td class="p-4 text-gray-700 border-b">{{ $last_visit->waktu }}</td>
-                                    <td class="p-4 text-gray-700 border-b">{{ $last_visit->jarak }} Km</td>
-                                </tr>
+                                @foreach ($last_visit as $data)
+                                    <tr class="hover:bg-gray-200">
+                                        <td class="p-4 font-bold text-gray-700 border-b">{{ $data->nama }}</td>
+                                        <td class="p-4 text-gray-700 border-b">{{ $data->telp }}</td>
+                                        <td class="p-4 text-gray-700 border-b">{{ $data->role }}</td>
+                                        <td class="p-4 text-gray-700 border-b">
+                                            {{ date('d-M-Y', strtotime($data->date)) }}</td>
+                                        <td class="p-4 text-gray-700 border-b">{{ $data->waktu }}</td>
+                                        <td class="p-4 text-gray-700 border-b">{{ $data->jarak }} Km</td>
+                                    </tr>
+                                @endforeach
                             @else
                                 <tr class="hover:bg-gray-200">
                                     <td colspan="6" class="p-4 font-bold text-center text-gray-700 border-b">Tidak Ada
