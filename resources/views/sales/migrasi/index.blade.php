@@ -87,9 +87,9 @@
                         </thead>
                         <tbody>
                             @foreach ($sales_region as $key => $data)
-                                <tr class="hover:bg-gray-200">
-                                    <td class="p-3 font-bold text-gray-700 border">{{ $key + 1 }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border ">{{ $data->regional }}</td>
+                                <tr class="text-center hover:bg-gray-200">
+                                    <td class="p-3 font-bold text-left text-gray-700 border">{{ $key + 1 }}</td>
+                                    <td class="p-3 text-left text-gray-700 uppercase border">{{ $data->regional }}</td>
                                     <td class="p-3 text-gray-700 uppercase border">{{ $data->mtd - $data->ds_mtd }}</td>
                                     <td class="p-3 text-gray-700 uppercase border">
                                         {{ $data->last_mtd - $data->last_ds_mtd }}</td>
@@ -104,7 +104,7 @@
                                 </tr>
                             @endforeach
                             @if ($sales_area && $sales_region)
-                                <tr class="font-bold bg-gray-200">
+                                <tr class="font-bold text-center bg-gray-200">
                                     <td colspan="2" class="p-3 text-center text-gray-700 uppercase border border-white ">
                                         AREA
                                     </td>
@@ -174,10 +174,10 @@
                         </thead>
                         <tbody>
                             @foreach ($sales_branch as $key => $data)
-                                <tr class="hover:bg-gray-200">
-                                    <td class="p-3 font-bold text-gray-700 border">{{ $key + 1 }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border ">{{ $data->regional }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border ">{{ $data->branch }}</td>
+                                <tr class="text-center hover:bg-gray-200">
+                                    <td class="p-3 font-bold text-left text-gray-700 border">{{ $key + 1 }}</td>
+                                    <td class="p-3 text-left text-gray-700 uppercase border">{{ $data->regional }}</td>
+                                    <td class="p-3 text-left text-gray-700 uppercase border">{{ $data->branch }}</td>
                                     <td class="p-3 text-gray-700 uppercase border">{{ $data->mtd - $data->ds_mtd }}</td>
                                     <td class="p-3 text-gray-700 uppercase border">
                                         {{ $data->last_mtd - $data->last_ds_mtd }}</td>
@@ -237,9 +237,9 @@
                         </thead>
                         <tbody>
                             @foreach ($sales_cluster as $key => $data)
-                                <tr class="hover:bg-gray-200">
-                                    <td class="p-3 font-bold text-gray-700 border">{{ $key + 1 }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border ">{{ $data->cluster }}</td>
+                                <tr class="text-center hover:bg-gray-200">
+                                    <td class="p-3 font-bold text-left text-gray-700 border">{{ $key + 1 }}</td>
+                                    <td class="p-3 text-left text-gray-700 uppercase border">{{ $data->cluster }}</td>
                                     <td class="p-3 text-gray-700 uppercase border">{{ $data->mtd - $data->ds_mtd }}</td>
                                     <td class="p-3 text-gray-700 uppercase border">
                                         {{ $data->last_mtd - $data->last_ds_mtd }}</td>
@@ -303,11 +303,12 @@
                         <tbody>
                             @foreach ($sales as $key => $data)
                                 {{-- {{ ddd($data->last_mtd) }} --}}
-                                <tr class="hover:bg-gray-200">
-                                    <td class="p-3 font-bold text-gray-700 border">{{ $key + 1 }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border cluster">{{ $data->cluster }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border tap">{{ $data->tap }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border nama">{{ $data->nama }}</td>
+                                <tr class="text-center hover:bg-gray-200">
+                                    <td class="p-3 font-bold text-left text-gray-700 border">{{ $key + 1 }}</td>
+                                    <td class="p-3 text-left text-gray-700 uppercase border cluster">{{ $data->cluster }}
+                                    </td>
+                                    <td class="p-3 text-left text-gray-700 uppercase border tap">{{ $data->tap }}</td>
+                                    <td class="p-3 text-left text-gray-700 uppercase border nama">{{ $data->nama }}</td>
                                     <td class="p-3 text-gray-700 uppercase border">{{ $data->mtd }}</td>
                                     <td class="p-3 text-gray-700 uppercase border">{{ $data->last_mtd }}</td>
                                     <td class="p-3 text-gray-700 uppercase border">{{ $data->mom }}%</td>
@@ -364,9 +365,9 @@
                         </thead>
                         <tbody>
                             @foreach ($sales_full as $key => $data)
-                                <tr class="hover:bg-gray-200">
-                                    <td class="p-3 font-bold text-gray-700 border">{{ $key + 1 }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border ">{{ $data->regional }}</td>
+                                <tr class="text-center hover:bg-gray-200">
+                                    <td class="p-3 font-bold text-left text-gray-700 border">{{ $key + 1 }}</td>
+                                    <td class="p-3 text-left text-gray-700 uppercase border">{{ $data->regional }}</td>
                                     <td class="p-3 text-gray-700 uppercase border ">{{ $data->branch }}</td>
                                     <td class="p-3 text-gray-700 uppercase border ">{{ $data->cluster }}</td>
                                     <td class="p-3 text-gray-700 uppercase border">{{ $data->mtd - $data->ds_mtd }}</td>
