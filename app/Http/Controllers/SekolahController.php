@@ -90,6 +90,7 @@ class SekolahController extends Controller
     {
         $list_sekolah = DB::select("SELECT *,b.PD as siswa,b.Guru as guru,b.Pegawai as pegawai,b.`R. Kelas` as kelas,c.nama as ao,d.* FROM Data_Sekolah_Sumatera a LEFT JOIN data_rombel_sumatera b ON a.NPSN=b.npsn LEFT JOIN data_user c ON a.TELP=c.telp LEFT JOIN data_sekolah_favorit d ON a.NPSN=d.npsn WHERE a.NPSN='$id' LIMIT 1;");
         $sekolah = $list_sekolah[0];
+        // ddd($sekolah);
         $outlet = Sekolah::getNearestOutlet($id);
         $site = Sekolah::getNearestSite($id);
         $last_visit = DB::table('table_kunjungan AS a')->join('data_user AS b', 'a.telp', '=', 'b.telp')->where('npsn', $sekolah->NPSN)->orderBy('date', 'DESC')->orderBy('waktu', 'DESC')->limit(3)->get();

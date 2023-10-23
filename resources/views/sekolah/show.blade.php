@@ -14,9 +14,9 @@
             <div class="mt-4">
                 <h4 class="mb-2 text-xl font-bold text-gray-600 align-baseline">
                     Detail {{ $sekolah->NAMA_SEKOLAH }}
-                    <a href="{{ route('sekolah.edit', $sekolah->NPSN) }}" class="ml-2 text-y_premier">
+                    {{-- <a href="{{ route('sekolah.edit', $sekolah->NPSN) }}" class="ml-2 text-y_premier">
                         <i class="fa-solid fa-pen-to-square"></i>
-                    </a>
+                    </a> --}}
                 </h4>
 
                 <div class="overflow-auto bg-white rounded-md shadow w-fit">
