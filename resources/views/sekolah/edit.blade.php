@@ -4,7 +4,6 @@
         <div class="flex flex-col">
             <div class="mt-4">
                 <h4 class="text-xl font-bold text-gray-600 align-baseline">Edit Data Sekolah</h4>
-
                 <div class="px-6 py-4 mx-auto overflow-auto bg-white rounded-md shadow sm:mx-0 w-fit">
                     <span class="inline-block mb-2 font-bold">{{ $sekolah->NAMA_SEKOLAH }}</span>
                     <form action="{{ route('sekolah.update', $sekolah->NPSN) }}" method="POST" class="">
@@ -85,7 +84,72 @@
                         </div>
                     </form>
                 </div>
+            </div>
+            <div class="mt-4">
+                <h4 class="text-xl font-bold text-gray-600 align-baseline">Edit Data P1</h4>
+                <div class="px-6 py-4 mx-auto overflow-auto bg-white rounded-md shadow sm:mx-0 w-fit">
+                    <form action="{{ route('sekolah.update_favorit', $sekolah->NPSN) }}" method="POST" class="">
+                        @csrf
+                        @method('put')
+                        <input type="hidden" name="url" value="{{ Request::url() }}">
+                        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+                            <div class="w-full">
+                                <label class="text-gray-700" for="nama_kepala_sekolah">Kepala Sekolah</label>
+                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="text"
+                                    name="nama_kepala_sekolah"
+                                    value="{{ old('nama_kepala_sekolah', $sekolah->nama_kepala_sekolah) }}">
+                                @error('nama_kepala_sekolah')
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="w-full">
+                                <label class="text-gray-700" for="nama_operator">Operator Sekolah</label>
+                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="text"
+                                    name="nama_operator" value="{{ old('nama_operator', $sekolah->nama_operator) }}">
+                                @error('nama_operator')
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="w-full">
+                                <label class="text-gray-700" for="akses_internet">Akses Internet</label>
+                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="text"
+                                    name="akses_internet" value="{{ old('akses_internet', $sekolah->akses_internet) }}">
+                                @error('akses_internet')
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="w-full">
+                                <label class="text-gray-700" for="sumber_listrik">Sumber Listrik</label>
+                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="text"
+                                    name="sumber_listrik" value="{{ old('sumber_listrik', $sekolah->sumber_listrik) }}">
+                                @error('sumber_listrik')
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="w-full">
+                                <label class="text-gray-700" for="jlh_siswa_lk">Siswa Laki-Laki</label>
+                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="number"
+                                    name="jlh_siswa_lk" value="{{ old('jlh_siswa_lk', $sekolah->jlh_siswa_lk) }}">
+                                @error('jlh_siswa_lk')
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="w-full">
+                                <label class="text-gray-700" for="jlh_siswa_pr">Siswa Perempuan</label>
+                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="number"
+                                    name="jlh_siswa_pr" value="{{ old('jlh_siswa_pr', $sekolah->jlh_siswa_pr) }}">
+                                @error('jlh_siswa_pr')
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
 
+                        <div class="flex justify-end mt-4">
+                            <button
+                                class="w-full px-4 py-2 font-bold text-white rounded-md bg-y_premier hover:bg-y_sekunder focus:outline-none focus:bg-y_sekunder">Submit</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
 

@@ -154,8 +154,7 @@ class SalesContoller extends Controller
             )c
                 
             GROUP BY 1,2
-            ORDER BY 1 DESC,2;
-";
+            ORDER BY 1 DESC,2;";
 
             $query_region = "
             SELECT a.regional,

@@ -127,7 +127,7 @@ class SekolahController extends Controller
      */
     public function edit($npsn)
     {
-        $sekolah = Sekolah::where('NPSN', $npsn)->first();
+        $sekolah = Sekolah::where('Data_Sekolah_Sumatera.NPSN', $npsn)->join('data_sekolah_favorit', 'Data_Sekolah_Sumatera.NPSN', '=', 'data_sekolah_favorit.npsn', 'left')->first();
         // foreach ($kabupaten as $item) {
         //     ddd($item);
         // }
@@ -160,7 +160,28 @@ class SekolahController extends Controller
             'FREKUENSI' => $request->frekuensi,
         ]);
 
-        return redirect()->route('sekolah.index');
+        return redirect()->route('sekolah.show', $npsn);
+    }
+
+    public function update_favorit(Request $request, $npsn)
+    {
+        $request->validate([
+            'jlh_siswa_lk' => 'nullable|numeric',
+            'jlh_siswa_pr' => 'nullable|numeric',
+        ]);
+
+
+        DB::table('data_sekolah_favorit')->where('npsn', $npsn)->update([
+            'nama_kepala_sekolah' => $request->nama_kepala_sekolah,
+            'nama_operator' => $request->nama_operator,
+            'akses_internet' => $request->akses_internet,
+            'sumber_listrik' => $request->sumber_listrik,
+            'jlh_siswa_lk' => $request->jlh_siswa_lk,
+            'jlh_siswa_pr' => $request->jlh_siswa_pr,
+            'tgl_update' => date('Y-m-d'),
+        ]);
+
+        return redirect()->route('sekolah.show', $npsn);
     }
 
     /**

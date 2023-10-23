@@ -113,6 +113,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('sekolah/create', [SekolahController::class, 'create'])->name('sekolah.create');
     Route::delete('sekolah/{npsn}', [SekolahController::class, 'destroy'])->name('sekolah.destroy');
     Route::put('sekolah/{npsn}', [SekolahController::class, 'update'])->name('sekolah.update');
+    Route::put('sekolah/update_favorite/{npsn}', [SekolahController::class, 'update_favorit'])->name('sekolah.update_favorit');
     Route::get('sekolah/{npsn}', [SekolahController::class, 'show'])->name('sekolah.show');
     Route::get('sekolah/{npsn}/edit', [SekolahController::class, 'edit'])->name('sekolah.edit');
     Route::get('resume/sekolah', [SekolahController::class, 'resume'])->name('sekolah.resume');

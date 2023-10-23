@@ -12,7 +12,12 @@
     <div class="w-full sm:mx-4">
         <div class="flex flex-col">
             <div class="mt-4">
-                <h4 class="mb-2 text-xl font-bold text-gray-600 align-baseline">Detail {{ $sekolah->NAMA_SEKOLAH }}</h4>
+                <h4 class="mb-2 text-xl font-bold text-gray-600 align-baseline">
+                    Detail {{ $sekolah->NAMA_SEKOLAH }}
+                    <a href="{{ route('sekolah.edit', $sekolah->NPSN) }}" class="ml-2 text-y_premier">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
+                </h4>
 
                 <div class="overflow-auto bg-white rounded-md shadow w-fit">
                     <table class="overflow-auto text-left border-collapse w-fit">
