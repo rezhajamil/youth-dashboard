@@ -282,12 +282,14 @@ class ByuController extends Controller
         if ($request->start_date && $request->end_date) {
 
             if ($privilege == 'branch') {
-                $stok = DB::select("SELECT * FROM byu_stok a JOIN territory_new b on a.`cluster`=b.`cluster` WHERE branch='$branch' AND date BETWEEN '$request->start_date' AND '$request->end_date' ORDER BY date desc, b.regional DESC,b.branch,b.cluster,city;");
+                $stok = DB::select("SELECT * FROM byu_stok a JOIN lbo_city b on a.`city`=b.`city` WHERE branch='$branch' AND date BETWEEN '$request->start_date' AND '$request->end_date' ORDER BY date desc, b.region DESC,b.branch,b.cluster,b.city;");
             } else if ($privilege == 'cluster') {
-                $stok = DB::select("SELECT * FROM byu_stok a JOIN territory_new b on a.`cluster`=b.`cluster` WHERE cluster='$cluster' AND date BETWEEN '$request->start_date' AND '$request->end_date' ORDER BY date desc, b.regional DESC,b.branch,b.cluster,city;");
+                $stok = DB::select("SELECT * FROM byu_stok a JOIN lbo_city b on a.`city`=b.`city` WHERE cluster='$cluster' AND date BETWEEN '$request->start_date' AND '$request->end_date' ORDER BY date desc, b.region DESC,b.branch,b.cluster,b.city;");
             } else {
-                $stok = DB::select("SELECT * FROM byu_stok a JOIN territory_new b on a.`cluster`=b.`cluster` WHERE date BETWEEN '$request->start_date' AND '$request->end_date' ORDER BY date desc,  b.regional DESC,b.branch,b.cluster,city;");
+                $stok = DB::select("SELECT * FROM byu_stok a JOIN lbo_city b on a.`city`=b.`city` WHERE date BETWEEN '$request->start_date' AND '$request->end_date' ORDER BY date desc,  b.region DESC,b.branch,b.cluster,b.city;");
             }
+
+            // ddd("SELECT * FROM byu_stok a JOIN territory_new b on a.`cluster`=b.`cluster` WHERE date BETWEEN '$request->start_date' AND '$request->end_date' ORDER BY date desc,  b.regional DESC,b.branch,b.cluster,city;");
 
             foreach ($stok as $key => $data) {
                 $total += $data->jumlah;
