@@ -54,6 +54,10 @@
                                     <td class="p-4 text-gray-700 uppercase border-b">{{ $data->jumlah }}</td>
                                 </tr>
                             @endforeach
+                            <tr class="bg-gray-300">
+                                <td class="font-bold text-center uppercase border border-white " colspan="5">Total</td>
+                                <td class="p-4 font-bold text-gray-700 uppercase border-b">{{ $total }}</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

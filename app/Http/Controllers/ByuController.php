@@ -278,7 +278,7 @@ class ByuController extends Controller
         $privilege = auth()->user()->privilege;
         $branch = auth()->user()->branch;
         $cluster = auth()->user()->cluster;
-
+        $total = 0;
         if ($request->start_date && $request->end_date) {
 
             if ($privilege == 'branch') {
@@ -288,11 +288,15 @@ class ByuController extends Controller
             } else {
                 $stok = DB::select("SELECT * FROM byu_stok a JOIN territory_new b on a.`cluster`=b.`cluster` WHERE date BETWEEN '$request->start_date' AND '$request->end_date' ORDER BY date desc,  b.regional DESC,b.branch,b.cluster,city;");
             }
+
+            foreach ($stok as $key => $data) {
+                $total += $data->jumlah;
+            }
         } else {
             $stok = [];
         }
 
-        return view('byu.stok.view', compact('stok'));
+        return view('byu.stok.view', compact('stok', 'total'));
     }
 
     public function view_report(Request $request)
