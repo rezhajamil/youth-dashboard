@@ -75,7 +75,7 @@ class ByuController extends Controller
      */
     public function create()
     {
-        $cluster = Territory::getCluster();
+        $cluster = DB::table('lbo_city')->select('cluster')->orderBy('cluster')->distinct()->get();
 
         return view('byu.stok.create', compact('cluster'));
     }
