@@ -3,7 +3,7 @@
     <div class="w-full mx-4 my-4">
         <div class="flex flex-col">
             <div class="mt-4">
-                <h4 class="text-xl font-bold text-gray-600 align-baseline">Hasil Input Stok ByU</h4>
+                <h4 class="text-xl font-bold text-gray-600 align-baseline">Hasil Input Stok ByU Legacy</h4>
 
                 <div class="flex justify-between mt-4 ">
                     <form class="flex flex-wrap items-center gap-x-4 gap-y-2" action="{{ route('byu.stok.view') }}"
@@ -31,6 +31,8 @@
                         <thead class="border-b">
                             <tr>
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Tanggal</th>
+                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Region</th>
+                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Branch</th>
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Cluster</th>
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">City</th>
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Jumlah</th>
@@ -40,6 +42,8 @@
                             @foreach ($stok as $key => $data)
                                 <tr class="hover:bg-gray-200">
                                     <td class="p-4 text-gray-700 uppercase border-b ">{{ $data->date }}</td>
+                                    <td class="p-4 text-gray-700 uppercase border-b ">{{ $data->regional }}</td>
+                                    <td class="p-4 text-gray-700 uppercase border-b ">{{ $data->branch }}</td>
                                     <td class="p-4 text-gray-700 uppercase border-b ">{{ $data->cluster }}</td>
                                     <td class="p-4 text-gray-700 uppercase border-b ">{{ $data->city }}</td>
                                     <td class="p-4 text-gray-700 uppercase border-b">{{ $data->jumlah }}</td>
