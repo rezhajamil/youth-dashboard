@@ -9,7 +9,7 @@
                 <a href="{{ route('byu.stok.view') }}" target="_blank"
                     class="inline-block px-4 py-2 my-2 font-bold text-white rounded-md bg-y_tersier hover:bg-y_tersier"><i
                         class="mr-2 fa-solid fa-list"></i> Hasil Input Stok ByU</a>
-                <h4 class="my-4 text-xl font-bold text-gray-600 align-baseline">Tambah Data Stok ByU</h4>
+                <h4 class="my-4 text-xl font-bold text-gray-600 align-baseline">Permintaan Tambahan Stok ByU Legacy</h4>
 
                 <div class="px-6 py-4 mx-auto overflow-auto bg-white rounded-md shadow sm:mx-0 w-fit">
                     <form action="{{ route('byu.store') }}" method="POST" class="">
