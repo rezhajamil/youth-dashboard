@@ -42,7 +42,7 @@
                             @foreach ($stok as $key => $data)
                                 <tr class="hover:bg-gray-200">
                                     <td class="p-4 text-gray-700 uppercase border-b ">{{ $data->date }}</td>
-                                    <td class="p-4 text-gray-700 uppercase border-b ">{{ $data->region }}</td>
+                                    <td class="p-4 text-gray-700 uppercase border-b ">{{ $data->regional }}</td>
                                     <td class="p-4 text-gray-700 uppercase border-b ">{{ $data->branch }}</td>
                                     <td class="p-4 text-gray-700 uppercase border-b ">{{ $data->cluster }}</td>
                                     <td class="p-4 text-gray-700 uppercase border-b ">{{ $data->city }}</td>
