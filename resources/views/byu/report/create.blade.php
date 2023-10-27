@@ -86,7 +86,6 @@
         $(document).ready(function() {
             $("#cluster").on('input', () => {
                 var cluster = $("#cluster").val();
-                // console.log(cluster)
                 $.ajax({
                     url: "{{ route('wilayah.get_lbo_city') }}",
                     method: "POST",

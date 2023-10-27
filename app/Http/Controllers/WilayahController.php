@@ -81,9 +81,9 @@ class WilayahController extends Controller
     public function getLboCity(Request $request)
     {
         if ($request->cluster) {
-            $kabupaten = DB::table('territory_new')->select('kab_new as kabupaten')->distinct()->whereNotNull('kab_new')->where('cluster', $request->cluster)->where('lbo_city', 1)->orderBy('kab_new')->get();
+            $kabupaten = DB::table('lbo_city')->select('city as kabupaten')->distinct()->where('cluster', $request->cluster)->orderBy('city')->get();
         } else if ($request->provinsi) {
-            $kabupaten = DB::table('territory_new')->select('kab_new as kabupaten')->distinct()->whereNotNull('kab_new')->where('provinsi', $request->provinsi)->where('lbo_city', 1)->orderBy('kab_new')->get();
+            $kabupaten = DB::table('lbo_city')->select('city as kabupaten')->distinct()->where('provinsi', $request->provinsi)->orderBy('city')->get();
         }
 
         return response()->json($kabupaten);
