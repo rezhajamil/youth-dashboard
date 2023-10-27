@@ -284,9 +284,9 @@ class ByuController extends Controller
             if ($privilege == 'branch') {
                 $stok = DB::select("SELECT * FROM byu_stok a JOIN territory_new b on a.`cluster`=b.`cluster` WHERE branch='$branch' AND date BETWEEN '$request->start_date' AND '$request->end_date' ORDER BY date desc, cluster,city;");
             } else if ($privilege == 'cluster') {
-                $stok = DB::select("SELECT * FROM byu_stok a WHERE cluster='$cluster' AND date BETWEEN '$request->start_date' AND '$request->end_date' ORDER BY date desc, cluster,city;");
+                $stok = DB::select("SELECT * FROM byu_stok a JOIN territory_new b on a.`cluster`=b.`cluster WHERE cluster='$cluster' AND date BETWEEN '$request->start_date' AND '$request->end_date' ORDER BY date desc, cluster,city;");
             } else {
-                $stok = DB::select("SELECT * FROM byu_stok a WHERE date BETWEEN '$request->start_date' AND '$request->end_date' ORDER BY date desc, cluster,city;");
+                $stok = DB::select("SELECT * FROM byu_stok a JOIN territory_new b on a.`cluster`=b.`cluster WHERE date BETWEEN '$request->start_date' AND '$request->end_date' ORDER BY date desc, cluster,city;");
             }
         } else {
             $stok = [];
