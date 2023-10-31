@@ -9,7 +9,7 @@
         </div>
     </div>
 
-    <nav class="mt-10" x-data="{ sales: false, direct: false, school: false, broadcast: false, content: false, event: false, market: false, location: false, channel: false }">
+    <nav class="mt-10" x-data="{ sales: false, direct: false, school: false, broadcast: false, content: false, event: false, market: false, location: false, channel: false, halo: false }">
         <a class="flex items-center px-6 py-2 mt-4 text-gray-100 bg-opacity-25 bg-slate-800"
             href="{{ URL::to('/dashboard') }}">
             <svg class="w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -250,6 +250,26 @@
                         class="inline-block px-2 py-3">Poin History</span></a>
             </div>
         @endif
+
+        <a class="flex items-center px-6 py-2 mt-4 text-white transition-all cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100"
+            x-on:click="halo=!halo">
+            <i class="w-6 fa-solid fa-hand"></i>
+            <span class="mx-3 text-white select-none">Halo</span>
+            <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right"
+                :class="{ 'rotate-90': halo, 'rotate-0': !halo }"></i>
+        </a>
+        <div class="flex flex-col w-3/4 mx-6 mt-2 ml-auto overflow-hidden bg-opacity-25 rounded-md bg-slate-800"
+            x-show="halo" x-transition>
+            <a href=""
+                class="text-white transition-all border-b select-none hover:bg-white hover:text-slate-800 border-b-slate-400"><span
+                    class="inline-block px-2 py-3">Store</span></a>
+            <a href=""
+                class="text-white transition-all border-b select-none hover:bg-white hover:text-slate-800 border-b-slate-400"><span
+                    class="inline-block px-2 py-3">Stok</span></a>
+            <a href=""
+                class="text-white transition-all border-b select-none hover:bg-white hover:text-slate-800 border-b-slate-400"><span
+                    class="inline-block px-2 py-3">Survey</span></a>
+        </div>
 
 
         <a class="flex items-center px-6 py-2 mt-4 text-white transition-all bg-opacity-25 cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100"
