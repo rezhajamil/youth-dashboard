@@ -109,6 +109,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('whitelist/distribusi/user', [BroadCastController::class, 'get_user_distribusi'])->name('whitelist.distribusi.user');
 
     Route::get('sekolah', [SekolahController::class, 'index'])->name('sekolah.index');
+    Route::get('sekolah/favorit', [SekolahController::class, 'favorit'])->name('sekolah.favorit');
     Route::post('sekolah', [SekolahController::class, 'store'])->name('sekolah.store');
     Route::get('sekolah/create', [SekolahController::class, 'create'])->name('sekolah.create');
     Route::delete('sekolah/{npsn}', [SekolahController::class, 'destroy'])->name('sekolah.destroy');

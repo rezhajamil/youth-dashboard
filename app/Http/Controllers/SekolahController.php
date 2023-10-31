@@ -59,6 +59,48 @@ class SekolahController extends Controller
         return view('sekolah.index', compact('provinsi', 'kabupaten', 'kecamatan', 'branch', 'sekolah'));
     }
 
+    public function favorit(Request $request)
+    {
+        $privilege = auth()->user()->privilege;
+        $branch = auth()->user()->branch;
+        $cluster = auth()->user()->cluster;
+        ini_set('memory_limit', '-1');
+        switch ($privilege) {
+            case 'branch':
+                $provinsi = Sekolah::select('provinsi')->distinct()->whereNotNull('provinsi')->where('branch', $branch)->orderBy('provinsi')->get();
+                $branch = DB::table('wilayah')->select('branch')->distinct()->whereNotNull('branch')->where('branch', $branch)->get();
+                break;
+            case 'cluster':
+                $provinsi = Sekolah::select('provinsi')->distinct()->whereNotNull('provinsi')->where('cluster', $cluster)->orderBy('provinsi')->get();
+                $branch = [];
+                break;
+            default:
+                $provinsi = Sekolah::select('provinsi')->distinct()->whereNotNull('provinsi')->orderBy('provinsi')->get();
+                $branch = DB::table('wilayah')->select('branch')->distinct()->whereNotNull('branch')->get();
+                break;
+        }
+
+        if ($request->kecamatan) {
+            $sekolah = Sekolah::where('kecamatan', $request->kecamatan)->join('data_sekolah_favorit', 'Data_Sekolah_Sumatera.NPSN', '=', 'data_sekolah_favorit.npsn', 'left')->where('data_sekolah_favorit.status', 'P1')->orderBy('nama_sekolah')->get();
+            $kabupaten = DB::table('territory')->select('kabupaten')->where('provinsi', $request->provinsi)->whereNotNull('kabupaten')->distinct()->orderBy('kabupaten')->get();
+            $kecamatan = DB::table('territory')->select('kecamatan')->where('kabupaten', $request->kabupaten)->whereNotNull('kecamatan')->distinct()->orderBy('kecamatan')->get();
+        } else if ($request->kabupaten) {
+            $sekolah = Sekolah::where('kab_kota', $request->kabupaten)->join('data_sekolah_favorit', 'Data_Sekolah_Sumatera.NPSN', '=', 'data_sekolah_favorit.npsn', 'left')->where('data_sekolah_favorit.status', 'P1')->orderBy('kecamatan')->orderBy('nama_sekolah')->get();
+            $kabupaten = DB::table('territory')->select('kabupaten')->where('provinsi', $request->provinsi)->whereNotNull('kabupaten')->distinct()->orderBy('kabupaten')->get();
+            $kecamatan = DB::table('territory')->select('kecamatan')->where('kabupaten', $request->kabupaten)->whereNotNull('kecamatan')->distinct()->orderBy('kecamatan')->get();
+        } else if ($request->provinsi) {
+            $sekolah = Sekolah::where('provinsi', $request->provinsi)->join('data_sekolah_favorit', 'Data_Sekolah_Sumatera.NPSN', '=', 'data_sekolah_favorit.npsn', 'left')->where('data_sekolah_favorit.status', 'P1')->orderBy('kab_kota')->orderBy('kecamatan')->orderBy('nama_sekolah')->get();
+            $kabupaten = DB::table('territory')->select('kabupaten')->where('provinsi', $request->provinsi)->whereNotNull('kabupaten')->distinct()->orderBy('kabupaten')->get();
+            $kecamatan = [];
+        } else {
+            $sekolah = [];
+            $kabupaten = [];
+            $kecamatan = [];
+        }
+
+        // ddd($sekolah);
+        return view('sekolah.favorit', compact('provinsi', 'kabupaten', 'kecamatan', 'branch', 'sekolah'));
+    }
     /**
      * Show the form for creating a new resource.
      *

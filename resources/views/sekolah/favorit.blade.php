@@ -4,7 +4,7 @@
         <div class="flex flex-col">
             <div class="mt-4">
                 <div class="flex justify-between mb-4">
-                    <h4 class="text-xl font-bold text-gray-600 align-baseline">Data Sekolah</h4>
+                    <h4 class="text-xl font-bold text-gray-600 align-baseline">Data Sekolah P1</h4>
                     <div class="flex mr-4 gap-x-4">
                         {{-- <a href="" class="px-4 py-2 font-bold text-white transition bg-green-600 rounded-lg hover:bg-green-800"><i class="mr-2 fa-solid fa-square-up-right"></i>PJP</a> --}}
                         {{-- <a href="" class="px-4 py-2 font-bold text-white transition bg-green-600 rounded-lg hover:bg-green-800"><i class="mr-2 fa-solid fa-square-up-right"></i>OSS</a> --}}
@@ -12,7 +12,7 @@
                     </div>
                 </div>
                 <div class="flex justify-between">
-                    <form class="flex flex-wrap items-center my-3 gap-x-4 gap-y-2" action="{{ route('sekolah.index') }}"
+                    <form class="flex flex-wrap items-center my-3 gap-x-4 gap-y-2" action="{{ route('sekolah.favorit') }}"
                         method="get">
                         <select name="provinsi" id="provinsi" class="px-8 rounded-lg">
                             <option value="" selected disabled>Pilih Provinsi</option>
@@ -46,7 +46,7 @@
                                 class="px-4 py-2 font-bold text-white transition rounded-lg bg-y_premier hover:bg-y_premier"><i
                                     class="mr-2 fa-solid fa-magnifying-glass"></i>Cari</button>
                             @if (request()->get('provinsi') || request()->get('kabupaten') || request()->get('kecamatan'))
-                                <a href="{{ route('sekolah.index') }}"
+                                <a href="{{ route('sekolah.favorit') }}"
                                     class="px-4 py-2 font-bold text-white transition bg-gray-600 rounded-lg hover:bg-gray-800"><i
                                         class="mr-2 fa-solid fa-circle-xmark"></i>Reset</a>
                             @endif
