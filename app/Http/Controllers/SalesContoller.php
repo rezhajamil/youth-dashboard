@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Rules\MsisdnNumber;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -757,8 +758,7 @@ class SalesContoller extends Controller
     {
         $request->validate([
             'nik' => ['required'],
-            'msisdn' => ['required'],
-            'program' => ['required'],
+            'msisdn' => ['required', 'min:12', new MsisdnNumber],
         ]);
 
         $count = DB::table('sales_refferal')->where('msisdn', $request->msisdn)->where('program', $request->program)->count();
@@ -769,8 +769,7 @@ class SalesContoller extends Controller
             $data = DB::table('sales_refferal')->insert([
                 'nik' => $request->nik,
                 'msisdn' => $request->msisdn,
-                'program' => $request->program,
-                'paket' => $request->paket ?? 0,
+                'program' => 'mytsel',
                 'date' => date('Y-m-d'),
             ]);
         }

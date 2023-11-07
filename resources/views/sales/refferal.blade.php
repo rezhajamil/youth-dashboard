@@ -21,7 +21,7 @@
                         @error('msisdn')
                             <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                         @enderror
-                        <select name="program" id="program"
+                        {{-- <select name="program" id="program"
                             class="w-full mt-4 rounded-md form-input focus:border-sekunder" required>
                             <option value="" selected disabled>Pilih Program*</option>
                             <option value="mytsel">My Telkomsel</option>
@@ -33,7 +33,7 @@
                             id="paket" placeholder="PAKET" value="{{ old('paket') }}">
                         @error('paket')
                             <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
-                        @enderror
+                        @enderror --}}
                         <button type="submit" id="btn-submit"
                             class="w-full px-6 py-2 my-4 font-semibold text-white rounded bg-sekunder">Submit</button>
                         <a href="{{ route('sales.get_refferal') }}"
