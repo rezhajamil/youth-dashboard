@@ -742,6 +742,43 @@ class SalesContoller extends Controller
         }
     }
 
+    public function getRefferal(Request $request)
+    {
+        $user = [];
+
+        if ($request->email) {
+            $user = DB::table('user_refferal')->where('email', $request->email)->first();
+        }
+
+        return view('sales.refferal', compact('user'));
+    }
+
+    public function storeRefferal(Request $request)
+    {
+        $request->validate([
+            'nik' => ['required'],
+            'msisdn' => ['required'],
+            'program' => ['required'],
+        ]);
+
+        $count = DB::table('sales_refferal')->where('msisdn', $request->msisdn)->where('program', $request->program)->count();
+
+        if ($count) {
+            return back()->withErrors(['msisdn' => 'MSISDN sudah pernah di input'])->withInput();
+        } else {
+            $data = DB::table('sales_refferal')->insert([
+                'nik' => $request->nik,
+                'msisdn' => $request->msisdn,
+                'program' => $request->program,
+                'paket' => $request->paket ?? 0,
+                'date' => date('Y-m-d'),
+            ]);
+        }
+
+
+        return redirect()->route('sales.get_refferal', ['email' => $request->email])->with('success', 'Berhasil Input Data Refferal');
+    }
+
     public function getLocation(Request $request)
     {
         $list_location = DB::table('sales_copy')->select(['poi as location'])->where('jenis', $request->jenis)->whereNotNull('poi')->where('poi', '!=', '')->distinct()->orderBy('poi')->join('data_user', 'sales_copy.telp', '=', 'data_user.telp');
