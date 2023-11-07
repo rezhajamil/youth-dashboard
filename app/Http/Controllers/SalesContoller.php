@@ -746,8 +746,8 @@ class SalesContoller extends Controller
     {
         $user = [];
 
-        if ($request->email) {
-            $user = DB::table('user_refferal')->where('email', $request->email)->first();
+        if ($request->nik) {
+            $user = DB::table('user_refferal')->where('nik_siad', $request->nik)->first();
         }
 
         return view('sales.refferal', compact('user'));
@@ -776,7 +776,7 @@ class SalesContoller extends Controller
         }
 
 
-        return redirect()->route('sales.get_refferal', ['email' => $request->email])->with('success', 'Berhasil Input Data Refferal');
+        return redirect()->route('sales.get_refferal', ['nik' => $request->nik])->with('success', 'Berhasil Input Data Refferal');
     }
 
     public function getLocation(Request $request)
