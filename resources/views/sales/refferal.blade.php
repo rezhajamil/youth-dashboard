@@ -1,8 +1,21 @@
-@extends('layouts.dashboard.app', ['plain' => true, 'title' => 'My Telkomsel'])
+@extends('layouts.dashboard.app', ['plain' => true, 'title' => 'Refferal Reporting Program'])
 @section('body')
-    <section class="flex flex-col items-center w-full h-full min-h-screen px-4 py-4 bg-premier">
-        <span class="my-6 font-bold text-white">MY TELKOMSEL</span>
-        <div class="w-full px-4 py-2 my-auto bg-white rounded-lg shadow-xl h-fit sm:w-3/4 ">
+    <section class="flex flex-col items-center w-full h-full min-h-screen px-4 py-4 bg-y_premier">
+        <span class="inline-block w-full mt-2 mb-6 font-bold text-left text-white">Refferal Reporting Program
+            <br>
+            <div class="flex pt-2 gap-x-1">
+                <span>by</span>
+                <div class="p-1 bg-white rounded h-fit mt1">
+                    <img src="{{ asset('images/logo-new-text.png') }}" alt="Logo Youth Apps" class="h-4">
+                </div>
+            </div>
+        </span>
+        <div class="w-full px-4 py-2 my-4 rounded-lg shadow-xl bg-y_tersier h-fit sm:w-3/4">
+            <span class="inline-block w-full font-bold text-left text-white">Halo, {{ $user->name }} 👋🏻</span>
+
+
+        </div>
+        <div class="w-full px-4 py-2 my-4 bg-white rounded-lg shadow-xl h-fit sm:w-3/4 ">
             @if (request()->get('nik'))
                 @if (!$user)
                     <span class="inline-block w-full font-bold text-center text-slate-600">NIK User Tidak Ditemukan</span>
@@ -11,13 +24,14 @@
                         <i class="mr-2 fa-solid fa-arrow-left-long"></i>Kembali
                     </a>
                 @else
-                    <span class="inline-block w-full font-bold text-center text-slate-600">Data Refferal</span>
+                    <span class="inline-block w-full font-bold text-center text-slate-500">Data Refferal</span>
                     <form action="{{ route('sales.store_refferal') }}" method="post">
                         @csrf
                         <input type="hidden" name="email" value="{{ $user->email }}">
                         <input type="hidden" name="nik" value="{{ $user->nik_siad }}">
-                        <input class="w-full mt-4 rounded-md form-input focus:border-sekunder" type="number" name="msisdn"
-                            id="msisdn" placeholder="MSISDN*" value="{{ old('msisdn') }}" required>
+                        <input class="w-full mt-4 rounded-md form-input focus:border-sekunder placeholder:text-sm"
+                            type="number" name="msisdn" id="msisdn" placeholder="MSISDN (628xxx)*"
+                            value="{{ old('msisdn') }}" required>
                         @error('msisdn')
                             <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                         @enderror
@@ -35,9 +49,9 @@
                             <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                         @enderror --}}
                         <button type="submit" id="btn-submit"
-                            class="w-full px-6 py-2 my-4 font-semibold text-white rounded bg-sekunder">Submit</button>
+                            class="w-full px-6 py-2 my-2 font-semibold text-white rounded bg-y_sekunder">Submit</button>
                         <a href="{{ route('sales.get_refferal') }}"
-                            class="inline-block w-full px-6 py-2 my-2 font-semibold text-center text-white bg-gray-400 rounded hover:bg-gray-600 ">Kembali</a>
+                            class="inline-block w-full px-6 py-2 my-1 font-semibold text-center text-white bg-gray-400 rounded hover:bg-gray-600 ">Kembali</a>
                     </form>
                 @endif
             @else

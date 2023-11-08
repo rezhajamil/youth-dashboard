@@ -947,6 +947,10 @@ select {
   margin-top: 0.75rem;
   margin-bottom: 0.75rem;
 }
+.my-auto {
+  margin-top: auto;
+  margin-bottom: auto;
+}
 .my-8 {
   margin-top: 2rem;
   margin-bottom: 2rem;
@@ -1381,6 +1385,10 @@ select {
 .gap-y-4 {
   row-gap: 1rem;
 }
+.gap-x-1 {
+  -moz-column-gap: 0.25rem;
+       column-gap: 0.25rem;
+}
 .-space-x-px > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(-1px * var(--tw-space-x-reverse));
@@ -1662,6 +1670,10 @@ select {
 .bg-white\/60 {
   background-color: rgb(255 255 255 / 0.6);
 }
+.bg-gray-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(156 163 175 / var(--tw-bg-opacity));
+}
 .bg-gray-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(107 114 128 / var(--tw-bg-opacity));
@@ -1714,10 +1726,6 @@ select {
 .bg-red-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(254 202 202 / var(--tw-bg-opacity));
-}
-.bg-gray-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(156 163 175 / var(--tw-bg-opacity));
 }
 .bg-opacity-25 {
   --tw-bg-opacity: 0.25;
@@ -1882,6 +1890,9 @@ select {
 }
 .align-baseline {
   vertical-align: baseline;
+}
+.align-middle {
+  vertical-align: middle;
 }
 .font-sans {
   font-family: Nunito, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -2063,13 +2074,17 @@ select {
 .text-slate-700\/60 {
   color: rgb(51 65 85 / 0.6);
 }
-.text-gray-800 {
+.text-slate-500 {
   --tw-text-opacity: 1;
-  color: rgb(31 41 55 / var(--tw-text-opacity));
+  color: rgb(100 116 139 / var(--tw-text-opacity));
 }
 .text-sekunder {
   --tw-text-opacity: 1;
   color: rgb(2 25 66 / var(--tw-text-opacity));
+}
+.text-gray-800 {
+  --tw-text-opacity: 1;
+  color: rgb(31 41 55 / var(--tw-text-opacity));
 }
 .text-emerald-600 {
   --tw-text-opacity: 1;
@@ -2370,6 +2385,16 @@ select {
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-black:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-gray-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(75 85 99 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-orange-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(194 65 12 / var(--tw-bg-opacity));
@@ -2378,11 +2403,6 @@ select {
 .hover\:bg-blue-800:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(30 64 175 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-black:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-gray-500\/50:hover {
@@ -2567,6 +2587,11 @@ select {
 .focus\:border-y_premier:focus {
   --tw-border-opacity: 1;
   border-color: rgb(96 116 177 / var(--tw-border-opacity));
+}
+
+.focus\:border-sekunder:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(2 25 66 / var(--tw-border-opacity));
 }
 
 .focus\:border-indigo-300:focus {
