@@ -758,7 +758,7 @@ class SalesContoller extends Controller
     {
         $request->validate([
             'nik' => ['required'],
-            'msisdn' => ['required', 'min:12', new MsisdnNumber],
+            'msisdn' => ['required', 'min:11', new MsisdnNumber],
         ]);
 
         $count = DB::table('sales_refferal')->where('msisdn', $request->msisdn)->where('program', $request->program)->count();

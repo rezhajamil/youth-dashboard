@@ -30,7 +30,7 @@
                         <i class="mr-2 fa-solid fa-arrow-left-long"></i>Kembali
                     </a>
                 @else
-                    <span class="inline-block w-full font-bold text-center text-slate-500">Data Refferal</span>
+                    <span class="inline-block w-full font-bold text-center text-slate-500">Report MSISDN MyTsel</span>
                     <form action="{{ route('sales.store_refferal') }}" method="post">
                         @csrf
                         <input type="hidden" name="email" value="{{ $user->email }}">
