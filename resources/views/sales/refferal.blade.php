@@ -75,7 +75,7 @@
 @section('script')
     @if (session('success'))
         <script>
-            alert('Berhasil Input Data Refferal')
+            alert('Berhasil Input Report MSISDN MyTsel')
         </script>
     @endif
 @endsection
