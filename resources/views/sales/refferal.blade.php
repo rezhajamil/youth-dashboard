@@ -1,6 +1,6 @@
 @extends('layouts.dashboard.app', ['plain' => true, 'title' => 'Refferal Reporting Program'])
 @section('body')
-    <section class="flex flex-col items-center w-full h-full min-h-screen px-4 py-4 bg-y_premier">
+    <section class="flex flex-col items-center w-full h-full min-h-screen px-4 py-4 bg-indigo-400">
         <span class="inline-block w-full mt-2 mb-6 font-bold text-left text-white">Refferal Reporting Program
             <br>
             <div class="flex pt-2 gap-x-1">
@@ -10,11 +10,17 @@
                 </div>
             </div>
         </span>
-        <div class="w-full px-4 py-2 my-4 rounded-lg shadow-xl bg-y_tersier h-fit sm:w-3/4">
-            <span class="inline-block w-full font-bold text-left text-white">Halo, {{ $user->name }} 👋🏻</span>
-
-
-        </div>
+        @if (request()->get('nik') && $user)
+            <div class="w-full px-4 py-2 my-4 bg-indigo-600 rounded-lg shadow-xl h-fit sm:w-3/4">
+                <span class="inline-block w-full font-bold text-left text-white">Halo, {{ $user->name }} 👋🏻</span>
+                <span class="inline-block w-full mt-1 text-sm text-left text-gray-100">The pages of yesterday cant be
+                    revised,
+                    but
+                    u
+                    hold pen to pages of tomorrow <br>
+                    Semangattt Pagiii <br> Semangattt Berprestasi ⭐ 💪</span>
+            </div>
+        @endif
         <div class="w-full px-4 py-2 my-4 bg-white rounded-lg shadow-xl h-fit sm:w-3/4 ">
             @if (request()->get('nik'))
                 @if (!$user)
@@ -49,7 +55,7 @@
                             <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                         @enderror --}}
                         <button type="submit" id="btn-submit"
-                            class="w-full px-6 py-2 my-2 font-semibold text-white rounded bg-y_sekunder">Submit</button>
+                            class="w-full px-6 py-2 my-2 font-semibold text-white bg-indigo-800 rounded">Submit</button>
                         <a href="{{ route('sales.get_refferal') }}"
                             class="inline-block w-full px-6 py-2 my-1 font-semibold text-center text-white bg-gray-400 rounded hover:bg-gray-600 ">Kembali</a>
                     </form>
@@ -60,7 +66,7 @@
                     <input class="w-full mt-2 rounded-md form-input focus:border-indigo-600" type="number" name="nik"
                         id="nik" placeholder="Masukkan NIK SIAD" value="{{ old('nik') }}" required>
                     <button type="submit" id="btn-submit"
-                        class="w-full px-6 py-2 my-4 font-semibold text-white rounded bg-sekunder">Submit</button>
+                        class="w-full px-6 py-2 my-4 font-semibold text-white bg-indigo-800 rounded">Submit</button>
                 </form>
             @endif
         </div>
