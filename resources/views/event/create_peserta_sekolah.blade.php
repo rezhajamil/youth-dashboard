@@ -10,7 +10,8 @@
                         <span class="inline-block p-2 font-semibold text-green-600 bg-green-300 rounded">Berhasil Upload Data
                             Peserta</span>
                     @endif
-                    <form action="{{ route('event.store_peserta_sekolah') }}" method="POST" class="">
+                    <form action="{{ route('event.store_peserta_sekolah') }}" method="POST" class=""
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="grid grid-cols-1 gap-3 mt-4 sm:grid-cols-3">
                             <div class="w-full">
@@ -40,7 +41,7 @@
                                     <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div>
+                            {{-- <div>
                                 <label class="text-gray-700" for="nama_peserta">Nama Peserta</label>
                                 <input id="nama_peserta" class="w-full rounded-md form-input focus:border-indigo-600"
                                     type="text" name="nama_peserta" placeholder="NAMA PESERTA"
@@ -64,6 +65,15 @@
                                     type="number" name="no_akuisisi_byu" placeholder="081234xxxx"
                                     value="{{ old('no_akuisisi_byu') }}">
                                 @error('no_akuisisi_byu')
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                @enderror
+                            </div> --}}
+                            <div class="col-span-full">
+                                <label class="text-gray-700" for="file">CSV Data Peserta
+                                    (nama_peserta;telp_peserta;nomor_akuisisi_byu)</label>
+                                <input id="file" class="w-full rounded-md form-input focus:border-indigo-600"
+                                    type="file" name="file" value="{{ old('file') }}">
+                                @error('file')
                                     <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
                             </div>

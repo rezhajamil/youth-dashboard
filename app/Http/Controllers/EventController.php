@@ -287,19 +287,58 @@ class EventController extends Controller
         $request->validate([
             'telp_ds' => ['required', 'numeric'],
             'npsn' => ['required', 'numeric'],
-            'nama_peserta' => ['required'],
-            'telp_peserta' => ['required', new PhoneNumber],
-            'no_akuisisi_byu' => ['required', new TelkomselNumber],
+            'file' => ['required'],
         ]);
 
-        $data = DB::table('peserta_event_sekolah')->insert([
-            'telp_ds' => $request->telp_ds,
-            'npsn' => $request->npsn,
-            'nama_peserta' => $request->nama_peserta,
-            'telp_peserta' => $request->telp_peserta,
-            'no_akuisisi_byu' => $request->no_akuisisi_byu,
-            'date' => date('Y-m-d'),
-        ]);
+        if ($request->hasFile('file')) {
+            if (file_exists($request->file)) {
+                $file = fopen($request->file, "r");
+
+                $idx = 0;
+
+                $get_row = fgetcsv($file, 10000, ";");
+
+                $peserta = [];
+
+                if (count($get_row) <= 1) {
+                    $a = str_split($get_row[0]);
+                    return back()->with('error', "Format CSV salah. Format adalah 'nama_peserta;telp_peserta;nomor_akuisisi_byu'");
+                }
+
+                while (($row = fgetcsv($file, 10000, ";")) !== FALSE) {
+                    // ddd($row);
+                    if ($idx < 1001) {
+                        $data = [
+                            'telp_ds' => $request->telp_ds,
+                            'npsn' => $request->npsn,
+                            'nama_peserta' => $row[0],
+                            'telp_peserta' => $row[1],
+                            'no_akuisisi_byu' => $row[2],
+                            'date' => date('Y-m-d'),
+                        ];
+
+                        array_push($peserta, $data);
+                        // echo '<pre>' . $idx . var_export($data, true) . '</pre>';
+                    } else if ($idx > 1001) {
+                        break;
+                    }
+                    $idx++;
+                }
+
+                if (count($peserta)) {
+                    DB::table('peserta_event_sekolah')->insert($peserta);
+                }
+            }
+        }
+
+        // $data = DB::table('peserta_event_sekolah')->insert([
+        //     'telp_ds' => $request->telp_ds,
+        //     'npsn' => $request->npsn,
+        //     'nama_peserta' => $request->nama_peserta,
+        //     'telp_peserta' => $request->telp_peserta,
+        //     'no_akuisisi_byu' => $request->no_akuisisi_byu,
+        //     'date' => date('Y-m-d'),
+        // ]);
 
         return back()->with('success', 'Berhasil Upload Data Peserta');
     }
