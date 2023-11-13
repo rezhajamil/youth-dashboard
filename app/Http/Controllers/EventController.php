@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Poin;
+use App\Rules\PhoneNumber;
+use App\Rules\TelkomselNumber;
 
 class EventController extends Controller
 {
@@ -263,7 +265,42 @@ class EventController extends Controller
             ]);
         }
 
-
         return back();
+    }
+
+    public function create_peserta_sekolah()
+    {
+        $ds = DB::table('data_user')->where('status', 1)->orderBy('nama');
+
+        if (auth()->user()->privilege == 'superadmin') {
+            $ds = $ds->get();
+        } else if (auth()->user()->privilege == 'branch') {
+            $ds = $ds->where('branch', auth()->user()->branch)->get();
+        } else if (auth()->user()->privilege == 'cluster') {
+            $ds = $ds->where('cluster', auth()->user()->cluster)->get();
+        }
+        return view('event.create_peserta_sekolah', compact('ds'));
+    }
+
+    public function store_peserta_sekolah(Request $request)
+    {
+        $request->validate([
+            'telp_ds' => ['required', 'numeric'],
+            'npsn' => ['required', 'numeric'],
+            'nama_peserta' => ['required'],
+            'telp_peserta' => ['required', new PhoneNumber],
+            'no_akuisisi_byu' => ['required', new TelkomselNumber],
+        ]);
+
+        $data = DB::table('peserta_event_sekolah')->insert([
+            'telp_ds' => $request->telp_ds,
+            'npsn' => $request->npsn,
+            'nama_peserta' => $request->nama_peserta,
+            'telp_peserta' => $request->telp_peserta,
+            'no_akuisisi_byu' => $request->no_akuisisi_byu,
+            'date' => date('Y-m-d'),
+        ]);
+
+        return back()->with('success', 'Berhasil Upload Data Peserta');
     }
 }

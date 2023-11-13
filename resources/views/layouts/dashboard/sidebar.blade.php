@@ -83,7 +83,10 @@
                     class="inline-block px-2 py-3">Clock In</span></a>
             <a href="{{ route('direct_user.kpi') }}"
                 class="text-white transition-all border-b select-none hover:bg-white hover:text-slate-800 border-b-slate-400"><span
-                    class="inline-block px-2 py-3">KPI</span></a>
+                    class="inline-block px-2 py-3">KPI DS</span></a>
+            <a href="{{ route('direct_user.kpi') }}"
+                class="text-white transition-all border-b select-none hover:bg-white hover:text-slate-800 border-b-slate-400"><span
+                    class="inline-block px-2 py-3">KPI YBA</span></a>
             <a href="{{ route('direct_user.resume_kpi') }}"
                 class="text-white transition-all border-b select-none hover:bg-white hover:text-slate-800 border-b-slate-400"><span
                     class="inline-block px-2 py-3">Resume KPI</span></a>
@@ -239,6 +242,9 @@
                 <a href="{{ route('event.resume') }}"
                     class="text-white transition-all border-b select-none hover:bg-white hover:text-slate-800 border-b-slate-400"><span
                         class="inline-block px-2 py-3">Resume Peserta</span></a>
+                <a href="{{ route('event.create_peserta_sekolah') }}"
+                    class="text-white transition-all border-b select-none hover:bg-white hover:text-slate-800 border-b-slate-400"><span
+                        class="inline-block px-2 py-3">Form Upload Peserta</span></a>
                 <a href="{{ route('event.absen') }}"
                     class="text-white transition-all border-b select-none hover:bg-white hover:text-slate-800 border-b-slate-400"><span
                         class="inline-block px-2 py-3">Absensi</span></a>

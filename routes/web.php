@@ -214,6 +214,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('resume_kpi', [DirectUserController::class, 'resume_kpi'])->name('direct_user.resume_kpi');
 
     Route::resource('event', EventController::class);
+    Route::get('create_peserta_sekolah', [EventController::class, 'create_peserta_sekolah'])->name('event.create_peserta_sekolah');
+    Route::post('store_peserta_sekolah', [EventController::class, 'store_peserta_sekolah'])->name('event.store_peserta_sekolah');
     Route::get('resume/event', [EventController::class, 'resume'])->name('event.resume');
     Route::get('layak/event/{id}', [EventController::class, 'layak'])->name('event.layak');
     Route::post('keterangan/event', [EventController::class, 'add_keterangan'])->name('event.keterangan');
