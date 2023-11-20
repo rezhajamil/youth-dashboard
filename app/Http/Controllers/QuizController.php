@@ -187,9 +187,10 @@ class QuizController extends Controller
         $territory_resume = Auth::user()->privilege == "branch" ? "and b.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "and b.cluster='" . Auth::user()->cluster . "'" : '');
         $territory_answer = Auth::user()->privilege == "branch" ? "and data_user.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "and data_user.cluster='" . Auth::user()->cluster . "'" : '');
 
+
         $resume = DB::select("SELECT b.regional,b.branch,b.`cluster`,
                         COUNT(CASE WHEN a.`session`='$id' THEN a.telp END) as partisipan,
-                        d.total
+                        MAX(d.total) as total
                         FROM quiz_answer as a  
                         right JOIN data_user as b
                         ON a.telp=b.telp
@@ -199,6 +200,7 @@ class QuizController extends Controller
                         WHERE NOT b.`branch`='ALL' $territory_resume
                         GROUP BY 1,2,3
                         ORDER BY b.regional desc,b.branch,b.`cluster`;");
+
         if (request()->get('jenis') == 'event') {
             $answer = DB::table('quiz_answer')->join('user_event', 'user_event.telp', '=', 'quiz_answer.telp')->distinct('nama')->where('session', $id)->orderBy('nama')->get();
         } else {
