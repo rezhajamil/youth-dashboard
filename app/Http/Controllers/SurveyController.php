@@ -537,7 +537,7 @@ class SurveyController extends Controller
         $start_date = $request->start_date ?? date('Y-m-01');
         $end_date = $request->end_date ?? date('Y-m-d');
         // $sekolah = DB::table('Data_Sekolah_Sumatera')->select(['Data_Sekolah_Sumatera.NPSN', 'NAMA_SEKOLAH'])->join('survey_answer', "survey_answer.npsn", "=", "Data_Sekolah_Sumatera.NPSN")->where('KAB_KOTA', $city)->whereMonth("time_start", $request->month)->whereYear("time_start", $request->year)->distinct()->orderBy('NAMA_SEKOLAH', 'asc')->get();
-        $sekolah = DB::table('Data_Sekolah_Sumatera')->select(['Data_Sekolah_Sumatera.NPSN', 'NAMA_SEKOLAH'])->join('survey_answer', "survey_answer.npsn", "=", "Data_Sekolah_Sumatera.NPSN")->where('KAB_KOTA', $city)->where('time_start', ">=", $start_date)->where('time_start', "<=", $end_date)->distinct()->orderBy('NAMA_SEKOLAH', 'asc')->get();
+        $sekolah = DB::table('Data_Sekolah_Sumatera')->select(['Data_Sekolah_Sumatera.NPSN', 'NAMA_SEKOLAH', 'KECAMATAN'])->join('survey_answer', "survey_answer.npsn", "=", "Data_Sekolah_Sumatera.NPSN")->where('KAB_KOTA', $city)->where('time_start', ">=", $start_date)->where('time_start', "<=", $end_date)->distinct()->orderBy('NAMA_SEKOLAH', 'asc')->get();
 
         return response()->json($sekolah);
     }
