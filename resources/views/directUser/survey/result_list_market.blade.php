@@ -12,7 +12,8 @@
                             class="mr-2 fa-solid fa-file-arrow-down"></i>Excel</button>
                 </div>
                 <h4 class="inline-block mb-2 text-xl font-bold text-gray-600 align-baseline" id="title">
-                    {{ $survey->nama }}</h4>
+                    {{ $survey->nama }} | {{ $sekolah->NAMA_SEKOLAH }} | {{ Request::get('start_date') }} s/d
+                    {{ Request::get('end_date') }}</h4>
                 {{-- <button class="px-2 py-1 ml-2 text-lg text-white transition bg-green-600 rounded-md hover:bg-green-800" id="capture"><i class="fa-regular fa-circle-down"></i></button> --}}
                 <input type="hidden" name="sekolah" id="sekolah" value="{{ json_encode($sekolah) }}">
                 <input type="hidden" name="survey" id="survey" value="{{ json_encode($survey) }}">

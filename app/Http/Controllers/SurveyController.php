@@ -459,7 +459,7 @@ class SurveyController extends Controller
         $survey->jumlah_opsi = json_decode($survey->jumlah_opsi);
 
         if ($survey->tipe == 'Siswa') {
-            $answer = DB::table('survey_answer')->where('session', $request->session)->where('npsn', $request->npsn)->get();
+            $answer = DB::table('survey_answer')->where('session', $request->session)->where('npsn', $request->npsn)->whereBetween('time_start', [$request->start_date, $request->end_date])->get();
             $sekolah = DB::table('Data_Sekolah_Sumatera')->where('NPSN', $request->npsn)->first();
 
             return view('directUser.survey.result_list_market', compact('answer', 'survey', 'hasil', 'sekolah'));

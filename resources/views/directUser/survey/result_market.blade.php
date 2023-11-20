@@ -77,6 +77,7 @@
                             <tr class="border-b" id="row-operator">
                                 <th class="p-3 text-sm font-bold text-center text-gray-100 uppercase border bg-y_tersier"
                                     id="col-lainnya">Lainnya</th>
+
                             </tr>
                         </thead>
                         <tbody class="max-h-screen overflow-y-auto" id="tbody-operator">
@@ -156,6 +157,11 @@
             let operator = JSON.parse($('#operator').val());
             let kode_operator = JSON.parse($('#kode_operator').val());
             let survey = JSON.parse($('#survey').val());
+
+            const queryParams = new URLSearchParams(window.location.search);
+            const startDate = queryParams.get('start_date');
+            const endDate = queryParams.get('end_date');
+
             let school, pos, html, chartBar;
 
             $("#btn-excel").click(function() {
@@ -246,7 +252,9 @@
             })
             $("#row-operator").prepend(
                 `<th class="p-3 text-sm text-center text-gray-100 uppercase border bg-y_tersier">Sekolah</th>
-                <th class="p-3 text-sm text-center text-gray-100 uppercase border bg-y_tersier">Kecamatan</th>`
+                <th class="p-3 text-sm text-center text-gray-100 uppercase border bg-y_tersier">Kecamatan</th>
+                <th class="p-3 text-sm text-center text-gray-100 uppercase border bg-y_tersier">Flag</th>
+                `
             );
 
             $("#filter").change(function() {
@@ -269,27 +277,21 @@
                         end_date: $("#end_date").val(),
                     },
                     success: (data) => {
-
-                        console.log({
-                            data
-                        });
-
                         operator.map(data => {
                             data.jumlah = 0;
                         })
                         data.map((data) => {
                             let answer = resume.filter(res => res.npsn == data.NPSN);
-
                             $("#tbody-operator").prepend(
                                 `<tr>
                                     <td class='p-3 border'><span class="font-semibold underline cursor-pointer resume-sekolah text-y_premier hover:text-y_tersier">${data.NAMA_SEKOLAH}</span></td>
-                                    <td class='p-3 border'><span class="font-semibold text-y_premier hover:text-y_tersier">${data.KECAMATAN}</span></td>` +
+                                    <td class='p-3 border'><span class="font-semibold text-y_premier hover:text-y_tersier">${data.KECAMATAN}</span></td>
+                                    <td  class='text-center border' id="flag-${data.NPSN}"></td>` +
                                 operator.toReversed().map(operator => {
                                     return `<td class='text-center border' id="count-${operator.operator.toString().toLowerCase()}-${data.NPSN}">0</td>`;
                                 }) +
                                 `<td class='text-center border' id="count-lainnya-${data.NPSN}">0</td>`
                             )
-
 
                             // operator.map(operator => {
                             //     $("#tbody-operator").append(
@@ -306,25 +308,32 @@
                             //     `<td class='font-bold border' id="percent-lainnya">0%</td>`
                             // );
 
+                            let count_telkomsel = 0;
                             answer.map((ans, idx) => {
                                 let other = false;
                                 kode_operator.forEach(kode => {
                                     if (kode.kode_prefix == ans
-                                        .telp_siswa.toString().slice(
+                                        .telp_siswa.toString()
+                                        .slice(
                                             0, 4)) {
+
+                                        if (kode.operator ==
+                                            'Telkomsel') {
+                                            count_telkomsel += 1;
+                                        }
                                         let col_count = $(
                                             `#count-${kode.operator.toString().toLowerCase()}-${data.NPSN}`
                                         );
-                                        // let col_percent = $(
-                                        //     `#percent-${kode.operator.toString().toLowerCase()}-${data.NPSN}`
-                                        // );
                                         col_count.html(parseInt(
-                                                col_count.html()) +
+                                                col_count.html()
+                                            ) +
                                             1);
 
-                                        const foundOperator = operator
+                                        const foundOperator =
+                                            operator
                                             .find(operatorObj =>
-                                                operatorObj.operator ===
+                                                operatorObj
+                                                .operator ===
                                                 kode.operator);
                                         foundOperator.jumlah += 1;
                                         // col_percent.html(
@@ -334,7 +343,27 @@
                                         other = true;
                                         return;
                                     }
+
                                 });
+
+                                console.log({
+                                    count_telkomsel
+                                });
+                                if (count_telkomsel / answer
+                                    .length > 0.5) {
+                                    $(`#flag-${data.NPSN}`).html(
+                                        '<i class="text-green-600 fa-solid fa-circle-exclamation"></i>'
+                                    )
+                                } else if (count_telkomsel / answer
+                                    .length < 0.5) {
+                                    $(`#flag-${data.NPSN}`).html(
+                                        '<i class="text-red-600 fa-solid fa-circle-exclamation"></i>'
+                                    )
+                                } else {
+                                    $(`#flag-${data.NPSN}`).html(
+                                        '<i class="text-yellow-600 fa-solid fa-circle-exclamation"></i>'
+                                    )
+                                }
                                 if (!other) {
                                     let col_count = $(
                                         `#count-lainnya-${data.NPSN}`);
@@ -357,12 +386,8 @@
                         console.log({
                             operator
                         });
-
-                        console.log({
-                            other_count
-                        });
                         $("#tbody-operator").prepend(
-                            `<tr class='text-white bg-y_premier'><td colspan='2' class='p-3 text-center border'><span class="font-semibold">TOTAL</span></td>` +
+                            `<tr class='text-white bg-y_premier'><td colspan='3' class='p-3 text-center border'><span class="font-semibold">TOTAL</span></td>` +
                             operator.toReversed().map(operator => {
                                 return `<td class='text-center border' id="total-${operator.operator.toString().toLowerCase()}-${data.NPSN}">${operator.jumlah}</td>`;
                             }) +
@@ -412,7 +437,7 @@
 
                 sekolah.map((data, key) => {
                     let url = "{{ route('survey.answer.list') }}" +
-                        `?session=${survey.id}&npsn=${data.NPSN}`;
+                        `?session=${survey.id}&npsn=${data.NPSN}&start_date=${startDate}&end_date=${endDate}`;
                     let answer = resume.filter(res => res.npsn == data.NPSN);
 
                     if (filter == '') {

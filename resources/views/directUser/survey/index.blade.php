@@ -15,7 +15,7 @@
                         <thead class="border-b">
                             <tr>
                                 <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Date</th>
+                                {{-- <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Date</th> --}}
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Regional</th>
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Branch</th>
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Cluster</th>
@@ -32,7 +32,7 @@
                                 <tr class="border-b hover:bg-gray-200">
                                     {{-- {{ ddd($data) }} --}}
                                     <td class="p-4 font-bold text-gray-700">{{ $key + 1 }}</td>
-                                    <td class="p-4 text-gray-700">{{ date('d-M-Y', strtotime($data->date)) }}</td>
+                                    {{-- <td class="p-4 text-gray-700">{{ date('d-M-Y', strtotime($data->date)) }}</td> --}}
                                     <td class="p-4 text-gray-700">{{ $data->regional }}</td>
                                     <td class="p-4 text-gray-700">{{ $data->branch }}</td>
                                     <td class="p-4 text-gray-700">{{ $data->cluster }}</td>
