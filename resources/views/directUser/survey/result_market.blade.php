@@ -362,7 +362,7 @@
                             other_count
                         });
                         $("#tbody-operator").prepend(
-                            `<tr class='text-white bg-y_premier'><td class='p-3 border'><span class="font-semibold">TOTAL</span></td>` +
+                            `<tr class='text-white bg-y_premier'><td colspan='2' class='p-3 text-center border'><span class="font-semibold">TOTAL</span></td>` +
                             operator.toReversed().map(operator => {
                                 return `<td class='text-center border' id="total-${operator.operator.toString().toLowerCase()}-${data.NPSN}">${operator.jumlah}</td>`;
                             }) +
