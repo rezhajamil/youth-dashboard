@@ -176,7 +176,7 @@
                                         <td class="p-2 font-bold text-gray-700 border">{{ ++$no }}</td>
                                         <td class="p-2 font-bold text-center text-gray-700 border">
                                             @if ($data->status == 'P1')
-                                                <i class="text-3xl fa-solid fa-medal text-y_tersier" />
+                                                <i class="text-3xl fa-solid fa-medal text-y_tersier colsf" />
                                             @endif
                                         </td>
                                         <td class="p-2 text-gray-700 border npsn">{{ $data->NPSN }}</td>

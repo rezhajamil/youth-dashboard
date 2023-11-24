@@ -460,6 +460,227 @@ class DirectUserController extends Controller
         $u_cluster = Auth::user()->cluster;
         $where_loc = $u_privilege == 'cluster' ? " a.`cluster`='$u_cluster' AND " : ($u_privilege == 'branch' ? "a.`branch`='$u_branch' AND " : "");
 
+        $target = DB::table('target_ds')->where('status', 1)->get();
+
+        $list_target = [];
+        $sales = 0;
+        $proses = 0;
+
+        foreach ($target as $data) {
+            $item_kpi = $data->item_kpi;
+            $target_value = $data->unit == 'rupiah'
+                ? number_format($data->target, 0, ",", ".")
+                : $data->target;
+
+            $list_target[$item_kpi] = [
+                'target' => $target_value,
+                'bobot' => $data->bobot,
+                'unit' => $data->unit
+            ];
+
+            if ($data->kategori == 'sales') {
+                $sales += $data->bobot;
+            } elseif ($data->kategori == 'proses') {
+                $proses += $data->bobot;
+            }
+        }
+
+        if ($request->date) {
+            $mtd = $request->date;
+            $m1 = date('Y-m-01', strtotime($mtd));
+
+            $detail = DB::select("SELECT a.branch,a.cluster,a.nama,a.telp,a.id_digipos,a.`role`, g.mytsel,e.update_data,f.pjp,h.quiz,i.survey,j.broadband,k.digital
+            FROM data_user a
+            LEFT JOIN (SELECT telp, COUNT(msisdn) mytsel FROM sales_copy WHERE date BETWEEN '$m1' AND '$mtd' AND kategori='MY TELKOMSEL' GROUP BY 1) g ON a.telp = g.telp
+            LEFT JOIN (SELECT telp,COUNT(NPSN) update_data FROM Data_Sekolah_Sumatera WHERE UPDATED_AT BETWEEN '$m1' AND '$mtd' AND LONGITUDE!='' GROUP BY 1) e ON a.telp=e.telp
+            LEFT JOIN (SELECT telp,COUNT(npsn) pjp FROM table_kunjungan WHERE date BETWEEN '$m1' AND '$mtd' GROUP BY 1) f ON a.telp=f.telp
+            LEFT JOIN (SELECT telp,SUM(hasil) quiz FROM quiz_answer WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) h ON a.telp=h.telp
+            LEFT JOIN (SELECT Data_Sekolah_Sumatera.telp,COUNT(survey_answer.telp_siswa) survey FROM survey_answer JOIN Data_Sekolah_Sumatera ON survey_answer.npsn=Data_Sekolah_Sumatera.NPSN WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) i ON a.telp=i.telp
+            LEFT JOIN (SELECT digipos_ao,SUM(price) broadband FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DATA' GROUP BY 1) j ON a.id_digipos=j.digipos_ao
+            LEFT JOIN (SELECT digipos_ao,SUM(price) digital FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL' GROUP BY 1) k ON a.id_digipos=k.digipos_ao
+            WHERE $where_loc a.status=1
+            ORDER BY 1,2,3,5;");
+
+            foreach ($detail as $data) {
+                foreach ($list_target as $i_target => $target) {
+                    $ach_target = (intval($data->{$i_target}) / intval(str_replace('.', '', $target['target']))) * 100;
+
+                    if ($ach_target < 100) {
+                        $ach_target = intval($ach_target) * ($target['bobot']) / 100;
+                    } else {
+                        $ach_target = $target['bobot'];
+                    }
+
+                    $data->{"ach_$i_target"} = number_format($ach_target, 2, ',', '.');
+
+                    if ($target['unit'] == 'rupiah') {
+                        $data->{$i_target} = number_format($data->{$i_target}, 0, ',', '.');
+                    }
+                }
+
+                $data->{'tot_sales'} = floatval(str_replace(',', '.', $data->ach_broadband))
+                    + floatval(str_replace(',', '.', $data->ach_digital))
+                    + floatval(str_replace(',', '.', $data->ach_orbit))
+                    + floatval(str_replace(',', '.', $data->ach_migrasi))
+                    + floatval(str_replace(',', '.', $data->ach_byu))
+                    + floatval(str_replace(',', '.', $data->ach_mytsel));
+
+                $data->{'tot_proses'} = floatval(str_replace(',', '.', $data->ach_update_data))
+                    + floatval(str_replace(',', '.', $data->ach_pjp))
+                    + floatval(str_replace(',', '.', $data->ach_survey))
+                    + floatval(str_replace(',', '.', $data->ach_quiz));
+
+                $data->{'total'} = number_format(floatval($data->tot_sales) + floatval($data->tot_proses), 2, ',', '.');
+            }
+
+
+            // ddd($detail);
+        } else {
+            $detail = [];
+        }
+
+        $last_sales = DB::table('sales_copy')->select('date')->orderBy('date', 'desc')->first();
+        $last_digipos = DB::table('trx_digipos_ds')->select('event_date as date')->whereNotIn('event_date', ['None'])->orderBy('event_date', 'desc')->first();
+
+        // ddd(compact('last_migrasi', 'last_orbit', 'last_trade', 'last_digipos'));
+        return view('directUser.kpi.index', compact('detail', 'list_target', 'sales', 'proses', 'last_migrasi', 'last_orbit', 'last_sales', 'last_digipos'));
+    }
+
+
+    public function resume_kpi(Request $request)
+    {
+        ini_set(
+            'max_execution_time',
+            '0'
+        );
+        ini_set('memory_limit', '-1');
+        $u_privilege = Auth::user()->privilege;
+        $u_branch = Auth::user()->branch;
+        $u_cluster = Auth::user()->cluster;
+        $where_loc = $u_privilege == 'cluster' ? " a.`cluster`='$u_cluster' AND " : ($u_privilege == 'branch' ? "a.`branch`='$u_branch' AND " : "");
+
+        $target = DB::table('target_ds')->where('status', 1)->get();
+
+        $list_target = [];
+
+        foreach ($target as $data) {
+            $item_kpi = $data->item_kpi;
+            $target_value = $data->unit == 'rupiah'
+                ? number_format($data->target, 0, ",", ".")
+                : $data->target;
+
+            $list_target[$item_kpi] = [
+                'target' => $target_value,
+                'bobot' => $data->bobot,
+                'unit' => $data->unit
+            ];
+        }
+
+        if ($request->date) {
+            $resume_region = DataUser::resume_kpi($request->date, $where_loc, 'regional');
+            $resume_branch = DataUser::resume_kpi($request->date, $where_loc, 'branch');
+            $resume_cluster = DataUser::resume_kpi($request->date, $where_loc, 'cluster');
+            // $resume_branch = [];
+            // $resume_cluster = [];
+
+            $user_region = DB::select("SELECT regional as region,count(role) jumlah FROM data_user WHERE status='1' GROUP BY 1 ORDER BY regional DESC,branch,cluster;");
+            $user_branch = DB::select("SELECT branch,count(role) jumlah FROM data_user WHERE status='1' GROUP BY 1 ORDER BY regional DESC,branch,cluster;");
+            $user_cluster = DB::select("SELECT cluster,count(role) jumlah FROM data_user WHERE status='1' GROUP BY 1 ORDER BY regional DESC,branch,cluster;");
+
+            foreach ($resume_region as $data) {
+                foreach ($list_target as $i_target => $target) {
+                    // ddd($user_region);
+                    foreach ($user_region as $key => $user) {
+                        if ($user->region == $data->regional) {
+                            if ($i_target == 'quiz') {
+                                $ach_target = (intval($data->{$i_target}) / intval($user->jumlah)) * 100;
+                            } else {
+                                $ach_target = (intval($data->{$i_target} / $user->jumlah) / intval(str_replace('.', '', $target['target']))) * 100;
+                            }
+
+                            $data->{"ach_$i_target"} = number_format($ach_target, 2, ',', '.');
+                            $data->{"mom_$i_target"} = number_format(($data->{$i_target} / ($data->{"last_$i_target"} == 0 ? 1 : $data->{"last_$i_target"})) * 100, 2, ',', '.');
+
+                            if ($target['unit'] == 'rupiah') {
+                                $data->{$i_target} = number_format($data->{$i_target}, 0, ',', '.');
+                            }
+                        }
+                    }
+                }
+            }
+            // ddd($resume_region);
+
+            foreach ($resume_branch as $data) {
+                foreach ($list_target as $i_target => $target) {
+                    // ddd($user_branch);
+                    foreach ($user_branch as $key => $user) {
+                        if ($user->branch == $data->branch) {
+                            if ($i_target == 'quiz') {
+                                $ach_target = (intval($data->{$i_target}) / intval($user->jumlah)) * 100;
+                            } else {
+                                $ach_target = (intval($data->{$i_target} / $user->jumlah) / intval(str_replace('.', '', $target['target']))) * 100;
+                            }
+
+                            $data->{"ach_$i_target"} = number_format($ach_target, 2, ',', '.');
+                            $data->{"mom_$i_target"} = number_format(($data->{$i_target} / ($data->{"last_$i_target"} == 0 ? 1 : $data->{"last_$i_target"})) * 100, 2, ',', '.');
+
+                            if ($target['unit'] == 'rupiah') {
+                                $data->{$i_target} = number_format($data->{$i_target}, 0, ',', '.');
+                            }
+                        }
+                    }
+                }
+            }
+
+            foreach ($resume_cluster as $data) {
+                foreach ($list_target as $i_target => $target) {
+                    // ddd($user_cluster);
+                    foreach ($user_cluster as $key => $user) {
+                        if ($user->cluster == $data->cluster) {
+                            if ($i_target == 'quiz') {
+                                $ach_target = (intval($data->{$i_target}) / intval($user->jumlah)) * 100;
+                            } else {
+                                $ach_target = (intval($data->{$i_target} / $user->jumlah) / intval(str_replace('.', '', $target['target']))) * 100;
+                            }
+
+                            $data->{"ach_$i_target"} = number_format($ach_target, 2, ',', '.');
+                            $data->{"mom_$i_target"} = number_format(($data->{$i_target} / ($data->{"last_$i_target"} == 0 ? 1 : $data->{"last_$i_target"})) * 100, 2, ',', '.');
+
+                            if ($target['unit'] == 'rupiah') {
+                                $data->{$i_target} = number_format($data->{$i_target}, 0, ',', '.');
+                            }
+                        }
+                    }
+                }
+            }
+            // foreach ([$resume_region, $resume_branch, $resume_cluster] as $key => $resume) {
+            //     // ddd($resume);
+            // }
+        } else {
+            $resume_region = [];
+            $resume_branch = [];
+            $resume_cluster = [];
+        }
+
+
+        $last_sales = DB::table('sales_copy')->select('date')->orderBy('date', 'desc')->first();
+        $last_digipos = DB::table('trx_digipos_ds')->select('event_date as date')->whereNotIn('event_date', ['None'])->orderBy('event_date', 'desc')->first();
+
+        return view('directUser.kpi_old.resume', compact('resume_region', 'resume_branch', 'resume_cluster', 'last_migrasi', 'last_orbit', 'last_sales', 'last_digipos'));
+    }
+
+    public function kpi_old(Request $request)
+    {
+        ini_set(
+            'max_execution_time',
+            '0'
+        );
+        ini_set('memory_limit', '-1');
+        $u_privilege = Auth::user()->privilege;
+        $u_branch = Auth::user()->branch;
+        $u_cluster = Auth::user()->cluster;
+        $where_loc = $u_privilege == 'cluster' ? " a.`cluster`='$u_cluster' AND " : ($u_privilege == 'branch' ? "a.`branch`='$u_branch' AND " : "");
+
         // $target = DB::table('target_ds')->where('status', 1)->get();
         // $list_target = [];
         // $sales = 0;
@@ -470,7 +691,7 @@ class DirectUserController extends Controller
         //     $proses += $data->kategori == 'proses' ? $data->bobot : 0;
         // }
 
-        $target = DB::table('target_ds')->where('status', 1)->get();
+        $target = DB::table('target_ds_old')->where('status', 1)->get();
 
         $list_target = [];
         $sales = 0;
@@ -594,10 +815,10 @@ class DirectUserController extends Controller
         $last_digipos = DB::table('trx_digipos_ds')->select('event_date as date')->whereNotIn('event_date', ['None'])->orderBy('event_date', 'desc')->first();
 
         // ddd(compact('last_migrasi', 'last_orbit', 'last_trade', 'last_digipos'));
-        return view('directUser.kpi.index', compact('detail', 'list_target', 'sales', 'proses', 'last_migrasi', 'last_orbit', 'last_sales', 'last_digipos'));
+        return view('directUser.kpi_old.index', compact('detail', 'list_target', 'sales', 'proses', 'last_migrasi', 'last_orbit', 'last_sales', 'last_digipos'));
     }
 
-    public function resume_kpi(Request $request)
+    public function resume_kpi_old(Request $request)
     {
         ini_set(
             'max_execution_time',
@@ -609,7 +830,7 @@ class DirectUserController extends Controller
         $u_cluster = Auth::user()->cluster;
         $where_loc = $u_privilege == 'cluster' ? " a.`cluster`='$u_cluster' AND " : ($u_privilege == 'branch' ? "a.`branch`='$u_branch' AND " : "");
 
-        $target = DB::table('target_ds')->where('status', 1)->get();
+        $target = DB::table('target_ds_old')->where('status', 1)->get();
 
         $list_target = [];
 
@@ -718,7 +939,7 @@ class DirectUserController extends Controller
         $last_sales = DB::table('sales_copy')->select('date')->orderBy('date', 'desc')->first();
         $last_digipos = DB::table('trx_digipos_ds')->select('event_date as date')->whereNotIn('event_date', ['None'])->orderBy('event_date', 'desc')->first();
 
-        return view('directUser.kpi.resume', compact('resume_region', 'resume_branch', 'resume_cluster', 'last_migrasi', 'last_orbit', 'last_sales', 'last_digipos'));
+        return view('directUser.kpi_old.resume', compact('resume_region', 'resume_branch', 'resume_cluster', 'last_migrasi', 'last_orbit', 'last_sales', 'last_digipos'));
     }
 
     /**

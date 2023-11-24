@@ -5,7 +5,7 @@
             <div class="mt-4">
                 <div class="flex items-end mb-6 gap-x-3">
                     <div class="pr-4 border-r-4 border-slate-600">
-                        <form action="{{ route('direct_user.kpi') }}" method="get">
+                        <form action="{{ route('direct_user.kpi_old') }}" method="get">
                             <input type="date" name="date" id="date" class="px-4 rounded-lg"
                                 value="{{ request()->get('date') }}" required>
                             <button type="submit"
@@ -56,6 +56,12 @@
                                     Broadband</th>
                                 <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-y_tersier">
                                     Digital</th>
+                                <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-y_tersier">Orbit
+                                </th>
+                                <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-y_tersier">
+                                    Migrasi</th>
+                                <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-y_tersier">BYU
+                                </th>
                                 <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-y_tersier">My
                                     Telkomsel</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-y_tersier">Sales</th>
@@ -81,6 +87,18 @@
                                     {{ $list_target['digital']['target'] }}</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
                                     {{ $list_target['digital']['bobot'] }}%</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
+                                    {{ $list_target['orbit']['target'] }}</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
+                                    {{ $list_target['orbit']['bobot'] }}%</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
+                                    {{ $list_target['migrasi']['target'] }}</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
+                                    {{ $list_target['migrasi']['bobot'] }}%</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
+                                    {{ $list_target['byu']['target'] }}</th>
+                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
+                                    {{ $list_target['byu']['bobot'] }}%</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
                                     {{ $list_target['mytsel']['target'] }}</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
@@ -149,6 +167,8 @@
                     </table>
                 </div>
                 <div class="flex flex-col p-4 bg-white rounded shadow-sm gap-y-2 w-fit">
+                    <span class="text-sm">Last Migrasi : {{ $last_migrasi->date }}</span>
+                    <span class="text-sm">Last Orbit : {{ $last_orbit->date }}</span>
                     <span class="text-sm">Last Sales : {{ $last_sales->date }}</span>
                     <span class="text-sm">Last Trx Digipos : {{ $last_digipos->date }}</span>
                 </div>

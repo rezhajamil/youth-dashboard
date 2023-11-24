@@ -83,13 +83,19 @@
                     class="inline-block px-2 py-3">Clock In</span></a>
             <a href="{{ route('direct_user.kpi') }}"
                 class="text-white transition-all border-b select-none hover:bg-white hover:text-slate-800 border-b-slate-400"><span
-                    class="inline-block px-2 py-3">KPI DS</span></a>
+                    class="inline-block px-2 py-3">KPI Baru</span></a>
+            <a href="{{ route('direct_user.resume_kpi') }}"
+                class="text-white transition-all border-b select-none hover:bg-white hover:text-slate-800 border-b-slate-400"><span
+                    class="inline-block px-2 py-3">Resume KPI Baru</span></a>
+            <a href="{{ route('direct_user.kpi_old') }}"
+                class="text-white transition-all border-b select-none hover:bg-white hover:text-slate-800 border-b-slate-400"><span
+                    class="inline-block px-2 py-3">KPI Lama</span></a>
+            <a href="{{ route('direct_user.resume_kpi_old') }}"
+                class="text-white transition-all border-b select-none hover:bg-white hover:text-slate-800 border-b-slate-400"><span
+                    class="inline-block px-2 py-3">Resume KPI Lama</span></a>
             <a href="{{ route('direct_user.kpi') }}"
                 class="text-white transition-all border-b select-none hover:bg-white hover:text-slate-800 border-b-slate-400"><span
                     class="inline-block px-2 py-3">KPI YBA</span></a>
-            <a href="{{ route('direct_user.resume_kpi') }}"
-                class="text-white transition-all border-b select-none hover:bg-white hover:text-slate-800 border-b-slate-400"><span
-                    class="inline-block px-2 py-3">Resume KPI</span></a>
         </div>
 
         <a class="flex items-center px-6 py-2 mt-4 text-white transition-all cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100"

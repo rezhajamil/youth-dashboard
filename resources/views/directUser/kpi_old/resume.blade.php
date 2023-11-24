@@ -493,6 +493,8 @@
                 </div>
 
                 <div class="flex flex-col p-4 bg-white rounded shadow-sm gap-y-2 w-fit">
+                    <span class="text-sm">Last Migrasi : {{ $last_migrasi->date }}</span>
+                    <span class="text-sm">Last Orbit : {{ $last_orbit->date }}</span>
                     <span class="text-sm">Last Sales : {{ $last_sales->date }}</span>
                     <span class="text-sm">Last Trx Digipos : {{ $last_digipos->date }}</span>
                 </div>
