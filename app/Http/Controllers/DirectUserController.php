@@ -181,11 +181,9 @@ class DirectUserController extends Controller
 
         $mtd = date('Y-m-d');
         $m1 = date('Y-m-01', strtotime($mtd));
-        $kpi = DB::select(" SELECT a.branch,a.cluster,a.nama,a.telp,a.`role`,b.migrasi,c.orbit,d.byu, g.mytsel,e.update_data,f.pjp,h.quiz,i.survey,j.broadband,k.digital
+        $kpi = DB::select(" SELECT a.branch,a.cluster,a.nama,a.telp,a.id_digipos,a.`role`, g.mytsel,e.update_data,f.pjp,h.quiz,i.survey,j.broadband,k.digital,
+            0 as sales_acquisition
             FROM data_user a
-            LEFT JOIN (SELECT outlet_id,COUNT(outlet_id) migrasi FROM `4g_usim_all_trx` WHERE date BETWEEN '$m1' AND '$mtd' AND (status='MIGRATION_SUCCCESS' OR status='USIM_ACTIVE') GROUP BY 1) b ON a.id_digipos=b.outlet_id
-            LEFT JOIN (SELECT outlet_id,COUNT(msisdn) orbit FROM orbit_digipos WHERE so_date BETWEEN '$m1' AND '$mtd' GROUP BY 1) c ON a.id_digipos=c.outlet_id
-            LEFT JOIN (SELECT telp,COUNT(msisdn) byu FROM sales_copy WHERE date BETWEEN '$m1' AND '$mtd' AND kategori='BYU' GROUP BY 1) d ON a.telp=d.telp
             LEFT JOIN (SELECT telp, COUNT(msisdn) mytsel FROM sales_copy WHERE date BETWEEN '$m1' AND '$mtd' AND kategori='MY TELKOMSEL' GROUP BY 1) g ON a.telp = g.telp
             LEFT JOIN (SELECT telp,COUNT(NPSN) update_data FROM Data_Sekolah_Sumatera WHERE UPDATED_AT BETWEEN '$m1' AND '$mtd' AND LONGITUDE!='' GROUP BY 1) e ON a.telp=e.telp
             LEFT JOIN (SELECT telp,COUNT(npsn) pjp FROM table_kunjungan WHERE date BETWEEN '$m1' AND '$mtd' GROUP BY 1) f ON a.telp=f.telp
@@ -215,15 +213,13 @@ class DirectUserController extends Controller
 
             $data->{'tot_sales'} = floatval(str_replace(',', '.', $data->ach_broadband))
                 + floatval(str_replace(',', '.', $data->ach_digital))
-                + floatval(str_replace(',', '.', $data->ach_orbit))
-                + floatval(str_replace(',', '.', $data->ach_migrasi))
-                + floatval(str_replace(',', '.', $data->ach_byu))
-                + floatval(str_replace(',', '.', $data->ach_mytsel));
+                + floatval(str_replace(',', '.', $data->ach_sales_acquisition));
 
             $data->{'tot_proses'} = floatval(str_replace(',', '.', $data->ach_update_data))
                 + floatval(str_replace(',', '.', $data->ach_pjp))
                 + floatval(str_replace(',', '.', $data->ach_survey))
-                + floatval(str_replace(',', '.', $data->ach_quiz));
+                + floatval(str_replace(',', '.', $data->ach_quiz))
+                + floatval(str_replace(',', '.', $data->ach_mytsel));
 
             $data->{'total'} = number_format(floatval($data->tot_sales) + floatval($data->tot_proses), 2, ',', '.');
         }

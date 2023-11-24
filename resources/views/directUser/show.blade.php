@@ -202,31 +202,49 @@
                         <table class="overflow-auto text-left border-collapse w-fit">
                             <thead class="border-b">
                                 <tr>
-                                    <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-y_tersier">
-                                        Broadband</th>
-                                    <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-y_tersier">
-                                        Digital</th>
-                                    <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-y_tersier">
-                                        Orbit
+                                    <th rowspan="2" class="p-3 font-bold text-gray-100 uppercase border bg-y_premier">No
                                     </th>
-                                    <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-y_tersier">
-                                        Migrasi</th>
+                                    <th rowspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-y_premier">
+                                        Branch</th>
+                                    <th rowspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-y_premier">
+                                        Cluster</th>
+                                    <th rowspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-y_premier">
+                                        Nama
+                                    </th>
+                                    <th rowspan="2"
+                                        class="p-3 font-medium text-gray-100 uppercase border bg-y_premier">ID
+                                        Digipos
+                                    </th>
+                                    <th rowspan="2"
+                                        class="p-3 font-medium text-gray-100 uppercase border bg-y_premier">Role
+                                    </th>
+
                                     <th colspan="2"
                                         class="p-3 font-medium text-gray-100 uppercase border bg-y_tersier">
-                                        Byu</th>
+                                        Broadband</th>
                                     <th colspan="2"
                                         class="p-3 font-medium text-gray-100 uppercase border bg-y_tersier">
-                                        My Telkomsel</th>
+                                        Digital</th>
+                                    <th colspan="2"
+                                        class="p-3 font-medium text-gray-100 uppercase border bg-y_tersier">Sales
+                                        Acquisition</th>
                                     <th class="p-3 font-medium text-gray-100 uppercase border bg-y_tersier">Sales</th>
 
                                     <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-tersier">
-                                        Update Data</th>
+                                        Update
+                                        Data</th>
                                     <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-tersier">
-                                        Update PJP Harian</th>
+                                        Update
+                                        PJP Harian</th>
                                     <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-tersier">
-                                        Survey Market</th>
+                                        Survey
+                                        Market</th>
                                     <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-tersier">
-                                        Product Knowledge</th>
+                                        My
+                                        Telkomsel</th>
+                                    <th colspan="2" class="p-3 font-medium text-gray-100 uppercase border bg-tersier">
+                                        Product
+                                        Knowledge</th>
                                     <th class="p-3 font-medium text-gray-100 uppercase border bg-tersier">Proses</th>
 
                                     <th class="p-3 font-medium text-gray-100 uppercase bg-black border">Total</th>
@@ -241,21 +259,9 @@
                                     <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
                                         {{ $list_target['digital']['bobot'] }}%</th>
                                     <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
-                                        {{ $list_target['orbit']['target'] }}</th>
+                                        {{ $list_target['sales_acquisition']['target'] }}</th>
                                     <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
-                                        {{ $list_target['orbit']['bobot'] }}%</th>
-                                    <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
-                                        {{ $list_target['migrasi']['target'] }}</th>
-                                    <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
-                                        {{ $list_target['migrasi']['bobot'] }}%</th>
-                                    <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
-                                        {{ $list_target['byu']['target'] }}</th>
-                                    <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
-                                        {{ $list_target['byu']['bobot'] }}%</th>
-                                    <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
-                                        {{ $list_target['mytsel']['target'] }}</th>
-                                    <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
-                                        {{ $list_target['mytsel']['bobot'] }}%</th>
+                                        {{ $list_target['sales_acquisition']['bobot'] }}%</th>
                                     <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
                                         {{ $sales }}%</th>
                                     <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
@@ -271,6 +277,10 @@
                                     <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
                                         {{ $list_target['survey']['bobot'] }}%</th>
                                     <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
+                                        {{ $list_target['mytsel']['target'] }}</th>
+                                    <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
+                                        {{ $list_target['mytsel']['bobot'] }}%</th>
+                                    <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
                                         {{ $list_target['quiz']['target'] }}</th>
                                     <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400">
                                         {{ $list_target['quiz']['bobot'] }}%</th>
@@ -283,18 +293,19 @@
                             <tbody class="max-h-screen overflow-y-auto">
                                 @foreach ($kpi as $key => $data)
                                     <tr class="">
+                                        <td class="p-2 font-bold border">{{ $key + 1 }}</td>
+                                        <td class="p-2 border branch">{{ $data->branch }}</td>
+                                        <td class="p-2 border cluster">{{ $data->cluster }}</td>
+                                        <td class="p-2 border nama">{{ $data->nama }}</td>
+                                        <td class="p-2 border id_digipos">{{ $data->id_digipos }}</td>
+                                        <td class="p-2 border role">{{ $data->role }}</td>
+
                                         <td class="p-2 border">{{ $data->broadband ?? '-' }}</td>
                                         <td class="p-2 border">{{ $data->ach_broadband ?? '-' }}%</td>
                                         <td class="p-2 border">{{ $data->digital ?? '-' }}</td>
                                         <td class="p-2 border">{{ $data->ach_digital ?? '-' }}%</td>
-                                        <td class="p-2 border">{{ $data->orbit ?? '-' }}</td>
-                                        <td class="p-2 border">{{ $data->ach_orbit ?? '-' }}%</td>
-                                        <td class="p-2 border">{{ $data->migrasi ?? '-' }}</td>
-                                        <td class="p-2 border">{{ $data->ach_migrasi ?? '-' }}%</td>
-                                        <td class="p-2 border">{{ $data->byu ?? '-' }}</td>
-                                        <td class="p-2 border">{{ $data->ach_byu ?? '-' }}%</td>
-                                        <td class="p-2 border">{{ $data->mytsel ?? '-' }}</td>
-                                        <td class="p-2 border">{{ $data->ach_mytsel ?? '-' }}%</td>
+                                        <td class="p-2 border">{{ $data->sales_acquisition ?? '-' }}</td>
+                                        <td class="p-2 border">{{ $data->ach_sales_acquisition ?? '-' }}%</td>
                                         <td class="p-2 border">{{ $data->tot_sales }}%</td>
 
                                         <td class="p-2 border">{{ $data->update_data ?? '-' }}</td>
@@ -303,6 +314,8 @@
                                         <td class="p-2 border">{{ $data->ach_pjp ?? '-' }}%</td>
                                         <td class="p-2 border">{{ $data->survey ?? '-' }}</td>
                                         <td class="p-2 border">{{ $data->ach_survey ?? '-' }}%</td>
+                                        <td class="p-2 border">{{ $data->mytsel ?? '-' }}</td>
+                                        <td class="p-2 border">{{ $data->ach_mytsel ?? '-' }}%</td>
                                         <td class="p-2 border">{{ $data->quiz ?? '-' }}</td>
                                         <td class="p-2 border">{{ $data->ach_quiz ?? '-' }}%</td>
                                         <td class="p-2 border">{{ $data->tot_proses }}%</td>
