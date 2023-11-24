@@ -489,7 +489,8 @@ class DirectUserController extends Controller
             $mtd = $request->date;
             $m1 = date('Y-m-01', strtotime($mtd));
 
-            $detail = DB::select("SELECT a.branch,a.cluster,a.nama,a.telp,a.id_digipos,a.`role`, g.mytsel,e.update_data,f.pjp,h.quiz,i.survey,j.broadband,k.digital
+            $detail = DB::select("SELECT a.branch,a.cluster,a.nama,a.telp,a.id_digipos,a.`role`, g.mytsel,e.update_data,f.pjp,h.quiz,i.survey,j.broadband,k.digital,
+            0 as sales_acquisition
             FROM data_user a
             LEFT JOIN (SELECT telp, COUNT(msisdn) mytsel FROM sales_copy WHERE date BETWEEN '$m1' AND '$mtd' AND kategori='MY TELKOMSEL' GROUP BY 1) g ON a.telp = g.telp
             LEFT JOIN (SELECT telp,COUNT(NPSN) update_data FROM Data_Sekolah_Sumatera WHERE UPDATED_AT BETWEEN '$m1' AND '$mtd' AND LONGITUDE!='' GROUP BY 1) e ON a.telp=e.telp
@@ -520,15 +521,13 @@ class DirectUserController extends Controller
 
                 $data->{'tot_sales'} = floatval(str_replace(',', '.', $data->ach_broadband))
                     + floatval(str_replace(',', '.', $data->ach_digital))
-                    + floatval(str_replace(',', '.', $data->ach_orbit))
-                    + floatval(str_replace(',', '.', $data->ach_migrasi))
-                    + floatval(str_replace(',', '.', $data->ach_byu))
-                    + floatval(str_replace(',', '.', $data->ach_mytsel));
+                    + floatval(str_replace(',', '.', $data->ach_sales_acquisition));
 
                 $data->{'tot_proses'} = floatval(str_replace(',', '.', $data->ach_update_data))
                     + floatval(str_replace(',', '.', $data->ach_pjp))
                     + floatval(str_replace(',', '.', $data->ach_survey))
-                    + floatval(str_replace(',', '.', $data->ach_quiz));
+                    + floatval(str_replace(',', '.', $data->ach_quiz))
+                    + floatval(str_replace(',', '.', $data->ach_mytsel));
 
                 $data->{'total'} = number_format(floatval($data->tot_sales) + floatval($data->tot_proses), 2, ',', '.');
             }
@@ -543,7 +542,7 @@ class DirectUserController extends Controller
         $last_digipos = DB::table('trx_digipos_ds')->select('event_date as date')->whereNotIn('event_date', ['None'])->orderBy('event_date', 'desc')->first();
 
         // ddd(compact('last_migrasi', 'last_orbit', 'last_trade', 'last_digipos'));
-        return view('directUser.kpi.index', compact('detail', 'list_target', 'sales', 'proses', 'last_migrasi', 'last_orbit', 'last_sales', 'last_digipos'));
+        return view('directUser.kpi.index', compact('detail', 'list_target', 'sales', 'proses', 'last_sales', 'last_digipos'));
     }
 
 
@@ -666,7 +665,7 @@ class DirectUserController extends Controller
         $last_sales = DB::table('sales_copy')->select('date')->orderBy('date', 'desc')->first();
         $last_digipos = DB::table('trx_digipos_ds')->select('event_date as date')->whereNotIn('event_date', ['None'])->orderBy('event_date', 'desc')->first();
 
-        return view('directUser.kpi_old.resume', compact('resume_region', 'resume_branch', 'resume_cluster', 'last_migrasi', 'last_orbit', 'last_sales', 'last_digipos'));
+        return view('directUser.kpi_old.resume', compact('resume_region', 'resume_branch', 'resume_cluster', 'last_sales', 'last_digipos'));
     }
 
     public function kpi_old(Request $request)
