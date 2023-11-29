@@ -93,7 +93,7 @@
             <a href="{{ route('direct_user.resume_kpi_old') }}"
                 class="text-white transition-all border-b select-none hover:bg-white hover:text-slate-800 border-b-slate-400"><span
                     class="inline-block px-2 py-3">Resume KPI Lama</span></a>
-            <a href="{{ route('direct_user.kpi') }}"
+            <a href="{{ route('direct_user.kpi', ['role' => 'YBA']) }}"
                 class="text-white transition-all border-b select-none hover:bg-white hover:text-slate-800 border-b-slate-400"><span
                     class="inline-block px-2 py-3">KPI YBA</span></a>
         </div>

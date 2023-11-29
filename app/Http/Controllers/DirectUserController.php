@@ -181,8 +181,7 @@ class DirectUserController extends Controller
 
         $mtd = date('Y-m-d');
         $m1 = date('Y-m-01', strtotime($mtd));
-        $kpi = DB::select(" SELECT a.branch,a.cluster,a.nama,a.telp,a.id_digipos,a.`role`, g.mytsel,e.update_data,f.pjp,h.quiz,i.survey,j.broadband,k.digital,
-            0 as sales_acquisition
+        $kpi = DB::select(" SELECT a.branch,a.cluster,a.nama,a.telp,a.id_digipos,a.`role`, g.mytsel,e.update_data,f.pjp,h.quiz,i.survey,j.broadband,k.digital
             FROM data_user a
             LEFT JOIN (SELECT telp, COUNT(msisdn) mytsel FROM sales_copy WHERE date BETWEEN '$m1' AND '$mtd' AND kategori='MY TELKOMSEL' GROUP BY 1) g ON a.telp = g.telp
             LEFT JOIN (SELECT telp,COUNT(NPSN) update_data FROM Data_Sekolah_Sumatera WHERE UPDATED_AT BETWEEN '$m1' AND '$mtd' AND LONGITUDE!='' GROUP BY 1) e ON a.telp=e.telp
@@ -455,6 +454,7 @@ class DirectUserController extends Controller
         $u_branch = Auth::user()->branch;
         $u_cluster = Auth::user()->cluster;
         $where_loc = $u_privilege == 'cluster' ? " a.`cluster`='$u_cluster' AND " : ($u_privilege == 'branch' ? "a.`branch`='$u_branch' AND " : "");
+        $where_role = $request->role ? " a.role='$request->role' AND " : '';
 
         $target = DB::table('target_ds')->where('status', 1)->get();
 
@@ -485,9 +485,9 @@ class DirectUserController extends Controller
             $mtd = $request->date;
             $m1 = date('Y-m-01', strtotime($mtd));
 
-            $detail = DB::select("SELECT a.branch,a.cluster,a.nama,a.telp,a.id_digipos,a.`role`, g.mytsel,e.update_data,f.pjp,h.quiz,i.survey,j.broadband,k.digital,
-            0 as sales_acquisition
+            $detail = DB::select("SELECT a.branch,a.cluster,a.nama,a.telp,a.id_digipos,a.`role`,b.sales_acquisition, g.mytsel,e.update_data,f.pjp,h.quiz,i.survey,j.broadband,k.digital
             FROM data_user a
+            LEFT JOIN (SELECT id_digipos, SUM(revenue) sales_acquisition FROM byu_sales_ds WHERE date BETWEEN '$m1' AND '$mtd' GROUP BY 1) b ON a.id_digipos = b.id_digipos
             LEFT JOIN (SELECT telp, COUNT(msisdn) mytsel FROM sales_copy WHERE date BETWEEN '$m1' AND '$mtd' AND kategori='MY TELKOMSEL' GROUP BY 1) g ON a.telp = g.telp
             LEFT JOIN (SELECT telp,COUNT(NPSN) update_data FROM Data_Sekolah_Sumatera WHERE UPDATED_AT BETWEEN '$m1' AND '$mtd' AND LONGITUDE!='' GROUP BY 1) e ON a.telp=e.telp
             LEFT JOIN (SELECT telp,COUNT(npsn) pjp FROM table_kunjungan WHERE date BETWEEN '$m1' AND '$mtd' GROUP BY 1) f ON a.telp=f.telp
@@ -495,8 +495,9 @@ class DirectUserController extends Controller
             LEFT JOIN (SELECT Data_Sekolah_Sumatera.telp,COUNT(survey_answer.telp_siswa) survey FROM survey_answer JOIN Data_Sekolah_Sumatera ON survey_answer.npsn=Data_Sekolah_Sumatera.NPSN WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) i ON a.telp=i.telp
             LEFT JOIN (SELECT digipos_ao,SUM(price) broadband FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DATA' GROUP BY 1) j ON a.id_digipos=j.digipos_ao
             LEFT JOIN (SELECT digipos_ao,SUM(price) digital FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL' GROUP BY 1) k ON a.id_digipos=k.digipos_ao
-            WHERE $where_loc a.status=1
+            WHERE $where_loc $where_role a.status=1
             ORDER BY 1,2,3,5;");
+
 
             foreach ($detail as $data) {
                 foreach ($list_target as $i_target => $target) {
@@ -661,7 +662,7 @@ class DirectUserController extends Controller
         $last_sales = DB::table('sales_copy')->select('date')->orderBy('date', 'desc')->first();
         $last_digipos = DB::table('trx_digipos_ds')->select('event_date as date')->whereNotIn('event_date', ['None'])->orderBy('event_date', 'desc')->first();
 
-        return view('directUser.kpi_old.resume', compact('resume_region', 'resume_branch', 'resume_cluster', 'last_sales', 'last_digipos'));
+        return view('directUser.kpi.resume', compact('resume_region', 'resume_branch', 'resume_cluster', 'last_sales', 'last_digipos'));
     }
 
     public function kpi_old(Request $request)

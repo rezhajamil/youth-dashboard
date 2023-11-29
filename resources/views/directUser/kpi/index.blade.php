@@ -8,6 +8,9 @@
                         <form action="{{ route('direct_user.kpi') }}" method="get">
                             <input type="date" name="date" id="date" class="px-4 rounded-lg"
                                 value="{{ request()->get('date') }}" required>
+                            @if (request()->get('role'))
+                                <input type="hidden" name="role" value="{{ request()->get('role') }}" />
+                            @endif
                             <button type="submit"
                                 class="inline-block px-4 py-2 mt-2 font-bold text-white transition-all rounded-md bg-y_premier hover:bg-sky-800"><i
                                     class="mr-2 fa-solid fa-magnifying-glass"></i>Cari</button>

@@ -44,12 +44,8 @@ class DataUser extends Model
 
         $resume = DB::select(
             "SELECT a.$scope,
-                COALESCE(SUM(b.migrasi),0) AS migrasi,
-                COALESCE(SUM(b.last_migrasi),0) AS last_migrasi,
-                COALESCE(SUM(c.orbit),0) AS orbit,
-                COALESCE(SUM(c.last_orbit),0) AS last_orbit,
-                COALESCE(SUM(d.byu),0) AS byu,
-                COALESCE(SUM(d.last_byu),0) AS last_byu,
+                COALESCE(SUM(b.sales_acquisition),0) AS sales_acquisition,
+                COALESCE(SUM(b.last_sales_acquisition),0) AS last_sales_acquisition,
                 COALESCE(SUM(e.update_data),0) AS update_data,
                 COALESCE(SUM(e.last_update_data),0) AS last_update_data,
                 COALESCE(SUM(f.pjp),0) AS pjp,
@@ -65,9 +61,7 @@ class DataUser extends Model
                 COALESCE(SUM(k.digital),0) AS digital,
                 COALESCE(SUM(k.last_digital),0) AS last_digital
                 FROM data_user a
-                LEFT JOIN (SELECT outlet_id,COUNT(CASE WHEN date BETWEEN '$m1' AND '$mtd' THEN outlet_id END ) migrasi, COUNT(CASE WHEN date BETWEEN '$last_m1' AND '$last_mtd' THEN outlet_id END ) last_migrasi FROM `4g_usim_all_trx` WHERE date BETWEEN '$last_m1' AND '$mtd' AND (status='MIGRATION_SUCCCESS' OR status='USIM_ACTIVE') GROUP BY 1) b ON a.id_digipos=b.outlet_id
-                LEFT JOIN (SELECT outlet_id,COUNT(CASE WHEN so_date BETWEEN '$m1' AND '$mtd' THEN msisdn END ) orbit, COUNT(CASE WHEN so_date BETWEEN '$last_m1' AND '$last_mtd' THEN msisdn END ) last_orbit FROM orbit_digipos WHERE so_date BETWEEN '$last_m1' AND '$mtd' GROUP BY 1) c ON a.id_digipos=c.outlet_id
-                LEFT JOIN (SELECT telp,COUNT(CASE WHEN date BETWEEN '$m1' AND '$mtd' THEN msisdn END ) byu, COUNT(CASE WHEN date BETWEEN '$last_m1' AND '$last_mtd' THEN msisdn END ) last_byu FROM sales_copy WHERE date BETWEEN '$last_m1' AND '$mtd' AND kategori='BYU' GROUP BY 1) d ON a.telp=d.telp
+                LEFT JOIN (SELECT id_digipos,SUM(CASE WHEN date BETWEEN '$m1' AND '$mtd' THEN revenue ELSE 0 END) sales_acquisition,SUM(CASE WHEN date BETWEEN '$last_m1' AND '$last_mtd' THEN revenue ELSE 0 END) last_sales_acquisition FROM byu_sales_ds WHERE date BETWEEN '$last_m1' AND '$mtd' GROUP BY 1) b ON a.id_digipos = b.id_digipos
                 LEFT JOIN (SELECT telp,COUNT(CASE WHEN date BETWEEN '$m1' AND '$mtd' THEN msisdn END ) mytsel, COUNT(CASE WHEN date BETWEEN '$last_m1' AND '$last_mtd' THEN msisdn END ) last_mytsel FROM sales_copy WHERE date BETWEEN '$last_m1' AND '$mtd' AND kategori='MY TELKOMSEL' GROUP BY 1) g ON a.telp=g.telp
                 LEFT JOIN (SELECT telp,COUNT(CASE WHEN UPDATED_AT BETWEEN '$m1' AND '$mtd' THEN NPSN END ) update_data, COUNT(CASE WHEN UPDATED_AT BETWEEN '$last_m1' AND '$last_mtd' THEN NPSN END ) last_update_data FROM Data_Sekolah_Sumatera WHERE UPDATED_AT BETWEEN '$last_m1' AND '$mtd' AND LONGITUDE!='' GROUP BY 1) e ON a.telp=e.telp
                 LEFT JOIN (SELECT telp,COUNT(CASE WHEN date BETWEEN '$m1' AND '$mtd' THEN npsn END ) pjp, COUNT(CASE WHEN date BETWEEN '$last_m1' AND '$last_mtd' THEN npsn END ) last_pjp FROM table_kunjungan WHERE date BETWEEN '$last_m1' AND '$mtd' GROUP BY 1) f ON a.telp=f.telp

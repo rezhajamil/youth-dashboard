@@ -43,42 +43,30 @@
                                     class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">
                                     Digital</th>
                                 <th colspan="3"
-                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">Orbit
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">
+                                    Sales Acquisition
                                 </th>
                                 <th colspan="3"
-                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">
-                                    Migrasi</th>
-                                <th colspan="3"
-                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">BYU</th>
-                                <th colspan="3"
-                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">Update
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">
+                                    Update
                                     Data</th>
                                 <th colspan="3"
-                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">Update
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">
+                                    Update
                                     PJP Harian</th>
                                 <th colspan="3"
-                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">Survey
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">
+                                    Survey
                                     Market</th>
                                 <th colspan="3"
                                     class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">
-                                    Channeling OSK & OSS</th>
+                                    My Telkomsel</th>
                                 <th colspan="3"
-                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">Product
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">
+                                    Product
                                     Knowledge</th>
                             </tr>
                             <tr>
-                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    MTD</th>
-                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    MoM</th>
-                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    %Ach</th>
-                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    MTD</th>
-                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    MoM</th>
-                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    %Ach</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
                                     MTD</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
@@ -133,7 +121,6 @@
                             @foreach ($resume_region as $key => $data)
                                 <tr class="">
                                     <td class="p-2 border region whitespace-nowrap">{{ $data->regional }}</td>
-
                                     <td class="p-2 border">
                                         {{ $data->broadband ?? '-' }}
                                     </td>
@@ -150,15 +137,9 @@
                                     <td class="p-2 border">
                                         {{ $data->ach_digital }}%
                                     </td>
-                                    <td class="p-2 border">{{ $data->orbit ?? '-' }}</td>
-                                    <td class="p-2 border">{{ $data->mom_orbit ?? '-' }}%</td>
-                                    <td class="p-2 border">{{ $data->ach_orbit ?? '-' }}%</td>
-                                    <td class="p-2 border">{{ $data->migrasi ?? '-' }}</td>
-                                    <td class="p-2 border">{{ $data->mom_migrasi ?? '-' }}%</td>
-                                    <td class="p-2 border">{{ $data->ach_migrasi ?? '-' }}%</td>
-                                    <td class="p-2 border">{{ $data->byu ?? '-' }}</td>
-                                    <td class="p-2 border">{{ $data->mom_byu ?? '-' }}%</td>
-                                    <td class="p-2 border">{{ $data->ach_byu ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->sales_acquisition ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_sales_acquisition ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_sales_acquisition ?? '-' }}%</td>
 
                                     <td class="p-2 border">{{ $data->update_data ?? '-' }}</td>
                                     <td class="p-2 border">{{ $data->mom_update_data ?? '-' }}%</td>
@@ -169,9 +150,9 @@
                                     <td class="p-2 border">{{ $data->survey ?? '-' }}</td>
                                     <td class="p-2 border">{{ $data->mom_survey ?? '-' }}%</td>
                                     <td class="p-2 border">{{ $data->ach_survey ?? '-' }}%</td>
-                                    <td class="p-2 border">{{ $data->oss_osk ?? '-' }}</td>
-                                    <td class="p-2 border">{{ $data->mom_oss_osk ?? '-' }}%</td>
-                                    <td class="p-2 border">{{ $data->ach_oss_osk ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->mytsel ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_mytsel ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_mytsel ?? '-' }}%</td>
                                     <td class="p-2 border">{{ $data->quiz ?? '-' }}</td>
                                     <td class="p-2 border">{{ $data->mom_quiz ?? '-' }}%</td>
                                     <td class="p-2 border">{{ $data->ach_quiz ?? '-' }}%</td>
@@ -195,43 +176,30 @@
                                     class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">
                                     Digital</th>
                                 <th colspan="3"
-                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">Orbit
-                                </th>
-                                <th colspan="3"
                                     class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">
-                                    Migrasi</th>
-                                <th colspan="3"
-                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">Byu
+                                    Sales Acquisition
                                 </th>
                                 <th colspan="3"
-                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">Update
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">
+                                    Update
                                     Data</th>
                                 <th colspan="3"
-                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">Update
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">
+                                    Update
                                     PJP Harian</th>
                                 <th colspan="3"
-                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">Survey
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">
+                                    Survey
                                     Market</th>
                                 <th colspan="3"
                                     class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">
-                                    Channeling OSK & OSS</th>
+                                    My Telkomsel</th>
                                 <th colspan="3"
-                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">Product
+                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">
+                                    Product
                                     Knowledge</th>
                             </tr>
                             <tr>
-                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    MTD</th>
-                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    MoM</th>
-                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    %Ach</th>
-                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    MTD</th>
-                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    MoM</th>
-                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    %Ach</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
                                     MTD</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
@@ -303,15 +271,9 @@
                                     <td class="p-2 border">
                                         {{ $data->ach_digital }}%
                                     </td>
-                                    <td class="p-2 border">{{ $data->orbit ?? '-' }}</td>
-                                    <td class="p-2 border">{{ $data->mom_orbit ?? '-' }}%</td>
-                                    <td class="p-2 border">{{ $data->ach_orbit ?? '-' }}%</td>
-                                    <td class="p-2 border">{{ $data->migrasi ?? '-' }}</td>
-                                    <td class="p-2 border">{{ $data->mom_migrasi ?? '-' }}%</td>
-                                    <td class="p-2 border">{{ $data->ach_migrasi ?? '-' }}%</td>
-                                    <td class="p-2 border">{{ $data->byu ?? '-' }}</td>
-                                    <td class="p-2 border">{{ $data->mom_byu ?? '-' }}%</td>
-                                    <td class="p-2 border">{{ $data->ach_byu ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->sales_acquisition ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_sales_acquisition ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_sales_acquisition ?? '-' }}%</td>
 
                                     <td class="p-2 border">{{ $data->update_data ?? '-' }}</td>
                                     <td class="p-2 border">{{ $data->mom_update_data ?? '-' }}%</td>
@@ -322,9 +284,9 @@
                                     <td class="p-2 border">{{ $data->survey ?? '-' }}</td>
                                     <td class="p-2 border">{{ $data->mom_survey ?? '-' }}%</td>
                                     <td class="p-2 border">{{ $data->ach_survey ?? '-' }}%</td>
-                                    <td class="p-2 border">{{ $data->oss_osk ?? '-' }}</td>
-                                    <td class="p-2 border">{{ $data->mom_oss_osk ?? '-' }}%</td>
-                                    <td class="p-2 border">{{ $data->ach_oss_osk ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->mytsel ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_mytsel ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_mytsel ?? '-' }}%</td>
                                     <td class="p-2 border">{{ $data->quiz ?? '-' }}</td>
                                     <td class="p-2 border">{{ $data->mom_quiz ?? '-' }}%</td>
                                     <td class="p-2 border">{{ $data->ach_quiz ?? '-' }}%</td>
@@ -349,14 +311,8 @@
                                     Digital</th>
                                 <th colspan="3"
                                     class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">
-                                    Orbit
+                                    Sales Acquisition
                                 </th>
-                                <th colspan="3"
-                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">
-                                    Migrasi</th>
-                                <th colspan="3"
-                                    class="p-3 font-medium text-center text-gray-100 uppercase border bg-y_tersier">
-                                    Byu</th>
                                 <th colspan="3"
                                     class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">
                                     Update
@@ -371,25 +327,13 @@
                                     Market</th>
                                 <th colspan="3"
                                     class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">
-                                    Channeling OSK & OSS</th>
+                                    My Telkomsel</th>
                                 <th colspan="3"
                                     class="p-3 font-medium text-center text-gray-100 uppercase border bg-tersier">
                                     Product
                                     Knowledge</th>
                             </tr>
                             <tr>
-                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    MTD</th>
-                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    MoM</th>
-                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    %Ach</th>
-                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    MTD</th>
-                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    MoM</th>
-                                <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
-                                    %Ach</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
                                     MTD</th>
                                 <th class="p-3 font-medium text-gray-100 uppercase border bg-slate-400 whitespace-nowrap">
@@ -461,15 +405,9 @@
                                     <td class="p-2 border">
                                         {{ $data->ach_digital }}%
                                     </td>
-                                    <td class="p-2 border">{{ $data->orbit ?? '-' }}</td>
-                                    <td class="p-2 border">{{ $data->mom_orbit ?? '-' }}%</td>
-                                    <td class="p-2 border">{{ $data->ach_orbit ?? '-' }}%</td>
-                                    <td class="p-2 border">{{ $data->migrasi ?? '-' }}</td>
-                                    <td class="p-2 border">{{ $data->mom_migrasi ?? '-' }}%</td>
-                                    <td class="p-2 border">{{ $data->ach_migrasi ?? '-' }}%</td>
-                                    <td class="p-2 border">{{ $data->byu ?? '-' }}</td>
-                                    <td class="p-2 border">{{ $data->mom_byu ?? '-' }}%</td>
-                                    <td class="p-2 border">{{ $data->ach_byu ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->sales_acquisition ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_sales_acquisition ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_sales_acquisition ?? '-' }}%</td>
 
                                     <td class="p-2 border">{{ $data->update_data ?? '-' }}</td>
                                     <td class="p-2 border">{{ $data->mom_update_data ?? '-' }}%</td>
@@ -480,9 +418,9 @@
                                     <td class="p-2 border">{{ $data->survey ?? '-' }}</td>
                                     <td class="p-2 border">{{ $data->mom_survey ?? '-' }}%</td>
                                     <td class="p-2 border">{{ $data->ach_survey ?? '-' }}%</td>
-                                    <td class="p-2 border">{{ $data->oss_osk ?? '-' }}</td>
-                                    <td class="p-2 border">{{ $data->mom_oss_osk ?? '-' }}%</td>
-                                    <td class="p-2 border">{{ $data->ach_oss_osk ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->mytsel ?? '-' }}</td>
+                                    <td class="p-2 border">{{ $data->mom_mytsel ?? '-' }}%</td>
+                                    <td class="p-2 border">{{ $data->ach_mytsel ?? '-' }}%</td>
                                     <td class="p-2 border">{{ $data->quiz ?? '-' }}</td>
                                     <td class="p-2 border">{{ $data->mom_quiz ?? '-' }}%</td>
                                     <td class="p-2 border">{{ $data->ach_quiz ?? '-' }}%</td>
