@@ -104,7 +104,8 @@
                 </form>
             @elseif(request()->get('finish'))
                 <div class="flex flex-col my-4 gap-y-4">
-                    <span class="block w-full py-2 mb-2 text-4xl font-bold text-center text-green-800">Survey Sudah
+                    <span class="block w-full py-2 mb-2 text-xl font-bold text-center text-green-800">Survey di <br>
+                        {{ $sekolah->NAMA_SEKOLAH }} <br> pada {{ date('d-m-Y') }} <br> Sudah
                         Selesai</span>
                     <span class="block w-full py-2 mb-2 text-xl font-bold text-center text-green-800">Makasih yaa sudah
                         mengikuti survey kami :)</span>

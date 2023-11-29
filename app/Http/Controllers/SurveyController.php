@@ -314,7 +314,8 @@ class SurveyController extends Controller
                     'finish' => '1'
                 ]);
             } else {
-                return redirect(URL::to("/qns/survey/$request->url?npsn=$request->npsn&finish=1"));
+                // return redirect(URL::to("/qns/survey/$request->url?npsn=$request->npsn&finish=1"));
+                return redirect()->route('survey.answer.create', ['url' => $request->url, 'npsn' => $request->npsn, 'finish' => 1]);
             }
         } else if ($request->telp) {
             $answer = DB::table('survey_travel_answer')->where('session', $request->session)->where('telp_pic', $request->jawaban_3[0]);
