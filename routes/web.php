@@ -214,6 +214,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('resume_kpi_old', [DirectUserController::class, 'resume_kpi_old'])->name('direct_user.resume_kpi_old');
     Route::get('kpi', [DirectUserController::class, 'kpi'])->name('direct_user.kpi');
     Route::get('resume_kpi', [DirectUserController::class, 'resume_kpi'])->name('direct_user.resume_kpi');
+    Route::get('kpi_yba', [DirectUserController::class, 'kpi_yba'])->name('direct_user.kpi_yba');
 
     Route::resource('event', EventController::class);
     Route::get('create_peserta_sekolah', [EventController::class, 'create_peserta_sekolah'])->name('event.create_peserta_sekolah');
