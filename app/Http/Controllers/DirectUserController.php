@@ -953,7 +953,7 @@ class DirectUserController extends Controller
         $u_branch = Auth::user()->branch;
         $u_cluster = Auth::user()->cluster;
         $where_loc = $u_privilege == 'cluster' ? " a.`cluster`='$u_cluster' AND " : ($u_privilege == 'branch' ? "a.`branch`='$u_branch' AND " : "");
-        $where_role = $request->role ? " a.role='$request->role' AND " : '';
+        // $where_role = $request->role ? " a.role='$request->role' AND " : '';
 
         $target = DB::table('target_yba')->where('status', 1)->get();
 
@@ -995,7 +995,7 @@ class DirectUserController extends Controller
             LEFT JOIN (SELECT telp, COUNT(msisdn) mytsel FROM sales_copy WHERE date BETWEEN '$m1' AND '$mtd' AND kategori='MY TELKOMSEL' GROUP BY 1) g ON a.telp = g.telp
             LEFT JOIN (SELECT telp,SUM(hasil) quiz FROM quiz_answer WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) h ON a.telp=h.telp
             LEFT JOIN (SELECT digipos_ao,SUM(price) sales_digipos FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' GROUP BY 1) j ON a.id_digipos=j.digipos_ao
-            WHERE $where_loc $where_role a.status=1
+            WHERE $where_loc a.role='YBA' AND a.status=1
             ORDER BY 1,2,3,5;";
 
             // die($query); 

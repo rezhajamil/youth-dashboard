@@ -84,6 +84,7 @@ Route::middleware(['cors'])->group(function () {
     Route::post('/taker/non_usim', [TakerController::class, 'non_usim']);
 
     Route::get('/resume_api', [DashboardController::class, 'resume_api']);
+    Route::get('/taker/digipos', [TakerController::class, 'digipos']);
 });
 
 //Must Login
