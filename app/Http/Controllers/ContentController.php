@@ -313,7 +313,7 @@ class ContentController extends Controller
 
         if ($request->hasFile('gambar')) {
             $gambar = $request->file('gambar');
-            $url = $gambar->storeAs('news', $gambar->getClientOriginalName());
+            $url = $gambar->storeAs('news', $gambar->getClientOriginalName(), 'local');
             $news = DB::table('berita')->insert([
                 'role' => $request->role,
                 'judul' => $request->judul,
