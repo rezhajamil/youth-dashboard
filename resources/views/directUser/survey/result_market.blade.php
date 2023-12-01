@@ -33,10 +33,11 @@
                         <input class="rounded" type="date" name="end_date" id="end_date"
                             value="{{ Request::get('end_date') }}" required>
                         <button type="submit"
-                            class="inline-block px-4 py-2 my-2 ml-3 font-bold text-white transition-all rounded-md bg-y_premier hover:bg-y_premier">Ganti
-                            Tanggal</button>
+                            class="inline-block px-4 py-2 my-2 ml-3 font-bold text-white transition-all rounded-md bg-y_premier hover:bg-y_premier">Cek
+                            Survey</button>
                     </form>
                 </div>
+                <hr class="h-1 bg-gray-400">
                 <div class="flex items-center my-4 mt-2 gap-x-2">
                     <select name="filter" id="filter" class="block rounded">
                         <option value="" selected disabled>Pilih City</option>

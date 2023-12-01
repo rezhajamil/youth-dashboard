@@ -1044,6 +1044,192 @@ class DirectUserController extends Controller
         return view('directUser.kpi_yba.index', compact('detail', 'list_target', 'sales', 'proses', 'last_sales', 'last_digipos'));
     }
 
+    public function kpi_api(Request $request)
+    {
+        ini_set(
+            'max_execution_time',
+            '0'
+        );
+        ini_set('memory_limit', '-1');
+        $where_role = $request->role ? " a.role='$request->role' AND " : '';
+
+        $target = DB::table('target_ds')->where('status', 1)->get();
+
+        $list_target = [];
+        $sales = 0;
+        $proses = 0;
+
+        foreach ($target as $data) {
+            $item_kpi = $data->item_kpi;
+            $target_value = $data->unit == 'rupiah'
+                ? number_format($data->target, 0, ",", ".")
+                : $data->target;
+
+            $list_target[$item_kpi] = [
+                'target' => $target_value,
+                'bobot' => $data->bobot,
+                'unit' => $data->unit
+            ];
+
+            if ($data->kategori == 'sales') {
+                $sales += $data->bobot;
+            } elseif ($data->kategori == 'proses') {
+                $proses += $data->bobot;
+            }
+        }
+
+        if ($request->telp) {
+            $mtd = date('Y-m-d');
+            $m1 = date('Y-m-01', strtotime($mtd));
+
+            $detail = DB::select("SELECT a.branch,a.cluster,a.nama,a.telp,a.id_digipos,a.`role`,b.byu,c.sales_byu, g.mytsel,e.update_data,f.pjp,h.quiz,i.survey,j.broadband,k.digital,
+            (COALESCE(b.byu,0)+COALESCE(c.sales_byu,0)) as sales_acquisition
+            FROM data_user a
+            LEFT JOIN (SELECT id_digipos, SUM(revenue) byu FROM byu_sales_ds WHERE date BETWEEN '$m1' AND '$mtd' GROUP BY 1) b ON a.id_digipos = b.id_digipos
+            LEFT JOIN (SELECT telp, COUNT(msisdn)*20000 sales_byu FROM sales_copy WHERE date BETWEEN '$m1' AND '$mtd' AND kategori='BYU' GROUP BY 1) c ON a.telp = c.telp
+            LEFT JOIN (SELECT telp, COUNT(msisdn) mytsel FROM sales_copy WHERE date BETWEEN '$m1' AND '$mtd' AND kategori='MY TELKOMSEL' GROUP BY 1) g ON a.telp = g.telp
+            LEFT JOIN (SELECT telp,COUNT(NPSN) update_data FROM Data_Sekolah_Sumatera WHERE UPDATED_AT BETWEEN '$m1' AND '$mtd' AND LONGITUDE!='' GROUP BY 1) e ON a.telp=e.telp
+            LEFT JOIN (SELECT telp,COUNT(npsn) pjp FROM table_kunjungan WHERE date BETWEEN '$m1' AND '$mtd' GROUP BY 1) f ON a.telp=f.telp
+            LEFT JOIN (SELECT telp,SUM(hasil) quiz FROM quiz_answer WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) h ON a.telp=h.telp
+            LEFT JOIN (SELECT Data_Sekolah_Sumatera.telp,COUNT(survey_answer.telp_siswa) survey FROM survey_answer JOIN Data_Sekolah_Sumatera ON survey_answer.npsn=Data_Sekolah_Sumatera.NPSN WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) i ON a.telp=i.telp
+            LEFT JOIN (SELECT digipos_ao,SUM(price) broadband FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DATA' GROUP BY 1) j ON a.id_digipos=j.digipos_ao
+            LEFT JOIN (SELECT digipos_ao,SUM(price) digital FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL' GROUP BY 1) k ON a.id_digipos=k.digipos_ao
+            WHERE a.telp='$request->telp' AND $where_role a.status=1
+            ORDER BY 1,2,3,5;");
+
+
+            foreach ($detail as $data) {
+                foreach ($list_target as $i_target => $target) {
+                    $ach_target = (intval($data->{$i_target}) / intval(str_replace('.', '', $target['target']))) * 100;
+
+                    if ($ach_target < 100) {
+                        $ach_target = intval($ach_target) * ($target['bobot']) / 100;
+                    } else {
+                        $ach_target = $target['bobot'];
+                    }
+
+                    $data->{"ach_$i_target"} = number_format($ach_target, 2, ',', '.');
+
+                    if ($target['unit'] == 'rupiah') {
+                        $data->{$i_target} = number_format($data->{$i_target}, 0, ',', '.');
+                    }
+                }
+
+                $data->{'tot_sales'} = floatval(str_replace(',', '.', $data->ach_broadband))
+                    + floatval(str_replace(',', '.', $data->ach_digital))
+                    + floatval(str_replace(',', '.', $data->ach_sales_acquisition));
+
+                $data->{'tot_proses'} = floatval(str_replace(',', '.', $data->ach_update_data))
+                    + floatval(str_replace(',', '.', $data->ach_pjp))
+                    + floatval(str_replace(',', '.', $data->ach_survey))
+                    + floatval(str_replace(',', '.', $data->ach_quiz))
+                    + floatval(str_replace(',', '.', $data->ach_mytsel));
+
+                $data->{'total'} = number_format(floatval($data->tot_sales) + floatval($data->tot_proses), 2, ',', '.');
+            }
+
+
+            echo intval($detail[0]->total);
+            // ddd(intval($detail[0]->total));
+        } else {
+            $detail = [];
+        }
+    }
+
+
+    public function kpi_yba_api(Request $request)
+    {
+        ini_set(
+            'max_execution_time',
+            '0'
+        );
+        ini_set('memory_limit', '-1');
+        // $where_role = $request->role ? " a.role='$request->role' AND " : '';
+
+        $target = DB::table('target_yba')->where('status', 1)->get();
+
+        $list_target = [];
+        $sales = 0;
+        $proses = 0;
+
+        foreach ($target as $data) {
+            $item_kpi = $data->item_kpi;
+            $target_value = $data->unit == 'rupiah'
+                ? number_format($data->target, 0, ",", ".")
+                : $data->target;
+
+            $list_target[$item_kpi] = [
+                'target' => $target_value,
+                'bobot' => $data->bobot,
+                'unit' => $data->unit
+            ];
+
+            if ($data->kategori == 'sales') {
+                $sales += $data->bobot;
+            } elseif ($data->kategori == 'proses') {
+                $proses += $data->bobot;
+            }
+        }
+
+        if ($request->telp) {
+            $mtd = date('Y-m-d');
+            $m1 = date('Y-m-01', strtotime($mtd));
+
+            $query = "SELECT a.branch,a.cluster,a.nama,a.telp,a.id_digipos,a.`role`,b.byu,c.sales_byu,d.school_dealing,e.event_handling,f.pjp, g.mytsel,h.quiz,j.sales_digipos,
+            (COALESCE(b.byu,0)+COALESCE(c.sales_byu,0)) as sales_acquisition
+            FROM data_user a
+            LEFT JOIN (SELECT id_digipos, SUM(revenue) byu FROM byu_sales_ds WHERE date BETWEEN '$m1' AND '$mtd' GROUP BY 1) b ON a.id_digipos = b.id_digipos
+            LEFT JOIN (SELECT telp, COUNT(msisdn)*20000 sales_byu FROM sales_copy WHERE date BETWEEN '$m1' AND '$mtd' AND kategori='BYU' GROUP BY 1) c ON a.telp = c.telp
+            LEFT JOIN (SELECT telp_ds as telp,COUNT(DISTINCT npsn) school_dealing FROM peserta_event_sekolah WHERE date BETWEEN '$m1' AND '$mtd' GROUP BY 1) d ON a.telp=d.telp
+            LEFT JOIN (SELECT telp,COUNT(npsn) event_handling FROM pjp WHERE date BETWEEN '$m1' AND '$mtd' AND event!='' AND event IS NOT NULL GROUP BY 1) e ON a.telp=e.telp
+            LEFT JOIN (SELECT telp,COUNT(npsn) pjp FROM table_kunjungan WHERE date BETWEEN '$m1' AND '$mtd' GROUP BY 1) f ON a.telp=f.telp
+            LEFT JOIN (SELECT telp, COUNT(msisdn) mytsel FROM sales_copy WHERE date BETWEEN '$m1' AND '$mtd' AND kategori='MY TELKOMSEL' GROUP BY 1) g ON a.telp = g.telp
+            LEFT JOIN (SELECT telp,SUM(hasil) quiz FROM quiz_answer WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) h ON a.telp=h.telp
+            LEFT JOIN (SELECT digipos_ao,SUM(price) sales_digipos FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' GROUP BY 1) j ON a.id_digipos=j.digipos_ao
+            WHERE a.telp='$request->telp' AND a.role='YBA' AND a.status=1
+            ORDER BY 1,2,3,5;";
+
+            // die($query); 
+
+            $detail = DB::select($query);
+
+            foreach ($detail as $data) {
+                foreach ($list_target as $i_target => $target) {
+                    $ach_target = (intval($data->{$i_target}) / intval(str_replace('.', '', $target['target']))) * 100;
+
+                    if ($ach_target < 100) {
+                        $ach_target = intval($ach_target) * ($target['bobot']) / 100;
+                    } else {
+                        $ach_target = $target['bobot'];
+                    }
+
+                    $data->{"ach_$i_target"} = number_format($ach_target, 2, ',', '.');
+
+                    if ($target['unit'] == 'rupiah') {
+                        $data->{$i_target} = number_format($data->{$i_target}, 0, ',', '.');
+                    }
+                }
+
+                $data->{'tot_sales'} = floatval(str_replace(',', '.', $data->ach_school_dealing))
+                    + floatval(str_replace(',', '.', $data->ach_sales_digipos))
+                    + floatval(str_replace(',', '.', $data->ach_sales_acquisition));
+
+                $data->{'tot_proses'} = floatval(str_replace(',', '.', $data->ach_event_handling))
+                    + floatval(str_replace(',', '.', $data->ach_pjp))
+                    + floatval(str_replace(',', '.', $data->ach_quiz))
+                    + floatval(str_replace(',', '.', $data->ach_mytsel));
+
+                $data->{'total'} = number_format(floatval($data->tot_sales) + floatval($data->tot_proses), 2, ',', '.');
+            }
+
+            echo intval($detail[0]->total);
+            // ddd($detail);
+        } else {
+            $detail = [];
+        }
+    }
+
+
     /**
      * Remove the specified resource from storage.
      *
