@@ -54,11 +54,11 @@ class TakerController extends Controller
         $data = $request->input('data');
 
         // If $data is a JSON string, decode it into an array
-        $dataArray = json_decode($data, true);
+        // $dataArray = json_decode($data, true);
         $res = [];
 
         try {
-            DB::table('trx_digipos_ds_test')->insert($dataArray);
+            DB::table('trx_digipos_ds_test')->insert($data);
             // foreach ($request->input('data') as $key => $value) {
             //     array_push($res, "Berhasil<br/>");
             // }
