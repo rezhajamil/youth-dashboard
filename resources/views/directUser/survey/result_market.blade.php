@@ -278,6 +278,7 @@
                         end_date: $("#end_date").val(),
                     },
                     success: (data) => {
+                        console.log(data);
                         operator.map(data => {
                             data.jumlah = 0;
                         })

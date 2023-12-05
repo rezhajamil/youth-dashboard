@@ -426,6 +426,7 @@ class SurveyController extends Controller
             $survey->jenis_soal = json_decode($survey->jenis_soal);
             $survey->opsi = json_decode($survey->opsi);
             $survey->jumlah_opsi = json_decode($survey->jumlah_opsi);
+            // ddd([$resume, $sekolah]);
 
             return view('directUser.survey.result_market', compact('kode_operator', 'operator', 'answer', 'survey', 'resume', 'hasil', 'sekolah', 'city'));
         } else {
