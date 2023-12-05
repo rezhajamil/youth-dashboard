@@ -51,13 +51,17 @@ class TakerController extends Controller
         // $data = json_decode(html_entity_decode(stripslashes($request->row)));
         // $data = json_decode($request);
         // return response($request->data);
+        $data = $request->input('data');
+
+        // If $data is a JSON string, decode it into an array
+        $dataArray = json_decode($data, true);
         $res = [];
 
         try {
-            foreach ($request->data as $key => $value) {
-                DB::table('trx_digipos_ds_test')->insert($value);
-                array_push($res, "Berhasil<br/>");
-            }
+            DB::table('trx_digipos_ds_test')->insert($dataArray);
+            // foreach ($request->input('data') as $key => $value) {
+            //     array_push($res, "Berhasil<br/>");
+            // }
             return response([$res, "Berhasil simpan data"]);
         } catch (\Throwable $th) {
             return response($th, 400);
