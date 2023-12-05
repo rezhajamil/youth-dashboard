@@ -51,7 +51,7 @@ class TakerController extends Controller
         // $data = json_decode(html_entity_decode(stripslashes($request->row)));
         $data = $request;
         $data = (array) $request;
-        // return $data;
+        return response($data);
         $res = [];
 
         try {
