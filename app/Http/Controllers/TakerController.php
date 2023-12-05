@@ -50,7 +50,7 @@ class TakerController extends Controller
         ini_set("post_max_size", 0);
         // $data = json_decode(html_entity_decode(stripslashes($request->row)));
         $data = $request;
-        return response()->json($data);
+        return $data;
         $res = [];
 
         try {
