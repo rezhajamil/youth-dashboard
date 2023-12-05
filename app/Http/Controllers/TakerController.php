@@ -50,11 +50,11 @@ class TakerController extends Controller
         ini_set("post_max_size", 0);
         // $data = json_decode(html_entity_decode(stripslashes($request->row)));
         // $data = json_decode($request);
-        return response();
+        // return response($request->data);
         $res = [];
 
         try {
-            foreach ($data as $key => $value) {
+            foreach ($request->data as $key => $value) {
                 DB::table('trx_digipos_ds_test')->insert($value);
                 array_push($res, "Berhasil<br/>");
             }
