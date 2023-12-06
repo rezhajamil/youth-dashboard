@@ -588,6 +588,7 @@
                                 _token: _token
                             },
                             success: (data) => {
+                                console.log(data);
                                 $('#school-list').html(
                                     data.map((data) => {
                                         return `
