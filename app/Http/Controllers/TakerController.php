@@ -67,4 +67,16 @@ class TakerController extends Controller
             return response($th, 400);
         }
     }
+
+    public function receiveFileDigipos(Request $request)
+    {
+        if ($request->hasFile('file') && $request->file('file')->isValid()) {
+            $file = $request->file('file');
+            $file->storeAs('upload/taker/digipos', $file->getClientOriginalName(), 'public');
+
+            return response()->json(['status' => 'success', 'message' => 'File received and stored.']);
+        } else {
+            return response()->json(['status' => 'error', 'message' => 'Invalid file.']);
+        }
+    }
 }
