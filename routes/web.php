@@ -84,7 +84,7 @@ Route::middleware(['cors'])->group(function () {
     Route::post('/taker/non_usim', [TakerController::class, 'non_usim']);
 
     Route::get('/resume_api', [DashboardController::class, 'resume_api']);
-    Route::post('/taker/digipos', [TakerController::class, 'receiveFileDigipos']);
+    Route::post('/taker/digipos', [TakerController::class, 'digipos']);
 
     Route::get('kpi_api', [DirectUserController::class, 'kpi_api'])->name('direct_user.kpi_api');
     Route::get('kpi_yba_api', [DirectUserController::class, 'kpi_yba_api'])->name('direct_user.kpi_yba_api');
