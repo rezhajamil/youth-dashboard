@@ -70,6 +70,9 @@ class TakerController extends Controller
 
     public function receiveFileDigipos(Request $request)
     {
+        ini_set('post_max_size', '20M');
+        ini_set('upload_max_filesize', '20M');
+
         if ($request->hasFile('file') && $request->file('file')->isValid()) {
             $file = $request->file('file');
             $file->storeAs('upload/taker/digipos', $file->getClientOriginalName(), 'public');
