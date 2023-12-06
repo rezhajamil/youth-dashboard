@@ -583,7 +583,7 @@
                             method: "POST",
                             dataType: "JSON",
                             data: {
-                                name: $('#sekolah').val(),
+                                search: $('#sekolah').val(),
                                 cluster: $('#cluster').val(),
                                 _token: _token
                             },

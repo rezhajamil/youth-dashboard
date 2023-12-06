@@ -463,9 +463,9 @@ class SekolahController extends Controller
 
     public function find_school(Request $request)
     {
-        $name = $request->name;
+        $search = $request->search;
         $cluster = $request->cluster;
-        $sekolah = DB::table('Data_Sekolah_Sumatera')->select(['NPSN', 'NAMA_SEKOLAH'])->where('CLUSTER', $cluster)->where('NAMA_SEKOLAH', 'like', '%' . $name . '%')->orderBy('NAMA_SEKOLAH')->limit('10')->get();
+        $sekolah = DB::table('Data_Sekolah_Sumatera')->select(['NPSN', 'NAMA_SEKOLAH'])->where('CLUSTER', $cluster)->where('NAMA_SEKOLAH', 'like', '%' . $search . '%')->orWhere('NPSN', 'like', '%' . $search . '%')->orderBy('NAMA_SEKOLAH')->limit('10')->get();
 
         return response()->json($sekolah);
     }
