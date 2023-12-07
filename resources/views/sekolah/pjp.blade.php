@@ -11,8 +11,13 @@
                 <a href="{{ route('sekolah.pjp.create') }}"
                     class="inline-block px-4 py-2 my-2 font-bold text-white rounded-md bg-y_premier hover:bg-y_premier"><i
                         class="mr-2 fa-solid fa-plus"></i> Data Kunjungan</a>
-                <button class="px-2 py-1 ml-2 text-lg text-white transition bg-green-600 rounded-md hover:bg-green-800"
-                    id="capture"><i class="fa-regular fa-circle-down"></i></button>
+                <button id="capture"
+                    class="px-3 py-2 font-semibold text-white rounded bg-emerald-500 h-fit hover:bg-teal-800"><i
+                        class="mr-2 fa-solid fa-circle-down"></i>PDF</button>
+                <button id="btn-excel"
+                    class="px-3 py-2 font-semibold text-white bg-green-800 rounded h-fit hover:bg-emerald-800"><i
+                        class="mr-2 fa-solid fa-file-arrow-down"></i>Excel
+                </button>
                 <div class="flex items-end mb-4 gap-x-3">
                     <input type="text" name="search" id="search" placeholder="Filter..."
                         class="px-4 rounded-lg h-fit">
@@ -43,14 +48,16 @@
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Branch</th>
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Cluster</th>
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">NPSN</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Nama Sekolah</th>
+                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Nama Sekolah
+                                </th>
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Nama Event</th>
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Nama AO</th>
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Hari</th>
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Frekuensi</th>
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Waktu</th>
                                 @if (Auth::user()->privilege == 'superadmin' || Auth::user()->privilege == 'branch')
-                                    <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier action">Action
+                                    <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier action">
+                                        Action
                                     </th>
                                 @endif
                             </tr>
@@ -67,7 +74,8 @@
                                     <td class="p-3 text-gray-700 border-b whitespace-nowrap nama_sekolah">
                                         {{ $data->NAMA_SEKOLAH ?? '-' }}</td>
                                     <td class="p-3 text-gray-700 border-b event">{{ $data->event ?? '-' }}</td>
-                                    <td class="p-3 text-gray-700 border-b nama whitespace-nowrap">{{ $data->nama }}</td>
+                                    <td class="p-3 text-gray-700 border-b nama whitespace-nowrap">{{ $data->nama }}
+                                    </td>
                                     <td class="p-3 text-gray-700 border-b hari">{{ $data->hari }}</td>
                                     <td class="p-3 text-gray-700 border-b frekuensi">{{ $data->frekuensi }}</td>
                                     @if ($data->date_start || $data->date_end)
@@ -104,6 +112,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js">
     </script>
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
     <script>
         function createPDF() {
             var pjpTable = document.getElementById('pjp-container').innerHTML;
@@ -147,6 +156,41 @@
             $("#search_by").on("input", function() {
                 find();
             });
+
+            $("#btn-excel").click(function() {
+                exportTableToExcel('pjp-container', `Data PJP`);
+            });
+
+            function exportTableToExcel(tableID, filename = '') {
+                var downloadLink;
+                var dataType = 'application/vnd.ms-excel';
+                var tableSelect = document.getElementById(tableID);
+                var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+
+                // Specify file name
+                filename = filename ? filename + '.xls' : 'excel_data.xls';
+
+                // Create download link element
+                downloadLink = document.createElement("a");
+
+                document.body.appendChild(downloadLink);
+
+                if (navigator.msSaveOrOpenBlob) {
+                    var blob = new Blob(['\ufeff', tableHTML], {
+                        type: dataType
+                    });
+                    navigator.msSaveOrOpenBlob(blob, filename);
+                } else {
+                    // Create a link to the file
+                    downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+
+                    // Setting the file name
+                    downloadLink.download = filename;
+
+                    //triggering the function
+                    downloadLink.click();
+                }
+            }
 
             const find = () => {
                 let search = $("#search").val();

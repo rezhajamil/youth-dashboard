@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BroadCastController;
 use App\Http\Controllers\ByuController;
+use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DirectSalesContoller;
@@ -253,6 +254,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('byu/report/view', [ByuController::class, 'view_report'])->name('byu.report.view');
     Route::post('byu/get_outlet', [ByuController::class, 'get_outlet'])->name('byu.get_outlet');
     Route::post('byu/get_max_input', [ByuController::class, 'get_max_input'])->name('byu.get_max_input');
+
+    Route::resource('sertifikat', CertificateController::class);
 });
 
 require __DIR__ . '/auth.php';
