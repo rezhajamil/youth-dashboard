@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CertificateController extends Controller
 {
@@ -13,7 +14,9 @@ class CertificateController extends Controller
      */
     public function index()
     {
-        return view('sertifikat.index');
+        $sertifikat = DB::table('dokumen')->where('jenis', 'sertifikat')->orderBy('judul')->get();
+
+        return view('sertifikat.index', compact('sertifikat'));
     }
 
     /**
@@ -34,7 +37,19 @@ class CertificateController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'judul' => 'required|string',
+            'deskripsi' => 'string',
+        ]);
+
+        $dokumen = DB::table('dokumen')->insert([
+            'judul' => $request->judul,
+            'jenis' => $request->jenis,
+            'deskripsi' => $request->deskripsi,
+            'url' => $request->url,
+        ]);
+
+        return redirect()->route('dokumen.index');
     }
 
     /**

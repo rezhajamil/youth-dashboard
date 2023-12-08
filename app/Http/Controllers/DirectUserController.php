@@ -43,18 +43,18 @@ class DirectUserController extends Controller
     public function create()
     {
         if (Auth::user()->privilege == "superadmin") {
-            $region = DB::table('wilayah')->select('regional')->distinct()->whereNotNull('regional')->get();
-            $branch = DB::table('wilayah')->select('branch')->distinct()->whereNotNull('branch')->get();
+            $region = DB::table('territory_new')->select('regional')->distinct()->whereNotNull('regional')->get();
+            $branch = DB::table('territory_new')->select('branch')->distinct()->whereNotNull('branch')->get();
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->orderBy('cluster')->get();
             $tap = DB::table('taps')->select('nama')->distinct()->whereNotNull('nama')->orderBy('nama')->get();
         } else if (Auth::user()->privilege == "branch") {
-            $region = DB::table('wilayah')->select('regional')->distinct()->where('regional', Auth::user()->regional)->get();
-            $branch = DB::table('wilayah')->select('branch')->distinct()->where('branch', Auth::user()->branch)->get();
+            $region = DB::table('territory_new')->select('regional')->distinct()->where('regional', Auth::user()->regional)->get();
+            $branch = DB::table('territory_new')->select('branch')->distinct()->where('branch', Auth::user()->branch)->get();
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->where('branch', Auth::user()->branch)->orderBy('cluster')->get();
             $tap = [];
         } else {
-            $region = DB::table('wilayah')->select('regional')->distinct()->where('regional', Auth::user()->regional)->get();
-            $branch = DB::table('wilayah')->select('branch')->distinct()->where('branch', Auth::user()->branch)->get();
+            $region = DB::table('territory_new')->select('regional')->distinct()->where('regional', Auth::user()->regional)->get();
+            $branch = DB::table('territory_new')->select('branch')->distinct()->where('branch', Auth::user()->branch)->get();
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->where('cluster', Auth::user()->cluster)->orderBy('cluster')->get();
             $tap = [];
         }
@@ -237,18 +237,18 @@ class DirectUserController extends Controller
         $user = DataUser::find($id);
 
         if (Auth::user()->privilege == "superadmin") {
-            $region = DB::table('wilayah')->select('regional')->distinct()->whereNotNull('regional')->get();
-            $branch = DB::table('wilayah')->select('branch')->distinct()->whereNotNull('branch')->get();
+            $region = DB::table('territory_new')->select('regional')->distinct()->whereNotNull('regional')->get();
+            $branch = DB::table('territory_new')->select('branch')->distinct()->whereNotNull('branch')->get();
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->orderBy('cluster')->get();
             $tap = DB::table('taps')->select('nama')->distinct()->whereNotNull('nama')->where('cluster', $user->cluster)->orderBy('nama')->get();
         } else if (Auth::user()->privilege == "branch") {
-            $region = DB::table('wilayah')->select('regional')->distinct()->where('regional', Auth::user()->regional)->get();
-            $branch = DB::table('wilayah')->select('branch')->distinct()->where('branch', Auth::user()->branch)->get();
+            $region = DB::table('territory_new')->select('regional')->distinct()->where('regional', Auth::user()->regional)->get();
+            $branch = DB::table('territory_new')->select('branch')->distinct()->where('branch', Auth::user()->branch)->get();
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->where('branch', Auth::user()->branch)->orderBy('cluster')->get();
             $tap = DB::table('taps')->select('nama')->distinct()->whereNotNull('nama')->where('cluster', $user->cluster)->orderBy('nama')->get();
         } else {
-            $region = DB::table('wilayah')->select('regional')->distinct()->where('regional', Auth::user()->regional)->get();
-            $branch = DB::table('wilayah')->select('branch')->distinct()->where('branch', Auth::user()->branch)->get();
+            $region = DB::table('territory_new')->select('regional')->distinct()->where('regional', Auth::user()->regional)->get();
+            $branch = DB::table('territory_new')->select('branch')->distinct()->where('branch', Auth::user()->branch)->get();
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->where('cluster', Auth::user()->cluster)->orderBy('cluster')->get();
             $tap = DB::table('taps')->select('nama')->distinct()->whereNotNull('nama')->where('cluster', $user->cluster)->orderBy('nama')->get();
         }
