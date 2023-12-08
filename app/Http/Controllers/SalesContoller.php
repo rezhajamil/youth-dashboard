@@ -549,7 +549,7 @@ class SalesContoller extends Controller
                     GROUP BY 1 ;";
 
 
-            $query = "SELECT b.nama,b.branch,b.cluster,b.role,b.telp,b.reff_code, a.msisdn,a.`date`,a.serial,a.jenis,a.detail $select_mytsel
+            $query = "SELECT b.nama,b.branch,b.cluster,b.role,b.telp,b.reff_code, a.msisdn,a.`date`,a.serial,a.poi,a.jenis,a.detail $select_mytsel
                     FROM sales_copy a  
                     JOIN data_user b ON b.telp = a.telp
                     $join_mytsel

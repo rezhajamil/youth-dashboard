@@ -165,8 +165,14 @@
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Jenis</th>
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Detail</th>
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">MSISDN</th>
-                                @if (Request::get('kategori') != 'MYTSEL ENTRY' && Request::get('kategori') != 'MYTSEL VALIDASI')
+                                @if (Request::get('kategori') != 'MYTSEL ENTRY' &&
+                                        Request::get('kategori') != 'MYTSEL VALIDASI' &&
+                                        Request::get('kategori') != 'BYU')
                                     <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">No Kompetitor
+                                    </th>
+                                @endif
+                                @if (Request::get('kategori') == 'BYU')
+                                    <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">POI
                                     </th>
                                 @endif
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Tanggal Lapor</th>
@@ -194,8 +200,13 @@
                                     <td class="p-4 text-gray-700 uppercase border-b whitespace-nowrap status">
                                         {{ $data->detail }}</td>
                                     <td class="p-4 text-gray-700 uppercase border-b msisdn">{{ $data->msisdn }}</td>
-                                    @if (Request::get('kategori') != 'MYTSEL ENTRY' && Request::get('kategori') != 'MYTSEL VALIDASI')
+                                    @if (Request::get('kategori') != 'MYTSEL ENTRY' &&
+                                            Request::get('kategori') != 'MYTSEL VALIDASI' &&
+                                            Request::get('kategori') != 'BYU')
                                         <td class="p-4 text-gray-700 uppercase border-b serial">{{ $data->serial }}</td>
+                                    @endif
+                                    @if (Request::get('kategori') == 'BYU')
+                                        <td class="p-4 text-gray-700 uppercase border-b serial">{{ $data->poi }}</td>
                                     @endif
                                     <td class="p-4 text-gray-700 uppercase border-b aktif">{{ $data->date }}</td>
                                     @if (Request::get('kategori') == 'MYTSEL VALIDASI')
