@@ -15,6 +15,7 @@
                         <thead class="border-b">
                             <tr>
                                 <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No</th>
+                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Jenis</th>
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Judul</th>
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Deskripsi</th>
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Action</th>
@@ -25,6 +26,7 @@
                                 <tr class="hover:bg-gray-200">
                                     {{-- {{ ddd($data) }} --}}
                                     <td class="p-4 font-bold text-gray-700 border-b">{{ $key + 1 }}</td>
+                                    <td class="p-4 text-gray-700 border-b">{{ ucwords($data->jenis) }}</td>
                                     <td class="p-4 text-gray-700 border-b">{{ $data->judul }}</td>
                                     <td class="p-4 text-gray-700 border-b">
                                         <p>{!! $data->deskripsi !!}</p>

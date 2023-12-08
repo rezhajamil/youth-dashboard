@@ -359,12 +359,14 @@ class ContentController extends Controller
     {
         $request->validate([
             'judul' => 'required|string',
-            'deskripsi' => 'string',
+            'jenis' => 'required',
+            'deskripsi' => 'string|nullable',
             'url' => 'required|url',
         ]);
 
         $dokumen = DB::table('dokumen')->insert([
             'judul' => $request->judul,
+            'jenis' => $request->jenis,
             'deskripsi' => $request->deskripsi,
             'url' => $request->url,
         ]);
