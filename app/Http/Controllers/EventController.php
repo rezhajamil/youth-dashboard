@@ -285,10 +285,12 @@ class EventController extends Controller
     public function store_peserta_sekolah(Request $request)
     {
         $request->validate([
-            'telp_ds' => ['required', 'numeric'],
+            'telp_ds' => ['required'],
             'npsn' => ['required', 'numeric'],
             'file' => ['required'],
         ]);
+
+        // ddd($request);
 
         if ($request->hasFile('file')) {
             if (file_exists($request->file)) {
@@ -300,25 +302,37 @@ class EventController extends Controller
 
                 $peserta = [];
 
-                if (count($get_row) <= 1) {
-                    $a = str_split($get_row[0]);
-                    return back()->with('error', "Format CSV salah. Format adalah 'nama_peserta;telp_peserta;nomor_akuisisi_byu'");
-                }
+                // if (count($get_row) <= 1) {
+                //     $a = str_split($get_row[0]);
+                //     return back()->with('error', "Format CSV salah. Format adalah 'nomor_akuisisi_byu'");
+                // }
+
+                $user = DB::table('data_user')->where('telp', $request->telp_ds)->where('status', 1)->first();
+                $sekolah = DB::table('Data_Sekolah_Sumatera')->where('NPSN', $request->npsn)->first();
+                // ddd([$user, $sekolah]);
 
                 while (($row = fgetcsv($file, 10000, ";")) !== FALSE) {
                     // ddd($row);
                     if ($idx < 1001) {
                         $data = [
-                            'telp_ds' => $request->telp_ds,
-                            'npsn' => $request->npsn,
-                            'nama_peserta' => $row[0],
-                            'telp_peserta' => $row[1],
-                            'no_akuisisi_byu' => $row[2],
+                            'nama' => $user->nama,
+                            'telp' => $user->telp,
+                            'id_digipos' => $user->id_digipos,
+                            'jenis' => 'EVENT',
+                            'kategori' => 'BYU',
+                            'detail' => '',
+                            'poi' => $sekolah->NAMA_SEKOLAH,
+                            'jarak' => '0',
+                            'serial' => '',
+                            'msisdn' => $row[0],
                             'date' => date('Y-m-d'),
+                            'status' => 'POI',
+                            'consumen' => '|||',
                         ];
 
                         array_push($peserta, $data);
                         // echo '<pre>' . $idx . var_export($data, true) . '</pre>';
+                        // ddd($peserta);
                     } else if ($idx > 1001) {
                         break;
                     }
@@ -326,7 +340,7 @@ class EventController extends Controller
                 }
 
                 if (count($peserta)) {
-                    DB::table('peserta_event_sekolah')->insert($peserta);
+                    DB::table('sales_copy')->insert($peserta);
                 }
             }
         }

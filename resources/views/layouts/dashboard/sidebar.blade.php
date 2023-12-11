@@ -162,6 +162,9 @@
             <a href="{{ route('sales.location') }}"
                 class="text-white transition-all border-b select-none hover:bg-white hover:text-slate-800 border-b-slate-400"><span
                     class="inline-block px-2 py-3">Sales By Location</span></a>
+            <a href="{{ route('event.create_peserta_sekolah') }}"
+                class="text-white transition-all border-b select-none hover:bg-white hover:text-slate-800 border-b-slate-400"><span
+                    class="inline-block px-2 py-3">Upload Bulk BYU</span></a>
         </div>
         <a class="flex items-center px-6 py-2 mt-4 text-white transition-all bg-opacity-25 cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100"
             href="{{ route('byu.index') }}">
@@ -248,9 +251,9 @@
                 <a href="{{ route('event.resume') }}"
                     class="text-white transition-all border-b select-none hover:bg-white hover:text-slate-800 border-b-slate-400"><span
                         class="inline-block px-2 py-3">Resume Peserta</span></a>
-                <a href="{{ route('event.create_peserta_sekolah') }}"
+                {{-- <a href="{{ route('event.create_peserta_sekolah') }}"
                     class="text-white transition-all border-b select-none hover:bg-white hover:text-slate-800 border-b-slate-400"><span
-                        class="inline-block px-2 py-3">Form Upload Peserta</span></a>
+                        class="inline-block px-2 py-3">Form Upload Peserta</span></a> --}}
                 <a href="{{ route('event.absen') }}"
                     class="text-white transition-all border-b select-none hover:bg-white hover:text-slate-800 border-b-slate-400"><span
                         class="inline-block px-2 py-3">Absensi</span></a>

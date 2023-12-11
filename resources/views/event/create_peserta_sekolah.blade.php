@@ -6,9 +6,14 @@
                 <h4 class="my-4 text-xl font-bold text-gray-600 align-baseline">Upload Peserta Event</h4>
 
                 <div class="px-6 py-4 mx-auto overflow-auto bg-white rounded-md shadow sm:mx-0 w-fit">
+                    {{-- {{ ddd(session('error')) }} --}}
+                    @if (session('error'))
+                        <span
+                            class="inline-block p-2 font-semibold text-red-600 bg-red-300 rounded">{{ session('error') }}</span>
+                    @endif
                     @if (session('success'))
-                        <span class="inline-block p-2 font-semibold text-green-600 bg-green-300 rounded">Berhasil Upload Data
-                            Peserta</span>
+                        <span
+                            class="inline-block p-2 font-semibold text-green-600 bg-green-300 rounded">{{ session('success') }}</span>
                     @endif
                     <form action="{{ route('event.store_peserta_sekolah') }}" method="POST" class=""
                         enctype="multipart/form-data">
@@ -20,12 +25,12 @@
                                     <option value="" selected disabled>Pilih DS</option>
                                     @foreach ($ds as $item)
                                         <option value="{{ $item->telp }}"
-                                            {{ old('ds') == $item->telp ? 'selected' : '' }}>
+                                            {{ old('telp_ds') == $item->telp ? 'selected' : '' }}>
                                             {{ $item->nama }}||{{ $item->telp }}
                                         </option>
                                     @endforeach
                                 </select>
-                                @error('ds')
+                                @error('telp_ds')
                                     <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -70,7 +75,7 @@
                             </div> --}}
                             <div class="col-span-full">
                                 <label class="text-gray-700" for="file">CSV Data Peserta
-                                    (nama_peserta;telp_peserta;nomor_akuisisi_byu)</label>
+                                    (nomor_akuisisi_byu)</label>
                                 <input id="file" class="w-full rounded-md form-input focus:border-indigo-600"
                                     type="file" name="file" value="{{ old('file') }}">
                                 @error('file')
