@@ -436,11 +436,15 @@ class DirectUserController extends Controller
             $clocks = DB::select(
                 "SELECT * FROM table_kunjungan a JOIN data_user b ON a.telp=b.telp WHERE b.cluster='$cluster' AND a.date='$date' ORDER BY b.nama,a.date"
             );
+
+            $sales = DB::select("SELECT telp,poi,COUNT(DISTINCT msisdn) sales FROM sales_copy WHERE date='$date' GROUP BY 1,2;");
         } else {
             $clocks = [];
+            $sales = [];
         }
 
-        return view('directUser.clockIn.index', compact('cluster', 'date', 'list_cluster', 'clocks'));
+
+        return view('directUser.clockIn.index', compact('cluster', 'date', 'list_cluster', 'clocks', 'sales'));
     }
 
     public function kpi(Request $request)

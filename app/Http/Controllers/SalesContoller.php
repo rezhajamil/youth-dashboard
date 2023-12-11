@@ -780,7 +780,10 @@ class SalesContoller extends Controller
 
     public function getLocation(Request $request)
     {
-        $list_location = DB::table('sales_copy')->select(['poi as location'])->where('jenis', $request->jenis)->whereNotNull('poi')->where('poi', '!=', '')->distinct()->orderBy('poi')->join('data_user', 'sales_copy.telp', '=', 'data_user.telp');
+        $start_date = date('Y-m-01', strtotime($request->date));
+        $end_date = date('Y-m-d', strtotime($request->date));
+
+        $list_location = DB::table('sales_copy')->select(['poi as location'])->where('jenis', $request->jenis)->whereBetween('date', [$start_date, $end_date])->whereNotNull('poi')->where('poi', '!=', '')->distinct()->orderBy('poi')->join('data_user', 'sales_copy.telp', '=', 'data_user.telp');
 
         if ($request->privilege == 'branch') {
             $list_location->where('data_user.branch', $request->branch);

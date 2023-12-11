@@ -51,7 +51,7 @@
                                 @if ($key == 0 || $clock->telp != $clocks[$key - 1]->telp)
                                     <tr class="">
                                         {{-- <td rowspan="3" class="p-4 font-bold text-gray-700 border-b">{{ $key+1 }}</td> --}}
-                                        <td rowspan="4" class="p-4 font-bold border border-b-4">
+                                        <td rowspan="5" class="p-4 font-bold border border-b-4">
                                             {{ $clock->nama }}<br />({{ $clock->telp }})</td>
                                         <td class="p-4 font-semibold border">Tanggal</td>
                                         @php
@@ -109,7 +109,7 @@
                                             }
                                         @endphp
                                     </tr>
-                                    <tr class="border-b-4">
+                                    <tr class="">
                                         <td class="p-4 font-semibold border">Jarak</td>
                                         @php
                                             $count = 0;
@@ -117,6 +117,30 @@
                                         @foreach ($clocks as $data)
                                             @if ($clock->telp == $data->telp)
                                                 <td class="p-4 border">{{ str_replace('.', ',', $data->jarak) }} Km</td>
+                                                @php $count++ @endphp
+                                            @endif
+                                        @endforeach
+                                        @php
+                                            if ($count < 5) {
+                                                for ($i = 0; $i < 5 - $count; $i++) {
+                                                    echo "<td class='p-4 border bg-gray-400/10'></td>";
+                                                }
+                                            }
+                                        @endphp
+                                    </tr>
+                                    <tr class="border-b-4">
+                                        <td class="p-4 font-semibold border">Penjualan</td>
+                                        @php
+                                            $count = 0;
+                                        @endphp
+                                        @foreach ($clocks as $data)
+                                            @if ($clock->telp == $data->telp)
+                                                @foreach ($sales as $sale)
+                                                    @if ($data->telp == $sale->telp && $data->lokasi == $sale->poi)
+                                                        <td class="p-4 border">{{ str_replace('.', ',', $sale->sales) }}
+                                                        </td>
+                                                    @endif
+                                                @endforeach
                                                 @php $count++ @endphp
                                             @endif
                                         @endforeach

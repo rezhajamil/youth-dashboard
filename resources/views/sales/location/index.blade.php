@@ -21,7 +21,9 @@
                         </select>
                         <select name="location" id="location" class="px-8 rounded-lg" required>
                             <option value="" selected disabled>Pilih Location</option>
-                            <option value="{{ request()->get('location') }}" selected>{{ request()->get('location') }}
+                            <option value="{{ request()->get('location') }}"
+                                {{ request()->get('location') ? 'selected' : '' }}>
+                                {{ request()->get('location') }}
                             </option>
                         </select>
                         <div class="flex gap-x-3">
@@ -44,7 +46,7 @@
                         <thead class="border-b">
                             <tr>
                                 <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Kategori</th>
-                                @foreach ((array_unique(array_column($sales_kategori, 'date'))) as $date)
+                                @foreach (array_unique(array_column($sales_kategori, 'date')) as $date)
                                     <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">
                                         {{ date('d M', strtotime($date)) }}</th>
                                 @endforeach
@@ -54,7 +56,7 @@
                             @foreach (array_unique(array_column($sales_kategori, 'kategori')) as $key => $kategori)
                                 <tr class="hover:bg-gray-200">
                                     <th class="p-4 font-bold text-gray-700 border-b">{{ $kategori }}</th>
-                                    @foreach ((array_unique(array_column($sales_kategori, 'date'))) as $date)
+                                    @foreach (array_unique(array_column($sales_kategori, 'date')) as $date)
                                         @php
                                             $entry = current(
                                                 array_filter($sales_kategori, function ($item) use ($date, $kategori) {
@@ -63,7 +65,7 @@
                                             );
                                             $mtd = $entry ? $entry->mtd : '-'; // MTD value if entry exists
                                         @endphp
-                                    <td class="p-4 text-gray-700 uppercase border-b">{{ $mtd }}</td>
+                                        <td class="p-4 text-gray-700 uppercase border-b">{{ $mtd }}</td>
                                     @endforeach
                                 </tr>
                             @endforeach
@@ -228,9 +230,13 @@
             })
 
 
-            $("#jenis").on('change', () => {
+            $("#jenis, #date").on('change', () => {
                 var jenis = $("#jenis").val();
-                console.log(jenis);
+                var date = $("#date").val();
+                console.log({
+                    jenis,
+                    date
+                });
                 $.ajax({
                     url: "{{ route('sales.get_location') }}",
                     method: "GET",
@@ -240,6 +246,7 @@
                         branch: "{{ auth()->user()->branch }}",
                         cluster: "{{ auth()->user()->cluster }}",
                         jenis: jenis,
+                        date: date,
                         _token: "{{ csrf_token() }}"
                     }
 
