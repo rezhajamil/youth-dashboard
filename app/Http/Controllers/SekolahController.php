@@ -201,6 +201,7 @@ class SekolahController extends Controller
             'LONGITUDE' => $request->longitude,
             'PJP' => $request->pjp,
             'FREKUENSI' => $request->frekuensi,
+            'TELP' => $request->telp,
         ]);
 
         return redirect()->route('sekolah.show', $npsn);
