@@ -9,7 +9,7 @@
         </div>
     </div>
 
-    <nav class="mt-10" x-data="{ sales: false, direct: false, school: false, broadcast: false, content: false, event: false, market: false, location: false, channel: false, halo: false }">
+    <nav class="mt-10" x-data="{ sales: false, kpi: false, direct: false, school: false, broadcast: false, content: false, event: false, market: false, location: false, channel: false, halo: false }">
         <a class="flex items-center px-6 py-2 mt-4 text-gray-100 bg-opacity-25 bg-slate-800"
             href="{{ URL::to('/dashboard') }}">
             <svg class="w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -81,6 +81,20 @@
             <a href="{{ route('direct_user.clock_in') }}"
                 class="text-white transition-all border-b select-none hover:bg-white hover:text-slate-800 border-b-slate-400"><span
                     class="inline-block px-2 py-3">Clock In</span></a>
+            <a href="{{ route('sekolah.pjp') }}"
+                class="text-white transition-all border-b select-none hover:bg-white hover:text-slate-800 border-b-slate-400"><span
+                    class="inline-block px-2 py-3">PJP</span></a>
+        </div>
+
+        <a class="flex items-center px-6 py-2 mt-4 text-white transition-all cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100"
+            x-on:click="kpi=!kpi">
+            <i class="w-6 fa-solid fa-chart-pie"></i>
+            <span class="mx-3 text-white select-none">KPI</span>
+            <i class="inline-block ml-auto text-white transition-transform transform fa-solid fa-angle-right"
+                :class="{ 'rotate-90': kpi, 'rotate-0': !kpi }"></i>
+        </a>
+        <div class="flex flex-col w-3/4 mx-6 mt-2 ml-auto overflow-hidden bg-opacity-25 rounded-md bg-slate-800"
+            x-show="kpi" x-transition>
             <a href="{{ route('direct_user.kpi') }}"
                 class="text-white transition-all border-b select-none hover:bg-white hover:text-slate-800 border-b-slate-400"><span
                     class="inline-block px-2 py-3">KPI Baru</span></a>
@@ -186,9 +200,6 @@
             <a href="{{ route('sekolah.resume') }}"
                 class="text-white transition-all border-b select-none hover:bg-white hover:text-slate-800 border-b-slate-400"><span
                     class="inline-block px-2 py-3">Resume</span></a>
-            <a href="{{ route('sekolah.pjp') }}"
-                class="text-white transition-all border-b select-none hover:bg-white hover:text-slate-800 border-b-slate-400"><span
-                    class="inline-block px-2 py-3">PJP</span></a>
             <a href="{{ route('sekolah.favorit') }}"
                 class="text-white transition-all border-b select-none hover:bg-white hover:text-slate-800 border-b-slate-400"><span
                     class="inline-block px-2 py-3">Sekolah P1</span></a>
