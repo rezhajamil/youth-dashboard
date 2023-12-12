@@ -138,6 +138,7 @@
                                                 @foreach ($sales as $sale)
                                                     @if ($data->telp == $sale->telp && $data->lokasi == $sale->poi)
                                                         <td class="p-4 border">{{ str_replace('.', ',', $sale->sales) }}
+                                                            MSISDN
                                                         </td>
                                                     @endif
                                                 @endforeach
