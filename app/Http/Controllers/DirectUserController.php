@@ -493,7 +493,7 @@ class DirectUserController extends Controller
             (COALESCE(b.byu,0)+COALESCE(c.sales_byu,0)) as sales_acquisition
             FROM data_user a
             LEFT JOIN (SELECT id_digipos, SUM(revenue) byu FROM byu_sales_ds WHERE date BETWEEN '$m1' AND '$mtd' GROUP BY 1) b ON a.id_digipos = b.id_digipos
-            LEFT JOIN (SELECT telp, COUNT(msisdn)*20000 sales_byu FROM sales_copy WHERE date BETWEEN '$m1' AND '$mtd' AND kategori='BYU' GROUP BY 1) c ON a.telp = c.telp
+            LEFT JOIN (SELECT telp, COUNT(msisdn)*20000 sales_byu FROM sales_copy WHERE date BETWEEN '$m1' AND '$mtd' AND (kategori='BYU' OR (kategori='TRADE IN' AND detail='By.U')) GROUP BY 1) c ON a.telp = c.telp
             LEFT JOIN (SELECT telp, COUNT(msisdn) mytsel FROM sales_copy WHERE date BETWEEN '$m1' AND '$mtd' AND kategori='MY TELKOMSEL' GROUP BY 1) g ON a.telp = g.telp
             LEFT JOIN (SELECT telp,COUNT(NPSN) update_data FROM Data_Sekolah_Sumatera WHERE UPDATED_AT BETWEEN '$m1' AND '$mtd' AND LONGITUDE!='' GROUP BY 1) e ON a.telp=e.telp
             LEFT JOIN (SELECT telp,COUNT(npsn) pjp FROM table_kunjungan WHERE date BETWEEN '$m1' AND '$mtd' GROUP BY 1) f ON a.telp=f.telp
