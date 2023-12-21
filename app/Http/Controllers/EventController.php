@@ -340,7 +340,20 @@ class EventController extends Controller
                 }
 
                 if (count($peserta)) {
-                    DB::table('sales_copy')->insert($peserta);
+                    $msisdns = array_column($data, 'msisdn');
+
+                    // Check for duplicate 'msisdn' values
+                    $uniqueMsisdns = array_unique($msisdns);
+
+                    if (
+                        count($msisdns) !== count($uniqueMsisdns)
+                    ) {
+                        // Handle the case where there are duplicate 'msisdn' values in $data
+                        return back()->with('error', "Terdapat duplikat msisdn");
+                    } else {
+                        // Insert the data into the database table
+                        DB::table('sales_copy')->insertOrIgnore($peserta);
+                    }
                 }
             }
         }

@@ -543,7 +543,7 @@ class SalesContoller extends Controller
                     JOIN data_user b ON b.telp = a.telp
                     $join_mytsel
                     WHERE a.kategori='$kategori'
-                    AND a.date BETWEEN '$last_m1' AND '$mtd' AND b.status='1'
+                AND a.date BETWEEN '$last_m1' AND '$mtd' AND b.status='1'
                     $and
                     $branch
                     GROUP BY 1 ;";
@@ -558,7 +558,6 @@ class SalesContoller extends Controller
                     $and
                     $branch
                     ORDER by b.regional DESC,b.branch,b.cluster, b.nama ASC";
-
 
             $sales_branch = DB::select($query_branch, [1]);
             $sales_cluster = DB::select($query_cluster, [1]);

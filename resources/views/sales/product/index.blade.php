@@ -146,14 +146,13 @@
                                 <option value="aktif">Tanggal Lapor</option>
                             </select>
                         </div>
-                        <button id="button"
-                            class="inline-block px-4 py-2 mx-3 font-semibold text-white transition-all bg-teal-600 rounded-md hover:bg-teal-800"><i
-                                class="mr-2 fa-solid fa-file-arrow-down"></i>Excel</button>
+                        <div class="px-4 py-2 font-bold text-white transition bg-green-600 rounded-lg hover:bg-green-600"
+                            id="btn-excel"><i class="mr-2 fa-solid fa-file-excel"></i>Excel</div>
                     </div>
                 @endif
 
                 <div class="overflow-hidden bg-white rounded-md shadow w-fit">
-                    <table class="text-left border-collapse w-fit" id="table-data">
+                    <table class="text-left border-collapse w-fit" id="table-excel">
                         <thead class="border-b">
                             <tr>
                                 <th class="p-4 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No</th>
@@ -270,11 +269,17 @@
                 $("#table-cluster").toggle();
             })
 
+
+            $("#btn-excel").click(function() {
+                fnExcelReport()
+            })
+
             function fnExcelReport() {
                 var tab_text = "<table border='2px'><tr bgcolor='#B90027' style='color:#fff'>";
                 var textRange;
                 var j = 0;
-                tab = document.getElementById('table-data'); // id of table
+                tab = document.getElementById('table-excel'); // id of table
+                console.log(tab);
 
                 for (j = 0; j < tab.rows.length; j++) {
                     tab_text = tab_text + tab.rows[j].innerHTML + "</tr>";
@@ -295,21 +300,12 @@
                     txtArea1.document.write(tab_text);
                     txtArea1.document.close();
                     txtArea1.focus();
-                    sa = txtArea1.document.execCommand("SaveAs", true, "Say Thanks to Sumit.xlss");
+                    sa = txtArea1.document.execCommand("SaveAs", true, "Sales Product.xlsx");
                 } else //other browser not tested on IE 11
-                    console.log(tab_text);
-                sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
+                    sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
 
                 return (sa);
             }
-
-            $('#button').click(function() {
-                $(".action").hide()
-                fnExcelReport();
-                $(".action").show()
-            })
-
-
         })
     </script>
 @endsection
