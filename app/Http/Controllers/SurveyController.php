@@ -494,12 +494,30 @@ class SurveyController extends Controller
         return view('directUser.survey.show_answer', compact('answer', 'survey', 'user'));
     }
 
-    public function lucky_draw()
+    public function lucky_draw(Request $request)
     {
         $plain = true;
-        $survey = DB::table('survey_session')->where('status', '1')->where('tipe', 'Siswa')->orderBy('date', 'desc')->first();
-        $sekolah = DB::table('survey_answer', 'a')->where('session', $survey->id)->select(['b.NAMA_SEKOLAH', 'b.NPSN'])->join('Data_Sekolah_Sumatera as b', 'a.npsn', '=', 'b.NPSN')->distinct()->orderBy('b.NAMA_SEKOLAH')->get();
-        return view('directUser.survey.lucky_draw', compact('survey', 'sekolah', 'plain'));
+        $list_survey = DB::table('survey_session')->where('status', '1')->where('tipe', 'Siswa')->orderBy('date', 'desc')->get();
+
+        if ($request->survey) {
+            $survey = DB::table('survey_session')->where('url', $request->survey)->first();
+            $sekolah = DB::table('survey_answer', 'a')->where('session', $survey->id)->select(['b.NAMA_SEKOLAH', 'b.NPSN'])->join('Data_Sekolah_Sumatera as b', 'a.npsn', '=', 'b.NPSN')->distinct()->orderBy('b.NAMA_SEKOLAH');
+            $participant = DB::table('survey_answer', 'a')->select(['a.npsn', 'a.kelas', 'a.telp_siswa'])->where('session', $survey->id);
+
+            if ($request->tanggal) {
+                $sekolah = $sekolah->whereDate('a.time_start', '=', $request->tanggal);
+                $participant = $participant->whereDate('a.time_start', '=', $request->tanggal);
+            }
+
+            $sekolah = $sekolah->get();
+            $participant = $participant->get();
+        } else {
+            $survey = [];
+            $sekolah = [];
+            $participant = [];
+        }
+
+        return view('directUser.survey.lucky_draw', compact('list_survey', 'survey', 'sekolah', 'participant', 'plain'));
     }
 
 
