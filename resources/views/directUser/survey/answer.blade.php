@@ -76,8 +76,8 @@
                     @if (!request()->get('npsn') && $survey->tipe == 'Siswa')
                         <form action="{{ url()->current() }}" method="get" class="my-4" x-data="{ search: false }">
                             <input class="w-full rounded-md form-input focus:border-indigo-600" type="number"
-                                name="npsn" id="npsn" placeholder="Masukkan NPSN Sekolah"
-                                value="{{ old('npsn') }}" required>
+                                name="npsn" id="npsn" placeholder="Masukkan NPSN" value="{{ old('npsn') }}"
+                                required>
                             <span x-on:click="search=true"
                                 class="inline-block mt-1 text-sm underline transition-all cursor-pointer text-sekunder hover:text-black"><i
                                     class="mr-1 text-sm fa-solid fa-magnifying-glass text-sekunder"></i>Cari Sekolah</span>
