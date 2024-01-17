@@ -73,92 +73,132 @@
                             class="w-full px-6 py-2 my-4 font-semibold text-white rounded bg-sekunder">Selesai</button>
                     </form>
                 @else
-                    <span class="block w-full font-bold text-sekunder">Selamat Datang {{ $user->nama }} |
-                        {{ $user->telp }}</span>
-                    {!! $survey->deskripsi !!}
-                    <form action="{{ URL::to('/start/survey') }}" method="get" class="my-4" x-data="{ search: false }">
-                        <input type="hidden" name="telp" value="{{ request()->get('telp') }}">
-                        <input class="w-full rounded-md form-input focus:border-indigo-600" type="number" name="npsn"
-                            id="npsn" placeholder="NPSN" value="{{ old('npsn') }}" required>
-                        <span
-                            class="inline-block mt-1 text-sm underline transition-all cursor-pointer text-sekunder hover:text-black"
-                            x-on:click="search=true"><i
-                                class="mr-1 text-sm fa-solid fa-magnifying-glass text-sekunder"></i>Cari Sekolah</span>
-                        <input class="w-full mt-4 rounded-md form-input focus:border-indigo-600" type="number"
-                            name="telp_siswa" id="telp_siswa" placeholder="Telepon Siswa" value="{{ old('telp_siswa') }}"
-                            required>
-                        <span
-                            class="inline-block mt-1 text-sm transition-all cursor-pointer text-sekunder hover:text-black">Format
-                            : 081234567890</span>
-
-                        <select name="kelas" id="kelas"
-                            class="w-full mt-4 rounded-md form-input focus:border-indigo-600">
-                            <option value="" selected disabled>Pilih Kelas</option>
-                            <optgroup label="SD">
-                                <option value="I">I</option>
-                                <option value="II">II</option>
-                                <option value="III">III</option>
-                                <option value="IV">IV</option>
-                                <option value="V">V</option>
-                                <option value="VI">VI</option>
-                            </optgroup>
-                            <optgroup label="SMP">
-                                <option value="VII">VII</option>
-                                <option value="VIII">VIII</option>
-                                <option value="IX">IX</option>
-                            </optgroup>
-                            <optgroup label="SMA">
-                                <option value="X">X</option>
-                                <option value="XI">XI</option>
-                                <option value="XII">XII</option>
-                            </optgroup>
-                        </select>
-                        {{-- <input class="w-full mt-4 rounded-md form-input focus:border-indigo-600" type="text" name="kelas" id="kelas" placeholder="Kelas Siswa" value="{{ old('kelas') }}" required> --}}
-                        <button
-                            class="block px-4 py-2 mx-auto my-6 font-semibold text-white transition-all rounded bg-sekunder w-fit hover:bg-black">
-                            Mulai Survey
-                        </button>
-                        <div class="fixed inset-0 z-20 flex items-center justify-center w-full h-full overflow-auto bg-black/80"
-                            style="display:none;" id="search" x-show="search" x-transition>
-                            <i class="absolute z-10 text-3xl text-white transition cursor-pointer fa-solid fa-xmark top-5 right-10 hover:text-premier"
-                                x-on:click="search=false"></i>
-                            <div class="flex flex-col w-full mx-4 overflow-hidden bg-white rounded-lg sm:w-1/2">
-                                <span
-                                    class="inline-block w-full p-4 mb-4 text-lg font-bold text-center text-white bg-premier">Cari
-                                    Sekolah</span>
-                                <input type="text" class="mx-4 rounded" name="sekolah" id="sekolah"
-                                    placeholder="Ketik Nama Sekolah" class="mb-4" autofocus>
-                                <img src="{{ asset('images/loading.svg') }}" alt="Loading" id="loading"
-                                    class="w-24 h-24 mx-auto mt-6">
-                                <div class="flex flex-col w-full h-64 py-2 mt-2 overflow-auto" id="school-list">
+                    @if (!request()->get('npsn') && $survey->tipe == 'Siswa')
+                        <form action="{{ url()->current() }}" method="get" class="my-4" x-data="{ search: false }">
+                            <input class="w-full rounded-md form-input focus:border-indigo-600" type="number"
+                                name="npsn" id="npsn" placeholder="Masukkan NPSN Sekolah"
+                                value="{{ old('npsn') }}" required>
+                            <span x-on:click="search=true"
+                                class="inline-block mt-1 text-sm underline transition-all cursor-pointer text-sekunder hover:text-black"><i
+                                    class="mr-1 text-sm fa-solid fa-magnifying-glass text-sekunder"></i>Cari Sekolah</span>
+                            <button
+                                class="block px-4 py-2 mx-auto my-6 font-semibold text-white transition-all rounded bg-sekunder w-fit hover:bg-black">
+                                Mulai Survey
+                            </button>
+                            <div class="fixed inset-0 z-20 flex items-center justify-center w-full h-full overflow-auto bg-black/80"
+                                style="display:none;" id="search" x-show="search" x-transition>
+                                <i class="absolute z-10 text-3xl text-white transition cursor-pointer fa-solid fa-xmark top-5 right-10 hover:text-premier"
+                                    x-on:click="search=false"></i>
+                                <div class="flex flex-col w-full mx-4 overflow-hidden bg-white rounded-lg sm:w-1/2">
+                                    <span
+                                        class="inline-block w-full p-4 mb-4 text-lg font-bold text-center text-white bg-premier">Cari
+                                        Sekolah</span>
+                                    <div class="flex justify-center w-full">
+                                        <input type="text" class="rounded-l" name="sekolah" id="sekolah"
+                                            placeholder="Ketik Nama Sekolah" class="mb-4" autofocus>
+                                        <div id="submit-search"
+                                            class="p-3 font-bold text-white rounded-r bg-sekunder hover:bg-slate-900">Cari
+                                        </div>
+                                    </div>
+                                    <img src="{{ asset('images/loading.svg') }}" alt="Loading" id="loading"
+                                        class="w-24 h-24 mx-auto mt-6">
+                                    <div class="flex flex-col w-full h-64 py-2 mt-2 overflow-auto" id="school-list">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </form>
-                    <div class="my-8">
-                        <span class="block w-full mb-2 font-bold text-center text-sekunder">Riwayat Survey</span>
-                        <div class="overflow-auto rounded-sm">
-                            <table class="mx-auto overflow-auto text-left border border-collapse w-fit">
-                                <thead class="border-b">
-                                    <tr>
-                                        <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-tersier">NPSN</th>
-                                        <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-tersier">Kelas</th>
-                                        <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-tersier">Telepon
-                                            Siswa</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="overflow-auto max-h-36">
-                                    @foreach ($history as $data)
-                                        <tr class="hover:bg-gray-200">
-                                            <td class="p-4 font-bold text-gray-700 border-b">{{ $data->npsn }}</td>
-                                            <td class="p-4 font-bold text-gray-700 border-b">{{ $data->kelas }}</td>
-                                            <td class="p-4 font-bold text-gray-700 border-b">{{ $data->telp_siswa }}</td>
+                        </form>
+                    @else
+                        <span class="block w-full font-bold text-sekunder">Selamat Datang {{ $user->nama }} |
+                            {{ $user->telp }}</span>
+                        {!! $survey->deskripsi !!}
+                        <form action="{{ URL::to('/start/survey') }}" method="get" class="my-4"
+                            x-data="{ search: false }">
+                            <input type="hidden" name="telp" value="{{ request()->get('telp') }}">
+                            <input class="w-full rounded-md form-input focus:border-indigo-600" type="number"
+                                name="npsn" id="npsn" placeholder="NPSN" value="{{ old('npsn') }}" required>
+                            <span
+                                class="inline-block mt-1 text-sm underline transition-all cursor-pointer text-sekunder hover:text-black"
+                                x-on:click="search=true"><i
+                                    class="mr-1 text-sm fa-solid fa-magnifying-glass text-sekunder"></i>Cari Sekolah</span>
+                            <input class="w-full mt-4 rounded-md form-input focus:border-indigo-600" type="number"
+                                name="telp_siswa" id="telp_siswa" placeholder="Telepon Siswa"
+                                value="{{ old('telp_siswa') }}" required>
+                            <span
+                                class="inline-block mt-1 text-sm transition-all cursor-pointer text-sekunder hover:text-black">Format
+                                : 081234567890</span>
+
+                            <select name="kelas" id="kelas"
+                                class="w-full mt-4 rounded-md form-input focus:border-indigo-600">
+                                <option value="" selected disabled>Pilih Kelas</option>
+                                <optgroup label="SD">
+                                    <option value="I">I</option>
+                                    <option value="II">II</option>
+                                    <option value="III">III</option>
+                                    <option value="IV">IV</option>
+                                    <option value="V">V</option>
+                                    <option value="VI">VI</option>
+                                </optgroup>
+                                <optgroup label="SMP">
+                                    <option value="VII">VII</option>
+                                    <option value="VIII">VIII</option>
+                                    <option value="IX">IX</option>
+                                </optgroup>
+                                <optgroup label="SMA">
+                                    <option value="X">X</option>
+                                    <option value="XI">XI</option>
+                                    <option value="XII">XII</option>
+                                </optgroup>
+                            </select>
+                            {{-- <input class="w-full mt-4 rounded-md form-input focus:border-indigo-600" type="text" name="kelas" id="kelas" placeholder="Kelas Siswa" value="{{ old('kelas') }}" required> --}}
+                            <button
+                                class="block px-4 py-2 mx-auto my-6 font-semibold text-white transition-all rounded bg-sekunder w-fit hover:bg-black">
+                                Mulai Survey
+                            </button>
+                            <div class="fixed inset-0 z-20 flex items-center justify-center w-full h-full overflow-auto bg-black/80"
+                                style="display:none;" id="search" x-show="search" x-transition>
+                                <i class="absolute z-10 text-3xl text-white transition cursor-pointer fa-solid fa-xmark top-5 right-10 hover:text-premier"
+                                    x-on:click="search=false"></i>
+                                <div class="flex flex-col w-full mx-4 overflow-hidden bg-white rounded-lg sm:w-1/2">
+                                    <span
+                                        class="inline-block w-full p-4 mb-4 text-lg font-bold text-center text-white bg-premier">Cari
+                                        Sekolah</span>
+                                    <input type="text" class="mx-4 rounded" name="sekolah" id="sekolah"
+                                        placeholder="Ketik Nama Sekolah" class="mb-4" autofocus>
+                                    <img src="{{ asset('images/loading.svg') }}" alt="Loading" id="loading"
+                                        class="w-24 h-24 mx-auto mt-6">
+                                    <div class="flex flex-col w-full h-64 py-2 mt-2 overflow-auto" id="school-list">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="my-8">
+                            <span class="block w-full mb-2 font-bold text-center text-sekunder">Riwayat Survey</span>
+                            <div class="overflow-auto rounded-sm">
+                                <table class="mx-auto overflow-auto text-left border border-collapse w-fit">
+                                    <thead class="border-b">
+                                        <tr>
+                                            <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-tersier">NPSN
+                                            </th>
+                                            <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-tersier">Kelas
+                                            </th>
+                                            <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-tersier">Telepon
+                                                Siswa</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody class="overflow-auto max-h-36">
+                                        @foreach ($history as $data)
+                                            <tr class="hover:bg-gray-200">
+                                                <td class="p-4 font-bold text-gray-700 border-b">{{ $data->npsn }}</td>
+                                                <td class="p-4 font-bold text-gray-700 border-b">{{ $data->kelas }}</td>
+                                                <td class="p-4 font-bold text-gray-700 border-b">{{ $data->telp_siswa }}
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 @endif
             @else
                 <span class="block w-full py-2 mb-2 text-2xl font-bold text-center text-premier">Tidak Ada Survey
@@ -172,7 +212,8 @@
         $(document).ready(function() {
             $('#loading').hide();
 
-            $('#sekolah').on('input', function() {
+            $('#submit-search').on('click', function() {
+                $("#school-list").html()
                 $('#loading').show();
                 findSchool();
             })
@@ -180,13 +221,14 @@
                 let _token = $('meta[name="csrf-token"]').attr('content');
                 $.ajax({
                     url: "{{ URL::to('/find_school') }}",
-                    method: "POST",
+                    method: "GET",
                     dataType: "JSON",
                     data: {
                         name: $('#sekolah').val(),
                         _token: _token
                     },
                     success: (data) => {
+                        console.log(data);
                         $('#school-list').html(
                             data.map((data) => {
                                 return `

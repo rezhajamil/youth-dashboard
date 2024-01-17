@@ -178,26 +178,28 @@ class SurveyController extends Controller
         $plain = true;
 
         // ddd($url);
-        if ($request->npsn || $request->telp) {
-            // ddd($url);
-            // $survey = DB::table('survey_session')->where('status', '1')->where('tipe', 'Siswa')->orderBy('date', 'desc')->first();
-            $survey = DB::table('survey_session')->where('url', $url)->orderBy('date', 'desc')->first();
-            $survey->soal = json_decode($survey->soal);
-            $survey->jenis_soal = json_decode($survey->jenis_soal);
-            $survey->opsi = json_decode($survey->opsi);
-            $survey->jumlah_opsi = json_decode($survey->jumlah_opsi);
-            $survey->validasi = json_decode($survey->validasi);
+        $survey = DB::table('survey_session')->where('url', $url)->orderBy('date', 'desc')->first();
+        $survey->soal = json_decode($survey->soal);
+        $survey->jenis_soal = json_decode($survey->jenis_soal);
+        $survey->opsi = json_decode($survey->opsi);
+        $survey->jumlah_opsi = json_decode($survey->jumlah_opsi);
+        $survey->validasi = json_decode($survey->validasi);
 
-            // ddd($survey);
-
-            if ($request->npsn) {
-                $sekolah = DB::table('Data_Sekolah_Sumatera')->where('NPSN', $request->npsn)->first();
-            } else {
-                $sekolah = [];
-            }
+        if ($request->npsn) {
+            $sekolah = DB::table('Data_Sekolah_Sumatera')->where('NPSN', $request->npsn)->first();
         } else {
-            $survey = DB::table('survey_session')->where('status', '1')->where('tipe', 'DS')->orderBy('date', 'desc')->first();
+            $sekolah = [];
         }
+
+        // if ($request->npsn || $request->telp) {
+        //     // ddd($url);
+        //     // $survey = DB::table('survey_session')->where('status', '1')->where('tipe', 'Siswa')->orderBy('date', 'desc')->first();
+
+        //     // ddd($survey);
+
+        // } else {
+        //     $survey = DB::table('survey_session')->where('status', '1')->where('tipe', 'DS')->orderBy('date', 'desc')->first();
+        // }
 
         if ($survey) {
             $answer = DB::table('survey_answer')->where('session', $survey->id)->where('telp', $request->telp)->first();
@@ -210,7 +212,7 @@ class SurveyController extends Controller
         }
         // ddd($survey);
         $user = DB::table('data_user')->where('telp', $request->telp)->first();
-        $title = $survey->nama;
+        $title = $survey->nama ?? '';
 
         if ($request->npsn || $request->telp) {
             if ($request->finish) {
@@ -357,6 +359,12 @@ class SurveyController extends Controller
 
     public function resume(Request $request, $id)
     {
+        ini_set(
+            'max_execution_time',
+            '0'
+        );
+        ini_set('memory_limit', '-1');
+
         $month = $request->month ?? date('m');
         $year = $request->year ?? date('Y');
 
@@ -540,6 +548,7 @@ class SurveyController extends Controller
         $end_date = $request->end_date ?? date('Y-m-d');
         // $sekolah = DB::table('Data_Sekolah_Sumatera')->select(['Data_Sekolah_Sumatera.NPSN', 'NAMA_SEKOLAH'])->join('survey_answer', "survey_answer.npsn", "=", "Data_Sekolah_Sumatera.NPSN")->where('KAB_KOTA', $city)->whereMonth("time_start", $request->month)->whereYear("time_start", $request->year)->distinct()->orderBy('NAMA_SEKOLAH', 'asc')->get();
         $sekolah = DB::table('Data_Sekolah_Sumatera')->select(['Data_Sekolah_Sumatera.NPSN', 'NAMA_SEKOLAH', 'KECAMATAN'])->join('survey_answer', "survey_answer.npsn", "=", "Data_Sekolah_Sumatera.NPSN")->where('KAB_KOTA', $city)->where('time_start', ">=", $start_date)->where('time_start', "<=", $end_date)->distinct()->orderBy('NAMA_SEKOLAH', 'asc')->get();
+        // $sekolah = DB::table('Data_Sekolah_Sumatera')->select(['Data_Sekolah_Sumatera.NPSN', 'NAMA_SEKOLAH', 'City', 'KECAMATAN'])->join('survey_answer', "survey_answer.npsn", "=", "Data_Sekolah_Sumatera.NPSN")->where('time_start', ">=", $start_date)->where('time_start', "<=", $end_date)->distinct()->orderBy('City', 'DESC')->orderBy('KECAMATAN', 'DESC')->orderBy('NAMA_SEKOLAH', 'DESC')->get();
 
         return response()->json($sekolah);
     }

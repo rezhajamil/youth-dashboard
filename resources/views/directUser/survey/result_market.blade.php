@@ -252,8 +252,10 @@
                 );
             })
             $("#row-operator").prepend(
-                `<th class="p-3 text-sm text-center text-gray-100 uppercase border bg-y_tersier">Sekolah</th>
+                `
+                <th class="p-3 text-sm text-center text-gray-100 uppercase border bg-y_tersier">Kota</th>
                 <th class="p-3 text-sm text-center text-gray-100 uppercase border bg-y_tersier">Kecamatan</th>
+                <th class="p-3 text-sm text-center text-gray-100 uppercase border bg-y_tersier">Sekolah</th>
                 <th class="p-3 text-sm text-center text-gray-100 uppercase border bg-y_tersier">Flag</th>
                 `
             );
@@ -286,8 +288,8 @@
                             let answer = resume.filter(res => res.npsn == data.NPSN);
                             $("#tbody-operator").prepend(
                                 `<tr>
-                                    <td class='p-3 border'><span class="font-semibold underline cursor-pointer resume-sekolah text-y_premier hover:text-y_tersier">${data.NAMA_SEKOLAH}</span></td>
                                     <td class='p-3 border'><span class="font-semibold text-y_premier hover:text-y_tersier">${data.KECAMATAN}</span></td>
+                                    <td class='p-3 border'><span class="font-semibold underline cursor-pointer resume-sekolah text-y_premier hover:text-y_tersier">${data.NAMA_SEKOLAH}</span></td>
                                     <td  class='text-center border' id="flag-${data.NPSN}"></td>` +
                                 operator.toReversed().map(operator => {
                                     return `<td class='text-center border' id="count-${operator.operator.toString().toLowerCase()}-${data.NPSN}">0</td>`;
