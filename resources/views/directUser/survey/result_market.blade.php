@@ -253,7 +253,6 @@
             })
             $("#row-operator").prepend(
                 `
-                <th class="p-3 text-sm text-center text-gray-100 uppercase border bg-y_tersier">Kota</th>
                 <th class="p-3 text-sm text-center text-gray-100 uppercase border bg-y_tersier">Kecamatan</th>
                 <th class="p-3 text-sm text-center text-gray-100 uppercase border bg-y_tersier">Sekolah</th>
                 <th class="p-3 text-sm text-center text-gray-100 uppercase border bg-y_tersier">Flag</th>
@@ -391,7 +390,7 @@
                             operator
                         });
                         $("#tbody-operator").prepend(
-                            `<tr class='text-white bg-y_premier'><td colspan='3' class='p-3 text-center border'><span class="font-semibold">TOTAL</span></td>` +
+                            `<tr class='text-white bg-y_premier'><td colspan='2' class='p-3 text-center border'><span class="font-semibold">TOTAL</span></td>` +
                             operator.toReversed().map(operator => {
                                 return `<td class='text-center border' id="total-${operator.operator.toString().toLowerCase()}-${data.NPSN}">${operator.jumlah}</td>`;
                             }) +
