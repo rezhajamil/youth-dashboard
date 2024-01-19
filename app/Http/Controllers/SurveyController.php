@@ -651,19 +651,19 @@ class SurveyController extends Controller
                         }
                     }
 
-                    echo number_format((($axis / count($telp)) * 100), 2, ',', '.') . "%";
+                    echo number_format((($axis / count($telp)) * 100), 2, ',', '.') . "%#";
                     echo "<br/>";
-                    echo number_format((($indosat / count($telp)) * 100), 2, ',', '.') . "%";
+                    echo number_format((($indosat / count($telp)) * 100), 2, ',', '.') . "%#";
                     echo "<br/>";
-                    echo number_format((($lainnya / count($telp)) * 100), 2, ',', '.') . "%";
+                    echo number_format((($lainnya / count($telp)) * 100), 2, ',', '.') . "%#";
                     echo "<br/>";
-                    echo number_format((($smartfren / count($telp)) * 100), 2, ',', '.') . "%";
+                    echo number_format((($smartfren / count($telp)) * 100), 2, ',', '.') . "%#";
                     echo "<br/>";
-                    echo number_format((($telkomsel / count($telp)) * 100), 2, ',', '.') . "%";
+                    echo number_format((($telkomsel / count($telp)) * 100), 2, ',', '.') . "%#";
                     echo "<br/>";
-                    echo number_format((($tri / count($telp)) * 100), 2, ',', '.') . "%";
+                    echo number_format((($tri / count($telp)) * 100), 2, ',', '.') . "%#";
                     echo "<br/>";
-                    echo number_format((($xl / count($telp)) * 100), 2, ',', '.') . "%";
+                    echo number_format((($xl / count($telp)) * 100), 2, ',', '.') . "%#";
                     echo "<br/>";
                 } else {
                     echo "000000";
