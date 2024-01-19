@@ -600,4 +600,79 @@ class SurveyController extends Controller
 
         return view('directUser.survey.resume_territory', compact('survey', 'kode_operator', 'operator', 'resume', 'region', 'branch', 'cluster', 'city'));
     }
+
+    public function get_operator_percentage(Request $request, $url)
+    {
+        if ($request->npsn) {
+            $survey = DB::table('survey_session')->where('url', $url)->first();
+
+            if ($survey) {
+                $telp = DB::table('survey_answer')->select('telp_siswa')->where('npsn', $request->npsn)->get();
+
+                if ($telp) {
+
+                    $kode_operator = DB::table('kode_prefix_operator')->get();
+                    $telkomsel = 0;
+                    $xl = 0;
+                    $axis = 0;
+                    $indosat = 0;
+                    $tri = 0;
+                    $smartfren = 0;
+                    $lainnya = 0;
+                    foreach ($telp as $key => $d_telp) {
+                        $firstFourDigits = substr($d_telp->telp_siswa, 0, 4);
+
+                        foreach ($kode_operator as $key => $kode) {
+                            if ($kode->kode_prefix == $firstFourDigits) {
+                                switch ($kode->operator) {
+                                    case 'Telkomsel':
+                                        $telkomsel += 1;
+                                        break;
+                                    case 'XL':
+                                        $xl += 1;
+                                        break;
+                                    case 'Axis':
+                                        $axis += 1;
+                                        break;
+                                    case 'Indosat':
+                                        $indosat += 1;
+                                        break;
+                                    case 'Tri':
+                                        $tri += 1;
+                                        break;
+                                    case 'Smartfren':
+                                        $smartfren += 1;
+                                        break;
+                                    default:
+                                        $lainnya += 1;
+                                        break;
+                                }
+                            }
+                        }
+                    }
+
+                    echo number_format((round($axis / count($telp), 2) * 100), 2, ',', '.') . "%";
+                    echo "<br/>";
+                    echo number_format((round($indosat / count($telp), 2) * 100), 2, ',', '.') . "%";
+                    echo "<br/>";
+                    echo number_format((round($lainnya / count($telp), 2) * 100), 2, ',', '.') . "%";
+                    echo "<br/>";
+                    echo number_format((round($smartfren / count($telp), 2) * 100), 2, ',', '.') . "%";
+                    echo "<br/>";
+                    echo number_format((round($telkomsel / count($telp), 2) * 100), 2, ',', '.') . "%";
+                    echo "<br/>";
+                    echo number_format((round($tri / count($telp), 2) * 100), 2, ',', '.') . "%";
+                    echo "<br/>";
+                    echo number_format((round($xl / count($telp), 2) * 100), 2, ',', '.') . "%";
+                    echo "<br/>";
+                } else {
+                    echo "000000";
+                }
+            } else {
+                echo "000000";
+            }
+        } else {
+            echo "000000";
+        }
+    }
 }

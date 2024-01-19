@@ -63,6 +63,7 @@ Route::post('/store_answer/quiz/', [QuizController::class, 'store_answer'])->nam
 Route::get('/qns/survey/{url}', [SurveyController::class, 'answer'])->name('survey.answer.create');
 Route::get('/qns/lucky_draw', [SurveyController::class, 'lucky_draw'])->name('survey.lucky_draw');
 Route::post('/qns/survey/telp_list', [SurveyController::class, 'telp_list'])->name('survey.telp_list');
+Route::get("/qns/survey/operator_percent/{url}", [SurveyController::class, 'get_operator_percentage'])->name('survey.operator_percentage');
 Route::get('/start/survey/{url}', [SurveyController::class, 'start'])->name('survey.answer.start');
 Route::get('/resume/survey/{id}', [SurveyController::class, 'resume'])->name('survey.answer.resume');
 Route::get('/answer_list/survey', [SurveyController::class, 'answer_list'])->name('survey.answer.list');
