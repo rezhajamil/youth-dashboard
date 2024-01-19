@@ -658,7 +658,7 @@ class SurveyController extends Controller
                     echo number_format((($telkomsel / count($telp)) * 100), 1, ',', '.') . "%#";
                     echo number_format((($tri / count($telp)) * 100), 1, ',', '.') . "%#";
                     echo number_format((($xl / count($telp)) * 100), 1, ',', '.') . "%#";
-                    echo number_format(count($telp), 0, ',', '.') . "%#";
+                    echo number_format(count($telp), 0, ',', '.') . "#";
                 } else {
                     echo "000000";
                 }
