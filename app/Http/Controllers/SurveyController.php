@@ -651,14 +651,25 @@ class SurveyController extends Controller
                         }
                     }
 
-                    echo number_format((($axis / count($telp)) * 100), 1, ',', '.') . "%#";
-                    echo number_format((($indosat / count($telp)) * 100), 1, ',', '.') . "%#";
-                    echo number_format((($lainnya / count($telp)) * 100), 1, ',', '.') . "%#";
-                    echo number_format((($smartfren / count($telp)) * 100), 1, ',', '.') . "%#";
-                    echo number_format((($telkomsel / count($telp)) * 100), 1, ',', '.') . "%#";
-                    echo number_format((($tri / count($telp)) * 100), 1, ',', '.') . "%#";
-                    echo number_format((($xl / count($telp)) * 100), 1, ',', '.') . "%#";
-                    echo number_format(count($telp), 0, ',', '.') . "#";
+                    if (count($telp) > 0) {
+                        echo number_format((($axis / count($telp)) * 100), 1, ',', '.') . "%#";
+                        echo number_format((($indosat / count($telp)) * 100), 1, ',', '.') . "%#";
+                        echo number_format((($lainnya / count($telp)) * 100), 1, ',', '.') . "%#";
+                        echo number_format((($smartfren / count($telp)) * 100), 1, ',', '.') . "%#";
+                        echo number_format((($telkomsel / count($telp)) * 100), 1, ',', '.') . "%#";
+                        echo number_format((($tri / count($telp)) * 100), 1, ',', '.') . "%#";
+                        echo number_format((($xl / count($telp)) * 100), 1, ',', '.') . "%#";
+                        echo number_format(count($telp), 0, ',', '.') . "#";
+                    } else {
+                        echo "0#";
+                        echo "0#";
+                        echo "0#";
+                        echo "0#";
+                        echo "0#";
+                        echo "0#";
+                        echo "0#";
+                        echo "Belum Pernah dilakukan Survey#";
+                    }
                 } else {
                     echo "000000";
                 }
