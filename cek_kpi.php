@@ -13,7 +13,7 @@ $sql = "SELECT a.branch,a.cluster,a.nama,a.telp,a.id_digipos,a.`role`,b.migrasi,
             LEFT JOIN (SELECT telp,COUNT(msisdn) byu FROM sales_copy WHERE date BETWEEN '$m1' AND '$mtd' AND kategori='BYU' GROUP BY 1) d ON a.telp=d.telp
             LEFT JOIN (SELECT telp, COUNT(msisdn) mytsel FROM sales_copy WHERE date BETWEEN '$m1' AND '$mtd' AND kategori='MY TELKOMSEL' GROUP BY 1) g ON a.telp = g.telp
             LEFT JOIN (SELECT telp,COUNT(NPSN) update_data FROM Data_Sekolah_Sumatera WHERE UPDATED_AT BETWEEN '$m1' AND '$mtd' AND LONGITUDE!='' GROUP BY 1) e ON a.telp=e.telp
-            LEFT JOIN (SELECT telp,COUNT(npsn) pjp FROM table_kunjungan WHERE date BETWEEN '$m1' AND '$mtd' GROUP BY 1) f ON a.telp=f.telp
+            LEFT JOIN (SELECT telp,COUNT(npsn) pjp FROM table_kunjungan_copy WHERE date BETWEEN '$m1' AND '$mtd' GROUP BY 1) f ON a.telp=f.telp
             LEFT JOIN (SELECT telp,SUM(hasil) quiz FROM quiz_answer WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) h ON a.telp=h.telp
             LEFT JOIN (SELECT Data_Sekolah_Sumatera.telp,COUNT(survey_answer.telp_siswa) survey FROM survey_answer JOIN Data_Sekolah_Sumatera ON survey_answer.npsn=Data_Sekolah_Sumatera.NPSN WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) i ON a.telp=i.telp
             LEFT JOIN (SELECT digipos_ao,SUM(price) broadband FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DATA' GROUP BY 1) j ON a.id_digipos=j.digipos_ao

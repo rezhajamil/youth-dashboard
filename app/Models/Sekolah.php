@@ -76,6 +76,7 @@ class Sekolah extends Model
 
         return $data;
     }
+
     public static function getResumeOssOsk($territory = "")
     {
         $query = "SELECT Data_Sekolah_Sumatera.BRANCH,

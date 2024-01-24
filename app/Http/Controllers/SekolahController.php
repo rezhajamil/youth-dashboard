@@ -135,7 +135,7 @@ class SekolahController extends Controller
         // ddd($sekolah);
         $outlet = Sekolah::getNearestOutlet($id);
         $site = Sekolah::getNearestSite($id);
-        $last_visit = DB::table('table_kunjungan AS a')->join('data_user AS b', 'a.telp', '=', 'b.telp')->where('npsn', $sekolah->NPSN)->orderBy('date', 'DESC')->orderBy('waktu', 'DESC')->limit(3)->get();
+        $last_visit = DB::table('table_kunjungan_copy AS a')->join('data_user AS b', 'a.telp', '=', 'b.telp')->where('npsn', $sekolah->NPSN)->orderBy('date', 'DESC')->orderBy('waktu', 'DESC')->limit(3)->get();
 
         $last_survey = DB::table('survey_answer')->select(['session', 'time_start'])->distinct()->where('npsn', $sekolah->NPSN)->orderBy('time_start', 'DESC')->first();
 
