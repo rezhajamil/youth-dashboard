@@ -58,7 +58,7 @@
                                             $count = 0;
                                         @endphp
                                         @foreach ($clocks as $data)
-                                            @if ($clock->telp == $data->telp)
+                                            @if ($clock->telp == $data->telp && $clock->label == $data->label)
                                                 <td class="p-4 border">{{ $data->date }}</td>
                                                 @php $count++ @endphp
                                             @endif
@@ -77,9 +77,22 @@
                                             $count = 0;
                                         @endphp
                                         @foreach ($clocks as $data)
-                                            @if ($clock->telp == $data->telp)
-                                                <td class="p-4 border">{{ $data->waktu }}</td>
-                                                @php $count++ @endphp
+                                            @if ($clock->telp == $data->telp && $clock->label == $data->label)
+                                                <td class="p-4 border">
+                                                    {{ $data->waktu }}
+
+                                                    @if ($data->label == 'MASUK')
+                                                        @foreach ($clocks as $d)
+                                                            @if ($data->telp == $d->telp && $data->npsn == $d->npsn && $d->label == 'KELUAR')
+                                                                <br /> s/d {{ $d->waktu }}
+                                                                @php
+                                                                    break;
+                                                                @endphp
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
+                                                    @php $count++ @endphp
+                                                </td>
                                             @endif
                                         @endforeach
                                         @php
@@ -96,7 +109,7 @@
                                             $count = 0;
                                         @endphp
                                         @foreach ($clocks as $data)
-                                            @if ($clock->telp == $data->telp)
+                                            @if ($clock->telp == $data->telp && $clock->label == $data->label)
                                                 <td class="p-4 border">{{ $data->lokasi }}</td>
                                                 @php $count++ @endphp
                                             @endif
@@ -115,7 +128,7 @@
                                             $count = 0;
                                         @endphp
                                         @foreach ($clocks as $data)
-                                            @if ($clock->telp == $data->telp)
+                                            @if ($clock->telp == $data->telp && $clock->label == $data->label)
                                                 <td class="p-4 border">{{ str_replace('.', ',', $data->jarak) }} Km</td>
                                                 @php $count++ @endphp
                                             @endif
@@ -134,7 +147,7 @@
                                             $count = 0;
                                         @endphp
                                         @foreach ($clocks as $data)
-                                            @if ($clock->telp == $data->telp)
+                                            @if ($clock->telp == $data->telp && $clock->label == $data->label)
                                                 @foreach ($sales as $sale)
                                                     @if ($data->telp == $sale->telp && $data->lokasi == $sale->poi)
                                                         <td class="p-4 border">{{ str_replace('.', ',', $sale->sales) }}
