@@ -1,14 +1,14 @@
 @extends('layouts.dashboard.app')
 @section('body')
-    <div class="w-full mx-4">
+    <div class="mx-4 w-full">
         <div class="flex flex-col">
             <div class="mt-4">
-                <h4 class="text-xl font-bold text-gray-600 align-baseline">Tambah Data Dokumen</h4>
+                <h4 class="align-baseline text-xl font-bold text-gray-600">Tambah Data Dokumen</h4>
 
-                <div class="px-6 py-4 mx-auto mt-4 overflow-auto bg-white rounded-md shadow sm:mx-0 w-fit">
+                <div class="mx-auto mt-4 w-fit overflow-auto rounded-md bg-white px-6 py-4 shadow sm:mx-0">
                     <form action="{{ route('dokumen.store') }}" method="POST" class="">
                         @csrf
-                        <div class="grid grid-cols-3 gap-6 mt-4">
+                        <div class="mt-4 grid grid-cols-4 gap-6">
                             <div class="flex flex-col">
                                 <label class="block text-gray-700" for="judul">Judul Dokumen</label>
                                 <input type="text" name="judul" id="judul" value="{{ old('judul') }}"
@@ -35,7 +35,19 @@
                                     <span class="block text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="flex flex-col col-span-full">
+                            <div class="flex flex-col">
+                                <label class="block text-gray-700" for="role">Role Akses Dokumen</label>
+                                <select name="role" id="role" class="rounded">
+                                    <option value="all">All</option>
+                                    @foreach ($roles as $role)
+                                        <option value="{{ $role->role }}">{{ $role->role }}</option>
+                                    @endforeach
+                                </select>
+                                @error('role')
+                                    <span class="block text-sm italic text-red-600">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="col-span-full flex flex-col">
                                 <label class="block text-gray-700" for="deskripsi">Deskripsi Dokumen</label>
                                 <textarea name="deskripsi" id="deskripsi" cols="30" rows="10" class="rounded">{!! old('deskripsi') !!}</textarea>
                                 @error('deskripsi')
@@ -43,9 +55,9 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="flex justify-end mt-4">
+                        <div class="mt-4 flex justify-end">
                             <button
-                                class="w-full px-4 py-2 font-bold text-white rounded-md bg-y_sekunder hover:bg-y_premier focus:outline-none focus:bg-y_premier">Submit</button>
+                                class="w-full rounded-md bg-y_sekunder px-4 py-2 font-bold text-white hover:bg-y_premier focus:bg-y_premier focus:outline-none">Submit</button>
                         </div>
                     </form>
                 </div>

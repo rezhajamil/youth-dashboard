@@ -345,6 +345,10 @@ class ContentController extends Controller
 
     public function dokumen()
     {
+        $privilege = auth()->user()->privilege;
+        if ($privilege != 'superadmin') {
+            $dokumen = DB::table('dokumen')->where('role', 'all')->orWhere('role', $privilege)->orderBy('judul')->get();
+        }
         $dokumen = DB::table('dokumen')->orderBy('judul')->get();
 
         return view('content.dokumen.index', compact('dokumen'));
@@ -352,7 +356,8 @@ class ContentController extends Controller
 
     public function create_dokumen()
     {
-        return view('content.dokumen.create');
+        $roles = DB::select('SELECT DISTINCT privilege as role from users');
+        return view('content.dokumen.create', compact('roles'));
     }
 
     public function store_dokumen(Request $request)
@@ -369,6 +374,7 @@ class ContentController extends Controller
             'jenis' => $request->jenis,
             'deskripsi' => $request->deskripsi,
             'url' => $request->url,
+            'role' => $request->role,
         ]);
 
         return redirect()->route('dokumen.index');
