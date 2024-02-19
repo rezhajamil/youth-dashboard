@@ -448,6 +448,21 @@ class DirectUserController extends Controller
         return view('directUser.clockIn.index', compact('cluster', 'date', 'list_cluster', 'clocks', 'sales'));
     }
 
+    public function resume_clock_in(Request $request)
+    {
+        $date = $request->date;
+
+        $query_regional = "SELECT b.REGIONAL as regional,COUNT(a.id) AS jumlah FROM table_kunjungan_copy a JOIN Data_Sekolah_Sumatera b ON a.npsn=b.NPSN WHERE a.`date`='$date' GROUP BY 1 ORDER BY 1 DESC;";
+        $query_branch = "SELECT b.BRANCH as branch,COUNT(a.id) AS jumlah FROM table_kunjungan_copy a JOIN Data_Sekolah_Sumatera b ON a.npsn=b.NPSN WHERE a.`date`='$date' GROUP BY 1 ORDER BY 1";
+        $query_cluster = "SELECT b.CLUSTER as cluster,COUNT(a.id) AS jumlah FROM table_kunjungan_copy a JOIN Data_Sekolah_Sumatera b ON a.npsn=b.NPSN WHERE a.`date`='$date' GROUP BY 1 ORDER BY 1";
+
+        $data_regional = DB::select($query_regional);
+        $data_branch = DB::select($query_branch);
+        $data_cluster = DB::select($query_cluster);
+
+        return view('directUser.clockIn.resume', compact('data_regional', 'data_branch', 'data_cluster'));
+    }
+
     public function kpi(Request $request)
     {
         ini_set(

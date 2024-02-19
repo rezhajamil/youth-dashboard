@@ -1,12 +1,12 @@
 @extends('layouts.dashboard.app')
 @section('body')
-    <div class="w-full mx-4">
+    <div class="mx-4 w-full">
         <div class="flex flex-col">
             <div class="mt-4 overflow-y-auto">
                 <a href="{{ url()->previous() }}"
-                    class="block px-4 py-2 my-2 font-bold text-white rounded-md bg-y_premier w-fit hover:bg-y_premier"><i
-                        class="mr-2 fa-solid fa-arrow-left"></i> Kembali</a>
-                <h4 class="inline-block mb-2 text-xl font-bold text-gray-600 align-baseline" id="title">
+                    class="my-2 block w-fit rounded-md bg-y_premier px-4 py-2 font-bold text-white hover:bg-y_premier"><i
+                        class="fa-solid fa-arrow-left mr-2"></i> Kembali</a>
+                <h4 class="mb-2 inline-block align-baseline text-xl font-bold text-gray-600" id="title">
                     {{ $survey->nama }}</h4>
                 {{-- <button class="px-2 py-1 ml-2 text-lg text-white transition bg-green-600 rounded-md hover:bg-green-800" id="capture"><i class="fa-regular fa-circle-down"></i></button> --}}
                 <div class="flex items-center gap-x-3">
@@ -29,16 +29,16 @@
                         </select> --}}
                         <input class="rounded" type="date" name="start_date" id="start_date"
                             value="{{ Request::get('start_date') }}" required>
-                        <span class="inline-block mx-2 font-bold">s/d</span>
+                        <span class="mx-2 inline-block font-bold">s/d</span>
                         <input class="rounded" type="date" name="end_date" id="end_date"
                             value="{{ Request::get('end_date') }}" required>
                         <button type="submit"
-                            class="inline-block px-4 py-2 my-2 ml-3 font-bold text-white transition-all rounded-md bg-y_premier hover:bg-y_premier">Cek
+                            class="my-2 ml-3 inline-block rounded-md bg-y_premier px-4 py-2 font-bold text-white transition-all hover:bg-y_premier">Cek
                             Survey</button>
                     </form>
                 </div>
                 <hr class="h-1 bg-gray-400">
-                <div class="flex items-center my-4 mt-2 gap-x-2">
+                <div class="my-4 mt-2 flex items-center gap-x-2">
                     <select name="filter" id="filter" class="block rounded">
                         <option value="" selected disabled>Pilih City</option>
                         @foreach ($city as $key => $data)
@@ -56,14 +56,14 @@
                     </select> --}}
                     {{-- <button id="btn-excel" class="px-2 py-3 text-white transition-all bg-green-600 rounded hover:bg-green-800">Download as Excel</button> --}}
                     <button id="btn-grafik"
-                        class="px-4 py-2 text-white transition-all rounded bg-y_tersier hover:bg-red-800"><i
-                            class="mr-2 fa-solid fa-chart-column"></i>Grafik</button>
+                        class="rounded bg-y_tersier px-4 py-2 text-white transition-all hover:bg-red-800"><i
+                            class="fa-solid fa-chart-column mr-2"></i>Grafik</button>
                     <button id="btn-excel"
-                        class="inline-block px-4 py-2 my-2 font-semibold text-white transition-all bg-teal-600 rounded-md hover:bg-teal-800"><i
-                            class="mr-2 fa-solid fa-file-arrow-down"></i>Excel</button>
+                        class="my-2 inline-block rounded-md bg-teal-600 px-4 py-2 font-semibold text-white transition-all hover:bg-teal-800"><i
+                            class="fa-solid fa-file-arrow-down mr-2"></i>Excel</button>
                     <a href="{{ route('survey.resume_territory', $survey->id) }}" target="_blank"
-                        class="inline-block px-4 py-2 my-2 font-semibold text-white transition-all rounded-md bg-y_sekunder hover:bg-y_sekunder"><i
-                            class="mr-2 fa-solid fa-book"></i>Resume</a>
+                        class="my-2 inline-block rounded-md bg-y_sekunder px-4 py-2 font-semibold text-white transition-all hover:bg-y_sekunder"><i
+                            class="fa-solid fa-book mr-2"></i>Resume</a>
                 </div>
                 <input type="hidden" name="sekolah" id="sekolah" value="{{ json_encode($sekolah) }}">
                 <input type="hidden" name="operator" id="operator" value="{{ json_encode($operator) }}">
@@ -71,12 +71,14 @@
                 <input type="hidden" name="survey" id="survey" value="{{ json_encode($survey) }}">
                 <input type="hidden" name="resume" id="resume" value="{{ json_encode($resume) }}">
 
+                <span class="font-semibold">Jumlah Sekolah : <span id="sekolah-partisipan"></span></span>
+                <br>
                 <span class="font-semibold">Jumlah Partisipan : <span id="partisipan"></span></span>
-                <div class="mb-8 overflow-auto bg-white rounded-md shadow w-fit" id="operator-container">
-                    <table class="overflow-auto text-left bg-white border-collapse w-fit" id="table-operator">
+                <div class="mb-8 w-fit overflow-auto rounded-md bg-white shadow" id="operator-container">
+                    <table class="w-fit border-collapse overflow-auto bg-white text-left" id="table-operator">
                         <thead class="border-b">
                             <tr class="border-b" id="row-operator">
-                                <th class="p-3 text-sm font-bold text-center text-gray-100 uppercase border bg-y_tersier"
+                                <th class="border bg-y_tersier p-3 text-center text-sm font-bold uppercase text-gray-100"
                                     id="col-lainnya">Lainnya</th>
 
                             </tr>
@@ -84,7 +86,7 @@
                         <tbody class="max-h-screen overflow-y-auto" id="tbody-operator">
                             {{-- <tr id="row-count-operator" class="text-center"></tr> --}}
                             {{-- <tr id="row-percent-operator" class="text-center"></tr> --}}
-                            <tr id="load-operator" class="font-semibold text-center text-white bg-tersier"
+                            <tr id="load-operator" class="bg-tersier text-center font-semibold text-white"
                                 style="display: none">
                                 <td colspan="8">Memuat Data...</td>
                             </tr>
@@ -92,38 +94,40 @@
                     </table>
                 </div>
 
-                <div class="mb-8 overflow-auto bg-white rounded-md shadow w-fit" id="result-container">
-                    <table class="overflow-auto text-left bg-white border-collapse w-fit" id="table-data">
+                <div class="mb-8 w-fit overflow-auto rounded-md bg-white shadow" id="result-container">
+                    <table class="w-fit border-collapse overflow-auto bg-white text-left" id="table-data">
                         <thead class="border-b">
                             <tr class="border-b">
                                 <th rowspan="2"
-                                    class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">
+                                    class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
                                     No</th>
                                 <th rowspan="2"
-                                    class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">
+                                    class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
                                     Sekolah</th>
                                 <th rowspan="2"
-                                    class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">
+                                    class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
                                     Soal</th>
                                 <th rowspan="2" colspan="2"
-                                    class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">
+                                    class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
                                     Opsi</th>
                                 <th rowspan="2" colspan="1"
-                                    class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">
+                                    class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
                                     Jumlah</th>
                                 <th colspan="2"
-                                    class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">
+                                    class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
                                     Persentase</th>
                             </tr>
                             <tr>
-                                <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">
+                                <th
+                                    class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
                                     Per Sekolah</th>
-                                <th class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">
+                                <th
+                                    class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
                                     Per Keseluruhan</th>
                             </tr>
                         </thead>
                         <tbody class="max-h-screen overflow-y-auto" id="tbody">
-                            <tr id="load" class="font-semibold text-center text-white bg-tersier">
+                            <tr id="load" class="bg-tersier text-center font-semibold text-white">
                                 <td colspan="8">Memuat Data...</td>
                             </tr>
                         </tbody>
@@ -131,11 +135,11 @@
                 </div>
 
                 <div id="grafik-container"
-                    class="absolute inset-0 z-30 flex items-center justify-center p-4 overflow-auto h-fit bg-black/70"
+                    class="absolute inset-0 z-30 flex h-fit items-center justify-center overflow-auto bg-black/70 p-4"
                     style="display: none">
-                    <div class="w-full p-4 overflow-auto bg-white rounded-lg">
+                    <div class="w-full overflow-auto rounded-lg bg-white p-4">
                         <div class="flex justify-end">
-                            <button class="text-xl font-bold transition-all text-premier hover:text-red-900">X</button>
+                            <button class="text-xl font-bold text-premier transition-all hover:text-red-900">X</button>
                         </div>
                         <div class="grid min-w-full grid-cols-2 gap-6" id="grafik-grid">
                         </div>
@@ -273,13 +277,21 @@
                     dataType: "JSON",
                     data: {
                         city: $(this).val(),
+                        survey: "{{ $survey->id }}",
                         // month: $("#month").val(),
                         // year: $("#year").val(),
                         start_date: $("#start_date").val(),
                         end_date: $("#end_date").val(),
                     },
                     success: (data) => {
-                        console.log(data);
+                        console.log({
+                            data
+                        });
+                        let list_npsn = data.map(data => data.NPSN)
+                        let sekolah_partisipan = new Set(list_npsn).size
+                        console.log({
+                            sekolah_partisipan
+                        });
                         operator.map(data => {
                             data.jumlah = 0;
                         })
@@ -349,9 +361,6 @@
 
                                 });
 
-                                console.log({
-                                    count_telkomsel
-                                });
                                 if (count_telkomsel / answer
                                     .length > 0.5) {
                                     $(`#flag-${data.NPSN}`).html(
@@ -386,9 +395,8 @@
                             $("#tbody-operator").append("</tr>")
                         })
 
-                        console.log({
-                            operator
-                        });
+                        $("#sekolah-partisipan").text(sekolah_partisipan)
+
                         $("#tbody-operator").prepend(
                             `<tr class='text-white bg-y_premier'><td colspan='3' class='p-3 text-center border'><span class="font-semibold">TOTAL</span></td>` +
                             operator.toReversed().map(operator => {

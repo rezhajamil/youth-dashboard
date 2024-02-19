@@ -1,23 +1,23 @@
 @extends('layouts.dashboard.app')
 @section('body')
-    <div class="w-full mx-4">
+    <div class="mx-4 w-full">
         <div class="flex flex-col">
             <div class="mt-4 overflow-y-auto">
                 <a href="{{ url()->previous() }}"
-                    class="block px-4 py-2 my-2 font-bold text-white rounded-md bg-y_premier w-fit hover:bg-y_premier"><i
-                        class="mr-2 fa-solid fa-arrow-left"></i> Kembali</a>
-                <h4 class="inline-block mb-2 text-xl font-bold text-gray-600 align-baseline" id="title">
+                    class="my-2 block w-fit rounded-md bg-y_premier px-4 py-2 font-bold text-white hover:bg-y_premier"><i
+                        class="fa-solid fa-arrow-left mr-2"></i> Kembali</a>
+                <h4 class="mb-2 inline-block align-baseline text-xl font-bold text-gray-600" id="title">
                     {{ $survey->nama }}</h4>
                 {{-- <button class="px-2 py-1 ml-2 text-lg text-white transition bg-green-600 rounded-md hover:bg-green-800" id="capture"><i class="fa-regular fa-circle-down"></i></button> --}}
                 <div class="flex items-center gap-x-3">
                     <form action="{{ route('survey.resume_territory', $survey->id) }}" method="get">
                         <input class="rounded" type="date" name="start_date" id="start_date"
                             value="{{ Request::get('start_date') }}" required>
-                        <span class="inline-block mx-2 font-bold">s/d</span>
+                        <span class="mx-2 inline-block font-bold">s/d</span>
                         <input class="rounded" type="date" name="end_date" id="end_date"
                             value="{{ Request::get('end_date') }}" required>
                         <button type="submit"
-                            class="inline-block px-4 py-2 my-2 ml-3 font-bold text-white transition-all rounded-md bg-y_premier hover:bg-y_premier">Ganti
+                            class="my-2 ml-3 inline-block rounded-md bg-y_premier px-4 py-2 font-bold text-white transition-all hover:bg-y_premier">Ganti
                             Tanggal</button>
                     </form>
                 </div>
@@ -30,16 +30,16 @@
                 <input type="hidden" name="cluster" id="cluster" value="{{ json_encode($cluster) }}">
                 <input type="hidden" name="city" id="city" value="{{ json_encode($city) }}">
 
-                <div class="mt-6 mb-8 overflow-auto bg-white rounded-md shadow w-fit" id="region-operator-container">
-                    <table class="overflow-auto text-left bg-white border-collapse w-fit" id="table-region-operator">
+                <div class="mb-8 mt-6 w-fit overflow-auto rounded-md bg-white shadow" id="region-operator-container">
+                    <table class="w-fit border-collapse overflow-auto bg-white text-left" id="table-region-operator">
                         <thead class="border-b">
                             <tr class="border-b" id="row-region-operator">
-                                <th class="p-3 text-sm font-bold text-center text-gray-100 uppercase border bg-y_tersier"
+                                <th class="border bg-gray-400 p-3 text-center text-sm font-bold uppercase text-gray-100"
                                     id="col-lainnya">Lainnya</th>
                             </tr>
                         </thead>
                         <tbody class="max-h-screen overflow-y-auto" id="tbody-region-operator">
-                            <tr id="load-region-operator" class="font-semibold text-center text-white bg-tersier"
+                            <tr id="load-region-operator" class="bg-tersier text-center font-semibold text-white"
                                 style="display: none">
                                 <td colspan="8">Memuat Data...</td>
                             </tr>
@@ -47,16 +47,16 @@
                     </table>
                 </div>
 
-                <div class="mb-8 overflow-auto bg-white rounded-md shadow w-fit" id="branch-operator-container">
-                    <table class="overflow-auto text-left bg-white border-collapse w-fit" id="table-branch-operator">
+                <div class="mb-8 w-fit overflow-auto rounded-md bg-white shadow" id="branch-operator-container">
+                    <table class="w-fit border-collapse overflow-auto bg-white text-left" id="table-branch-operator">
                         <thead class="border-b">
                             <tr class="border-b" id="row-branch-operator">
-                                <th class="p-3 text-sm font-bold text-center text-gray-100 uppercase border bg-y_tersier"
+                                <th class="border bg-gray-400 p-3 text-center text-sm font-bold uppercase text-gray-100"
                                     id="col-lainnya">Lainnya</th>
                             </tr>
                         </thead>
                         <tbody class="max-h-screen overflow-y-auto" id="tbody-branch-operator">
-                            <tr id="load-branch-operator" class="font-semibold text-center text-white bg-tersier"
+                            <tr id="load-branch-operator" class="bg-tersier text-center font-semibold text-white"
                                 style="display: none">
                                 <td colspan="8">Memuat Data...</td>
                             </tr>
@@ -64,16 +64,16 @@
                     </table>
                 </div>
 
-                <div class="mb-8 overflow-auto bg-white rounded-md shadow w-fit" id="cluster-operator-container">
-                    <table class="overflow-auto text-left bg-white border-collapse w-fit" id="table-cluster-operator">
+                <div class="mb-8 w-fit overflow-auto rounded-md bg-white shadow" id="cluster-operator-container">
+                    <table class="w-fit border-collapse overflow-auto bg-white text-left" id="table-cluster-operator">
                         <thead class="border-b">
                             <tr class="border-b" id="row-cluster-operator">
-                                <th class="p-3 text-sm font-bold text-center text-gray-100 uppercase border bg-y_tersier"
+                                <th class="border bg-gray-400 p-3 text-center text-sm font-bold uppercase text-gray-100"
                                     id="col-lainnya">Lainnya</th>
                             </tr>
                         </thead>
                         <tbody class="max-h-screen overflow-y-auto" id="tbody-cluster-operator">
-                            <tr id="load-cluster-operator" class="font-semibold text-center text-white bg-tersier"
+                            <tr id="load-cluster-operator" class="bg-tersier text-center font-semibold text-white"
                                 style="display: none">
                                 <td colspan="8">Memuat Data...</td>
                             </tr>
@@ -81,16 +81,16 @@
                     </table>
                 </div>
 
-                <div class="mb-8 overflow-auto bg-white rounded-md shadow w-fit" id="city-operator-container">
-                    <table class="overflow-auto text-left bg-white border-collapse w-fit" id="table-city-operator">
+                <div class="mb-8 w-fit overflow-auto rounded-md bg-white shadow" id="city-operator-container">
+                    <table class="w-fit border-collapse overflow-auto bg-white text-left" id="table-city-operator">
                         <thead class="border-b">
                             <tr class="border-b" id="row-city-operator">
-                                <th class="p-3 text-sm font-bold text-center text-gray-100 uppercase border bg-y_tersier"
+                                <th class="border bg-gray-400 p-3 text-center text-sm font-bold uppercase text-gray-100"
                                     id="col-lainnya">Lainnya</th>
                             </tr>
                         </thead>
                         <tbody class="max-h-screen overflow-y-auto" id="tbody-city-operator">
-                            <tr id="load-city-operator" class="font-semibold text-center text-white bg-tersier"
+                            <tr id="load-city-operator" class="bg-tersier text-center font-semibold text-white"
                                 style="display: none">
                                 <td colspan="8">Memuat Data...</td>
                             </tr>
@@ -134,30 +134,55 @@
             });
 
             operator.map((data, idx) => {
+                let bg_col = ""
+
+                switch (data.operator.toString().toLowerCase()) {
+                    case "axis":
+                        bg_col = "bg-purple-600"
+                        break;
+                    case "indosat":
+                        bg_col = "bg-yellow-600"
+                        break;
+                    case "smartfren":
+                        bg_col = "bg-indigo-600"
+                        break;
+                    case "telkomsel":
+                        bg_col = "bg-red-600"
+                        break;
+                    case "tri":
+                        bg_col = "bg-pink-600"
+                        break;
+                    case "xl":
+                        bg_col = "bg-blue-600"
+                        break;
+
+                    default:
+                        break;
+                }
                 $("#row-region-operator").prepend(
-                    `<th class="p-3 text-sm text-center text-gray-100 uppercase border bg-y_tersier" id="col-${data.operator.toString().toLowerCase()}">${data.operator}</th>`
+                    `<th class="p-3 text-sm text-center text-gray-100 uppercase border ${bg_col}" id="col-${data.operator.toString().toLowerCase()}">${data.operator}</th>`
                 );
                 $("#row-branch-operator").prepend(
-                    `<th class="p-3 text-sm text-center text-gray-100 uppercase border bg-y_tersier" id="col-${data.operator.toString().toLowerCase()}">${data.operator}</th>`
+                    `<th class="p-3 text-sm text-center text-gray-100 uppercase border ${bg_col}" id="col-${data.operator.toString().toLowerCase()}">${data.operator}</th>`
                 );
                 $("#row-cluster-operator").prepend(
-                    `<th class="p-3 text-sm text-center text-gray-100 uppercase border bg-y_tersier" id="col-${data.operator.toString().toLowerCase()}">${data.operator}</th>`
+                    `<th class="p-3 text-sm text-center text-gray-100 uppercase border ${bg_col}" id="col-${data.operator.toString().toLowerCase()}">${data.operator}</th>`
                 );
                 $("#row-city-operator").prepend(
-                    `<th class="p-3 text-sm text-center text-gray-100 uppercase border bg-y_tersier" id="col-${data.operator.toString().toLowerCase()}">${data.operator}</th>`
+                    `<th class="p-3 text-sm text-center text-gray-100 uppercase border ${bg_col}" id="col-${data.operator.toString().toLowerCase()}">${data.operator}</th>`
                 );
             })
             $("#row-region-operator").prepend(
-                `<th class="p-3 text-sm text-center text-gray-100 uppercase border bg-y_tersier">Region</th>`
+                `<th class="w-[210px] p-3 text-sm text-center text-gray-100 uppercase border bg-y_tersier">Region</th>`
             );
             $("#row-branch-operator").prepend(
-                `<th class="p-3 text-sm text-center text-gray-100 uppercase border bg-y_tersier">Branch</th>`
+                `<th class="w-[210px] p-3 text-sm text-center text-gray-100 uppercase border bg-y_tersier">Branch</th>`
             );
             $("#row-cluster-operator").prepend(
-                `<th class="p-3 text-sm text-center text-gray-100 uppercase border bg-y_tersier">Cluster</th>`
+                `<th class="w-[210px] p-3 text-sm text-center text-gray-100 uppercase border bg-y_tersier">Cluster</th>`
             );
             $("#row-city-operator").prepend(
-                `<th class="p-3 text-sm text-center text-gray-100 uppercase border bg-y_tersier">City</th>`
+                `<th class="w-[210px] p-3 text-sm text-center text-gray-100 uppercase border bg-y_tersier">City</th>`
             );
 
             function countOperator(data, territory, territoryVar) {
