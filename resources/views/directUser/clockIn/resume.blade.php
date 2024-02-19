@@ -65,6 +65,7 @@
                 </div>
                 <div class="mb-8 mt-6 w-fit overflow-auto rounded-md bg-white shadow" id="cluster-resume-container">
                     <table class="w-fit border-collapse overflow-auto bg-white text-left" id="table-cluster-resume">
+
                         <thead class="border-b">
                             <tr class="border-b" id="row-cluster-resume">
                                 <th class="w-[210px] border bg-y_tersier p-3 text-center text-sm uppercase text-gray-100">
