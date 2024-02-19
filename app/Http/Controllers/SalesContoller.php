@@ -497,6 +497,7 @@ class SalesContoller extends Controller
         $list_kategori = DB::table('kategori_produk')->select('jenis_produk as kategori')->whereNotIn('jenis_produk', ['', 'ORBIT', 'MY TELKOMSEL'])->whereNotNull('jenis_produk')->distinct()->get();
         $list_kategori->push((object)['kategori' => 'MYTSEL ENTRY'], (object)['kategori' => 'MYTSEL VALIDASI']);
 
+        $list_regional = DB::table('territory_new')->select('regional')->distinct()->orderBy('regional')->get();
         $list_branch = DB::table('territory_new')->select('branch')->distinct()->orderBy('branch')->get();
 
         $kategori = $request->kategori;
@@ -511,14 +512,21 @@ class SalesContoller extends Controller
             $last_mtd = $this->convDate($mtd);
             $kategori = in_array($kategori, ['MYTSEL ENTRY', 'MYTSEL VALIDASI'])  ? 'MY TELKOMSEL' : $kategori;
 
+            if ($request->regional) {
+                $regional = "regional='" . $request->regional . "'";
+                $and = "and ";
+            } else {
+                $regional = "";
+                $and = "";
+            }
+
             if ($request->branch) {
                 $branch = "branch='" . $request->branch . "'";
-                $where = "where ";
-                $and = "and ";
+                $and_branch = "and ";
             } else {
                 $branch = Auth::user()->privilege == "branch" ? "branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "b.cluster='" . Auth::user()->cluster . "'" : '');
                 $where = Auth::user()->privilege == "branch" || Auth::user()->privilege == "cluster" ? "where" : "";
-                $and = Auth::user()->privilege == "branch" || Auth::user()->privilege == "cluster" ? "and" : "";
+                $and_branch = Auth::user()->privilege == "branch" || Auth::user()->privilege == "cluster" ? "and" : "";
             }
 
             $query_branch = "SELECT b.regional, b.branch ,
@@ -531,6 +539,8 @@ class SalesContoller extends Controller
                     WHERE a.kategori='$kategori' 
                     AND a.date BETWEEN '$last_m1' AND '$mtd' AND b.status='1'
                     $and
+                    $regional
+                    $and_branch
                     $branch
                     GROUP BY 1,2
                     ORDER by 1 DESC,2;";
@@ -545,6 +555,8 @@ class SalesContoller extends Controller
                     WHERE a.kategori='$kategori'
                 AND a.date BETWEEN '$last_m1' AND '$mtd' AND b.status='1'
                     $and
+                    $regional
+                    $and_branch
                     $branch
                     GROUP BY 1 ;";
 
@@ -556,6 +568,8 @@ class SalesContoller extends Controller
                     where a.date BETWEEN '$m1' AND '$mtd'
                     and not a.status ='1' and a.kategori='$kategori' AND b.status='1'
                     $and
+                    $regional
+                    $and_branch
                     $branch
                     ORDER by b.regional DESC,b.branch,b.cluster, b.nama ASC";
 
@@ -568,7 +582,7 @@ class SalesContoller extends Controller
             $sales_cluster = [];
             $sales = [];
         }
-        return view('sales.product.index', compact('list_kategori', 'list_branch', 'sales_branch', 'sales_cluster', 'sales', 'update', 'last_validasi'));
+        return view('sales.product.index', compact('list_kategori', 'list_regional', 'list_branch', 'sales_branch', 'sales_cluster', 'sales', 'update', 'last_validasi'));
     }
 
     public function location(Request $request)
