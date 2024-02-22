@@ -541,7 +541,7 @@ class SurveyController extends Controller
     {
         if ($request->name) {
             $name = $request->name;
-            $sekolah = DB::table('Data_Sekolah_Sumatera')->select(['NPSN', 'NAMA_SEKOLAH'])->where('PROVINSI', 'Sumatera Utara')->where('NAMA_SEKOLAH', 'like', '%' . $name . '%')->orderBy('NAMA_SEKOLAH')->limit('10')->get();
+            $sekolah = DB::table('Data_Sekolah_Sumatera')->select(['NPSN', 'NAMA_SEKOLAH'])->where('NAMA_SEKOLAH', 'like', '%' . $name . '%')->orWhere('NPSN', 'like', '%' . $name . '%')->orderBy('NAMA_SEKOLAH')->limit('10')->get();
         }
         return response()->json($sekolah);
     }

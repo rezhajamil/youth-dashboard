@@ -1,24 +1,24 @@
 @extends('layouts.dashboard.app')
 @section('body')
-    <div class="w-full mx-4">
+    <div class="mx-4 w-full">
         <div class="flex flex-col">
             <div class="mt-4">
-                <h4 class="my-4 text-xl font-bold text-gray-600 align-baseline">Upload Peserta Event</h4>
+                <h4 class="my-4 align-baseline text-xl font-bold text-gray-600">Upload Peserta Event</h4>
 
-                <div class="px-6 py-4 mx-auto overflow-auto bg-white rounded-md shadow sm:mx-0 w-fit">
+                <div class="mx-auto w-fit overflow-auto rounded-md bg-white px-6 py-4 shadow sm:mx-0">
                     {{-- {{ ddd(session('error')) }} --}}
                     @if (session('error'))
                         <span
-                            class="inline-block p-2 font-semibold text-red-600 bg-red-300 rounded">{{ session('error') }}</span>
+                            class="inline-block rounded bg-red-300 p-2 font-semibold text-red-600">{{ session('error') }}</span>
                     @endif
                     @if (session('success'))
                         <span
-                            class="inline-block p-2 font-semibold text-green-600 bg-green-300 rounded">{{ session('success') }}</span>
+                            class="inline-block rounded bg-green-300 p-2 font-semibold text-green-600">{{ session('success') }}</span>
                     @endif
                     <form action="{{ route('event.store_peserta_sekolah') }}" method="POST" class=""
                         enctype="multipart/form-data">
                         @csrf
-                        <div class="grid grid-cols-1 gap-3 mt-4 sm:grid-cols-3">
+                        <div class="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
                             <div class="w-full">
                                 <label class="block text-gray-700" for="ds">DS</label>
                                 <select name="telp_ds" id="ds" class="w-full rounded-md">
@@ -31,19 +31,19 @@
                                     @endforeach
                                 </select>
                                 @error('telp_ds')
-                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                    <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div>
                                 <label class="text-gray-700" for="npsn">NPSN</label>
-                                <input id="npsn" class="w-full rounded-md form-input focus:border-indigo-600"
+                                <input id="npsn" class="form-input w-full rounded-md focus:border-indigo-600"
                                     type="number" name="npsn" placeholder="NPSN" value="{{ old('npsn') }}">
                                 <span id="btn-search"
-                                    class="inline-block mt-1 text-sm underline transition-all cursor-pointer text-sekunder hover:text-black"><i
-                                        class="mr-1 text-sm fa-solid fa-magnifying-glass text-sekunder"></i>Cari
+                                    class="mt-1 inline-block cursor-pointer text-sm text-sekunder underline transition-all hover:text-black"><i
+                                        class="fa-solid fa-magnifying-glass mr-1 text-sm text-sekunder"></i>Cari
                                     Sekolah</span>
                                 @error('npsn')
-                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                    <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
                             </div>
                             {{-- <div>
@@ -76,17 +76,17 @@
                             <div class="col-span-full">
                                 <label class="text-gray-700" for="file">CSV Data Peserta
                                     (nomor_akuisisi_byu)</label>
-                                <input id="file" class="w-full rounded-md form-input focus:border-indigo-600"
+                                <input id="file" class="form-input w-full rounded-md focus:border-indigo-600"
                                     type="file" name="file" value="{{ old('file') }}">
                                 @error('file')
-                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                    <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="flex justify-end mt-4">
+                        <div class="mt-4 flex justify-end">
                             <button
-                                class="w-full px-4 py-2 font-bold text-white rounded-md bg-y_premier hover:bg-y_sekunder focus:outline-none focus:bg-y_sekunder">Submit</button>
+                                class="w-full rounded-md bg-y_premier px-4 py-2 font-bold text-white hover:bg-y_sekunder focus:bg-y_sekunder focus:outline-none">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -94,18 +94,18 @@
             </div>
         </div>
     </div>
-    <div class="fixed inset-0 z-20 flex items-center justify-center w-full h-full overflow-auto bg-black/80"
+    <div class="fixed inset-0 z-20 flex h-full w-full items-center justify-center overflow-auto bg-black/80"
         style="display:none;" id="search" x-transition>
-        <i class="absolute z-10 text-3xl text-white transition cursor-pointer fa-solid fa-xmark top-5 right-10 hover:text-y_premier"
+        <i class="fa-solid fa-xmark absolute right-10 top-5 z-10 cursor-pointer text-3xl text-white transition hover:text-y_premier"
             id="close-search" x-on:click="search=false"></i>
-        <div class="flex flex-col w-full mx-4 overflow-hidden bg-white rounded-lg sm:w-1/2">
-            <span class="inline-block w-full p-4 mb-4 text-lg font-bold text-center text-white bg-y_premier">Cari
+        <div class="mx-4 flex w-full flex-col overflow-hidden rounded-lg bg-white sm:w-1/2">
+            <span class="mb-4 inline-block w-full bg-y_premier p-4 text-center text-lg font-bold text-white">Cari
                 Sekolah</span>
             <input type="text" class="mx-4 rounded" name="sekolah" id="sekolah" placeholder="Ketik Nama Sekolah"
                 class="mb-4" autofocus>
-            <img src="{{ asset('images/loading.svg') }}" alt="Loading" id="loading" class="w-24 h-24 mx-auto mt-6"
+            <img src="{{ asset('images/loading.svg') }}" alt="Loading" id="loading" class="mx-auto mt-6 h-24 w-24"
                 style="display: none">
-            <div class="flex flex-col w-full h-64 py-2 mt-2 overflow-auto" id="school-list">
+            <div class="mt-2 flex h-64 w-full flex-col overflow-auto py-2" id="school-list">
             </div>
         </div>
     </div>
@@ -113,9 +113,11 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            $('#sekolah').on('input', function() {
-                $('#loading').show();
-                findSchool();
+            $('#sekolah').on('keypress', function(e) {
+                if (e.which === 13) {
+                    $('#loading').show();
+                    findSchool();
+                }
             })
             $("#btn-search").click(function() {
                 $('#search').show()
@@ -134,6 +136,7 @@
                         _token: _token
                     },
                     success: (data) => {
+                        console.log(data);
                         $('#school-list').html(
                             data.map((data) => {
                                 return `
