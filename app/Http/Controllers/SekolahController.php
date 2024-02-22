@@ -130,14 +130,18 @@ class SekolahController extends Controller
      */
     public function show($id)
     {
+        $mtd = date('Y-m-d');
+        $m1 = date('Y-m-01', strtotime($mtd));
+
         $list_sekolah = DB::select("SELECT a.*,b.PD as siswa,b.Guru as guru,b.Pegawai as pegawai,b.`R. Kelas` as kelas,c.nama as ao,d.* FROM Data_Sekolah_Sumatera a LEFT JOIN data_rombel_sumatera b ON a.NPSN=b.npsn LEFT JOIN data_sekolah_favorit d ON a.NPSN=d.npsn LEFT JOIN data_user c ON a.TELP=c.telp  WHERE a.NPSN='$id' LIMIT 1;");
         $sekolah = $list_sekolah[0];
+        $npsn = $sekolah->NPSN;
         // ddd($sekolah);
         $outlet = Sekolah::getNearestOutlet($id);
         $site = Sekolah::getNearestSite($id);
         $last_visit = DB::table('table_kunjungan_copy AS a')->join('data_user AS b', 'a.telp', '=', 'b.telp')->where('npsn', $sekolah->NPSN)->orderBy('date', 'DESC')->orderBy('waktu', 'DESC')->limit(3)->get();
-
         $last_survey = DB::table('survey_answer')->select(['session', 'time_start'])->distinct()->where('npsn', $sekolah->NPSN)->orderBy('time_start', 'DESC')->first();
+        $sales = DB::select("SELECT kategori,COUNT(msisdn) as jumlah FROM sales_copy WHERE poi LIKE '%$npsn%' AND date BETWEEN '$m1' AND '$mtd' GROUP BY 1 ORDER BY 1");
 
         if ($last_survey) {
             $answer = DB::table('survey_answer')->where('session', $last_survey->session)->where('npsn', $sekolah->NPSN)->get();
@@ -159,7 +163,7 @@ class SekolahController extends Controller
         }
 
         // ddd($last_visit);
-        return view('sekolah.show', compact('list_sekolah', 'sekolah', 'outlet', 'site', 'last_visit', 'survey', 'answer', 'kode_operator', 'operator'));
+        return view('sekolah.show', compact('list_sekolah', 'sekolah', 'outlet', 'site', 'last_visit', 'sales', 'survey', 'answer', 'kode_operator', 'operator'));
     }
 
     /**

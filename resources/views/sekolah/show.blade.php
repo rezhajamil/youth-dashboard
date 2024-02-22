@@ -12,29 +12,29 @@
     <div class="w-full sm:mx-4">
         <div class="flex flex-col">
             <div class="mt-4">
-                <h4 class="mb-2 text-xl font-bold text-gray-600 align-baseline">
+                <h4 class="mb-2 align-baseline text-xl font-bold text-gray-600">
                     Detail {{ $sekolah->NAMA_SEKOLAH }}
                     <a href="{{ route('sekolah.edit', $sekolah->NPSN) }}" class="ml-2 text-y_premier">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </a>
                 </h4>
 
-                <div class="overflow-auto bg-white rounded-md shadow w-fit">
-                    <table class="overflow-auto text-left border-collapse w-fit">
+                <div class="w-fit overflow-auto rounded-md bg-white shadow">
+                    <table class="w-fit border-collapse overflow-auto text-left">
                         <thead class="border-b">
                             <tr>
-                                <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-y_tersier">NPSN</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Kabupaten</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Alamat</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">AO</th>
+                                <th class="bg-y_tersier p-3 text-sm font-bold uppercase text-gray-100">NPSN</th>
+                                <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Kabupaten</th>
+                                <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Alamat</th>
+                                <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">AO</th>
                             </tr>
                         </thead>
                         <tbody class="max-h-screen overflow-y-auto">
                             <tr class="hover:bg-gray-200">
-                                <td class="p-4 font-bold border-b t ext-gray-700">{{ $sekolah->NPSN ?? '' }}</td>
-                                <td class="p-4 text-gray-700 border-b">{{ $sekolah->CITY ?? '' }}</td>
-                                <td class="p-4 text-gray-700 border-b">{{ $sekolah->ALAMAT ?? '' }}</td>
-                                <td class="p-4 text-gray-700 border-b">{{ $sekolah->ao ?? '' }}</td>
+                                <td class="t ext-gray-700 border-b p-4 font-bold">{{ $sekolah->NPSN ?? '' }}</td>
+                                <td class="border-b p-4 text-gray-700">{{ $sekolah->CITY ?? '' }}</td>
+                                <td class="border-b p-4 text-gray-700">{{ $sekolah->ALAMAT ?? '' }}</td>
+                                <td class="border-b p-4 text-gray-700">{{ $sekolah->ao ?? '' }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -42,26 +42,26 @@
             </div>
 
             <div class="mt-4">
-                <h4 class="mb-2 text-xl font-bold text-gray-600 align-baseline">Profil {{ $sekolah->NAMA_SEKOLAH }}</h4>
+                <h4 class="mb-2 align-baseline text-xl font-bold text-gray-600">Profil {{ $sekolah->NAMA_SEKOLAH }}</h4>
 
-                <div class="overflow-auto bg-white rounded-md shadow w-fit">
-                    <table class="overflow-auto text-left border-collapse w-fit">
+                <div class="w-fit overflow-auto rounded-md bg-white shadow">
+                    <table class="w-fit border-collapse overflow-auto text-left">
                         <thead class="border-b">
                             <tr>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Jumlah Kelas</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Jumlah Siswa</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Jumlah Guru</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Jumlah Pegawai</th>
+                                <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Jumlah Kelas</th>
+                                <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Jumlah Siswa</th>
+                                <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Jumlah Guru</th>
+                                <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Jumlah Pegawai</th>
                                 {{-- <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Tanggal Update</th> --}}
                             </tr>
                         </thead>
                         <tbody class="max-h-screen overflow-y-auto">
                             <tr class="hover:bg-gray-200">
                                 {{-- {{ ddd($data) }} --}}
-                                <td class="p-4 text-gray-700 border-b">{{ $sekolah->kelas ?? '' }}</td>
-                                <td class="p-4 text-gray-700 border-b">{{ $sekolah->siswa ?? '' }}</td>
-                                <td class="p-4 text-gray-700 border-b">{{ $sekolah->guru ?? '' }}</td>
-                                <td class="p-4 text-gray-700 border-b">{{ $sekolah->pegawai ?? '' }}</td>
+                                <td class="border-b p-4 text-gray-700">{{ $sekolah->kelas ?? '' }}</td>
+                                <td class="border-b p-4 text-gray-700">{{ $sekolah->siswa ?? '' }}</td>
+                                <td class="border-b p-4 text-gray-700">{{ $sekolah->guru ?? '' }}</td>
+                                <td class="border-b p-4 text-gray-700">{{ $sekolah->pegawai ?? '' }}</td>
                                 {{-- <td class="p-4 text-gray-700 border-b">
                                     {{ $sekolah->update_date ? date('Y-m-d', strtotime($sekolah->update_date)) : '' }}
                                 </td> --}}
@@ -72,37 +72,37 @@
             </div>
             @if ($sekolah->status == 'P1')
                 <div class="mt-4">
-                    <h4 class="mb-2 text-xl font-bold text-gray-600 align-baseline">Data P1 </h4>
-                    <div class="overflow-auto bg-white rounded-md shadow w-fit">
-                        <table class="overflow-auto text-left border-collapse w-fit">
+                    <h4 class="mb-2 align-baseline text-xl font-bold text-gray-600">Data P1 </h4>
+                    <div class="w-fit overflow-auto rounded-md bg-white shadow">
+                        <table class="w-fit border-collapse overflow-auto text-left">
                             <thead class="border-b">
                                 <tr>
-                                    <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">
+                                    <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">
                                         Kepala Sekolah
                                     </th>
-                                    <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">
+                                    <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">
                                         Operator Sekolah
                                     </th>
-                                    <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">
+                                    <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">
                                         Akses Internet
                                     </th>
-                                    <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">
+                                    <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">
                                         Sumber Listrik
                                     </th>
-                                    <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Siswa Laki-laki
+                                    <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Siswa Laki-laki
                                     </th>
-                                    <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Siswa Perempuan
+                                    <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Siswa Perempuan
                                     </th>
                                 </tr>
                             </thead>
                             <tbody class="max-h-screen overflow-y-auto">
                                 <tr class="hover:bg-gray-200">
-                                    <td class="p-3 text-gray-700 border-b">{{ $sekolah->nama_kepala_sekolah ?? '' }}</td>
-                                    <td class="p-3 text-gray-700 border-b">{{ $sekolah->nama_operator ?? '' }}</td>
-                                    <td class="p-3 text-gray-700 border-b">{{ $sekolah->akses_internet ?? '' }}</td>
-                                    <td class="p-3 text-gray-700 border-b">{{ $sekolah->sumber_listrik ?? '' }}</td>
-                                    <td class="p-3 text-gray-700 border-b">{{ $sekolah->jlh_siswa_lk ?? '' }}</td>
-                                    <td class="p-3 text-gray-700 border-b">{{ $sekolah->jlh_siswa_pr ?? '' }}</td>
+                                    <td class="border-b p-3 text-gray-700">{{ $sekolah->nama_kepala_sekolah ?? '' }}</td>
+                                    <td class="border-b p-3 text-gray-700">{{ $sekolah->nama_operator ?? '' }}</td>
+                                    <td class="border-b p-3 text-gray-700">{{ $sekolah->akses_internet ?? '' }}</td>
+                                    <td class="border-b p-3 text-gray-700">{{ $sekolah->sumber_listrik ?? '' }}</td>
+                                    <td class="border-b p-3 text-gray-700">{{ $sekolah->jlh_siswa_lk ?? '' }}</td>
+                                    <td class="border-b p-3 text-gray-700">{{ $sekolah->jlh_siswa_pr ?? '' }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -110,23 +110,23 @@
                 </div>
             @endif
             @if ($site && $outlet && in_array(auth()->user()->privilege, ['superadmin', 'branch']))
-                <div class="grid w-full grid-flow-row grid-cols-1 mt-4 gap-y-3 gap-x-3 sm:grid-cols-3 grid-auto-rows-min">
+                <div class="grid-auto-rows-min mt-4 grid w-full grid-flow-row grid-cols-1 gap-x-3 gap-y-3 sm:grid-cols-3">
                     <div class="w-full">
-                        <h4 class="mb-2 text-xl font-bold text-gray-600 align-baseline">Site Terdekat</h4>
+                        <h4 class="mb-2 align-baseline text-xl font-bold text-gray-600">Site Terdekat</h4>
 
-                        <div class="w-full overflow-auto bg-white rounded-md shadow">
-                            <table class="w-full overflow-auto text-left border-collapse">
+                        <div class="w-full overflow-auto rounded-md bg-white shadow">
+                            <table class="w-full border-collapse overflow-auto text-left">
                                 <thead class="border-b">
                                     <tr>
-                                        <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-y_tersier">ID SITE</th>
-                                        <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Jarak</th>
+                                        <th class="bg-y_tersier p-3 text-sm font-bold uppercase text-gray-100">ID SITE</th>
+                                        <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Jarak</th>
                                     </tr>
                                 </thead>
                                 <tbody class="max-h-screen overflow-y-auto">
                                     @foreach ($site as $data)
                                         <tr class="hover:bg-gray-200">
-                                            <td class="p-4 font-bold text-gray-700 border-b">{{ $data->site }}</td>
-                                            <td class="p-4 text-gray-700 border-b whitespace-nowrap">{{ $data->jarak }} Km
+                                            <td class="border-b p-4 font-bold text-gray-700">{{ $data->site }}</td>
+                                            <td class="whitespace-nowrap border-b p-4 text-gray-700">{{ $data->jarak }} Km
                                             </td>
                                         </tr>
                                         @php
@@ -140,22 +140,22 @@
                         </div>
                     </div>
                     <div class="w-full">
-                        <h4 class="mb-2 text-xl font-bold text-gray-600 align-baseline">Outlet Terdekat</h4>
+                        <h4 class="mb-2 align-baseline text-xl font-bold text-gray-600">Outlet Terdekat</h4>
 
-                        <div class="w-full overflow-auto bg-white rounded-md shadow">
-                            <table class="w-full overflow-auto text-left border-collapse">
+                        <div class="w-full overflow-auto rounded-md bg-white shadow">
+                            <table class="w-full border-collapse overflow-auto text-left">
                                 <thead class="border-b">
                                     <tr>
-                                        <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-y_tersier">ID Outlet
+                                        <th class="bg-y_tersier p-3 text-sm font-bold uppercase text-gray-100">ID Outlet
                                         </th>
-                                        <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Jarak</th>
+                                        <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Jarak</th>
                                     </tr>
                                 </thead>
                                 <tbody class="max-h-screen overflow-y-auto">
                                     @foreach ($outlet as $data)
                                         <tr class="hover:bg-gray-200">
-                                            <td class="p-4 font-bold text-gray-700 border-b">{{ $data->outlet }}</td>
-                                            <td class="p-4 text-gray-700 border-b whitespace-nowrap">{{ $data->jarak }}
+                                            <td class="border-b p-4 font-bold text-gray-700">{{ $data->outlet }}</td>
+                                            <td class="whitespace-nowrap border-b p-4 text-gray-700">{{ $data->jarak }}
                                                 Km
                                             </td>
                                         </tr>
@@ -173,59 +173,99 @@
                 </div>
             @endif
             <div class="mt-4">
-                <h4 class="mb-2 text-xl font-bold text-gray-600 align-baseline">Kunjungan Terakhir</h4>
+                <div class="flex gap-4">
+                    <div class="">
+                        <h4 class="mb-2 align-baseline text-xl font-bold text-gray-600">Kunjungan Terakhir</h4>
 
-                <div class="overflow-auto bg-white rounded-md shadow w-fit">
-                    <table class="overflow-auto text-left border-collapse w-fit">
-                        <thead class="border-b">
-                            <tr>
-                                <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-y_tersier">Nama</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Telp</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Role</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Tanggal</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Waktu</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Jarak</th>
-                            </tr>
-                        </thead>
-                        <tbody class="max-h-screen overflow-y-auto">
-                            @if ($last_visit)
-                                @foreach ($last_visit as $data)
-                                    <tr class="hover:bg-gray-200">
-                                        <td class="p-4 font-bold text-gray-700 border-b">{{ $data->nama }}</td>
-                                        <td class="p-4 text-gray-700 border-b">{{ $data->telp }}</td>
-                                        <td class="p-4 text-gray-700 border-b">{{ $data->role }}</td>
-                                        <td class="p-4 text-gray-700 border-b">
-                                            {{ date('d-M-Y', strtotime($data->date)) }}</td>
-                                        <td class="p-4 text-gray-700 border-b">{{ $data->waktu }}</td>
-                                        <td class="p-4 text-gray-700 border-b">{{ $data->jarak }} Km</td>
+                        <div class="w-fit overflow-auto rounded-md bg-white shadow">
+                            <table class="w-fit border-collapse overflow-auto text-left">
+                                <thead class="border-b">
+                                    <tr>
+                                        <th class="bg-y_tersier p-3 text-sm font-bold uppercase text-gray-100">Nama</th>
+                                        <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Telp</th>
+                                        <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Role</th>
+                                        <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Tanggal
+                                        </th>
+                                        <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Waktu</th>
+                                        <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Jarak</th>
                                     </tr>
-                                @endforeach
-                            @else
-                                <tr class="hover:bg-gray-200">
-                                    <td colspan="6" class="p-4 font-bold text-center text-gray-700 border-b">Tidak Ada
-                                        Kunjungan</td>
-                                </tr>
-                            @endif
-                        </tbody>
-                    </table>
+                                </thead>
+                                <tbody class="max-h-screen overflow-y-auto">
+                                    @if ($last_visit)
+                                        @foreach ($last_visit as $data)
+                                            <tr class="hover:bg-gray-200">
+                                                <td class="border-b p-4 font-bold text-gray-700">{{ $data->nama }}</td>
+                                                <td class="border-b p-4 text-gray-700">{{ $data->telp }}</td>
+                                                <td class="border-b p-4 text-gray-700">{{ $data->role }}</td>
+                                                <td class="border-b p-4 text-gray-700">
+                                                    {{ date('d-M-Y', strtotime($data->date)) }}</td>
+                                                <td class="border-b p-4 text-gray-700">{{ $data->waktu }}</td>
+                                                <td class="border-b p-4 text-gray-700">{{ $data->jarak }} Km</td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr class="hover:bg-gray-200">
+                                            <td colspan="6" class="border-b p-4 text-center font-bold text-gray-700">
+                                                Tidak Ada
+                                                Kunjungan</td>
+                                        </tr>
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="">
+                        <h4 class="mb-2 align-baseline text-xl font-bold text-gray-600">Penjualan Bulan Ini</h4>
+
+                        <div class="w-fit overflow-auto rounded-md bg-white shadow">
+                            <table class="w-fit border-collapse overflow-auto text-left">
+                                <thead class="border-b">
+                                    <tr>
+                                        <th class="bg-y_tersier p-3 text-sm font-bold uppercase text-gray-100">Kategori
+                                        </th>
+                                        <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Jumlah
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="max-h-screen overflow-y-auto">
+                                    @if ($sales)
+                                        @foreach ($sales as $data)
+                                            <tr class="hover:bg-gray-200">
+                                                <td class="border-b p-4 font-bold text-gray-700">{{ $data->kategori }}
+                                                </td>
+                                                <td class="border-b p-4 text-gray-700">{{ $data->jumlah }}</td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr class="hover:bg-gray-200">
+                                            <td colspan="6" class="border-b p-4 text-center font-bold text-gray-700">
+                                                Tidak Ada
+                                                Penjualan</td>
+                                        </tr>
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
             <div class="mt-8">
-                <h4 class="mb-2 text-xl font-bold text-gray-600 align-baseline">Survey Terakhir | Partisipan:<span
+                <h4 class="mb-2 align-baseline text-xl font-bold text-gray-600">Survey Terakhir | Partisipan:<span
                         id="partisipan"></span></h4>
-                <div class="mb-8 overflow-auto bg-white rounded-md shadow w-fit">
-                    <table class="overflow-auto text-left bg-white border-collapse w-fit" id="table-operator">
+                <div class="mb-8 w-fit overflow-auto rounded-md bg-white shadow">
+                    <table class="w-fit border-collapse overflow-auto bg-white text-left" id="table-operator">
                         <thead class="border-b">
                             <tr class="border-b" id="row-operator">
-                                <th class="p-3 text-sm font-bold text-center text-gray-100 uppercase border bg-y_tersier"
+                                <th class="border bg-y_tersier p-3 text-center text-sm font-bold uppercase text-gray-100"
                                     id="col-lainnya">Lainnya</th>
                             </tr>
                         </thead>
                         <tbody class="max-h-screen overflow-y-auto" id="tbody-operator">
                             <tr id="row-count-operator" class="text-center"></tr>
                             <tr id="row-percent-operator" class="text-center"></tr>
-                            <tr id="load-operator" class="font-semibold text-center text-white bg-tersier">
+                            <tr id="load-operator" class="bg-tersier text-center font-semibold text-white">
                                 <td colspan="8">Memuat Data...</td>
                             </tr>
                         </tbody>
