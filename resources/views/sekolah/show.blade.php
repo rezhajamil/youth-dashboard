@@ -175,6 +175,67 @@
             <div class="mt-4">
                 <div class="flex gap-4">
                     <div class="">
+                        <h4 class="mb-2 align-baseline text-xl font-bold text-gray-600">FB Share |
+                            {{ $sekolah->KECAMATAN }}</h4>
+
+                        <div class="w-fit overflow-auto rounded-md bg-white shadow">
+                            <table class="w-fit border-collapse overflow-auto text-left">
+                                <thead class="border-b text-center">
+                                    <tr>
+                                        <th class="bg-y_tersier p-3 text-sm font-bold uppercase text-gray-100">Tanggal
+                                        </th>
+                                        <th class="bg-red-600 p-3 text-sm font-medium uppercase text-gray-100">Telkomsel
+                                        </th>
+                                        <th class="bg-blue-600 p-3 text-sm font-medium uppercase text-gray-100">XL
+                                        </th>
+                                        <th class="bg-yellow-600 p-3 text-sm font-medium uppercase text-gray-100">Indosat
+                                        </th>
+                                        <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Tri
+                                        </th>
+                                        <th class="bg-purple-600 p-3 text-sm font-medium uppercase text-gray-100">Smartfren
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="max-h-screen overflow-y-auto">
+                                    @if ($fb_share)
+                                        @foreach ($fb_share as $data)
+                                            <tr class="text-center hover:bg-gray-200">
+                                                <td class="border-b p-4 font-bold text-gray-700">
+                                                    {{ date('d M Y', strtotime($data->tgl)) }}
+                                                </td>
+                                                <td class="border-b p-4 text-gray-700">
+                                                    {{ (float) str_replace(',', '.', $data->tsel) * 100 }}%
+                                                </td>
+                                                <td class="border-b p-4 text-gray-700">
+                                                    {{ (float) str_replace(',', '.', $data->xl) * 100 }}%
+                                                </td>
+                                                <td class="border-b p-4 text-gray-700">
+                                                    {{ (float) str_replace(',', '.', $data->isat) * 100 }}%
+                                                </td>
+                                                <td class="border-b p-4 text-gray-700">
+                                                    {{ (float) str_replace(',', '.', $data->tri) * 100 }}%
+                                                </td>
+                                                <td class="border-b p-4 text-gray-700">
+                                                    {{ (float) str_replace(',', '.', $data->smf) * 100 }}%
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr class="hover:bg-gray-200">
+                                            <td colspan="6" class="border-b p-4 text-center font-bold text-gray-700">
+                                                Tidak Ada Data FB Share</td>
+                                        </tr>
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="mt-4">
+                <div class="flex gap-4">
+                    <div class="">
                         <h4 class="mb-2 align-baseline text-xl font-bold text-gray-600">Kunjungan Terakhir</h4>
 
                         <div class="w-fit overflow-auto rounded-md bg-white shadow">
@@ -239,8 +300,7 @@
                                     @else
                                         <tr class="hover:bg-gray-200">
                                             <td colspan="6" class="border-b p-4 text-center font-bold text-gray-700">
-                                                Tidak Ada
-                                                Penjualan</td>
+                                                Tidak Ada Penjualan</td>
                                         </tr>
                                     @endif
                                 </tbody>

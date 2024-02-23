@@ -142,6 +142,7 @@ class SekolahController extends Controller
         $last_visit = DB::table('table_kunjungan_copy AS a')->join('data_user AS b', 'a.telp', '=', 'b.telp')->where('npsn', $sekolah->NPSN)->orderBy('date', 'DESC')->orderBy('waktu', 'DESC')->limit(3)->get();
         $last_survey = DB::table('survey_answer')->select(['session', 'time_start'])->distinct()->where('npsn', $sekolah->NPSN)->orderBy('time_start', 'DESC')->first();
         $sales = DB::select("SELECT kategori,COUNT(msisdn) as jumlah FROM sales_copy WHERE poi LIKE '%$npsn%' AND date BETWEEN '$m1' AND '$mtd' GROUP BY 1 ORDER BY 1");
+        $fb_share = DB::select("SELECT tsel,xl,isat,tri,smf,tgl FROM fb_share WHERE district='$sekolah->KECAMATAN' AND tgl >= DATE_SUB(NOW(), INTERVAL 3 WEEK) ORDER BY tgl ASC;");
 
         if ($last_survey) {
             $answer = DB::table('survey_answer')->where('session', $last_survey->session)->where('npsn', $sekolah->NPSN)->get();
@@ -163,7 +164,7 @@ class SekolahController extends Controller
         }
 
         // ddd($last_visit);
-        return view('sekolah.show', compact('list_sekolah', 'sekolah', 'outlet', 'site', 'last_visit', 'sales', 'survey', 'answer', 'kode_operator', 'operator'));
+        return view('sekolah.show', compact('list_sekolah', 'sekolah', 'outlet', 'site', 'last_visit', 'sales', 'fb_share', 'survey', 'answer', 'kode_operator', 'operator'));
     }
 
     /**
