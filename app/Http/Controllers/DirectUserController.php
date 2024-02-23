@@ -181,8 +181,22 @@ class DirectUserController extends Controller
 
         $mtd = date('Y-m-d');
         $m1 = date('Y-m-01', strtotime($mtd));
-        $kpi = DB::select(" SELECT a.branch,a.cluster,a.nama,a.telp,a.id_digipos,a.`role`, g.mytsel,e.update_data,f.pjp,h.quiz,i.survey,j.broadband,k.digital
+        // $kpi = DB::select(" SELECT a.branch,a.cluster,a.nama,a.telp,a.id_digipos,a.`role`, g.mytsel,e.update_data,f.pjp,h.quiz,i.survey,j.broadband,k.digital
+        //     FROM data_user a
+        //     LEFT JOIN (SELECT telp, COUNT(msisdn) mytsel FROM sales_copy WHERE date BETWEEN '$m1' AND '$mtd' AND kategori='MY TELKOMSEL' GROUP BY 1) g ON a.telp = g.telp
+        //     LEFT JOIN (SELECT telp,COUNT(NPSN) update_data FROM Data_Sekolah_Sumatera WHERE UPDATED_AT BETWEEN '$m1' AND '$mtd' AND LONGITUDE!='' GROUP BY 1) e ON a.telp=e.telp
+        //     LEFT JOIN (SELECT telp,COUNT(npsn) pjp FROM table_kunjungan_copy WHERE date BETWEEN '$m1' AND '$mtd' GROUP BY 1) f ON a.telp=f.telp
+        //     LEFT JOIN (SELECT telp,SUM(hasil) quiz FROM quiz_answer WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) h ON a.telp=h.telp
+        //     LEFT JOIN (SELECT Data_Sekolah_Sumatera.telp,COUNT(survey_answer.telp_siswa) survey FROM survey_answer JOIN Data_Sekolah_Sumatera ON survey_answer.npsn=Data_Sekolah_Sumatera.NPSN WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) i ON a.telp=i.telp
+        //     LEFT JOIN (SELECT digipos_ao,SUM(price) broadband FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DATA' GROUP BY 1) j ON a.id_digipos=j.digipos_ao
+        //     LEFT JOIN (SELECT digipos_ao,SUM(price) digital FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL' GROUP BY 1) k ON a.id_digipos=k.digipos_ao
+        //     WHERE a.telp='$user->telp' AND a.status=1");
+
+        $kpi = DB::select("SELECT a.branch,a.cluster,a.nama,a.telp,a.id_digipos,a.`role`,b.byu,c.sales_byu, g.mytsel,e.update_data,f.pjp,h.quiz,i.survey,j.broadband,k.digital,
+            (COALESCE(b.byu,0)+COALESCE(c.sales_byu,0)) as sales_acquisition
             FROM data_user a
+            LEFT JOIN (SELECT id_digipos, SUM(revenue) byu FROM byu_sales_ds WHERE date BETWEEN '$m1' AND '$mtd' GROUP BY 1) b ON a.id_digipos = b.id_digipos
+            LEFT JOIN (SELECT telp, COUNT(msisdn)*20000 sales_byu FROM sales_copy WHERE date BETWEEN '$m1' AND '$mtd' AND (kategori='BYU' OR (kategori='TRADE IN' AND detail='By.U')) GROUP BY 1) c ON a.telp = c.telp
             LEFT JOIN (SELECT telp, COUNT(msisdn) mytsel FROM sales_copy WHERE date BETWEEN '$m1' AND '$mtd' AND kategori='MY TELKOMSEL' GROUP BY 1) g ON a.telp = g.telp
             LEFT JOIN (SELECT telp,COUNT(NPSN) update_data FROM Data_Sekolah_Sumatera WHERE UPDATED_AT BETWEEN '$m1' AND '$mtd' AND LONGITUDE!='' GROUP BY 1) e ON a.telp=e.telp
             LEFT JOIN (SELECT telp,COUNT(npsn) pjp FROM table_kunjungan_copy WHERE date BETWEEN '$m1' AND '$mtd' GROUP BY 1) f ON a.telp=f.telp
@@ -190,11 +204,15 @@ class DirectUserController extends Controller
             LEFT JOIN (SELECT Data_Sekolah_Sumatera.telp,COUNT(survey_answer.telp_siswa) survey FROM survey_answer JOIN Data_Sekolah_Sumatera ON survey_answer.npsn=Data_Sekolah_Sumatera.NPSN WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) i ON a.telp=i.telp
             LEFT JOIN (SELECT digipos_ao,SUM(price) broadband FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DATA' GROUP BY 1) j ON a.id_digipos=j.digipos_ao
             LEFT JOIN (SELECT digipos_ao,SUM(price) digital FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL' GROUP BY 1) k ON a.id_digipos=k.digipos_ao
-            WHERE a.telp='$user->telp' AND a.status=1");
+            WHERE a.telp='$user->telp' AND a.status=1
+            ORDER BY 1,2,3,5;");
 
 
         foreach ($kpi as $data) {
             foreach ($list_target as $i_target => $target) {
+                // if ($i_target == 'sales_acquisition') {
+                //     ddd($data);
+                // }
                 $ach_target = (intval($data->{$i_target}) / intval(str_replace('.', '', $target['target']))) * 100;
 
                 if ($ach_target < 100) {
@@ -519,7 +537,6 @@ class DirectUserController extends Controller
             LEFT JOIN (SELECT digipos_ao,SUM(price) digital FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL' GROUP BY 1) k ON a.id_digipos=k.digipos_ao
             WHERE $where_loc $where_role a.status=1
             ORDER BY 1,2,3,5;");
-
 
             foreach ($detail as $data) {
                 foreach ($list_target as $i_target => $target) {
