@@ -204,19 +204,19 @@
                                                     {{ date('d M Y', strtotime($data->tgl)) }}
                                                 </td>
                                                 <td class="border-b p-4 text-gray-700">
-                                                    {{ (float) str_replace(',', '.', $data->tsel) * 100 }}%
+                                                    {{ $data->tsel * 100 }}%
                                                 </td>
                                                 <td class="border-b p-4 text-gray-700">
-                                                    {{ (float) str_replace(',', '.', $data->xl) * 100 }}%
+                                                    {{ $data->xl * 100 }}%
                                                 </td>
                                                 <td class="border-b p-4 text-gray-700">
-                                                    {{ (float) str_replace(',', '.', $data->isat) * 100 }}%
+                                                    {{ $data->isat * 100 }}%
                                                 </td>
                                                 <td class="border-b p-4 text-gray-700">
-                                                    {{ (float) str_replace(',', '.', $data->tri) * 100 }}%
+                                                    {{ $data->tri * 100 }}%
                                                 </td>
                                                 <td class="border-b p-4 text-gray-700">
-                                                    {{ (float) str_replace(',', '.', $data->smf) * 100 }}%
+                                                    {{ $data->smf * 100 }}%
                                                 </td>
                                             </tr>
                                         @endforeach

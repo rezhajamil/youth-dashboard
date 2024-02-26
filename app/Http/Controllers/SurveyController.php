@@ -520,6 +520,97 @@ class SurveyController extends Controller
         return view('directUser.survey.lucky_draw', compact('list_survey', 'survey', 'sekolah', 'participant', 'plain'));
     }
 
+    public function fb_share(Request $request)
+    {
+        $kabupaten = $request->kabupaten;
+
+        $mtd = DB::table('fb_share')->select('tgl')->orderBy('tgl', 'desc')->first();
+        $mtd = $mtd->tgl;
+
+        $w1 = date('Y-m-d', strtotime('-1 weeks', strtotime($mtd)));
+        $w2 = date('Y-m-d', strtotime('-2 weeks', strtotime($mtd)));
+        $w3 = date('Y-m-d', strtotime('-3 weeks', strtotime($mtd)));
+
+        $list_kabupaten = DB::table('fb_share')->select('kab as kabupaten')->distinct()->where('kab', '!=', null)->orderBy('kabupaten', 'asc');
+
+        if (auth()->user()->privilege != 'superadmin') {
+            if (auth()->user()->privilege == 'branch') $list_kabupaten = $list_kabupaten->where('branch', auth()->user()->branch);
+            if (auth()->user()->privilege == 'cluster') $list_kabupaten = $list_kabupaten->where('cluster', auth()->user()->cluster);
+        }
+
+        $list_kabupaten = $list_kabupaten->get();
+
+        $query = "SELECT district,
+            MAX(CASE WHEN tgl='$mtd' THEN tsel END) AS tsel, 
+            MAX(CASE WHEN tgl='$mtd' THEN xl END) AS xl, 
+            MAX(CASE WHEN tgl='$mtd' THEN isat END) AS isat, 
+            MAX(CASE WHEN tgl='$mtd' THEN tri END) AS tri, 
+            MAX(CASE WHEN tgl='$mtd' THEN smf END) AS smf,
+            MAX(CASE WHEN tgl = '$w1' THEN tsel END) AS w1,
+            MAX(CASE WHEN tgl = '$w2' THEN tsel END) AS w2,
+            MAX(CASE WHEN tgl = '$w3' THEN tsel END) AS w3
+            FROM fb_share a 
+            WHERE a.kab='$kabupaten'
+            AND 
+            tgl BETWEEN '$w3' AND '$mtd'
+            GROUP BY 1
+            ORDER BY a.district;";
+        // ddd(round(('0.4396' - '0.4405'), 4));
+
+        $fb_share = DB::select($query);
+
+        return view('directUser.fb_share.index', compact('mtd', 'w1', 'w2', 'w3', 'kabupaten', 'list_kabupaten', 'fb_share'));
+    }
+
+    public function fb_share_detail(Request $request)
+    {
+        $kecamatan = $request->kecamatan;
+        $mtd = date('Y-m-d');
+        $m1 = date('Y-m-01');
+
+        $query =
+            "SELECT a.NPSN as npsn,a.`Nama Sekolah` as nama_sekolah,
+            b.clockin,c.ds,a.PD as jumlah_siswa,d.survey
+            FROM data_rombel_sumatera a  
+            JOIN 
+            (
+                SELECT npsn,MAX(date) as clockin FROM table_kunjungan_copy GROUP BY 1
+            ) b
+            ON a.NPSN=b.npsn
+            JOIN 
+            (
+                SELECT npsn,a.nama as ds FROM data_user a JOIN Data_Sekolah_Sumatera b ON a.telp=b.TELP 
+            ) c
+            ON a.NPSN=c.npsn
+            JOIN 
+            (
+                SELECT npsn,
+                (COUNT(
+                    CASE WHEN telp_siswa LIKE '0811%'
+                    OR telp_siswa LIKE '0812%'
+                    OR telp_siswa LIKE '0813%'
+                    OR telp_siswa LIKE '0821%'
+                    OR telp_siswa LIKE '0822%'
+                    OR telp_siswa LIKE '0823%'
+                    OR telp_siswa LIKE '0851%'
+                    OR telp_siswa LIKE '0852%'
+                    OR telp_siswa LIKE '0853%'
+                    THEN id
+                    END
+                )/COUNT(id))*100 survey
+                FROM survey_answer 
+                WHERE `session`=24
+                GROUP BY 1
+            ) d
+            ON a.NPSN=d.npsn
+            WHERE a.PD>=500 
+            AND a.Kecamatan='$kecamatan';";
+
+        $detail = DB::select($query);
+
+        return view('directUser.fb_share.detail', compact('kecamatan', 'mtd', 'm1', 'detail'));
+    }
+
 
     public function telp_list(Request $request)
     {

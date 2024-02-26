@@ -1,20 +1,20 @@
 @extends('layouts.dashboard.app')
 @section('body')
-    <div class="w-full mx-4">
+    <div class="mx-4 w-full">
         <div class="flex flex-col">
             <div class="mt-4">
-                <div class="flex justify-between mb-4">
-                    <h4 class="text-xl font-bold text-gray-600 align-baseline">Data Sekolah</h4>
-                    <div class="flex mr-4 gap-x-4">
+                <div class="mb-4 flex justify-between">
+                    <h4 class="align-baseline text-xl font-bold text-gray-600">Data Sekolah</h4>
+                    <div class="mr-4 flex gap-x-4">
                         {{-- <a href="" class="px-4 py-2 font-bold text-white transition bg-green-600 rounded-lg hover:bg-green-800"><i class="mr-2 fa-solid fa-square-up-right"></i>PJP</a> --}}
                         {{-- <a href="" class="px-4 py-2 font-bold text-white transition bg-green-600 rounded-lg hover:bg-green-800"><i class="mr-2 fa-solid fa-square-up-right"></i>OSS</a> --}}
                         {{-- <a href="" class="px-4 py-2 font-bold text-white transition bg-green-600 rounded-lg hover:bg-green-800"><i class="mr-2 fa-solid fa-square-up-right"></i>OSK</a> --}}
                     </div>
                 </div>
                 <div class="flex justify-between">
-                    <form class="flex flex-wrap items-center my-3 gap-x-4 gap-y-2" action="{{ route('sekolah.index') }}"
+                    <form class="my-3 flex flex-wrap items-center gap-x-4 gap-y-2" action="{{ route('sekolah.index') }}"
                         method="get">
-                        <select name="provinsi" id="provinsi" class="px-8 rounded-lg">
+                        <select name="provinsi" id="provinsi" class="rounded-lg px-8">
                             <option value="" selected disabled>Pilih Provinsi</option>
                             @foreach ($provinsi as $item)
                                 <option value="{{ $item->provinsi }}"
@@ -23,7 +23,7 @@
                                 </option>
                             @endforeach
                         </select>
-                        <select name="kabupaten" id="kabupaten" class="px-8 rounded-lg">
+                        <select name="kabupaten" id="kabupaten" class="rounded-lg px-8">
                             <option value="" selected disabled>Pilih Kabupaten/Kota</option>
                             @foreach ($kabupaten as $item)
                                 <option value="{{ $item->kabupaten }}"
@@ -32,7 +32,7 @@
                                 </option>
                             @endforeach
                         </select>
-                        <select name="kecamatan" id="kecamatan" class="px-8 rounded-lg">
+                        <select name="kecamatan" id="kecamatan" class="rounded-lg px-8">
                             <option value="" selected disabled>Pilih Kecamatan</option>
                             @foreach ($kecamatan as $item)
                                 <option value="{{ $item->kecamatan }}"
@@ -43,31 +43,31 @@
                         </select>
                         <div class="flex gap-x-3">
                             <button
-                                class="px-4 py-2 font-bold text-white transition rounded-lg bg-y_premier hover:bg-y_premier"><i
-                                    class="mr-2 fa-solid fa-magnifying-glass"></i>Cari</button>
+                                class="rounded-lg bg-y_premier px-4 py-2 font-bold text-white transition hover:bg-y_premier"><i
+                                    class="fa-solid fa-magnifying-glass mr-2"></i>Cari</button>
                             @if (request()->get('provinsi') || request()->get('kabupaten') || request()->get('kecamatan'))
                                 <a href="{{ route('sekolah.index') }}"
-                                    class="px-4 py-2 font-bold text-white transition bg-gray-600 rounded-lg hover:bg-gray-800"><i
-                                        class="mr-2 fa-solid fa-circle-xmark"></i>Reset</a>
+                                    class="rounded-lg bg-gray-600 px-4 py-2 font-bold text-white transition hover:bg-gray-800"><i
+                                        class="fa-solid fa-circle-xmark mr-2"></i>Reset</a>
                             @endif
                         </div>
                     </form>
                 </div>
 
-                <div class="flex items-center my-3 gap-x-4">
-                    <select name="branch" id="branch" class="px-6 rounded-lg">
+                <div class="my-3 flex items-center gap-x-4">
+                    <select name="branch" id="branch" class="rounded-lg px-6">
                         <option value="" selected>Pilih Branch</option>
                         @foreach ($branch as $item)
                             <option value="{{ $item->branch }}">{{ $item->branch }}</option>
                         @endforeach
                     </select>
-                    <select name="cluster" id="cluster" class="px-6 rounded-lg">
+                    <select name="cluster" id="cluster" class="rounded-lg px-6">
                         <option value="" selected disabled>Pilih Cluster</option>
                     </select>
                 </div>
 
-                <div class="flex flex-wrap items-end my-3 gap-x-4">
-                    <input type="text" name="search" id="search" placeholder="Search..." class="px-4 rounded-lg">
+                <div class="my-3 flex flex-wrap items-end gap-x-4">
+                    <input type="text" name="search" id="search" placeholder="Search..." class="rounded-lg px-4">
                     <div class="flex flex-col">
                         {{-- <span class="font-bold text-gray-600">Berdasarkan</span> --}}
                         <select name="search_by" id="search_by" class="rounded-lg">
@@ -83,44 +83,44 @@
                 {{-- <span class="inline-block mt-6 mb-2 text-lg font-semibold text-gray-600">Direct Sales By Region</span> --}}
                 {{-- <a href="{{ route('direct_user.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white rounded-md bg-y_premier hover:bg-y_premier"><i class="mr-2 fa-solid fa-plus"></i> Data User Baru</a> --}}
 
-                <div class="overflow-auto bg-white rounded-md shadow w-fit">
-                    <table class="overflow-auto text-left border-collapse w-fit">
+                <div class="w-fit overflow-auto rounded-md bg-white shadow">
+                    <table class="w-fit border-collapse overflow-auto text-left">
                         <thead class="border">
                             <tr>
-                                <th class="p-2 text-sm font-bold text-gray-100 uppercase border border-white bg-y_tersier">
+                                <th class="border border-white bg-y_tersier p-2 text-sm font-bold uppercase text-gray-100">
                                     No</th>
                                 <th
-                                    class="p-2 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="border border-white bg-y_tersier p-2 text-sm font-medium uppercase text-gray-100">
                                     Status</th>
                                 <th
-                                    class="p-2 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="border border-white bg-y_tersier p-2 text-sm font-medium uppercase text-gray-100">
                                     NPSN</th>
                                 <th
-                                    class="p-2 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="border border-white bg-y_tersier p-2 text-sm font-medium uppercase text-gray-100">
                                     Kabupaten</th>
                                 <th
-                                    class="p-2 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="border border-white bg-y_tersier p-2 text-sm font-medium uppercase text-gray-100">
                                     Kecamatan</th>
                                 <th
-                                    class="p-2 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="border border-white bg-y_tersier p-2 text-sm font-medium uppercase text-gray-100">
                                     Nama Sekolah</th>
                                 <th
-                                    class="p-2 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="border border-white bg-y_tersier p-2 text-sm font-medium uppercase text-gray-100">
                                     Status</th>
                                 <th
-                                    class="p-2 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="border border-white bg-y_tersier p-2 text-sm font-medium uppercase text-gray-100">
                                     Jenjang</th>
                                 <th
-                                    class="p-2 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="border border-white bg-y_tersier p-2 text-sm font-medium uppercase text-gray-100">
                                     Cluster</th>
                                 <th
-                                    class="p-2 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="border border-white bg-y_tersier p-2 text-sm font-medium uppercase text-gray-100">
                                     PJP</th>
                                 <th
-                                    class="p-2 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="border border-white bg-y_tersier p-2 text-sm font-medium uppercase text-gray-100">
                                     FREKUENSI</th>
                                 <th
-                                    class="p-2 text-sm font-medium text-gray-100 uppercase border border-white bg-y_tersier">
+                                    class="border border-white bg-y_tersier p-2 text-sm font-medium uppercase text-gray-100">
                                     Action</th>
                             </tr>
                         </thead>
@@ -132,32 +132,32 @@
                                 @if ($data->LATITUDE && $data->LONGITUDE)
                                     <tr class="hover:bg-gray-200">
                                         {{-- {{ ddd($data) }} --}}
-                                        <td class="p-2 font-bold text-gray-700 border">{{ ++$no }}</td>
-                                        <td class="p-2 font-bold text-center text-gray-700 border">
+                                        <td class="border p-2 font-bold text-gray-700">{{ ++$no }}</td>
+                                        <td class="border p-2 text-center font-bold text-gray-700">
                                             @if ($data->status == 'P1')
-                                                <i class="text-3xl fa-solid fa-medal text-y_tersier" />
+                                                <i class="fa-solid fa-medal text-3xl text-y_tersier" />
                                             @endif
                                         </td>
-                                        <td class="p-2 text-gray-700 border npsn">{{ $data->NPSN }}</td>
-                                        <td class="p-2 text-gray-700 border kabupaten">{{ $data->KAB_KOTA }}</td>
-                                        <td class="p-2 text-gray-700 border kecamatan">{{ $data->KECAMATAN }}</td>
-                                        <td class="p-2 text-gray-700 border nama">{{ $data->NAMA_SEKOLAH }}</td>
-                                        <td class="p-2 text-gray-700 border status">{{ $data->STATUS_SEKOLAH }}</td>
-                                        <td class="p-2 text-gray-700 border jenjang">{{ $data->JENJANG }}</td>
-                                        <td class="p-2 text-gray-700 border cluster">{{ $data->CLUSTER }}</td>
-                                        <td class="p-2 text-gray-700 border ">{{ $data->PJP }}</td>
-                                        <td class="p-2 text-gray-700 border ">{{ $data->FREKUENSI }}</td>
-                                        <td class="p-2 text-gray-700 border">
+                                        <td class="npsn border p-2 text-gray-700">{{ $data->NPSN }}</td>
+                                        <td class="kabupaten border p-2 text-gray-700">{{ $data->KAB_KOTA }}</td>
+                                        <td class="kecamatan border p-2 text-gray-700">{{ $data->KECAMATAN }}</td>
+                                        <td class="nama border p-2 text-gray-700">{{ $data->NAMA_SEKOLAH }}</td>
+                                        <td class="status border p-2 text-gray-700">{{ $data->STATUS_SEKOLAH }}</td>
+                                        <td class="jenjang border p-2 text-gray-700">{{ $data->JENJANG }}</td>
+                                        <td class="cluster border p-2 text-gray-700">{{ $data->CLUSTER }}</td>
+                                        <td class="border p-2 text-gray-700">{{ $data->PJP }}</td>
+                                        <td class="border p-2 text-gray-700">{{ $data->FREKUENSI }}</td>
+                                        <td class="border p-2 text-gray-700">
                                             <a href="{{ route('sekolah.show', $data->NPSN) }}" target="_blank"
-                                                class="block my-1 text-base font-semibold text-teal-600 transition hover:text-teal-800">Detail</a>
+                                                class="my-1 block text-base font-semibold text-teal-600 transition hover:text-teal-800">Detail</a>
                                             {{-- @if (Auth::user()->privilege != 'cluster') --}}
                                             <a href="{{ route('sekolah.edit', $data->NPSN) }}" target="_blank"
-                                                class="block my-1 text-base font-semibold transition text-y_premier hover:text-indigo-800">Edit</a>
+                                                class="my-1 block text-base font-semibold text-y_premier transition hover:text-indigo-800">Edit</a>
                                             {{-- @endif --}}
                                             @if ($data->LATITUDE && $data->LONGITUDE)
                                                 <a target="_blank"
                                                     href="http://maps.google.com/maps?z=12&t=m&q=loc:{{ $data->LATITUDE }}+{{ $data->LONGITUDE }}"
-                                                    class="block my-1 text-base font-semibold transition text-y_sekunder whitespace-nowrap hover:text-teal-600">Cek
+                                                    class="my-1 block whitespace-nowrap text-base font-semibold text-y_sekunder transition hover:text-teal-600">Cek
                                                     Lokasi</a>
                                             @endif
                                             {{-- <form action="{{ route('direct_user.change_status',$data->id) }}" method="post">
@@ -173,32 +173,32 @@
                                 @if (!$data->LATITUDE || !$data->LONGITUDE)
                                     <tr class="hover:bg-gray-200">
                                         {{-- {{ ddd($data) }} --}}
-                                        <td class="p-2 font-bold text-gray-700 border">{{ ++$no }}</td>
-                                        <td class="p-2 font-bold text-center text-gray-700 border">
+                                        <td class="border p-2 font-bold text-gray-700">{{ ++$no }}</td>
+                                        <td class="border p-2 text-center font-bold text-gray-700">
                                             @if ($data->status == 'P1')
-                                                <i class="text-3xl fa-solid fa-medal text-y_tersier colsf" />
+                                                <i class="fa-solid fa-medal colsf text-3xl text-y_tersier" />
                                             @endif
                                         </td>
-                                        <td class="p-2 text-gray-700 border npsn">{{ $data->NPSN }}</td>
-                                        <td class="p-2 text-gray-700 border kabupaten">{{ $data->KAB_KOTA }}</td>
-                                        <td class="p-2 text-gray-700 border kecamatan">{{ $data->KECAMATAN }}</td>
-                                        <td class="p-2 text-gray-700 border nama">{{ $data->NAMA_SEKOLAH }}</td>
-                                        <td class="p-2 text-gray-700 border status">{{ $data->STATUS_SEKOLAH }}</td>
-                                        <td class="p-2 text-gray-700 border jenjang">{{ $data->JENJANG }}</td>
-                                        <td class="p-2 text-gray-700 border cluster">{{ $data->CLUSTER }}</td>
-                                        <td class="p-2 text-gray-700 border ">{{ $data->PJP }}</td>
-                                        <td class="p-2 text-gray-700 border ">{{ $data->FREKUENSI }}</td>
-                                        <td class="p-2 text-gray-700 border">
+                                        <td class="npsn border p-2 text-gray-700">{{ $data->NPSN }}</td>
+                                        <td class="kabupaten border p-2 text-gray-700">{{ $data->KAB_KOTA }}</td>
+                                        <td class="kecamatan border p-2 text-gray-700">{{ $data->KECAMATAN }}</td>
+                                        <td class="nama border p-2 text-gray-700">{{ $data->NAMA_SEKOLAH }}</td>
+                                        <td class="status border p-2 text-gray-700">{{ $data->STATUS_SEKOLAH }}</td>
+                                        <td class="jenjang border p-2 text-gray-700">{{ $data->JENJANG }}</td>
+                                        <td class="cluster border p-2 text-gray-700">{{ $data->CLUSTER }}</td>
+                                        <td class="border p-2 text-gray-700">{{ $data->PJP }}</td>
+                                        <td class="border p-2 text-gray-700">{{ $data->FREKUENSI }}</td>
+                                        <td class="border p-2 text-gray-700">
                                             <a href="{{ route('sekolah.show', $data->NPSN) }}" target="_blank"
-                                                class="block my-1 text-base font-semibold text-teal-600 transition hover:text-teal-800">Detail</a>
+                                                class="my-1 block text-base font-semibold text-teal-600 transition hover:text-teal-800">Detail</a>
                                             {{-- @if (Auth::user()->privilege != 'cluster') --}}
                                             <a href="{{ route('sekolah.edit', $data->NPSN) }}"
-                                                class="block my-1 text-base font-semibold transition text-y_premier hover:text-indigo-800">Edit</a>
+                                                class="my-1 block text-base font-semibold text-y_premier transition hover:text-indigo-800">Edit</a>
                                             {{-- @endif --}}
                                             @if ($data->LATITUDE && $data->LONGITUDE)
                                                 <a target="_blank"
                                                     href="http://maps.google.com/maps?z=12&t=m&q=loc:{{ $data->LATITUDE }}+{{ $data->LONGITUDE }}"
-                                                    class="block my-1 text-base font-semibold transition text-y_sekunder whitespace-nowrap hover:text-teal-600">Cek
+                                                    class="my-1 block whitespace-nowrap text-base font-semibold text-y_sekunder transition hover:text-teal-600">Cek
                                                     Lokasi</a>
                                             @endif
                                             {{-- <form action="{{ route('direct_user.change_status',$data->id) }}" method="post">
