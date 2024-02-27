@@ -1,16 +1,16 @@
 @extends('layouts.dashboard.app')
 @section('body')
-    <div class="w-full mx-4 my-4">
+    <div class="mx-4 my-4 w-full">
         <div class="flex flex-col">
             <div class="mt-4">
-                <h4 class="text-xl font-bold text-gray-600 align-baseline">Sales By Location</h4>
+                <h4 class="align-baseline text-xl font-bold text-gray-600">Sales By Location</h4>
                 {{-- <span class="text-sm">Update : {{ $update[0]->last_update }}</span> --}}
-                <div class="flex justify-between mt-4">
-                    <form class="flex flex-wrap items-center mt-4 gap-x-4 gap-y-2" action="{{ route('sales.location') }}"
+                <div class="mt-4 flex justify-between">
+                    <form class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2" action="{{ route('sales.location') }}"
                         method="get">
-                        <input type="date" name="date" id="date" class="px-4 rounded-lg"
+                        <input type="date" name="date" id="date" class="rounded-lg px-4"
                             value="{{ request()->get('date') }}" required>
-                        <select name="jenis" id="jenis" class="px-8 rounded-lg" required>
+                        <select name="jenis" id="jenis" class="rounded-lg px-8" required>
                             <option value="" selected disabled>Pilih Jenis</option>
                             @foreach ($list_jenis as $data)
                                 <option value="{{ $data->jenis }}"
@@ -19,7 +19,7 @@
                                 </option>
                             @endforeach
                         </select>
-                        <select name="location" id="location" class="px-8 rounded-lg" required>
+                        <select name="location" id="location" class="rounded-lg px-8">
                             <option value="" selected disabled>Pilih Location</option>
                             <option value="{{ request()->get('location') }}"
                                 {{ request()->get('location') ? 'selected' : '' }}>
@@ -28,26 +28,26 @@
                         </select>
                         <div class="flex gap-x-3">
                             <button
-                                class="px-4 py-2 font-bold text-white transition rounded-lg bg-y_premier hover:bg-y_premier"><i
-                                    class="mr-2 fa-solid fa-magnifying-glass"></i>Cari</button>
+                                class="rounded-lg bg-y_premier px-4 py-2 font-bold text-white transition hover:bg-y_premier"><i
+                                    class="fa-solid fa-magnifying-glass mr-2"></i>Cari</button>
                             @if (request()->get('date') || request()->get('kategori'))
                                 <a href="{{ route('sales.location') }}"
-                                    class="px-4 py-2 font-bold text-white transition bg-gray-600 rounded-lg hover:bg-gray-800"><i
-                                        class="mr-2 fa-solid fa-circle-xmark"></i>Reset</a>
+                                    class="rounded-lg bg-gray-600 px-4 py-2 font-bold text-white transition hover:bg-gray-800"><i
+                                        class="fa-solid fa-circle-xmark mr-2"></i>Reset</a>
                             @endif
                         </div>
                     </form>
                 </div>
 
 
-                <span class="block mt-6 mb-2 text-lg font-semibold text-gray-600">Sales Location By Kategori</span>
-                <div class="overflow-hidden bg-white rounded-md shadow w-fit" id="table-category">
-                    <table class="text-left border-collapse w-fit">
+                <span class="mb-2 mt-6 block text-lg font-semibold text-gray-600">Sales Location By Kategori</span>
+                <div class="w-fit overflow-hidden rounded-md bg-white shadow" id="table-category">
+                    <table class="w-fit border-collapse text-left">
                         <thead class="border-b">
                             <tr>
-                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Kategori</th>
+                                <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">Kategori</th>
                                 @foreach (array_unique(array_column($sales_kategori, 'date')) as $date)
-                                    <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">
+                                    <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">
                                         {{ date('d M', strtotime($date)) }}</th>
                                 @endforeach
                             </tr>
@@ -55,7 +55,7 @@
                         <tbody>
                             @foreach (array_unique(array_column($sales_kategori, 'kategori')) as $key => $kategori)
                                 <tr class="hover:bg-gray-200">
-                                    <th class="p-4 font-bold text-gray-700 border-b">{{ $kategori }}</th>
+                                    <th class="border-b p-4 font-bold text-gray-700">{{ $kategori }}</th>
                                     @foreach (array_unique(array_column($sales_kategori, 'date')) as $date)
                                         @php
                                             $entry = current(
@@ -65,7 +65,7 @@
                                             );
                                             $mtd = $entry ? $entry->mtd : '-'; // MTD value if entry exists
                                         @endphp
-                                        <td class="p-4 text-gray-700 uppercase border-b">{{ $mtd }}</td>
+                                        <td class="border-b p-4 uppercase text-gray-700">{{ $mtd }}</td>
                                     @endforeach
                                 </tr>
                             @endforeach
@@ -73,11 +73,11 @@
                     </table>
                 </div>
 
-                <span class="block mt-6 text-lg font-semibold text-gray-600">Sales Location Detail </span>
+                <span class="mt-6 block text-lg font-semibold text-gray-600">Sales Location Detail </span>
 
                 @if (request()->get('date'))
-                    <div class="flex items-end mb-2 gap-x-4">
-                        <input type="text" name="search" id="search" placeholder="Search..." class="px-4 rounded-lg">
+                    <div class="mb-2 flex items-end gap-x-4">
+                        <input type="text" name="search" id="search" placeholder="Search..." class="rounded-lg px-4">
                         <div class="flex flex-col">
                             <span class="font-bold text-gray-600">Berdasarkan</span>
                             <select name="search_by" id="search_by" class="rounded-lg">
@@ -90,26 +90,30 @@
                             </select>
                         </div>
                         <button id="button"
-                            class="inline-block px-4 py-2 mx-3 font-semibold text-white transition-all bg-teal-600 rounded-md hover:bg-teal-800"><i
-                                class="mr-2 fa-solid fa-file-arrow-down"></i>Excel</button>
+                            class="mx-3 inline-block rounded-md bg-teal-600 px-4 py-2 font-semibold text-white transition-all hover:bg-teal-800"><i
+                                class="fa-solid fa-file-arrow-down mr-2"></i>Excel</button>
                     </div>
                 @endif
 
-                <div class="overflow-hidden bg-white rounded-md shadow w-fit">
-                    <table class="text-left border-collapse w-fit" id="table-data">
+                <div class="w-fit overflow-hidden rounded-md bg-white shadow">
+                    <table class="w-fit border-collapse text-left" id="table-data">
                         <thead class="border-b">
                             <tr>
-                                <th class="p-4 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No</th>
-                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Branch</th>
-                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Cluster</th>
-                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Nama</th>
-                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Telp</th>
-                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Role</th>
-                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Jenis</th>
-                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Kategori</th>
-                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Detail</th>
-                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">MSISDN</th>
-                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Tanggal Lapor</th>
+                                <th class="bg-y_tersier p-4 text-sm font-bold uppercase text-gray-100">No</th>
+                                <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">Branch</th>
+                                <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">Cluster</th>
+                                <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">Nama</th>
+                                <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">Telp</th>
+                                <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">Role</th>
+                                <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">Jenis</th>
+                                <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">Kategori</th>
+                                <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">Detail</th>
+                                <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">POI</th>
+                                <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">Jarak</th>
+                                <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">Status</th>
+                                <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">MSISDN</th>
+                                <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">Serial</th>
+                                <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">Tanggal Lapor</th>
                                 {{-- @if (Auth::user()->privilege != 'cluster')
                                     <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier action">Action
                                     </th>
@@ -119,20 +123,27 @@
                         <tbody>
                             @foreach ($sales as $key => $data)
                                 <tr class="hover:bg-gray-200">
-                                    <td class="p-4 font-bold text-gray-700 border-b">{{ $key + 1 }}</td>
-                                    <td class="p-4 text-gray-700 uppercase border-b branch">{{ $data->branch }}</td>
-                                    <td class="p-4 text-gray-700 uppercase border-b cluster">{{ $data->cluster }}</td>
-                                    <td class="p-4 text-gray-700 uppercase border-b nama">{{ $data->nama }}</td>
-                                    <td class="p-4 text-gray-700 uppercase border-b telp">{{ $data->telp }}</td>
-                                    <td class="p-4 text-gray-700 uppercase border-b role">{{ $data->role }}</td>
-                                    <td class="p-4 text-gray-700 uppercase border-b whitespace-nowrap jenis">
+                                    <td class="border-b p-4 font-bold text-gray-700">{{ $key + 1 }}</td>
+                                    <td class="branch border-b p-4 uppercase text-gray-700">{{ $data->branch }}</td>
+                                    <td class="cluster border-b p-4 uppercase text-gray-700">{{ $data->cluster }}</td>
+                                    <td class="nama border-b p-4 uppercase text-gray-700">{{ $data->nama }}</td>
+                                    <td class="telp border-b p-4 uppercase text-gray-700">{{ $data->telp }}</td>
+                                    <td class="role border-b p-4 uppercase text-gray-700">{{ $data->role }}</td>
+                                    <td class="jenis whitespace-nowrap border-b p-4 uppercase text-gray-700">
                                         {{ $data->jenis }}</td>
-                                    <td class="p-4 text-gray-700 uppercase border-b whitespace-nowrap kategori">
+                                    <td class="kategori whitespace-nowrap border-b p-4 uppercase text-gray-700">
                                         {{ $data->kategori }}</td>
-                                    <td class="p-4 text-gray-700 uppercase border-b whitespace-nowrap status">
+                                    <td class="detail whitespace-nowrap border-b p-4 uppercase text-gray-700">
                                         {{ $data->detail }}</td>
-                                    <td class="p-4 text-gray-700 uppercase border-b msisdn">{{ $data->msisdn }}</td>
-                                    <td class="p-4 text-gray-700 uppercase border-b aktif">{{ $data->date }}</td>
+                                    <td class="poi whitespace-nowrap border-b p-4 uppercase text-gray-700">
+                                        {{ $data->poi }}</td>
+                                    <td class="jarak whitespace-nowrap border-b p-4 uppercase text-gray-700">
+                                        {{ $data->jarak }} Km</td>
+                                    <td class="status whitespace-nowrap border-b p-4 uppercase text-gray-700">
+                                        {{ $data->status }}</td>
+                                    <td class="msisdn border-b p-4 uppercase text-gray-700">{{ $data->msisdn }}</td>
+                                    <td class="border-b p-4 uppercase text-gray-700">{{ $data->serial }}</td>
+                                    <td class="aktif border-b p-4 uppercase text-gray-700">{{ $data->date }}</td>
 
                                     {{-- @if (Auth::user()->privilege != 'cluster')
                                         <td class="p-4 text-gray-700 border-b action">
