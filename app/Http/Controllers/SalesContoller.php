@@ -575,8 +575,23 @@ class SalesContoller extends Controller
 
             $sales_branch = DB::select($query_branch, [1]);
             $sales_cluster = DB::select($query_cluster, [1]);
-            $sales = DB::select($query, [1]);
-            // ddd($sales);
+            // $sales = DB::select($query, [1]);
+            // $sales = DB::table('sales_copy')->select('data_user.nama', 'data_user.branch', 'data_user.cluster', 'data_user.role', 'data_user.telp', 'data_user.reff_code', 'sales_copy.msisdn', 'sales_copy.date', 'sales_copy.serial', 'sales_copy.poi', 'sales_copy.jenis', 'sales_copy.detail')
+            //     ->join('data_user', 'data_user.telp', '=', 'sales_copy.telp')
+            //     ->whereBetween('sales_copy.date', [$m1, $mtd])
+            //     ->where('sales_copy.status', '<>', '1')
+            //     ->where('sales_copy.kategori', $kategori)
+            //     ->where('data_user.status', '1')
+            //     ->whereRaw($regional)
+            //     // ->whereRaw($and)
+            //     // ->whereRaw($and_branch)
+            //     ->whereRaw($branch)
+            //     ->orderByDesc('data_user.regional')
+            //     ->orderBy('data_user.branch')
+            //     ->orderBy('data_user.cluster')
+            //     ->orderBy('data_user.nama')
+            //     ->paginate(500);
+            ddd($query);
         } else {
             $sales_branch = [];
             $sales_cluster = [];
@@ -587,7 +602,7 @@ class SalesContoller extends Controller
 
     public function location(Request $request)
     {
-        $list_jenis = DB::table('sales_copy')->select('jenis')->whereIn('jenis', ['EVENT', 'SEKOLAH', 'U60', 'ORBIT'])->distinct()->get();
+        $list_jenis = DB::table('kategori_sales')->select('jenis_sales as jenis')->where('status', 1)->distinct()->get();
         $list_location = DB::table('sales_copy')->select(['poi as location'])->whereIn('jenis', ['EVENT', 'SEKOLAH', 'U60', 'ORBIT'])->whereNotNull('poi')->where('poi', '!=', '')->distinct()->orderBy('poi')->join('data_user', 'sales_copy.telp', '=', 'data_user.telp');
 
         if (auth()->user()->privilege == 'branch') {
