@@ -199,7 +199,8 @@
                         <tbody>
                             @foreach ($sales as $key => $data)
                                 <tr class="hover:bg-gray-200">
-                                    <td class="border-b p-4 font-bold text-gray-700">{{ $key + 1 }}</td>
+                                    <td class="border-b p-4 font-bold text-gray-700">{{ $key + $sales->firstItem() }}
+                                    </td>
                                     <td class="branch border-b p-4 uppercase text-gray-700">{{ $data->branch }}</td>
                                     <td class="cluster border-b p-4 uppercase text-gray-700">{{ $data->cluster }}</td>
                                     <td class="nama border-b p-4 uppercase text-gray-700">{{ $data->nama }}</td>
@@ -239,6 +240,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $sales->links('components.pagination', ['data' => $sales]) }}
                 </div>
             </div>
         </div>

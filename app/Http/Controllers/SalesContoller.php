@@ -561,37 +561,60 @@ class SalesContoller extends Controller
                     GROUP BY 1 ;";
 
 
-            $query = "SELECT b.nama,b.branch,b.cluster,b.role,b.telp,b.reff_code, a.msisdn,a.`date`,a.serial,a.poi,a.jenis,a.detail $select_mytsel
-                    FROM sales_copy a  
-                    JOIN data_user b ON b.telp = a.telp
-                    $join_mytsel
-                    where a.date BETWEEN '$m1' AND '$mtd'
-                    and not a.status ='1' and a.kategori='$kategori' AND b.status='1'
-                    $and
-                    $regional
-                    $and_branch
-                    $branch
-                    ORDER by b.regional DESC,b.branch,b.cluster, b.nama ASC";
+            // $query = "SELECT b.nama,b.branch,b.cluster,b.role,b.telp,b.reff_code, a.msisdn,a.`date`,a.serial,a.poi,a.jenis,a.detail $select_mytsel
+            //         FROM sales_copy a  
+            //         JOIN data_user b ON b.telp = a.telp
+            //         $join_mytsel
+            //         where a.date BETWEEN '$m1' AND '$mtd'
+            //         and not a.status ='1' and a.kategori='$kategori' AND b.status='1'
+            //         $and
+            //         $regional
+            //         $and_branch
+            //         $branch
+            //         ORDER by b.regional DESC,b.branch,b.cluster, b.nama ASC";
 
             $sales_branch = DB::select($query_branch, [1]);
             $sales_cluster = DB::select($query_cluster, [1]);
             // $sales = DB::select($query, [1]);
-            // $sales = DB::table('sales_copy')->select('data_user.nama', 'data_user.branch', 'data_user.cluster', 'data_user.role', 'data_user.telp', 'data_user.reff_code', 'sales_copy.msisdn', 'sales_copy.date', 'sales_copy.serial', 'sales_copy.poi', 'sales_copy.jenis', 'sales_copy.detail')
-            //     ->join('data_user', 'data_user.telp', '=', 'sales_copy.telp')
-            //     ->whereBetween('sales_copy.date', [$m1, $mtd])
-            //     ->where('sales_copy.status', '<>', '1')
-            //     ->where('sales_copy.kategori', $kategori)
-            //     ->where('data_user.status', '1')
-            //     ->whereRaw($regional)
-            //     // ->whereRaw($and)
-            //     // ->whereRaw($and_branch)
-            //     ->whereRaw($branch)
-            //     ->orderByDesc('data_user.regional')
-            //     ->orderBy('data_user.branch')
-            //     ->orderBy('data_user.cluster')
-            //     ->orderBy('data_user.nama')
-            //     ->paginate(500);
-            ddd($query);
+            $sales = DB::table('sales_copy as a')
+                ->select(
+                    'b.nama',
+                    'b.branch',
+                    'b.cluster',
+                    'b.role',
+                    'b.telp',
+                    'b.reff_code',
+                    'a.msisdn',
+                    'a.date',
+                    'a.serial',
+                    'a.poi',
+                    'a.jenis',
+                    'a.detail'
+                )
+                ->join('data_user as b', 'b.telp', '=', 'a.telp')
+                ->whereBetween('a.date', [$m1, $mtd])
+                ->where('a.status', '<>', '1')
+                ->where('a.kategori', $kategori)
+                ->where('b.status', '1')
+                ->orderByDesc('b.regional')
+                ->orderBy('b.branch')
+                ->orderBy('b.cluster')
+                ->orderBy('b.nama');
+
+
+            if ($request->kategori == 'MYTSEL VALIDASI') {
+                $sales = $sales->select('c.revenue', "SUM(CASE WHEN c.revenue!='NULL' THEN c.revenue ELSE 0 END) revenue")->join('validasi_mytsel as c', 'a.msisdn', '=', 'c.msisdn');
+            }
+
+            $sales->when($request->regional, function ($q) use ($regional) {
+                return $q->where('regional', $regional);
+            });
+
+            $sales->when($request->branch, function ($q) use ($branch) {
+                return $q->where('branch', $branch);
+            });
+
+            $sales = $sales->paginate(500)->appends($request->query());
         } else {
             $sales_branch = [];
             $sales_cluster = [];
