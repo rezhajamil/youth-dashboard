@@ -240,7 +240,9 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $sales->links('components.pagination', ['data' => $sales]) }}
+                    @if ($sales)
+                        {{ $sales->links('components.pagination', ['data' => $sales]) }}
+                    @endif
                 </div>
             </div>
         </div>
