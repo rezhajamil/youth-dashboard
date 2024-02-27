@@ -603,7 +603,7 @@ class SurveyController extends Controller
                 GROUP BY 1
             ) d
             ON a.NPSN=d.npsn
-            WHERE a.PD>=500 
+            WHERE a.PD>=100 
             AND a.Kecamatan='$kecamatan';";
 
         $detail = DB::select($query);
