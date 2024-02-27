@@ -26,6 +26,8 @@
                                 </th>
                                 <th class="border bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Market Share
                                 </th>
+                                <th class="border bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Action
+                                </th>
                             </tr>
                         </thead>
                         <tbody class="max-h-screen overflow-y-auto text-center">
@@ -57,6 +59,11 @@
                                                 <i class="fa-solid fa-circle-exclamation font-bold text-red-600"></i>
                                             </span>
                                         @endif
+                                    </td>
+                                    <td class="border p-2 text-gray-700">
+                                        <a href="{{ route('sekolah.show', $data->npsn) }}" target="_blank"
+                                            class="my-1 block whitespace-nowrap text-base font-semibold text-teal-600 transition hover:text-teal-800">Detail
+                                            Sekolah</a>
                                     </td>
                                 </tr>
                             @endforeach
