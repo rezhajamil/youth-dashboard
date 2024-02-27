@@ -644,16 +644,11 @@ class SalesContoller extends Controller
             $last_m1 = date('Y-m-01', strtotime($this->convDate($mtd)));
             $last_mtd = $this->convDate($mtd);
 
-            if ($request->branch) {
-                $branch = "branch='" . $request->branch . "'";
-                $where = "where ";
-                $and = "and ";
+            if (auth()->user()->privilege != 'superadmin') {
+                $territory = auth()->user()->privilege == 'branch' ? " and branch='" . auth()->user()->branch . "'" : " and cluster='" . auth()->user()->cluster . "'";
             } else {
-                $branch = Auth::user()->privilege == "branch" ? "branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "b.cluster='" . Auth::user()->cluster . "'" : '');
-                $where = Auth::user()->privilege == "branch" || Auth::user()->privilege == "cluster" ? "where" : "";
-                $and = Auth::user()->privilege == "branch" || Auth::user()->privilege == "cluster" ? "and" : "";
+                $territory = '';
             }
-
 
             // $query_kategori = "SELECT a.date,a.kategori,
             //         COUNT(CASE WHEN a.`date` BETWEEN '$m1' AND '$mtd' THEN a.msisdn END) mtd
@@ -666,8 +661,10 @@ class SalesContoller extends Controller
                     FROM sales_copy a  
                     JOIN data_user b ON b.telp = a.telp
                     where a.date BETWEEN '$m1' AND '$mtd'
-                    and not a.status ='1' and jenis='$jenis' $location
+                    and not a.status ='1' and jenis='$jenis' $location $territory
                     ORDER by b.regional DESC,b.branch,b.cluster, b.nama ASC";
+
+            ddd($query);
 
 
             // $sales_kategori = DB::select($query_kategori, [1]);
