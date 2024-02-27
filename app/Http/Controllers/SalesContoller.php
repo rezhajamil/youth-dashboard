@@ -612,6 +612,7 @@ class SalesContoller extends Controller
         }
         $list_location = $list_location->get();
 
+        $jenis = $request->jenis;
         $location = $request->location ? "a.poi='$request->location'" : '';
 
         if ($request->date) {
@@ -631,29 +632,29 @@ class SalesContoller extends Controller
             }
 
 
-            $query_kategori = "SELECT a.date,a.kategori,
-                    COUNT(CASE WHEN a.`date` BETWEEN '$m1' AND '$mtd' THEN a.msisdn END) mtd
-                    FROM sales_copy a  
-                    WHERE a.date BETWEEN '$m1' AND '$mtd'
-                    $location
-                    GROUP BY 1,2  ORDER BY 1,2;";
+            // $query_kategori = "SELECT a.date,a.kategori,
+            //         COUNT(CASE WHEN a.`date` BETWEEN '$m1' AND '$mtd' THEN a.msisdn END) mtd
+            //         FROM sales_copy a  
+            //         WHERE a.date BETWEEN '$m1' AND '$mtd'
+            //         $location
+            //         GROUP BY 1,2  ORDER BY 1,2;";
 
             $query = "SELECT b.nama,b.branch,b.cluster,b.role,b.telp,b.reff_code, a.msisdn,a.`date`,a.serial,a.jenis,a.kategori,a.detail,a.poi,a.jarak,a.status
                     FROM sales_copy a  
                     JOIN data_user b ON b.telp = a.telp
                     where a.date BETWEEN '$m1' AND '$mtd'
-                    and not a.status ='1' $location
+                    and not a.status ='1' and jenis='$jenis' $location
                     ORDER by b.regional DESC,b.branch,b.cluster, b.nama ASC";
 
 
-            $sales_kategori = DB::select($query_kategori, [1]);
+            // $sales_kategori = DB::select($query_kategori, [1]);
             // ddd($sales_kategori);
             $sales = DB::select($query, [1]);
         } else {
             $sales_kategori = [];
             $sales = [];
         }
-        return view('sales.location.index', compact('list_jenis',  'sales', 'sales_kategori'));
+        return view('sales.location.index', compact('list_jenis',  'sales'));
     }
 
     /**

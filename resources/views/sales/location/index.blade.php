@@ -39,15 +39,15 @@
                     </form>
                 </div>
 
-
-                <span class="mb-2 mt-6 block text-lg font-semibold text-gray-600">Sales Location By Kategori</span>
-                <div class="w-fit overflow-hidden rounded-md bg-white shadow" id="table-category">
-                    <table class="w-fit border-collapse text-left">
+                {{-- 
+                <span class="block mt-6 mb-2 text-lg font-semibold text-gray-600">Sales Location By Kategori</span>
+                <div class="overflow-hidden bg-white rounded-md shadow w-fit" id="table-category">
+                    <table class="text-left border-collapse w-fit">
                         <thead class="border-b">
                             <tr>
-                                <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">Kategori</th>
+                                <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Kategori</th>
                                 @foreach (array_unique(array_column($sales_kategori, 'date')) as $date)
-                                    <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">
+                                    <th class="p-4 text-sm font-medium text-gray-100 uppercase bg-y_tersier">
                                         {{ date('d M', strtotime($date)) }}</th>
                                 @endforeach
                             </tr>
@@ -55,7 +55,7 @@
                         <tbody>
                             @foreach (array_unique(array_column($sales_kategori, 'kategori')) as $key => $kategori)
                                 <tr class="hover:bg-gray-200">
-                                    <th class="border-b p-4 font-bold text-gray-700">{{ $kategori }}</th>
+                                    <th class="p-4 font-bold text-gray-700 border-b">{{ $kategori }}</th>
                                     @foreach (array_unique(array_column($sales_kategori, 'date')) as $date)
                                         @php
                                             $entry = current(
@@ -65,13 +65,13 @@
                                             );
                                             $mtd = $entry ? $entry->mtd : '-'; // MTD value if entry exists
                                         @endphp
-                                        <td class="border-b p-4 uppercase text-gray-700">{{ $mtd }}</td>
+                                        <td class="p-4 text-gray-700 uppercase border-b">{{ $mtd }}</td>
                                     @endforeach
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
-                </div>
+                </div> --}}
 
                 <span class="mt-6 block text-lg font-semibold text-gray-600">Sales Location Detail </span>
 
