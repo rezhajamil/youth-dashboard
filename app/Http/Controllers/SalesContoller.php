@@ -664,7 +664,7 @@ class SalesContoller extends Controller
                     and not a.status ='1' and jenis='$jenis' $location $territory
                     ORDER by b.regional DESC,b.branch,b.cluster, b.nama ASC";
 
-            ddd($query);
+            // ddd($query);
 
 
             // $sales_kategori = DB::select($query_kategori, [1]);
