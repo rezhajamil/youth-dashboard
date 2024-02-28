@@ -643,7 +643,7 @@ class SalesContoller extends Controller
         $list_location = $list_location->get();
 
         $jenis = $request->jenis;
-        $location = $request->location ? "a.poi='$request->location'" : '';
+        $location = $request->location ? " and a.poi='$request->location'" : '';
 
         if ($request->date) {
             $m1 = date('Y-m-01', strtotime($request->date));
