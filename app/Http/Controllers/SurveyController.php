@@ -308,7 +308,7 @@ class SurveyController extends Controller
                 DB::table('survey_answer')->insert([
                     'session' => $request->session,
                     'npsn' => $request->npsn,
-                    'telp' => $sekolah->TELP,
+                    'telp' => $sekolah->TELP ?? "",
                     'kelas' => $request->kelas ?? 'All',
                     'pilihan' => json_encode($pilihan),
                     'telp_siswa' => $request->jawaban_0[0],
