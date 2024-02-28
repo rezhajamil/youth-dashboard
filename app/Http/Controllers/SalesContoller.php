@@ -606,12 +606,12 @@ class SalesContoller extends Controller
                 $sales = $sales->select('c.revenue', "SUM(CASE WHEN c.revenue!='NULL' THEN c.revenue ELSE 0 END) revenue")->join('validasi_mytsel as c', 'a.msisdn', '=', 'c.msisdn');
             }
 
-            $sales->when($request->regional, function ($q) use ($regional) {
-                return $q->where('regional', $regional);
+            $sales->when(auth()->user()->privilege == 'branch', function ($q) use ($regional) {
+                return $q->where('branch', auth()->user()->branch);
             });
 
-            $sales->when($request->branch, function ($q) use ($branch) {
-                return $q->where('branch', $branch);
+            $sales->when(auth()->user()->privilege == 'cluster', function ($q) use ($branch) {
+                return $q->where('cluster', auth()->user()->cluster);
             });
 
             $sales = $sales->paginate(500)->appends($request->query());
