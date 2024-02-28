@@ -601,17 +601,24 @@ class SalesContoller extends Controller
                 ->orderBy('b.cluster')
                 ->orderBy('b.nama');
 
-
             if ($request->kategori == 'MYTSEL VALIDASI') {
                 $sales = $sales->select('c.revenue', "SUM(CASE WHEN c.revenue!='NULL' THEN c.revenue ELSE 0 END) revenue")->join('validasi_mytsel as c', 'a.msisdn', '=', 'c.msisdn');
             }
 
+            $sales->when($request->regional, function ($q) use ($request) {
+                return $q->where('regional', $request->regional);
+            });
+
+            $sales->when($request->branch, function ($q) use ($request) {
+                return $q->where('branch', $request->branch);
+            });
+
             $sales->when(auth()->user()->privilege == 'branch', function ($q) use ($regional) {
-                return $q->where('branch', auth()->user()->branch);
+                return $q->where('b.branch', auth()->user()->branch);
             });
 
             $sales->when(auth()->user()->privilege == 'cluster', function ($q) use ($branch) {
-                return $q->where('cluster', auth()->user()->cluster);
+                return $q->where('b.cluster', auth()->user()->cluster);
             });
 
             $sales = $sales->paginate(500)->appends($request->query());
