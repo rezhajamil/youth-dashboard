@@ -206,7 +206,7 @@ class QuizController extends Controller
             $answer = DB::table('quiz_answer')->join('user_event', 'user_event.telp', '=', 'quiz_answer.telp')->distinct('nama')->where('session', $id)->orderBy('nama')->get();
         } else {
             // $answer = DB::table('quiz_answer')->select(["quiz_answer.id", "cluster", "nama", "quiz_answer.telp", "role", "session", "hasil", "pilihan"])->join('data_user', 'data_user.telp', '=', 'quiz_answer.telp')->distinct('nama')->where('session', $id)->orderBy('cluster')->orderBy('nama')->get();
-            $answer = DB::select("SELECT quiz_answer.id, cluster, nama, quiz_answer.telp, role, session, hasil, pilihan from quiz_answer join data_user on data_user.telp=quiz_answer.telp WHERE session='$id' $territory_answer ORDER BY nama");
+            $answer = DB::select("SELECT quiz_answer.id, cluster, nama, quiz_answer.telp, role, session, hasil, pilihan,time_start,time_end,TIMESTAMPDIFF(SECOND, time_start, time_end) AS durasi from quiz_answer join data_user on data_user.telp=quiz_answer.telp WHERE session='$id' $territory_answer ORDER BY hasil desc,CASE WHEN durasi IS NULL THEN 1 ELSE 0 END,durasi,time_start");
         }
         $quiz = DB::table('quiz_session')->find($id);
         return view('directUser.quiz.result', compact('answer', 'quiz', 'resume'));

@@ -90,6 +90,9 @@
                                 </th>
                                 <th rowspan="2" class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Skor
                                 </th>
+                                <th rowspan="2" class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">
+                                    Durasi
+                                </th>
                                 @if (auth()->user()->privilege == 'superadmin' || !$quiz->status)
                                     <th rowspan="2"
                                         class="action bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
@@ -122,11 +125,15 @@
                                     <td class="border-b p-4 font-bold text-sekunder">
                                         {{ number_format(($data->hasil / count(json_decode($quiz->soal))) * 100, 0, '.', ',') }}
                                     </td>
+                                    <td class="border-b p-4 text-gray-700">
+                                        {{ $data->durasi ? $data->durasi . ' detik' : 'Tidak Selesai' }} </td>
                                     @if ($data->pilihan && (auth()->user()->privilege == 'superadmin' || !$quiz->status))
                                         <td class="action border-b p-4 font-bold text-sekunder"><a
                                                 href="{{ route('quiz.show_answer', $data->id) }}"
                                                 class="whitespace-nowrap rounded bg-orange-600 px-3 py-2 font-semibold text-white transition-all hover:bg-orange-800">Lihat
                                                 Jawaban</a></td>
+                                    @else
+                                        <td class="action border-b p-4 font-bold text-sekunder"></td>
                                     @endif
                                 </tr>
                             @endforeach
