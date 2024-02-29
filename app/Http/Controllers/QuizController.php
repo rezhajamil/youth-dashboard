@@ -195,11 +195,12 @@ class QuizController extends Controller
                         right JOIN data_user as b
                         ON a.telp=b.telp
                         JOIN (SELECT c.`cluster`,COUNT(c.telp) as total FROM data_user as c 
-                        WHERE c.status='1' GROUP BY 1) as d
+                        WHERE c.status='1'  AND c.role IN ('AO','EO','YBA') GROUP BY 1) as d
                         ON b.`cluster`=d.`cluster`
-                        WHERE NOT b.`branch`='ALL' $territory_resume
+                        WHERE NOT b.`branch`='ALL' AND b.status=1 AND b.role IN ('AO','EO','YBA') $territory_resume
                         GROUP BY 1,2,3
                         ORDER BY b.regional desc,b.branch,b.`cluster`;");
+
 
         if (request()->get('jenis') == 'event') {
             $answer = DB::table('quiz_answer')->join('user_event', 'user_event.telp', '=', 'quiz_answer.telp')->distinct('nama')->where('session', $id)->orderBy('nama')->get();
