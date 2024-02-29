@@ -241,7 +241,11 @@ class DirectUserController extends Controller
             $data->{'total'} = number_format(floatval($data->tot_sales) + floatval($data->tot_proses), 2, ',', '.');
         }
 
-        return view('directUser.show', compact('month', 'year', 'user', 'quiz', 'period', 'absensi', 'list_target', 'kpi', 'sales', 'proses'));
+        $clocks = DB::select(
+            "SELECT * FROM table_kunjungan_copy a JOIN data_user b ON a.telp=b.telp WHERE a.telp='$user->telp' AND a.date BETWEEN '$m1' AND '$mtd' ORDER BY a.date DESC,a.waktu DESC,a.lokasi"
+        );
+
+        return view('directUser.show', compact('month', 'year', 'user', 'quiz', 'period', 'absensi', 'list_target', 'kpi', 'sales', 'proses', 'clocks'));
     }
 
     /**
