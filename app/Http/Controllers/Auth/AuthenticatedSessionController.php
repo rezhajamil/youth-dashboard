@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class AuthenticatedSessionController extends Controller
@@ -32,20 +33,26 @@ class AuthenticatedSessionController extends Controller
     {
         $user = User::where('username', $request->username)->first();
 
-        if($user){
+        if ($user) {
             if ($user->status == 0) {
                 throw ValidationException::withMessages([
                     'username' => 'Akun anda tidak aktif. Hubungi administrator untuk mengaktifkan.',
                 ]);
             }
-        }else{
-           throw ValidationException::withMessages([
+        } else {
+            throw ValidationException::withMessages([
                 'username' => 'Akun tidak ditemukan / Username Salah',
-            ]); 
+            ]);
         }
         $request->authenticate($request);
 
         $request->session()->regenerate();
+
+        $history = DB::table('login_history')->where('id', $user->id)->where('date', date('Y-m-d'))->count();
+
+        if (!$history) {
+            DB::table('login_history')->insert(['user_id' => $user->id, 'date' => date('Y-m-d')]);
+        }
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }
