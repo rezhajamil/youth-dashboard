@@ -1,44 +1,48 @@
 @extends('layouts.dashboard.app')
 @section('body')
-    <div class="w-full mx-4">
+    <div class="mx-4 w-full">
         <div class="flex flex-col">
             <div class="mt-4">
                 <a href="{{ url()->previous() }}"
-                    class="block px-4 py-2 my-2 font-bold text-white rounded-md bg-y_premier w-fit hover:bg-y_premier"><i
-                        class="mr-2 fa-solid fa-arrow-left"></i> Kembali</a>
-                <h4 class="inline-block mb-2 text-xl font-bold text-gray-600 align-baseline" id="title">
+                    class="my-2 block w-fit rounded-md bg-y_premier px-4 py-2 font-bold text-white hover:bg-y_premier"><i
+                        class="fa-solid fa-arrow-left mr-2"></i> Kembali</a>
+                <h4 class="mb-2 inline-block align-baseline text-xl font-bold text-gray-600" id="title">
                     {{ $quiz->nama }}</h4>
-                <button class="px-2 py-1 ml-2 text-lg text-white transition bg-green-600 rounded-md hover:bg-green-800"
+                <button class="ml-2 rounded-md bg-green-600 px-2 py-1 text-lg text-white transition hover:bg-green-800"
                     id="capture"><i class="fa-regular fa-circle-down"></i></button>
                 @if (!request()->get('jenis') && request()->get('jenis') != 'event')
-                    <div class="my-4 overflow-auto bg-white rounded-md shadow w-fit" id="resume-container">
-                        <table class="overflow-auto text-left bg-white border-collapse w-fit resume">
-                            <thead class="border-b resume">
+                    <div class="my-4 w-fit overflow-auto rounded-md bg-white shadow" id="resume-container">
+                        <table class="resume w-fit border-collapse overflow-auto bg-white text-left">
+                            <thead class="resume border-b">
                                 <tr>
-                                    <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-y_tersier resume">No</th>
-                                    <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier resume">Regional
+                                    <th class="resume bg-y_tersier p-3 text-sm font-bold uppercase text-gray-100">No</th>
+                                    <th class="resume bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Regional
                                     </th>
-                                    <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier resume">Branch
+                                    <th class="resume bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Branch
                                     </th>
-                                    <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier resume">Cluster
+                                    <th class="resume bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Cluster
                                     </th>
-                                    <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier resume">
+                                    <th class="resume bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">
                                         Partisipan</th>
-                                    <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier resume">Dari
+                                    <th class="resume bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Dari
+                                    </th>
+                                    <th class="resume bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">%
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody class="max-h-screen overflow-y-auto resume">
+                            <tbody class="resume max-h-screen overflow-y-auto">
                                 @foreach ($resume as $key => $data)
                                     @if ($data->cluster != 'test')
                                         <tr>
                                             {{-- {{ ddd($data) }} --}}
-                                            <td class="p-4 font-bold text-gray-700 border-b resume">{{ $key + 1 }}</td>
-                                            <td class="p-4 text-gray-700 border-b resume">{{ $data->regional }}</td>
-                                            <td class="p-4 text-gray-700 border-b resume">{{ $data->branch }}</td>
-                                            <td class="p-4 text-gray-700 border-b resume">{{ $data->cluster }}</td>
-                                            <td class="p-4 text-gray-700 border-b resume">{{ $data->partisipan }}</td>
-                                            <td class="p-4 text-gray-700 border-b resume">{{ $data->total }}</td>
+                                            <td class="resume border-b p-4 font-bold text-gray-700">{{ $key + 1 }}</td>
+                                            <td class="resume border-b p-4 text-gray-700">{{ $data->regional }}</td>
+                                            <td class="resume border-b p-4 text-gray-700">{{ $data->branch }}</td>
+                                            <td class="resume border-b p-4 text-gray-700">{{ $data->cluster }}</td>
+                                            <td class="resume border-b p-4 text-gray-700">{{ $data->partisipan }}</td>
+                                            <td class="resume border-b p-4 text-gray-700">{{ $data->total }}</td>
+                                            <td class="resume border-b p-4 text-gray-700">
+                                                {{ number_format(($data->partisipan / $data->total) * 100, 0) }}%</td>
                                         </tr>
                                     @endif
                                 @endforeach
@@ -46,8 +50,8 @@
                         </table>
                     </div>
                 @endif
-                <div class="flex flex-wrap items-end my-3 gap-x-4">
-                    <input type="text" name="search" id="search" placeholder="Search..." class="px-4 rounded-lg">
+                <div class="my-3 flex flex-wrap items-end gap-x-4">
+                    <input type="text" name="search" id="search" placeholder="Search..." class="rounded-lg px-4">
                     <div class="flex flex-col">
                         {{-- <span class="font-bold text-gray-600">Berdasarkan</span> --}}
                         <select name="search_by" id="search_by" class="rounded-lg">
@@ -58,70 +62,70 @@
                     </div>
                 </div>
 
-                <div class="overflow-auto bg-white rounded-md shadow w-fit" id="result-container">
-                    <table class="overflow-auto text-left bg-white border-collapse w-fit">
+                <div class="w-fit overflow-auto rounded-md bg-white shadow" id="result-container">
+                    <table class="w-fit border-collapse overflow-auto bg-white text-left">
                         <thead class="border-b">
                             <tr>
-                                <th rowspan="2" class="p-3 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No
+                                <th rowspan="2" class="bg-y_tersier p-3 text-sm font-bold uppercase text-gray-100">No
                                 </th>
                                 @if (request()->get('jenis') == 'event')
                                     {{-- <th rowspan="2" class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">NPSN</th> --}}
                                 @else
-                                    <th rowspan="2" class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">
+                                    <th rowspan="2" class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">
                                         Cluster</th>
                                 @endif
-                                <th rowspan="2" class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Nama
+                                <th rowspan="2" class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Nama
                                 </th>
-                                <th rowspan="2" class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Telp
+                                <th rowspan="2" class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Telp
                                 </th>
                                 @if (request()->get('jenis') == 'event')
-                                    <th rowspan="2" class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">
+                                    <th rowspan="2" class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">
                                         Email</th>
                                 @else
-                                    <th rowspan="2" class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">
+                                    <th rowspan="2" class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">
                                         Role</th>
                                 @endif
                                 <th colspan="2"
-                                    class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier">Hasil
+                                    class="bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">Hasil
                                 </th>
-                                <th rowspan="2" class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Skor
+                                <th rowspan="2" class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Skor
                                 </th>
                                 @if (auth()->user()->privilege == 'superadmin' || !$quiz->status)
                                     <th rowspan="2"
-                                        class="p-3 text-sm font-medium text-center text-gray-100 uppercase bg-y_tersier action">
+                                        class="action bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
                                         Action</th>
                                 @endif
                             </tr>
                             <tr>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Benar</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Soal</th>
+                                <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Benar</th>
+                                <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Soal</th>
                             </tr>
                         </thead>
                         <tbody class="max-h-screen overflow-y-auto">
                             @foreach ($answer as $key => $data)
                                 <tr>
-                                    <td class="p-4 font-bold text-gray-700 border-b">{{ $key + 1 }}</td>
+                                    <td class="border-b p-4 font-bold text-gray-700">{{ $key + 1 }}</td>
                                     @if (request()->get('jenis') == 'event')
                                         {{-- <td class="p-4 text-gray-700 border-b cluster">{{ $data->npsn }}</td> --}}
                                     @else
-                                        <td class="p-4 text-gray-700 border-b cluster">{{ $data->cluster }}</td>
+                                        <td class="cluster border-b p-4 text-gray-700">{{ $data->cluster }}</td>
                                     @endif
-                                    <td class="p-4 text-gray-700 border-b nama">{{ ucwords(strtolower($data->nama)) }}</td>
-                                    <td class="p-4 text-gray-700 border-b telp">{{ $data->telp }}</td>
+                                    <td class="nama border-b p-4 text-gray-700">{{ ucwords(strtolower($data->nama)) }}</td>
+                                    <td class="telp border-b p-4 text-gray-700">{{ $data->telp }}</td>
                                     @if (request()->get('jenis') == 'event')
-                                        <td class="p-4 text-gray-700 border-b cluster">{{ $data->email }}</td>
+                                        <td class="cluster border-b p-4 text-gray-700">{{ $data->email }}</td>
                                     @else
-                                        <td class="p-4 text-gray-700 border-b cluster">{{ $data->role }}</td>
+                                        <td class="cluster border-b p-4 text-gray-700">{{ $data->role }}</td>
                                     @endif
-                                    <td class="p-4 text-gray-700 border-b">{{ $data->hasil }}</td>
-                                    <td class="p-4 text-gray-700 border-b">{{ count(json_decode($quiz->soal)) }}</td>
-                                    <td class="p-4 font-bold border-b text-sekunder">
+                                    <td class="border-b p-4 text-gray-700">{{ $data->hasil }}</td>
+                                    <td class="border-b p-4 text-gray-700">{{ count(json_decode($quiz->soal)) }}</td>
+                                    <td class="border-b p-4 font-bold text-sekunder">
                                         {{ number_format(($data->hasil / count(json_decode($quiz->soal))) * 100, 0, '.', ',') }}
                                     </td>
                                     @if ($data->pilihan && (auth()->user()->privilege == 'superadmin' || !$quiz->status))
-                                        <td class="p-4 font-bold border-b text-sekunder action"><a
+                                        <td class="action border-b p-4 font-bold text-sekunder"><a
                                                 href="{{ route('quiz.show_answer', $data->id) }}"
-                                                class="px-3 py-2 font-semibold text-white transition-all bg-orange-600 rounded whitespace-nowrap hover:bg-orange-800">Lihat
+                                                class="whitespace-nowrap rounded bg-orange-600 px-3 py-2 font-semibold text-white transition-all hover:bg-orange-800">Lihat
                                                 Jawaban</a></td>
                                     @endif
                                 </tr>
