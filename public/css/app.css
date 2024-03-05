@@ -2089,6 +2089,10 @@ select {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
 }
+.text-teal-600 {
+  --tw-text-opacity: 1;
+  color: rgb(13 148 136 / var(--tw-text-opacity));
+}
 .text-yellow-600 {
   --tw-text-opacity: 1;
   color: rgb(202 138 4 / var(--tw-text-opacity));
@@ -2096,10 +2100,6 @@ select {
 .text-y_tersier {
   --tw-text-opacity: 1;
   color: rgb(206 85 161 / var(--tw-text-opacity));
-}
-.text-teal-600 {
-  --tw-text-opacity: 1;
-  color: rgb(13 148 136 / var(--tw-text-opacity));
 }
 .text-y_sekunder {
   --tw-text-opacity: 1;
@@ -2382,6 +2382,11 @@ select {
   background-color: rgb(7 89 133 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-y_tersier:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(206 85 161 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-slate-800:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(30 41 59 / var(--tw-bg-opacity));
@@ -2390,11 +2395,6 @@ select {
 .hover\:bg-white:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-y_tersier:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(206 85 161 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-teal-800:hover {
@@ -2533,6 +2533,11 @@ select {
   color: rgb(30 41 59 / var(--tw-text-opacity));
 }
 
+.hover\:text-teal-800:hover {
+  --tw-text-opacity: 1;
+  color: rgb(17 94 89 / var(--tw-text-opacity));
+}
+
 .hover\:text-red-900:hover {
   --tw-text-opacity: 1;
   color: rgb(127 29 29 / var(--tw-text-opacity));
@@ -2543,14 +2548,14 @@ select {
   color: rgb(8 145 178 / var(--tw-text-opacity));
 }
 
+.hover\:text-orange-600:hover {
+  --tw-text-opacity: 1;
+  color: rgb(234 88 12 / var(--tw-text-opacity));
+}
+
 .hover\:text-premier:hover {
   --tw-text-opacity: 1;
   color: rgb(185 0 39 / var(--tw-text-opacity));
-}
-
-.hover\:text-teal-800:hover {
-  --tw-text-opacity: 1;
-  color: rgb(17 94 89 / var(--tw-text-opacity));
 }
 
 .hover\:text-teal-600:hover {

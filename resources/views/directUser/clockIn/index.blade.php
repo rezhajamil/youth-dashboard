@@ -22,6 +22,9 @@
                     <a href="{{ route('direct_user.resume_clock_in') }}" target="_blank"
                         class="my-2 inline-block rounded-md bg-y_sekunder px-4 py-2 font-semibold text-white transition-all hover:bg-y_sekunder"><i
                             class="fa-solid fa-book mr-2"></i>Resume</a>
+                    <a href="{{ route('direct_user.monthly_clock_in') }}" target="_blank"
+                        class="my-2 inline-block rounded-md bg-y_tersier px-4 py-2 font-semibold text-white transition-all hover:bg-y_tersier"><i
+                            class="fa-solid fa-calendar mr-2"></i>Monthly</a>
                     <button
                         class="ml-2 h-full rounded-md bg-green-600 px-2 py-1 text-lg text-white transition hover:bg-green-800"
                         id="capture"><i class="fa-regular fa-circle-down"></i></button>

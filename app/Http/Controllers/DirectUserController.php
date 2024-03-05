@@ -458,7 +458,6 @@ class DirectUserController extends Controller
             $clocks = DB::select(
                 "SELECT * FROM table_kunjungan_copy a JOIN data_user b ON a.telp=b.telp WHERE b.cluster='$cluster' AND a.date='$date' ORDER BY b.nama,a.date"
             );
-            // ddd("SELECT * FROM table_kunjungan_copy a JOIN data_user b ON a.telp=b.telp WHERE b.cluster='$cluster' AND a.date='$date' ORDER BY b.nama,a.date");
 
             $sales = DB::select("SELECT telp,poi,COUNT(DISTINCT msisdn) sales FROM sales_copy WHERE date='$date' GROUP BY 1,2;");
         } else {
@@ -483,6 +482,41 @@ class DirectUserController extends Controller
         $data_cluster = DB::select($query_cluster);
 
         return view('directUser.clockIn.resume', compact('data_regional', 'data_branch', 'data_cluster'));
+    }
+
+    public function monthly_clock_in(Request $request)
+    {
+        $cluster = $request->cluster;
+        $month = $request->month ?? date('n');
+        $year = $request->year ?? date('Y');
+        $privilege = auth()->user()->privilege;
+        $clock = [];
+
+        $getPeriod = new DatePeriod(
+            new DateTime($year . '-' . $month . '-01'),
+            new DateInterval('P1D'),
+            new DateTime(date('Y-m-d', strtotime(date("Y-m-t", strtotime($year . '-' . $month . '-01')) . ' +1 day')))
+        );
+        $period = [];
+        foreach ($getPeriod as $key => $value) {
+            array_push($period, $value->format('d-M-Y'));
+        }
+
+        if ($privilege == 'superadmin') {
+            $list_cluster = DB::table('territory_new')->select('cluster')->distinct()->get();
+        } else if ($privilege == 'branch') {
+            $list_cluster = DB::table('territory_new')->select('cluster')->where('branch', auth()->user()->branch)->distinct()->get();
+        } else if ($privilege == 'cluster') {
+            $list_cluster = DB::table('territory_new')->select('cluster')->where('cluster', auth()->user()->cluster)->distinct()->get();
+        }
+
+        if ($cluster) {
+            $clock = DB::table('table_kunjungan_copy', 'a')->select(DB::raw('a.date, b.telp, b.nama, COUNT(a.id) as jumlah'))->join('data_user as b', 'a.telp', '=', 'b.telp')->where('cluster', $cluster)->where('label', 'MASUK')->whereMonth('date', $month)->whereYear('date', $year)->groupBy('date')->groupBy('telp')->groupBy('nama')->orderBy('nama')->orderBy('date')->get();
+        }
+
+        // ddd($clock);
+
+        return view('directUser.clockIn.monthly', compact('cluster', 'month', 'year', 'period', 'list_cluster', 'clock'));
     }
 
     public function kpi(Request $request)
