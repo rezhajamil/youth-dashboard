@@ -58,7 +58,7 @@ class TakerController extends Controller
         $res = [];
 
         try {
-            DB::table('trx_digipos_ds_test')->insert($data);
+            DB::table('trx_digipos_ds_2024_test')->insert($data);
             // foreach ($request->input('data') as $key => $value) {
             //     array_push($res, "Berhasil<br/>");
             // }

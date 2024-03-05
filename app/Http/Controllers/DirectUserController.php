@@ -188,8 +188,8 @@ class DirectUserController extends Controller
         //     LEFT JOIN (SELECT telp,COUNT(npsn) pjp FROM table_kunjungan_copy WHERE date BETWEEN '$m1' AND '$mtd' GROUP BY 1) f ON a.telp=f.telp
         //     LEFT JOIN (SELECT telp,SUM(hasil) quiz FROM quiz_answer WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) h ON a.telp=h.telp
         //     LEFT JOIN (SELECT Data_Sekolah_Sumatera.telp,COUNT(survey_answer.telp_siswa) survey FROM survey_answer JOIN Data_Sekolah_Sumatera ON survey_answer.npsn=Data_Sekolah_Sumatera.NPSN WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) i ON a.telp=i.telp
-        //     LEFT JOIN (SELECT digipos_ao,SUM(price) broadband FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DATA' GROUP BY 1) j ON a.id_digipos=j.digipos_ao
-        //     LEFT JOIN (SELECT digipos_ao,SUM(price) digital FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL' GROUP BY 1) k ON a.id_digipos=k.digipos_ao
+        //     LEFT JOIN (SELECT digipos_ao,SUM(price) broadband FROM trx_digipos_ds_2024 WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DATA' GROUP BY 1) j ON a.id_digipos=j.digipos_ao
+        //     LEFT JOIN (SELECT digipos_ao,SUM(price) digital FROM trx_digipos_ds_2024 WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL' GROUP BY 1) k ON a.id_digipos=k.digipos_ao
         //     WHERE a.telp='$user->telp' AND a.status=1");
 
         $kpi = DB::select("SELECT a.branch,a.cluster,a.nama,a.telp,a.id_digipos,a.`role`,b.byu,c.sales_byu, g.mytsel,e.update_data,f.pjp,h.quiz,i.survey,j.broadband,k.digital,
@@ -202,8 +202,8 @@ class DirectUserController extends Controller
             LEFT JOIN (SELECT telp,COUNT(npsn) pjp FROM table_kunjungan_copy WHERE date BETWEEN '$m1' AND '$mtd' GROUP BY 1) f ON a.telp=f.telp
             LEFT JOIN (SELECT telp,SUM(hasil) quiz FROM quiz_answer WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) h ON a.telp=h.telp
             LEFT JOIN (SELECT Data_Sekolah_Sumatera.telp,COUNT(survey_answer.telp_siswa) survey FROM survey_answer JOIN Data_Sekolah_Sumatera ON survey_answer.npsn=Data_Sekolah_Sumatera.NPSN WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) i ON a.telp=i.telp
-            LEFT JOIN (SELECT digipos_ao,SUM(price) broadband FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DATA' GROUP BY 1) j ON a.id_digipos=j.digipos_ao
-            LEFT JOIN (SELECT digipos_ao,SUM(price) digital FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL' GROUP BY 1) k ON a.id_digipos=k.digipos_ao
+            LEFT JOIN (SELECT digipos_ao,SUM(price) broadband FROM trx_digipos_ds_2024 WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DATA' GROUP BY 1) j ON a.id_digipos=j.digipos_ao
+            LEFT JOIN (SELECT digipos_ao,SUM(price) digital FROM trx_digipos_ds_2024 WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL' GROUP BY 1) k ON a.id_digipos=k.digipos_ao
             WHERE a.telp='$user->telp' AND a.status=1
             ORDER BY 1,2,3,5;");
 
@@ -571,8 +571,8 @@ class DirectUserController extends Controller
             LEFT JOIN (SELECT telp,COUNT(npsn) pjp FROM table_kunjungan_copy WHERE date BETWEEN '$m1' AND '$mtd' GROUP BY 1) f ON a.telp=f.telp
             LEFT JOIN (SELECT telp,SUM(hasil) quiz FROM quiz_answer WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) h ON a.telp=h.telp
             LEFT JOIN (SELECT Data_Sekolah_Sumatera.telp,COUNT(survey_answer.telp_siswa) survey FROM survey_answer JOIN Data_Sekolah_Sumatera ON survey_answer.npsn=Data_Sekolah_Sumatera.NPSN WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) i ON a.telp=i.telp
-            LEFT JOIN (SELECT digipos_ao,SUM(price) broadband FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DATA' GROUP BY 1) j ON a.id_digipos=j.digipos_ao
-            LEFT JOIN (SELECT digipos_ao,SUM(price) digital FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL' GROUP BY 1) k ON a.id_digipos=k.digipos_ao
+            LEFT JOIN (SELECT digipos_ao,SUM(price) broadband FROM trx_digipos_ds_2024 WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DATA' GROUP BY 1) j ON a.id_digipos=j.digipos_ao
+            LEFT JOIN (SELECT digipos_ao,SUM(price) digital FROM trx_digipos_ds_2024 WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL' GROUP BY 1) k ON a.id_digipos=k.digipos_ao
             WHERE $where_loc $where_role a.status=1
             ORDER BY 1,2,3,5;");
 
@@ -613,7 +613,7 @@ class DirectUserController extends Controller
         }
 
         $last_sales = DB::table('sales_copy')->select('date')->orderBy('date', 'desc')->first();
-        $last_digipos = DB::table('trx_digipos_ds')->select('event_date as date')->whereNotIn('event_date', ['None'])->orderBy('event_date', 'desc')->first();
+        $last_digipos = DB::table('trx_digipos_ds_2024')->select('event_date as date')->whereNotIn('event_date', ['None'])->orderBy('event_date', 'desc')->first();
 
         // ddd($detail);
 
@@ -739,7 +739,7 @@ class DirectUserController extends Controller
 
 
         $last_sales = DB::table('sales_copy')->select('date')->orderBy('date', 'desc')->first();
-        $last_digipos = DB::table('trx_digipos_ds')->select('event_date as date')->whereNotIn('event_date', ['None'])->orderBy('event_date', 'desc')->first();
+        $last_digipos = DB::table('trx_digipos_ds_2024')->select('event_date as date')->whereNotIn('event_date', ['None'])->orderBy('event_date', 'desc')->first();
 
         return view('directUser.kpi.resume', compact('resume_region', 'resume_branch', 'resume_cluster', 'last_sales', 'last_digipos'));
     }
@@ -805,8 +805,8 @@ class DirectUserController extends Controller
             LEFT JOIN (SELECT telp,COUNT(npsn) pjp FROM table_kunjungan_copy WHERE date BETWEEN '$m1' AND '$mtd' GROUP BY 1) f ON a.telp=f.telp
             LEFT JOIN (SELECT telp,SUM(hasil) quiz FROM quiz_answer WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) h ON a.telp=h.telp
             LEFT JOIN (SELECT Data_Sekolah_Sumatera.telp,COUNT(survey_answer.telp_siswa) survey FROM survey_answer JOIN Data_Sekolah_Sumatera ON survey_answer.npsn=Data_Sekolah_Sumatera.NPSN WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) i ON a.telp=i.telp
-            LEFT JOIN (SELECT digipos_ao,SUM(price) broadband FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DATA' GROUP BY 1) j ON a.id_digipos=j.digipos_ao
-            LEFT JOIN (SELECT digipos_ao,SUM(price) digital FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL' GROUP BY 1) k ON a.id_digipos=k.digipos_ao
+            LEFT JOIN (SELECT digipos_ao,SUM(price) broadband FROM trx_digipos_ds_2024 WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DATA' GROUP BY 1) j ON a.id_digipos=j.digipos_ao
+            LEFT JOIN (SELECT digipos_ao,SUM(price) digital FROM trx_digipos_ds_2024 WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL' GROUP BY 1) k ON a.id_digipos=k.digipos_ao
             WHERE $where_loc a.status=1
             ORDER BY 1,2,3,5;");
 
@@ -821,8 +821,8 @@ class DirectUserController extends Controller
             //     ->leftJoin(DB::raw("(SELECT telp, COUNT(npsn) pjp FROM _copy WHERE date BETWEEN '$m1' AND '$mtd' GROUP BY 1) f"), 'a.telp', '=', 'f.telp')
             //     ->leftJoin(DB::raw("(SELECT telp, SUM(hasil) quiz FROM quiz_answer WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) h"), 'a.telp', '=', 'h.telp')
             //     ->leftJoin(DB::raw("(SELECT Data_Sekolah_Sumatera.telp, COUNT(survey_answer.telp_siswa) survey FROM survey_answer JOIN Data_Sekolah_Sumatera ON survey_answer.npsn=Data_Sekolah_Sumatera.NPSN WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) i"), 'a.telp', '=', 'i.telp')
-            //     ->leftJoin(DB::raw("(SELECT digipos_ao, SUM(price) broadband FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DATA' GROUP BY 1) j"), 'a.id_digipos', '=', 'j.digipos_ao')
-            //     ->leftJoin(DB::raw("(SELECT digipos_ao, SUM(price) digital FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL' GROUP BY 1) k"), 'a.id_digipos', '=', 'k.digipos_ao')
+            //     ->leftJoin(DB::raw("(SELECT digipos_ao, SUM(price) broadband FROM trx_digipos_ds_2024 WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DATA' GROUP BY 1) j"), 'a.id_digipos', '=', 'j.digipos_ao')
+            //     ->leftJoin(DB::raw("(SELECT digipos_ao, SUM(price) digital FROM trx_digipos_ds_2024 WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL' GROUP BY 1) k"), 'a.id_digipos', '=', 'k.digipos_ao')
             //     ->whereRaw("$where_loc a.status")
             //     ->orderBy('a.branch')
             //     ->orderBy('a.cluster')
@@ -887,7 +887,7 @@ class DirectUserController extends Controller
         $last_migrasi = DB::table('4g_usim_all_trx')->select('date')->orderBy('date', 'desc')->first();
         $last_orbit = DB::table('orbit_digipos')->select('so_date as date')->orderBy('so_date', 'desc')->first();
         $last_sales = DB::table('sales_copy')->select('date')->orderBy('date', 'desc')->first();
-        $last_digipos = DB::table('trx_digipos_ds')->select('event_date as date')->whereNotIn('event_date', ['None'])->orderBy('event_date', 'desc')->first();
+        $last_digipos = DB::table('trx_digipos_ds_2024')->select('event_date as date')->whereNotIn('event_date', ['None'])->orderBy('event_date', 'desc')->first();
 
         // ddd(compact('last_migrasi', 'last_orbit', 'last_trade', 'last_digipos'));
         return view('directUser.kpi_old.index', compact('detail', 'list_target', 'sales', 'proses', 'last_migrasi', 'last_orbit', 'last_sales', 'last_digipos'));
@@ -1012,7 +1012,7 @@ class DirectUserController extends Controller
         $last_migrasi = DB::table('4g_usim_all_trx')->select('date')->orderBy('date', 'desc')->first();
         $last_orbit = DB::table('orbit_digipos')->select('so_date as date')->orderBy('so_date', 'desc')->first();
         $last_sales = DB::table('sales_copy')->select('date')->orderBy('date', 'desc')->first();
-        $last_digipos = DB::table('trx_digipos_ds')->select('event_date as date')->whereNotIn('event_date', ['None'])->orderBy('event_date', 'desc')->first();
+        $last_digipos = DB::table('trx_digipos_ds_2024')->select('event_date as date')->whereNotIn('event_date', ['None'])->orderBy('event_date', 'desc')->first();
 
         return view('directUser.kpi_old.resume', compact('resume_region', 'resume_branch', 'resume_cluster', 'last_migrasi', 'last_orbit', 'last_sales', 'last_digipos'));
     }
@@ -1069,7 +1069,7 @@ class DirectUserController extends Controller
             LEFT JOIN (SELECT telp,COUNT(npsn) pjp FROM table_kunjungan_copy WHERE date BETWEEN '$m1' AND '$mtd' GROUP BY 1) f ON a.telp=f.telp
             LEFT JOIN (SELECT telp, COUNT(msisdn) mytsel FROM sales_copy WHERE date BETWEEN '$m1' AND '$mtd' AND kategori='MY TELKOMSEL' GROUP BY 1) g ON a.telp = g.telp
             LEFT JOIN (SELECT telp,SUM(hasil) quiz FROM quiz_answer WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) h ON a.telp=h.telp
-            LEFT JOIN (SELECT digipos_ao,SUM(price) sales_digipos FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' GROUP BY 1) j ON a.id_digipos=j.digipos_ao
+            LEFT JOIN (SELECT digipos_ao,SUM(price) sales_digipos FROM trx_digipos_ds_2024 WHERE event_date BETWEEN '$m1' AND '$mtd' GROUP BY 1) j ON a.id_digipos=j.digipos_ao
             WHERE $where_loc a.role='YBA' AND a.status=1
             ORDER BY 1,2,3,5;";
 
@@ -1113,7 +1113,7 @@ class DirectUserController extends Controller
         }
 
         $last_sales = DB::table('sales_copy')->select('date')->orderBy('date', 'desc')->first();
-        $last_digipos = DB::table('trx_digipos_ds')->select('event_date as date')->whereNotIn('event_date', ['None'])->orderBy('event_date', 'desc')->first();
+        $last_digipos = DB::table('trx_digipos_ds_2024')->select('event_date as date')->whereNotIn('event_date', ['None'])->orderBy('event_date', 'desc')->first();
 
         // ddd(compact('last_migrasi', 'last_orbit', 'last_trade', 'last_digipos'));
         return view('directUser.kpi_yba.index', compact('detail', 'list_target', 'sales', 'proses', 'last_sales', 'last_digipos'));
@@ -1167,8 +1167,8 @@ class DirectUserController extends Controller
             LEFT JOIN (SELECT telp,COUNT(npsn) pjp FROM table_kunjungan_copy WHERE date BETWEEN '$m1' AND '$mtd' GROUP BY 1) f ON a.telp=f.telp
             LEFT JOIN (SELECT telp,SUM(hasil) quiz FROM quiz_answer WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) h ON a.telp=h.telp
             LEFT JOIN (SELECT Data_Sekolah_Sumatera.telp,COUNT(survey_answer.telp_siswa) survey FROM survey_answer JOIN Data_Sekolah_Sumatera ON survey_answer.npsn=Data_Sekolah_Sumatera.NPSN WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) i ON a.telp=i.telp
-            LEFT JOIN (SELECT digipos_ao,SUM(price) broadband FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DATA' GROUP BY 1) j ON a.id_digipos=j.digipos_ao
-            LEFT JOIN (SELECT digipos_ao,SUM(price) digital FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL' GROUP BY 1) k ON a.id_digipos=k.digipos_ao
+            LEFT JOIN (SELECT digipos_ao,SUM(price) broadband FROM trx_digipos_ds_2024 WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DATA' GROUP BY 1) j ON a.id_digipos=j.digipos_ao
+            LEFT JOIN (SELECT digipos_ao,SUM(price) digital FROM trx_digipos_ds_2024 WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL' GROUP BY 1) k ON a.id_digipos=k.digipos_ao
             WHERE a.telp='$request->telp' AND $where_role a.status=1
             ORDER BY 1,2,3,5;");
 
@@ -1260,7 +1260,7 @@ class DirectUserController extends Controller
             LEFT JOIN (SELECT telp,COUNT(npsn) pjp FROM table_kunjungan_copy WHERE date BETWEEN '$m1' AND '$mtd' GROUP BY 1) f ON a.telp=f.telp
             LEFT JOIN (SELECT telp, COUNT(msisdn) mytsel FROM sales_copy WHERE date BETWEEN '$m1' AND '$mtd' AND kategori='MY TELKOMSEL' GROUP BY 1) g ON a.telp = g.telp
             LEFT JOIN (SELECT telp,SUM(hasil) quiz FROM quiz_answer WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) h ON a.telp=h.telp
-            LEFT JOIN (SELECT digipos_ao,SUM(price) sales_digipos FROM trx_digipos_ds WHERE event_date BETWEEN '$m1' AND '$mtd' GROUP BY 1) j ON a.id_digipos=j.digipos_ao
+            LEFT JOIN (SELECT digipos_ao,SUM(price) sales_digipos FROM trx_digipos_ds_2024 WHERE event_date BETWEEN '$m1' AND '$mtd' GROUP BY 1) j ON a.id_digipos=j.digipos_ao
             WHERE a.telp='$request->telp' AND a.role='YBA' AND a.status=1
             ORDER BY 1,2,3,5;";
 
