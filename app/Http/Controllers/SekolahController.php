@@ -471,7 +471,7 @@ class SekolahController extends Controller
     {
         $search = $request->search;
         $cluster = $request->cluster;
-        $sekolah = DB::table('Data_Sekolah_Sumatera')->select(['NPSN', 'NAMA_SEKOLAH'])->where('CLUSTER', $cluster)->where('NAMA_SEKOLAH', 'like', '%' . $search . '%')->orWhere('NPSN', 'like', '%' . $search . '%')->orderBy('NAMA_SEKOLAH')->limit('10')->get();
+        $sekolah = DB::table('Data_Sekolah_Sumatera')->select(['NPSN', 'NAMA_SEKOLAH'])->where('CLUSTER', $cluster)->where('NAMA_SEKOLAH', 'like', $search . '%')->orWhere('NPSN', 'like',  $search . '%')->orderBy('NAMA_SEKOLAH')->limit('10')->get();
 
         return response()->json($sekolah);
     }
