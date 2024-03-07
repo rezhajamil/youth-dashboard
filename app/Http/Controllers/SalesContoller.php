@@ -652,7 +652,7 @@ class SalesContoller extends Controller
             $last_mtd = $this->convDate($mtd);
 
             if (auth()->user()->privilege != 'superadmin') {
-                $territory = auth()->user()->privilege == 'branch' ? " and branch='" . auth()->user()->branch . "'" : " and cluster='" . auth()->user()->cluster . "'";
+                $territory = auth()->user()->privilege == 'branch' ? " and b.branch='" . auth()->user()->branch . "'" : " and b.cluster='" . auth()->user()->cluster . "'";
             } else {
                 $territory = '';
             }
