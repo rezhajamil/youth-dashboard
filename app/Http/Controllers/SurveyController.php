@@ -570,7 +570,7 @@ class SurveyController extends Controller
 
         $query =
             "SELECT a.NPSN as npsn,a.`Nama Sekolah` as nama_sekolah,
-            b.clockin,c.ds,a.PD as jumlah_siswa,d.survey
+            b.clockin,c.ds,a.PD as jumlah_siswa,d.survey,d.partisipan
             FROM data_rombel_sumatera a  
             JOIN 
             (
@@ -597,7 +597,8 @@ class SurveyController extends Controller
                     OR telp_siswa LIKE '0853%'
                     THEN id
                     END
-                )/COUNT(id))*100 survey
+                )/COUNT(id))*100 survey,
+                COUNT(id) partisipan
                 FROM survey_answer 
                 WHERE `session`=24
                 GROUP BY 1

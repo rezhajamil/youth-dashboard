@@ -11,22 +11,36 @@
                     <table class="w-fit border-collapse overflow-auto text-left">
                         <thead class="border-b text-center">
                             <tr>
-                                <th class="border bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">No
+                                <th rowspan="2"
+                                    class="border bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">No
                                 </th>
-                                <th class="border bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">NPSN
+                                <th rowspan="2"
+                                    class="border bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">NPSN
                                 </th>
-                                <th class="border bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Nama Sekolah
+                                <th rowspan="2"
+                                    class="border bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Nama Sekolah
                                 </th>
-                                <th class="border bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Clock In
+                                <th rowspan="2"
+                                    class="border bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Clock In
                                     Terakhir
                                 </th>
-                                <th class="border bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Nama DS
+                                <th rowspan="2"
+                                    class="border bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Nama DS
                                 </th>
-                                <th class="border bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Jumlah Siswa
+                                <th rowspan="2"
+                                    class="border bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Jumlah Siswa
                                 </th>
-                                <th class="border bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Market Share
+                                <th colspan="2"
+                                    class="border bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Market Share
                                 </th>
-                                <th class="border bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Action
+                                <th rowspan="2"
+                                    class="border bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Action
+                                </th>
+                            </tr>
+                            <tr>
+                                <th class="border bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">%
+                                </th>
+                                <th class="border bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Partisipan
                                 </th>
                             </tr>
                         </thead>
@@ -52,13 +66,18 @@
                                         {{ $data->jumlah_siswa }}
                                     </td>
                                     <td
-                                        class="{{ $data->survey < 50 ? 'text-red-600' : 'text-gray-700' }} whitespace-nowrap border p-2">
-                                        {{ round($data->survey, 0) }}%
-                                        @if ($data->survey < 50)
-                                            <span class="ml-2 text-red-600">
-                                                <i class="fa-solid fa-circle-exclamation font-bold text-red-600"></i>
-                                            </span>
-                                        @endif
+                                        class="{{ $data->survey < 50 ? 'text-red-600' : 'text-gray-700' }} whitespace-nowrap border p-2 text-left">
+                                        <div class="flex justify-end gap-2">
+                                            <span>{{ round($data->survey, 0) }}%</span>
+                                            @if ($data->survey < 50)
+                                                <span class="inline-block text-red-600">
+                                                    <i class="fa-solid fa-circle-exclamation font-bold text-red-600"></i>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </td>
+                                    <td class="whitespace-nowrap border p-2 text-gray-700">
+                                        {{ $data->partisipan }}
                                     </td>
                                     <td class="border p-2 text-gray-700">
                                         <a href="{{ route('sekolah.show', $data->npsn) }}" target="_blank"
