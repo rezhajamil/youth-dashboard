@@ -1,16 +1,16 @@
 @extends('layouts.dashboard.app')
 @section('body')
-    <div class="w-full mx-4">
+    <div class="mx-4 w-full">
         <div class="flex flex-col">
             <div class="mt-4">
-                <h4 class="text-xl font-bold text-gray-600 align-baseline">Data TAPS</h4>
+                <h4 class="align-baseline text-xl font-bold text-gray-600">Data POI</h4>
 
                 <a href="{{ route('location.poi.create') }}"
-                    class="inline-block px-4 py-2 my-2 font-bold text-white rounded-md bg-y_premier hover:bg-y_premier"><i
-                        class="mr-2 fa-solid fa-plus"></i> Data POI Baru</a>
+                    class="my-2 inline-block rounded-md bg-y_premier px-4 py-2 font-bold text-white hover:bg-y_premier"><i
+                        class="fa-solid fa-plus mr-2"></i> Data POI Baru</a>
 
-                <div class="flex flex-wrap items-end mb-2 gap-x-4">
-                    <input type="text" name="search" id="search" placeholder="Search..." class="px-4 rounded-lg">
+                <div class="mb-2 flex flex-wrap items-end gap-x-4">
+                    <input type="text" name="search" id="search" placeholder="Search..." class="rounded-lg px-4">
                     <div class="flex flex-col">
                         <span class="font-bold text-gray-600">Berdasarkan</span>
                         <select name="search_by" id="search_by" class="rounded-lg">
@@ -18,6 +18,7 @@
                             <option value="branch">Branch</option>
                             <option value="cluster">Cluster</option>
                             <option value="kabupaten">Kabupaten</option>
+                            <option value="kecamatan">Kecamatan</option>
                             <option value="nama">Nama POI</option>
                         </select>
                     </div>
@@ -28,48 +29,50 @@
             <a href="{{ route('direct_user.create') }}" class="inline-block px-4 py-2 my-2 font-bold text-white rounded-md bg-y_premier hover:bg-y_premier"><i class="mr-2 fa-solid fa-plus"></i> Data User Baru</a>
             @endif --}}
 
-                <div class="overflow-auto bg-white rounded-md shadow w-fit">
-                    <table class="overflow-auto text-left border-collapse w-fit">
+                <div class="w-fit overflow-auto rounded-md bg-white shadow">
+                    <table class="w-fit border-collapse overflow-auto text-left">
                         <thead class="border-b">
                             <tr>
-                                <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Regional</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Branch</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Sub Branch</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Cluster</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Kabupaten</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Location</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Nama</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Jenis</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Keterangan</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Longitude</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Latitude</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Action</th>
+                                <th class="bg-y_tersier p-3 text-sm font-bold uppercase text-gray-100">No</th>
+                                <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Regional</th>
+                                <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Branch</th>
+                                <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Sub Branch</th>
+                                <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Cluster</th>
+                                <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Kabupaten</th>
+                                <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Kecamatan</th>
+                                <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Location</th>
+                                <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Nama</th>
+                                <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Jenis</th>
+                                <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Keterangan</th>
+                                <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Longitude</th>
+                                <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Latitude</th>
+                                <th class="bg-y_tersier p-3 text-sm font-medium uppercase text-gray-100">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($poi as $key => $data)
                                 <tr class="hover:bg-gray-200">
-                                    <td class="p-3 font-bold text-gray-700 border-b">{{ $key + 1 }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border-b regional">{{ $data->regional }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border-b branch">{{ $data->branch }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border-b branch">{{ $data->sub_branch }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border-b cluster">{{ $data->cluster }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border-b kabupaten">{{ $data->kabupaten }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border-b nama">{{ $data->location }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border-b nama">{{ $data->poi_name }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border-b jenis">{{ $data->jenis_poi }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border-b keterangan">{{ $data->keterangan_poi }}
+                                    <td class="border-b p-3 font-bold text-gray-700">{{ $key + 1 }}</td>
+                                    <td class="regional border-b p-3 uppercase text-gray-700">{{ $data->regional }}</td>
+                                    <td class="branch border-b p-3 uppercase text-gray-700">{{ $data->branch }}</td>
+                                    <td class="branch border-b p-3 uppercase text-gray-700">{{ $data->sub_branch }}</td>
+                                    <td class="cluster border-b p-3 uppercase text-gray-700">{{ $data->cluster }}</td>
+                                    <td class="kabupaten border-b p-3 uppercase text-gray-700">{{ $data->kabupaten }}</td>
+                                    <td class="kecamatan border-b p-3 uppercase text-gray-700">{{ $data->kecamatan }}</td>
+                                    <td class="nama border-b p-3 uppercase text-gray-700">{{ $data->location }}</td>
+                                    <td class="nama border-b p-3 uppercase text-gray-700">{{ $data->poi_name }}</td>
+                                    <td class="jenis border-b p-3 uppercase text-gray-700">{{ $data->jenis_poi }}</td>
+                                    <td class="keterangan border-b p-3 uppercase text-gray-700">{{ $data->keterangan_poi }}
                                     </td>
-                                    <td class="p-3 text-gray-700 uppercase border-b longitude">{{ $data->longitude }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border-b latitude">{{ $data->latitude }}</td>
-                                    <td class="p-3 text-gray-700 border-b">
+                                    <td class="longitude border-b p-3 uppercase text-gray-700">{{ $data->longitude }}</td>
+                                    <td class="latitude border-b p-3 uppercase text-gray-700">{{ $data->latitude }}</td>
+                                    <td class="border-b p-3 text-gray-700">
                                         <a href="{{ route('location.poi.edit', $data->id) }}"
-                                            class="block my-1 text-base font-semibold transition text-y_premier hover:text-indigo-800">Edit</a>
+                                            class="my-1 block text-base font-semibold text-y_premier transition hover:text-indigo-800">Edit</a>
                                         @if ($data->latitude && $data->longitude)
                                             <a target="_blank"
                                                 href="http://maps.google.com/maps?z=12&t=m&q=loc:{{ $data->latitude }}+{{ $data->longitude }}"
-                                                class="block my-1 text-base font-semibold transition text-y_sekunder hover:text-teal-600">Cek
+                                                class="my-1 block text-base font-semibold text-y_sekunder transition hover:text-teal-600">Cek
                                                 Lokasi</a>
                                         @endif
                                     </td>

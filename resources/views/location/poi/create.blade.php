@@ -1,15 +1,15 @@
 @extends('layouts.dashboard.app')
 @section('body')
-    <div class="w-full mx-4">
+    <div class="mx-4 w-full">
         <div class="flex flex-col">
             <div class="mt-4">
-                <h4 class="text-xl font-bold text-gray-600 align-baseline">Tambah Data POI</h4>
+                <h4 class="align-baseline text-xl font-bold text-gray-600">Tambah Data POI</h4>
 
-                <div class="px-6 py-4 mx-auto overflow-auto bg-white rounded-md shadow sm:mx-0 w-fit">
+                <div class="mx-auto w-fit overflow-auto rounded-md bg-white px-6 py-4 shadow sm:mx-0">
                     <form action="{{ route('location.poi.store') }}" method="POST" class="">
                         @csrf
-                        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-                            <div class="grid grid-cols-5 gap-x-3 col-span-full">
+                        <div class="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2">
+                            <div class="col-span-full grid grid-cols-5 gap-x-3">
                                 <div class="w-full">
                                     <label class="block text-gray-700" for="regional">Regional</label>
                                     <select name="regional" id="regional" class="w-full rounded-md">
@@ -22,7 +22,7 @@
                                         @endforeach
                                     </select>
                                     @error('regional')
-                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="w-full">
@@ -31,7 +31,7 @@
                                         <option value="" selected disabled>Pilih Branch</option>
                                     </select>
                                     @error('branch')
-                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 {{-- <div class="w-full">
@@ -49,7 +49,7 @@
                                         <option value="" selected disabled>Pilih Cluster</option>
                                     </select>
                                     @error('cluster')
-                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="w-full">
@@ -58,12 +58,21 @@
                                         <option value="" selected disabled>Pilih Kabupaten</option>
                                     </select>
                                     @error('kabupaten')
-                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="w-full">
+                                    <label class="block text-gray-700" for="kecamatan">Kecamatan</label>
+                                    <select name="kecamatan" id="kecamatan" class="w-full rounded-md">
+                                        <option value="" selected disabled>Pilih Kecamatan</option>
+                                    </select>
+                                    @error('kecamatan')
+                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
 
-                            <div class="grid grid-cols-3 gap-x-3 col-span-full">
+                            <div class="col-span-full grid grid-cols-3 gap-x-3">
                                 <div class="w-full">
                                     <label class="block text-gray-700" for="location">Location</label>
                                     <select name="location" id="location" class="w-full rounded-md">
@@ -76,7 +85,7 @@
                                         @endforeach
                                     </select>
                                     @error('location')
-                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="w-full">
@@ -91,7 +100,7 @@
                                         @endforeach
                                     </select>
                                     @error('keterangan_poi')
-                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="w-full">
@@ -107,42 +116,42 @@
                                     @endforeach --}}
                                     </select>
                                     @error('jenis_poi')
-                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
 
-                            <div class="grid grid-cols-3 gap-x-3 col-span-full">
+                            <div class="col-span-full grid grid-cols-3 gap-x-3">
                                 <div>
                                     <label class="text-gray-700" for="name">Nama POI</label>
-                                    <input class="w-full rounded-md form-input focus:border-indigo-600" type="text"
+                                    <input class="form-input w-full rounded-md focus:border-indigo-600" type="text"
                                         name="name" value="{{ old('name') }}">
                                     @error('name')
-                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div>
                                     <label class="text-gray-700" for="latitude">Latitude</label>
-                                    <input class="w-full rounded-md form-input focus:border-indigo-600" type="text"
+                                    <input class="form-input w-full rounded-md focus:border-indigo-600" type="text"
                                         name="latitude" value="{{ old('latitude') }}">
                                     @error('latitude')
-                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div>
                                     <label class="text-gray-700" for="longitude">Longitude</label>
-                                    <input class="w-full rounded-md form-input focus:border-indigo-600" type="text"
+                                    <input class="form-input w-full rounded-md focus:border-indigo-600" type="text"
                                         name="longitude" value="{{ old('longitude') }}">
                                     @error('longitude')
-                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
 
                             </div>
 
-                            <div class="flex justify-end mt-4 col-span-full">
+                            <div class="col-span-full mt-4 flex justify-end">
                                 <button
-                                    class="w-full px-4 py-2 font-bold text-white rounded-md bg-y_premier hover:bg-y_sekunder focus:outline-none focus:bg-y_sekunder">Submit</button>
+                                    class="w-full rounded-md bg-y_premier px-4 py-2 font-bold text-white hover:bg-y_sekunder focus:bg-y_sekunder focus:outline-none">Submit</button>
                             </div>
                     </form>
                 </div>
@@ -264,6 +273,36 @@
                             data.map((item) => {
                                 return `
                     <option value="${item.kabupaten}">${item.kabupaten}</option>
+                    `
+                            })
+
+                        )
+
+                    },
+                    error: (e) => {
+                        console.log(e)
+                    }
+                })
+            })
+
+            $("#kabupaten").on('input', () => {
+                var kabupaten = $("#kabupaten").val();
+                console.log(kabupaten)
+                $.ajax({
+                    url: "{{ route('wilayah.get_kecamatan') }}",
+                    method: "POST",
+                    dataType: "JSON",
+                    data: {
+                        kabupaten: kabupaten,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: (data) => {
+                        console.log(data)
+                        $("#kecamatan").html(
+                            "<option disabled selected>Pilih Kecamatan</option>" +
+                            data.map((item) => {
+                                return `
+                    <option value="${item.kecamatan}">${item.kecamatan}</option>
                     `
                             })
 

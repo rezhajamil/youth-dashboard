@@ -143,6 +143,7 @@ class LocationController extends Controller
             // 'sub_branch' => 'required',
             'cluster' => 'required',
             'kabupaten' => 'required',
+            'kecamatan' => 'required',
             'location' => 'required',
             'keterangan_poi' => 'required',
             'jenis_poi' => 'required',
@@ -158,6 +159,7 @@ class LocationController extends Controller
             // 'sub_branch' => $request->sub_branch,
             'cluster' => $request->cluster,
             'kabupaten' => $request->kabupaten,
+            'kecamatan' => $request->kecamatan,
             'location' => $request->location,
             'keterangan_poi' => $request->keterangan_poi,
             'jenis_poi' => $request->jenis_poi,
@@ -174,8 +176,9 @@ class LocationController extends Controller
     public function edit_poi($id)
     {
         $poi = DB::table('list_poi')->find($id);
+        $kecamatan = DB::table('territory')->select('kecamatan')->distinct()->whereNotNull('kecamatan')->where('kabupaten', $poi->kabupaten)->orderBy('kecamatan')->get();
         // $cluster = DB::table('territory_new')->select('cluster')->distinct()->get();
-        return view('location.poi.edit', compact('poi'));
+        return view('location.poi.edit', compact('poi', 'kecamatan'));
     }
 
 
@@ -184,12 +187,14 @@ class LocationController extends Controller
         $request->validate([
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
+            'kecamatan' => 'required',
         ]);
         $poi = DB::table('list_poi')->find($id);
 
         DB::table('list_poi')->where('id', $id)->update([
             "latitude" => $request->latitude,
-            "longitude" => $request->longitude
+            "longitude" => $request->longitude,
+            "kecamatan" => $request->kecamatan
         ]);
 
         return redirect()->route('location.poi');
