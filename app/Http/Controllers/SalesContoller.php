@@ -664,12 +664,23 @@ class SalesContoller extends Controller
             //         $location
             //         GROUP BY 1,2  ORDER BY 1,2;";
 
-            $query = "SELECT b.nama,b.branch,b.cluster,b.role,b.telp,b.reff_code, a.msisdn,a.`date`,a.serial,a.jenis,a.kategori,a.detail,a.poi,a.jarak,a.status
+            if ($jenis == 'SEKOLAH') {
+                $query = "SELECT b.nama,b.branch,b.cluster,b.role,b.telp,b.reff_code, a.msisdn,a.`date`,a.serial,a.jenis,a.kategori,a.detail,a.poi,a.jarak,a.status,c.KECAMATAN as kecamatan
                     FROM sales_copy a  
                     JOIN data_user b ON b.telp = a.telp
+                    JOIN Data_Sekolah_Sumatera c ON SUBSTRING_INDEX(a.poi, '-', 1)=c.NPSN
                     where a.date BETWEEN '$m1' AND '$mtd'
                     and not a.status ='1' and jenis='$jenis' $location $territory
                     ORDER by b.regional DESC,b.branch,b.cluster, b.nama ASC";
+            } else {
+                $query = "SELECT b.nama,b.branch,b.cluster,b.role,b.telp,b.reff_code, a.msisdn,a.`date`,a.serial,a.jenis,a.kategori,a.detail,a.poi,a.jarak,a.status,c.kecamatan
+                    FROM sales_copy a  
+                    JOIN data_user b ON b.telp = a.telp
+                    JOIN list_poi c ON SUBSTRING_INDEX(a.poi, '-', 1)=c.id
+                    where a.date BETWEEN '$m1' AND '$mtd'
+                    and not a.status ='1' and jenis='$jenis' $location $territory
+                    ORDER by b.regional DESC,b.branch,b.cluster, b.nama ASC";
+            }
 
             // ddd($query);
 

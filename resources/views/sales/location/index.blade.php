@@ -102,6 +102,7 @@
                                 <th class="bg-y_tersier p-4 text-sm font-bold uppercase text-gray-100">No</th>
                                 <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">Branch</th>
                                 <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">Cluster</th>
+                                <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">Kecamatan</th>
                                 <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">Nama</th>
                                 <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">Telp</th>
                                 <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">Role</th>
@@ -126,6 +127,7 @@
                                     <td class="border-b p-4 font-bold text-gray-700">{{ $key + 1 }}</td>
                                     <td class="branch border-b p-4 uppercase text-gray-700">{{ $data->branch }}</td>
                                     <td class="cluster border-b p-4 uppercase text-gray-700">{{ $data->cluster }}</td>
+                                    <td class="kecamatan border-b p-4 uppercase text-gray-700">{{ $data->kecamatan }}</td>
                                     <td class="nama border-b p-4 uppercase text-gray-700">{{ $data->nama }}</td>
                                     <td class="telp border-b p-4 uppercase text-gray-700">{{ $data->telp }}</td>
                                     <td class="role border-b p-4 uppercase text-gray-700">{{ $data->role }}</td>
