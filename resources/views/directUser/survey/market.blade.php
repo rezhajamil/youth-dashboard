@@ -1,14 +1,14 @@
 @extends('layouts.dashboard.app')
 @section('body')
-    <section class="flex justify-center w-full h-full min-h-screen px-4 py-4 bg-premier">
-        <div class="w-full px-4 py-2 bg-white rounded-lg shadow-xl h-fit sm:w-3/4 ">
+    <section class="flex h-full min-h-screen w-full justify-center bg-premier px-4 py-4">
+        <div class="h-fit w-full rounded-lg bg-white px-4 py-2 shadow-xl sm:w-3/4">
             @if ($survey && !request()->get('finish'))
                 <span
-                    class="block w-full py-2 text-2xl font-bold text-center text-sekunder">{{ $survey ? $survey->nama : '' }}</span>
+                    class="block w-full py-2 text-center text-2xl font-bold text-sekunder">{{ $survey ? $survey->nama : '' }}</span>
                 <span
-                    class="block w-full py-2 mb-1 text-lg font-bold text-center border-b-2 text-tersier">{{ $sekolah ? $sekolah->NAMA_SEKOLAH : '' }}</span>
+                    class="mb-1 block w-full border-b-2 py-2 text-center text-lg font-bold text-tersier">{{ $sekolah ? $sekolah->NAMA_SEKOLAH : '' }}</span>
                 <span
-                    class="block w-full py-2 mb-2 text-base font-bold text-center {{ request()->get('kelas') ? 'border-b-2' : '' }} text-tersier">{{ request()->get('kelas') ? 'Kelas ' . request()->get('kelas') : '' }}</span>
+                    class="{{ request()->get('kelas') ? 'border-b-2' : '' }} mb-2 block w-full py-2 text-center text-base font-bold text-tersier">{{ request()->get('kelas') ? 'Kelas ' . request()->get('kelas') : '' }}</span>
                 <form action="{{ route('survey.answer.store') }}" method="post" id="form-survey">
                     @csrf
                     <input type="hidden" name="npsn" value="{{ request()->get('npsn') }}">
@@ -21,7 +21,7 @@
                         $opsi = 0;
                     @endphp
                     @foreach ($survey->soal as $key => $data)
-                        <div class="flex flex-col py-4 border-b-4 gap-y-3">
+                        <div class="flex flex-col gap-y-3 border-b-4 py-4">
                             <span class="font-semibold">{{ $key + 1 }}) {{ $data }}</span>
                             @if ($survey->jenis_soal[$key] == 'Pilgan' || $survey->jenis_soal[$key] == 'Pilgan & Isian')
                                 @php
@@ -31,12 +31,12 @@
                                     <label>
                                         <input type="radio" name="jawaban_{{ $key }}[]"
                                             value="{{ $survey->opsi[$opsi + $i] }}"
-                                            class="hidden peer {{ $survey->jenis_soal[$key] == 'Pilgan & Isian' ? 'pi' : '' }} {{ $survey->jenis_soal[$key] == 'Pilgan & Isian' && $i == $survey->jumlah_opsi[$key] - 1 ? 'other' : '' }}"
+                                            class="{{ $survey->jenis_soal[$key] == 'Pilgan & Isian' ? 'pi' : '' }} {{ $survey->jenis_soal[$key] == 'Pilgan & Isian' && $i == $survey->jumlah_opsi[$key] - 1 ? 'other' : '' }} peer hidden"
                                             data-soal="{{ $key }}" required>
 
                                         <div
-                                            class="flex w-full font-semibold border-2 peer-checked:text-white peer-checked:bg-green-600 peer-checked:border-green-800">
-                                            <span class="inline-block p-4 border-r-2">{{ $str }}</span>
+                                            class="flex w-full border-2 font-semibold peer-checked:border-green-800 peer-checked:bg-green-600 peer-checked:text-white">
+                                            <span class="inline-block border-r-2 p-4">{{ $str }}</span>
                                             <span class="inline-block w-full p-4">{{ $survey->opsi[$opsi + $i] }}</span>
                                         </div>
                                     </label>
@@ -48,7 +48,7 @@
                                     <label>
                                         <input type="text" name="jawaban_{{ $key }}[]"
                                             data-soal="{{ $key }}" disabled required placeholder="Lainnya"
-                                            class="flex w-full font-semibold border-2 placeholder:opacity-70 other-isian">
+                                            class="other-isian flex w-full border-2 font-semibold placeholder:opacity-70">
                                     </label>
                                 @endif
                             @elseif($survey->jenis_soal[$key] == 'Isian')
@@ -58,19 +58,19 @@
                                             name="jawaban_{{ $key }}[]" required
                                             placeholder="{{ $data }}"
                                             data-validasi="{{ $survey->validasi[$key] }}"
-                                            class="flex w-full font-semibold border-2 placeholder:opacity-70 placeholder:text-sm peer-checked:text-white peer-checked:bg-green-600 peer-checked:border-green-800">
+                                            class="flex w-full border-2 font-semibold placeholder:text-sm placeholder:opacity-70 peer-checked:border-green-800 peer-checked:bg-green-600 peer-checked:text-white">
                                     </label>
                                 @endfor
                             @elseif($survey->jenis_soal[$key] == 'Checklist')
                                 @for ($i = 0; $i < $survey->jumlah_opsi[$key]; $i++)
                                     <label class="flex gap-x-4">
                                         <input type="checkbox" name="jawaban_{{ $key }}[]"
-                                            value="{{ $survey->opsi[$opsi + $i] }}" class="hidden peer">
+                                            value="{{ $survey->opsi[$opsi + $i] }}" class="peer hidden">
                                         <div
-                                            class="flex w-full font-semibold border-2 peer-checked:text-white peer-checked:bg-teal-600 peer-checked:border-teal-800">
-                                            <span class="inline-block p-4 border-r-2"><i
+                                            class="flex w-full border-2 font-semibold peer-checked:border-teal-800 peer-checked:bg-teal-600 peer-checked:text-white">
+                                            <span class="inline-block border-r-2 p-4"><i
                                                     class="fa-solid fa-check"></i></span>
-                                            <span class="inline-block w-full p-4 ">{{ $survey->opsi[$opsi + $i] }}</span>
+                                            <span class="inline-block w-full p-4">{{ $survey->opsi[$opsi + $i] }}</span>
                                         </div>
                                         {{-- <span class="inline-block w-full p-4">{{ $survey->opsi[$opsi+$i] }}</span> --}}
                                     </label>
@@ -78,7 +78,7 @@
                             @elseif($survey->jenis_soal[$key] == 'Prioritas')
                                 <div class="grid grid-cols-2 gap-4">
                                     @for ($i = 0; $i < $survey->jumlah_opsi[$key]; $i++)
-                                        <label class="flex flex-col col-span-1 gap-y-2">
+                                        <label class="col-span-1 flex flex-col gap-y-2">
                                             <span class="font-bold">Favorit Ke-{{ $i + 1 }}</span>
                                             <select name="jawaban_{{ $key }}[]" data-soal="{{ $key }}"
                                                 class="prioritas" id="prior_{{ $key . '_' . $i }}">
@@ -100,19 +100,19 @@
                         @endphp
                     @endforeach
                     <button type="submit" id="btn-submit"
-                        class="w-full px-6 py-2 my-4 font-semibold text-white rounded bg-sekunder">Selesai</button>
+                        class="my-4 w-full rounded bg-sekunder px-6 py-2 font-semibold text-white">Selesai</button>
                 </form>
             @elseif(request()->get('finish'))
-                <div class="flex flex-col my-4 gap-y-4">
-                    <span class="block w-full py-2 mb-2 text-xl font-bold text-center text-green-800">Survey di <br>
-                        {{ $sekolah->NAMA_SEKOLAH }} <br> pada {{ date('d-m-Y') }} <br> Sudah
+                <div class="my-4 flex flex-col gap-y-4">
+                    <span class="mb-2 block w-full py-2 text-center text-xl font-bold text-green-800">Survey <br>
+                        {{ $sekolah->NAMA_SEKOLAH ?? '' }} <br> pada {{ date('d-m-Y') }} <br> Sudah
                         Selesai</span>
-                    <span class="block w-full py-2 mb-2 text-xl font-bold text-center text-green-800">Makasih yaa sudah
+                    <span class="mb-2 block w-full py-2 text-center text-xl font-bold text-green-800">Makasih yaa sudah
                         mengikuti survey kami :)</span>
-                    <i class="text-6xl text-center text-green-800 fa-solid fa-circle-check"></i>
+                    <i class="fa-solid fa-circle-check text-center text-6xl text-green-800"></i>
                 </div>
             @else
-                <span class="block w-full py-2 mb-2 text-2xl font-bold text-center text-premier">Tidak Ada Survey
+                <span class="mb-2 block w-full py-2 text-center text-2xl font-bold text-premier">Tidak Ada Survey
                     Aktif</span>
             @endif
         </div>
