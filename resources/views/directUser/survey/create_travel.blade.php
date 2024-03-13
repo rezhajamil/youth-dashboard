@@ -1,6 +1,6 @@
 @extends('layouts.dashboard.app')
 @section('body')
-    <section class="flex h-full min-h-screen w-full flex-col justify-center gap-3 bg-premier px-4 py-4">
+    <section class="flex h-full min-h-screen w-full flex-col items-center justify-center gap-3 bg-premier px-4 py-4">
         @if (session('success'))
             <div class="w-full rounded bg-green-300 px-3 py-3 font-bold text-green-800 sm:w-3/4">Berhasil menambah data</div>
         @endif
