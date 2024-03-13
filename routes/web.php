@@ -71,6 +71,8 @@ Route::post('/store_answer/survey/', [SurveyController::class, 'store_answer'])-
 Route::get('/resume_territory/survey/{survey}', [SurveyController::class, 'resume_territory'])->name('survey.resume_territory');
 Route::get('fb_share', [SurveyController::class, 'fb_share'])->name('survey.fb_share');
 Route::get('fb_share/detail', [SurveyController::class, 'fb_share_detail'])->name('survey.fb_share_detail');
+
+Route::get('travel/create', [SurveyController::class, 'create_travel'])->name('survey.create_travel');
 // Route::get('/qns/{url}', [SurveyController::class, 'redirect_survey'])->name('survey.redirect');
 
 

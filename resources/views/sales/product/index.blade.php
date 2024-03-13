@@ -153,6 +153,7 @@
                                 <option value="nama">Nama</option>
                                 <option value="telp">Telp</option>
                                 <option value="reff">Reff Code</option>
+                                <option value="poi">POI</option>
                                 <option value="status">Status</option>
                                 <option value="aktif">Tanggal Lapor</option>
                             </select>
@@ -217,7 +218,8 @@
                                         <td class="serial border-b p-4 uppercase text-gray-700">{{ $data->serial }}</td>
                                     @endif
                                     @if (Request::get('kategori') == 'BYU')
-                                        <td class="serial border-b p-4 uppercase text-gray-700">{{ $data->poi }}</td>
+                                        <td class="serial poi border-b p-4 uppercase text-gray-700">{{ $data->poi }}
+                                        </td>
                                     @endif
                                     <td class="aktif border-b p-4 uppercase text-gray-700">{{ $data->date }}</td>
                                     @if (Request::get('kategori') == 'MYTSEL VALIDASI')

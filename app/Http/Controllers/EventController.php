@@ -321,7 +321,7 @@ class EventController extends Controller
                             'jenis' => 'EVENT',
                             'kategori' => 'BYU',
                             'detail' => '',
-                            'poi' => $sekolah->NAMA_SEKOLAH,
+                            'poi' => $sekolah->NPSN . '-' . $sekolah->NAMA_SEKOLAH,
                             'jarak' => '0',
                             'serial' => '',
                             'msisdn' => $row[0],

@@ -773,4 +773,23 @@ class SurveyController extends Controller
             echo "000000";
         }
     }
+
+    public function create_travel(Request $request)
+    {
+        $plain = true;
+        if ($request->telp) {
+            $user = DB::table('data_user')->where('telp', $request->telp)->where('status', 1)->first();
+            $city = DB::table('territory_new')->select('kab_new as city')->distinct()->where('cluster', $user->cluster)->orderBy('kab_new')->get();
+            $travel = DB::table('data_travel')->select('nama_travel')->distinct()->orderBy('nama_travel')->get();
+        } else {
+            $user = [];
+            $city = [];
+            $travel = [];
+        }
+
+        $travel = json_encode($travel);
+
+
+        return view('directUser.survey.create_travel', compact('plain', 'user', 'city', 'travel'));
+    }
 }
