@@ -344,12 +344,14 @@ class SekolahController extends Controller
             $request->validate([
                 'hari' => 'required',
                 'frekuensi' => 'required',
+                'date' => 'required',
             ]);
             $sekolah = DB::table('Data_Sekolah_Sumatera')->where('NPSN', $request->npsn)->first();
             $pjp = DB::table('pjp')->insert([
                 'kategori' => $request->kategori,
                 'npsn' => $request->npsn,
                 'telp' => $request->telp,
+                'date' => $request->date,
                 'frekuensi' => $request->frekuensi,
                 'hari' => $request->hari,
                 'lokasi' => $sekolah->NAMA_SEKOLAH,

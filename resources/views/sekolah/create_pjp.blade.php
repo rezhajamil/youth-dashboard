@@ -1,10 +1,10 @@
 @extends('layouts.dashboard.app')
 @section('body')
-    <div class="w-full mx-4">
+    <div class="mx-4 w-full">
         <div class="flex flex-col">
             <div class="flex gap-x-3">
-                <span class="text-xl font-bold align-baseline">Jenis Kunjungan : </span>
-                <select name="jenis" id="jenis" class="p-0 pr-8 text-xl font-bold underline bg-transparent border-0">
+                <span class="align-baseline text-xl font-bold">Jenis Kunjungan : </span>
+                <select name="jenis" id="jenis" class="border-0 bg-transparent p-0 pr-8 text-xl font-bold underline">
                     <option value="sekolah" selected disabled class="text-gray-600">Pilih Jenis Kunjungan</option>
                     <option value="sekolah">Sekolah</option>
                     <option value="event">Event</option>
@@ -14,20 +14,20 @@
                 </select>
             </div>
 
-            <div class="grid mt-4 gap-y-12" id="container">
+            <div class="mt-4 grid gap-y-12" id="container">
             </div>
-            <div class="fixed inset-0 z-20 flex items-center justify-center w-full h-full overflow-auto bg-black/80"
+            <div class="fixed inset-0 z-20 flex h-full w-full items-center justify-center overflow-auto bg-black/80"
                 style="display:none;" id="search-container" x-transition>
-                <i class="absolute z-10 text-3xl text-white transition cursor-pointer fa-solid fa-xmark top-5 right-10 hover:text-premier"
+                <i class="fa-solid fa-xmark absolute right-10 top-5 z-10 cursor-pointer text-3xl text-white transition hover:text-premier"
                     id="search-close" x-on:click="search=false"></i>
-                <div class="flex flex-col w-full mx-4 overflow-hidden bg-white rounded-lg sm:w-1/2">
-                    <span class="inline-block w-full p-4 mb-4 text-lg font-bold text-center text-white bg-premier">Cari
+                <div class="mx-4 flex w-full flex-col overflow-hidden rounded-lg bg-white sm:w-1/2">
+                    <span class="mb-4 inline-block w-full bg-premier p-4 text-center text-lg font-bold text-white">Cari
                         Sekolah</span>
-                    <input type="text" class="mx-4 rounded sekolah" name="sekolah" id="sekolah"
+                    <input type="text" class="sekolah mx-4 rounded" name="sekolah" id="sekolah"
                         placeholder="Ketik Nama Sekolah" class="mb-4" autofocus>
                     <img src="{{ asset('images/loading.svg') }}" alt="Loading" id="loading"
-                        class="w-24 h-24 mx-auto mt-6 loading">
-                    <div class="flex flex-col w-full h-64 py-2 mt-2 overflow-auto" id="school-list">
+                        class="loading mx-auto mt-6 h-24 w-24">
+                    <div class="mt-2 flex h-64 w-full flex-col overflow-auto py-2" id="school-list">
                     </div>
                 </div>
             </div>
@@ -120,6 +120,13 @@
                                                 <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                                 @enderror
                                             </div>
+                                            <div>
+                                                <label class="text-gray-700" for="date">Tanggal Kunjungan</label>
+                                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="date" name="date" value="{{ old('date') }}" required>
+                                                @error('date')
+                                                <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                                @enderror
+                                            </div>
                                         </div>
                 
                                         <div class="flex justify-end mt-4 col-span-full">
@@ -177,14 +184,14 @@
                                                 </div>
                                                 <div>
                                                     <label class="text-gray-700" for="date">Tanggal Kunjungan</label>
-                                                    <input class="w-full rounded-md form-input focus:border-indigo-600" type="date" name="date" value="{{ old('date') }}">
+                                                    <input class="w-full rounded-md form-input focus:border-indigo-600" type="date" name="date" value="{{ old('date') }}" required>
                                                     @error('date')
                                                     <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                                     @enderror
                                                 </div>
                                                 <div>
                                                     <label class="text-gray-700" for="date_start">Tanggal Mulai</label>
-                                                    <input class="w-full rounded-md form-input focus:border-indigo-600" type="date" name="date_start" value="{{ old('date_start') }}">
+                                                    <input class="w-full rounded-md form-input focus:border-indigo-600" type="date" name="date_start" value="{{ old('date_start') }}" required>
                                                     @error('date_start')
                                                     <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                                     @enderror
