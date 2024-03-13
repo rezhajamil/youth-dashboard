@@ -787,9 +787,22 @@ class SurveyController extends Controller
             $travel = [];
         }
 
-        $travel = json_encode($travel);
-
-
         return view('directUser.survey.create_travel', compact('plain', 'user', 'city', 'travel'));
+    }
+
+    public function store_travel(Request $request)
+    {
+        $request->validate([
+            'periode' => ['required'],
+            'nama_travel' => ['required'],
+            'jlh_jemaah' => ['required'],
+            'cluster' => ['required'],
+            'city' => ['required'],
+            'kecamatan' => ['required'],
+        ]);
+
+        $travel = DB::table('data_travel')->insert($request->except('_token', 'travel'));
+
+        return back()->with('success', "Berhasil Tambah Data");
     }
 }
