@@ -76,6 +76,8 @@ class DirectUserController extends Controller
             'regional' => 'required',
             'branch' => 'required',
             'cluster' => 'required',
+            'city' => 'required',
+            'kecamatan' => 'required',
             'tap' => 'required',
             'role' => 'required',
             'nama' => 'required',
@@ -104,6 +106,8 @@ class DirectUserController extends Controller
             'regional' => $request->regional,
             'branch' => $request->branch,
             'cluster' => $request->cluster,
+            'city' => $request->city,
+            'kecamatan' => $request->kecamatan,
             'tap' => $request->tap,
             'role' => $request->role,
             'nama' => $request->nama,
@@ -262,21 +266,27 @@ class DirectUserController extends Controller
             $region = DB::table('territory_new')->select('regional')->distinct()->whereNotNull('regional')->get();
             $branch = DB::table('territory_new')->select('branch')->distinct()->whereNotNull('branch')->get();
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->orderBy('cluster')->get();
+            $city = DB::table('territory_new')->select('kab_new as city')->distinct()->whereNotNull('kab_new')->where('cluster', $user->cluster)->orderBy('kab_new')->get();
+            $kecamatan = DB::table('territory')->select('kecamatan')->distinct()->whereNotNull('kecamatan')->where('new_cluster', $user->cluster)->orderBy('kecamatan')->get();
             $tap = DB::table('taps')->select('nama')->distinct()->whereNotNull('nama')->where('cluster', $user->cluster)->orderBy('nama')->get();
         } else if (Auth::user()->privilege == "branch") {
             $region = DB::table('territory_new')->select('regional')->distinct()->where('regional', Auth::user()->regional)->get();
             $branch = DB::table('territory_new')->select('branch')->distinct()->where('branch', Auth::user()->branch)->get();
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->where('branch', Auth::user()->branch)->orderBy('cluster')->get();
+            $city = DB::table('territory_new')->select('kab_new as city')->distinct()->whereNotNull('kab_new')->where('branch', Auth::user()->branch)->orderBy('kab_new')->get();
+            $kecamatan = DB::table('territory')->select('kecamatan')->distinct()->whereNotNull('kecamatan')->where('new_branch', Auth::user()->branch)->orderBy('kecamatan')->get();
             $tap = DB::table('taps')->select('nama')->distinct()->whereNotNull('nama')->where('cluster', $user->cluster)->orderBy('nama')->get();
         } else {
             $region = DB::table('territory_new')->select('regional')->distinct()->where('regional', Auth::user()->regional)->get();
             $branch = DB::table('territory_new')->select('branch')->distinct()->where('branch', Auth::user()->branch)->get();
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->where('cluster', Auth::user()->cluster)->orderBy('cluster')->get();
+            $city = DB::table('territory_new')->select('kab_new as city')->distinct()->whereNotNull('kab_new')->where('cluster', Auth::user()->cluster)->orderBy('kab_new')->get();
+            $kecamatan = DB::table('territory')->select('kecamatan')->distinct()->whereNotNull('kecamatan')->where('new_cluster', Auth::user()->cluster)->orderBy('kecamatan')->get();
             $tap = DB::table('taps')->select('nama')->distinct()->whereNotNull('nama')->where('cluster', $user->cluster)->orderBy('nama')->get();
         }
 
         $role = DB::table('user_type')->where('status', '1')->get();
-        return view('directUser.edit', compact('user', 'region', 'branch', 'cluster', 'tap', 'role'));
+        return view('directUser.edit', compact('user', 'region', 'branch', 'cluster', 'city', 'kecamatan', 'tap', 'role'));
     }
 
     /**
@@ -294,6 +304,8 @@ class DirectUserController extends Controller
             'regional' => 'required',
             'branch' => 'required',
             'cluster' => 'required',
+            'city' => 'required',
+            'kecamatan' => 'required',
             'tap' => 'required',
             'role' => 'required',
             'nama' => 'required',
@@ -322,6 +334,8 @@ class DirectUserController extends Controller
         $user->regional = $request->regional;
         $user->branch = $request->branch;
         $user->cluster = $request->cluster;
+        $user->city = $request->city;
+        $user->kecamatan = $request->kecamatan;
         $user->tap = $request->tap;
         $user->role = $request->role;
         $user->nama = $request->nama;
