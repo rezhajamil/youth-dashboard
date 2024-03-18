@@ -320,27 +320,27 @@ class SurveyController extends Controller
                 return redirect()->route('survey.answer.create', ['url' => $request->url, 'npsn' => $request->npsn, 'finish' => 1]);
             }
         } else if ($request->telp) {
-            $answer = DB::table('survey_travel_answer')->where('session', $request->session)->where('telp_pic', $request->telp);
+            // $answer = DB::table('survey_travel_answer')->where('session', $request->session)->where('telp_pic', $request->telp);
             // if ($request->jawaban_7[0] != "Belum Punya") {
             //     $answer->orWhere('id_digipos', $request->jawaban_8[0]);
             // }
 
-            $answer = $answer->count();
+            // $answer = $answer->count();
             // ddd($answer);
             // ddd($request->session);
-            if ($answer < 1) {
-                DB::table('survey_travel_answer')->insert([
-                    'session' => $request->session,
-                    'telp' => $request->telp,
-                    'id_digipos' => 0,
-                    'pilihan' => json_encode($pilihan),
-                    'telp_pic' => $request->telp,
-                    'time_start' => date('Y-m-d H:i:s'),
-                    'finish' => '1'
-                ]);
-            } else {
-                return redirect(URL::to("/qns/survey/$request->url?telp=$request->telp&finish=1"));
-            }
+            DB::table('survey_travel_answer')->insert([
+                'session' => $request->session,
+                'telp' => $request->telp,
+                'id_digipos' => 0,
+                'pilihan' => json_encode($pilihan),
+                'telp_pic' => $request->telp,
+                'time_start' => date('Y-m-d H:i:s'),
+                'finish' => '1'
+            ]);
+            // if ($answer < 1) {
+            // } else {
+            //     return redirect(URL::to("/qns/survey/$request->url?telp=$request->telp&finish=1"));
+            // }
         } else {
             DB::table('survey_answer')->where('session', $request->session)->where('telp', $request->telp)->where('telp_siswa', $request->telp_siswa)->update([
                 'finish' => '1',
