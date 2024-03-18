@@ -320,21 +320,21 @@ class SurveyController extends Controller
                 return redirect()->route('survey.answer.create', ['url' => $request->url, 'npsn' => $request->npsn, 'finish' => 1]);
             }
         } else if ($request->telp) {
-            $answer = DB::table('survey_travel_answer')->where('session', $request->session)->where('telp_pic', $request->jawaban_3[0]);
-
-            if ($request->jawaban_7[0] != "Belum Punya") {
-                $answer->orWhere('id_digipos', $request->jawaban_8[0]);
-            }
+            $answer = DB::table('survey_travel_answer')->where('session', $request->session)->where('telp_pic', $request->telp);
+            // if ($request->jawaban_7[0] != "Belum Punya") {
+            //     $answer->orWhere('id_digipos', $request->jawaban_8[0]);
+            // }
 
             $answer = $answer->count();
+            // ddd($answer);
             // ddd($request->session);
             if ($answer < 1) {
                 DB::table('survey_travel_answer')->insert([
                     'session' => $request->session,
                     'telp' => $request->telp,
-                    'id_digipos' => $request->jawaban_8[0],
+                    'id_digipos' => 0,
                     'pilihan' => json_encode($pilihan),
-                    'telp_pic' => $request->jawaban_3[0],
+                    'telp_pic' => $request->telp,
                     'time_start' => date('Y-m-d H:i:s'),
                     'finish' => '1'
                 ]);

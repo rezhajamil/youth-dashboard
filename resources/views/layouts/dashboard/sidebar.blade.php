@@ -220,7 +220,7 @@
             <a href="{{ route('sekolah.oss_osk') }}"
                 class="select-none border-b border-b-slate-400 text-white transition-all hover:bg-white hover:text-slate-800"><span
                     class="inline-block px-2 py-3">OSS OSK</span></a>
-            <a href="{{ URL::to('/answer_list/survey?session=23') }}"
+            <a href="{{ URL::to('/answer_list/survey?session=27') }}"
                 class="select-none border-b border-b-slate-400 text-white transition-all hover:bg-white hover:text-slate-800"><span
                     class="inline-block px-2 py-3">Travel</span></a>
         </div>
