@@ -630,11 +630,12 @@ class DirectUserController extends Controller
 
         $last_sales = DB::table('sales_copy')->select('date')->orderBy('date', 'desc')->first();
         $last_digipos = DB::table('trx_digipos_ds_2024')->select('event_date as date')->whereNotIn('event_date', ['None'])->orderBy('event_date', 'desc')->first();
+        $last_acquisition = DB::table('byu_validasi')->select('date')->orderBy('date', 'desc')->first();
 
         // ddd($detail);
 
         // ddd(compact('last_migrasi', 'last_orbit', 'last_trade', 'last_digipos'));
-        return view('directUser.kpi.index', compact('detail', 'list_target', 'sales', 'proses', 'last_sales', 'last_digipos'));
+        return view('directUser.kpi.index', compact('detail', 'list_target', 'sales', 'proses', 'last_sales', 'last_digipos', 'last_acquisition'));
     }
 
 
