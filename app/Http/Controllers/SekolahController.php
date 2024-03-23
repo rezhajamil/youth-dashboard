@@ -25,7 +25,7 @@ class SekolahController extends Controller
         switch ($privilege) {
             case 'branch':
                 $provinsi = Sekolah::select('provinsi')->distinct()->whereNotNull('provinsi')->where('branch', $branch)->orderBy('provinsi')->get();
-                $branch = DB::table('wilayah')->select('branch')->distinct()->whereNotNull('branch')->where('branch', $branch)->get();
+                $branch = DB::table('territory_new')->select('branch')->distinct()->whereNotNull('branch')->where('branch', $branch)->get();
                 break;
             case 'cluster':
                 $provinsi = Sekolah::select('provinsi')->distinct()->whereNotNull('provinsi')->where('cluster', $cluster)->orderBy('provinsi')->get();
@@ -33,7 +33,7 @@ class SekolahController extends Controller
                 break;
             default:
                 $provinsi = Sekolah::select('provinsi')->distinct()->whereNotNull('provinsi')->orderBy('provinsi')->get();
-                $branch = DB::table('wilayah')->select('branch')->distinct()->whereNotNull('branch')->get();
+                $branch = DB::table('territory_new')->select('branch')->distinct()->whereNotNull('branch')->get();
                 break;
         }
 
@@ -68,7 +68,7 @@ class SekolahController extends Controller
         switch ($privilege) {
             case 'branch':
                 $provinsi = Sekolah::select('provinsi')->distinct()->whereNotNull('provinsi')->where('branch', $branch)->orderBy('provinsi')->get();
-                $branch = DB::table('wilayah')->select('branch')->distinct()->whereNotNull('branch')->where('branch', $branch)->get();
+                $branch = DB::table('territory_new')->select('branch')->distinct()->whereNotNull('branch')->where('branch', $branch)->get();
                 break;
             case 'cluster':
                 $provinsi = Sekolah::select('provinsi')->distinct()->whereNotNull('provinsi')->where('cluster', $cluster)->orderBy('provinsi')->get();
@@ -76,7 +76,7 @@ class SekolahController extends Controller
                 break;
             default:
                 $provinsi = Sekolah::select('provinsi')->distinct()->whereNotNull('provinsi')->orderBy('provinsi')->get();
-                $branch = DB::table('wilayah')->select('branch')->distinct()->whereNotNull('branch')->get();
+                $branch = DB::table('territory_new')->select('branch')->distinct()->whereNotNull('branch')->get();
                 break;
         }
 
