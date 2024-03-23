@@ -292,6 +292,7 @@
                     ,
                     success: (data) => {
                         $("#branch").html(
+                            `<option value="" selected disabled>Pilih Branch</option>` +
                             data.map((item) => {
                                 return `
                             <option value="${item.branch}">${item.branch}</option>
@@ -318,6 +319,7 @@
                         _token: "{{ csrf_token() }}"
                     },
                     success: (data) => {
+                        `<option value="" selected disabled>Pilih Cluster</option>` +
                         $("#cluster").html(
                             data.map((item) => {
                                 return `
@@ -347,7 +349,7 @@
                     },
                     success: (data) => {
                         console.log(data)
-                        $("#tap").html(
+                        $("#tap").html(`<option value="" selected disabled>Pilih TAP</option>` +
                             data.map((item) => {
                                 return `
                     <option value="${item.nama}">${item.nama}</option>
@@ -373,6 +375,7 @@
                     success: (data) => {
                         console.log(data)
                         $("#city").html(
+                            `<option value="" selected disabled>Pilih City</option>` +
                             data.map((item) => {
                                 return `
                     <option value="${item.kabupaten}">${item.kabupaten}</option>
@@ -401,6 +404,7 @@
                     },
                     success: (data) => {
                         $("#kecamatan").html(
+                            `<option value="" selected disabled>Pilih Kecamatan</option>` +
                             data.map((item) => {
                                 return `
                     <option value="${item.kecamatan}">${item.kecamatan}</option>
