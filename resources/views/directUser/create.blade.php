@@ -266,6 +266,7 @@
                     ,
                     success: (data) => {
                         $("#branch").html(
+                            `<option value="" selected disabled>Pilih Branch</option>` +
                             data.map((item) => {
                                 return `
                             <option value="${item.branch}">${item.branch}</option>
