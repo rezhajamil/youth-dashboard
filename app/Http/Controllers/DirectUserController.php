@@ -588,7 +588,7 @@ class DirectUserController extends Controller
             LEFT JOIN (SELECT telp,SUM(hasil) quiz FROM quiz_answer WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) h ON a.telp=h.telp
             LEFT JOIN (SELECT Data_Sekolah_Sumatera.telp,COUNT(survey_answer.telp_siswa) survey FROM survey_answer JOIN Data_Sekolah_Sumatera ON survey_answer.npsn=Data_Sekolah_Sumatera.NPSN WHERE time_start BETWEEN '$m1' AND '$mtd' GROUP BY 1) i ON a.telp=i.telp
             LEFT JOIN (SELECT digipos_ao,SUM(price) broadband FROM trx_digipos_ds_2024 WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DATA' GROUP BY 1) j ON a.id_digipos=j.digipos_ao
-            LEFT JOIN (SELECT digipos_ao,SUM(price) digital FROM trx_digipos_ds_2024 WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL' GROUP BY 1) k ON a.id_digipos=k.digipos_ao
+            LEFT JOIN (SELECT digipos_ao,SUM(price) digital FROM trx_digipos_ds_2024 WHERE event_date BETWEEN '$m1' AND '$mtd' AND trx_type LIKE 'DIGITAL%' OR trx_type LIKE 'EXTENSION%' GROUP BY 1) k ON a.id_digipos=k.digipos_ao
             WHERE $where_loc $where_role a.status=1
             ORDER BY 1,2,3,5;");
 
