@@ -8,8 +8,9 @@
         </button>
     </div>
 
-    <img src="{{ asset('images/logo-new.png') }}" alt="logo" class="sm:w-16 w-8 ml-2" style="width: 4rem">
-    <img src="{{ asset('images/logo-new-text.png') }}" alt="logo" class="sm:w-40 w-28 ml-2 mr-auto">
+    <img src="{{ asset('images/logo-new.png') }}" alt="logo" class="w-8 ml-2 sm:w-16" style="width: 4rem"
+        loading="lazy">
+    <img src="{{ asset('images/logo-new-text.png') }}" alt="logo" class="ml-2 mr-auto w-28 sm:w-40" loading="lazy">
 
     <div class="flex items-center gap-x-4">
         <div class="flex flex-col">
@@ -20,7 +21,8 @@
         <div x-data="{ dropdownOpen: false }" class="relative">
             <button @click="dropdownOpen = ! dropdownOpen"
                 class="relative block w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none">
-                <img class="object-cover w-full h-full" src="{{ asset('images/profile.png') }}" alt="Your avatar">
+                <img class="object-cover w-full h-full" src="{{ asset('images/profile.png') }}" alt="Your avatar"
+                    loading="lazy">
             </button>
 
             <div x-cloak x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 z-10 w-full h-full">
