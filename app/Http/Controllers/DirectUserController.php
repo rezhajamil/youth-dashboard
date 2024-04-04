@@ -581,7 +581,7 @@ class DirectUserController extends Controller
             FROM data_user a
             LEFT JOIN (SELECT id_digipos, SUM(revenue) byu FROM byu_sales_ds WHERE date BETWEEN '$m1' AND '$mtd' GROUP BY 1) b ON a.id_digipos = b.id_digipos
             -- LEFT JOIN (SELECT telp, COUNT(msisdn)*20000 sales_byu FROM sales_copy WHERE date BETWEEN '$m1' AND '$mtd' AND (kategori='BYU' OR (kategori='TRADE IN' AND detail='By.U')) GROUP BY 1) c ON a.telp = c.telp
-            LEFT JOIN(SELECT sales_copy.telp,SUM(CASE WHEN price IS NOT NULL THEN price ELSE 0 END) sales_byu FROM sales_copy JOIN byu_validasi ON sales_copy.msisdn=byu_validasi.msisdn WHERE byu_validasi.`date` BETWEEN '$m1' AND '$mtd' GROUP BY 1) c ON a.telp=c.telp
+            LEFT JOIN(SELECT sales_copy.telp,SUM(CASE WHEN price IS NOT NULL THEN price ELSE 0 END) sales_byu FROM sales_copy JOIN byu_validasi ON sales_copy.msisdn=byu_validasi.msisdn WHERE byu_validasi.`tgl` BETWEEN '$m1' AND '$mtd' GROUP BY 1) c ON a.telp=c.telp
             LEFT JOIN (SELECT telp, COUNT(msisdn) mytsel FROM sales_copy WHERE date BETWEEN '$m1' AND '$mtd' AND kategori='MY TELKOMSEL' GROUP BY 1) g ON a.telp = g.telp
             LEFT JOIN (SELECT telp,COUNT(NPSN) update_data FROM Data_Sekolah_Sumatera WHERE UPDATED_AT BETWEEN '$m1' AND '$mtd' AND LONGITUDE!='' GROUP BY 1) e ON a.telp=e.telp
             LEFT JOIN (SELECT telp,COUNT(npsn) pjp FROM table_kunjungan_copy WHERE date BETWEEN '$m1' AND '$mtd' GROUP BY 1) f ON a.telp=f.telp
@@ -630,7 +630,7 @@ class DirectUserController extends Controller
 
         $last_sales = DB::table('sales_copy')->select('date')->orderBy('date', 'desc')->first();
         $last_digipos = DB::table('trx_digipos_ds_2024')->select('event_date as date')->whereNotIn('event_date', ['None'])->orderBy('event_date', 'desc')->first();
-        $last_acquisition = DB::table('byu_validasi')->select('date')->orderBy('date', 'desc')->first();
+        $last_acquisition = DB::table('byu_validasi')->select('tgl as date')->orderBy('date', 'desc')->first();
 
         // ddd($detail);
 
