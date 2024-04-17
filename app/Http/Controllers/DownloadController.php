@@ -23,7 +23,6 @@ class DownloadController extends Controller
                 break;
         }
 
-        // ddd($data);
         $headers = [
             "Content-type" => "text/csv",
             "Content-Disposition" => "attachment; filename=$csvFileName",

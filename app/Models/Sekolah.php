@@ -57,12 +57,12 @@ class Sekolah extends Model
                 data_oss_osk.nama_outlet,
                 data_oss_osk.`telp pic`,
                 data_user.nama,
-                ROUND(111.111 * DEGREES(ACOS(COS(RADIANS(CAST(outlet_reference_1022.latitude AS DECIMAL (10, 6)))) * COS(RADIANS(CAST(Data_Sekolah_Sumatera.LATITUDE AS DECIMAL (10, 6)))) * COS(RADIANS(CAST(outlet_reference_1022.longitude AS DECIMAL (10, 6)) - CAST(Data_Sekolah_Sumatera.LONGITUDE AS DECIMAL (10, 6)))) + SIN(RADIANS(CAST(outlet_reference_1022.latitude AS DECIMAL (10, 6)))) * SIN(RADIANS(CAST(Data_Sekolah_Sumatera.LATITUDE AS DECIMAL (10, 6)))))), 2) AS jarak
+                ROUND(111.111 * DEGREES(ACOS(COS(RADIANS(CAST(outlet_ref__19032024.lattitude AS DECIMAL (10, 6)))) * COS(RADIANS(CAST(Data_Sekolah_Sumatera.LATITUDE AS DECIMAL (10, 6)))) * COS(RADIANS(CAST(outlet_ref__19032024.longitude AS DECIMAL (10, 6)) - CAST(Data_Sekolah_Sumatera.LONGITUDE AS DECIMAL (10, 6)))) + SIN(RADIANS(CAST(outlet_ref__19032024.lattitude AS DECIMAL (10, 6)))) * SIN(RADIANS(CAST(Data_Sekolah_Sumatera.LATITUDE AS DECIMAL (10, 6)))))), 2) AS jarak
             FROM
                 data_oss_osk
                 LEFT JOIN data_user ON data_oss_osk.telp = data_user.telp
                 JOIN Data_Sekolah_Sumatera ON data_oss_osk.npsn = Data_Sekolah_Sumatera.NPSN
-                JOIN outlet_reference_1022 ON data_oss_osk.outlet_id=outlet_reference_1022.outlet_id
+                JOIN outlet_ref__19032024 ON data_oss_osk.outlet_id=outlet_ref__19032024.outlet_id
                 $territory
             ORDER BY
                 Data_Sekolah_Sumatera.`CLUSTER`,
@@ -81,9 +81,9 @@ class Sekolah extends Model
     {
         $query = "SELECT Data_Sekolah_Sumatera.BRANCH,
         Data_Sekolah_Sumatera.CLUSTER,
-        COUNT(CASE WHEN (ROUND(111.111 * DEGREES(ACOS(COS(RADIANS(CAST(outlet_reference_1022.latitude AS DECIMAL (10, 6)))) * COS(RADIANS(CAST(Data_Sekolah_Sumatera.LATITUDE AS DECIMAL (10, 6)))) * COS(RADIANS(CAST(outlet_reference_1022.longitude AS DECIMAL (10, 6)) - CAST(Data_Sekolah_Sumatera.LONGITUDE AS DECIMAL (10, 6)))) + SIN(RADIANS(CAST(outlet_reference_1022.latitude AS DECIMAL (10, 6)))) * SIN(RADIANS(CAST(Data_Sekolah_Sumatera.LATITUDE AS DECIMAL (10, 6)))))), 2))<=1 THEN 1 END) AS dekat,
-        COUNT(CASE WHEN (ROUND(111.111 * DEGREES(ACOS(COS(RADIANS(CAST(outlet_reference_1022.latitude AS DECIMAL (10, 6)))) * COS(RADIANS(CAST(Data_Sekolah_Sumatera.LATITUDE AS DECIMAL (10, 6)))) * COS(RADIANS(CAST(outlet_reference_1022.longitude AS DECIMAL (10, 6)) - CAST(Data_Sekolah_Sumatera.LONGITUDE AS DECIMAL (10, 6)))) + SIN(RADIANS(CAST(outlet_reference_1022.latitude AS DECIMAL (10, 6)))) * SIN(RADIANS(CAST(Data_Sekolah_Sumatera.LATITUDE AS DECIMAL (10, 6)))))), 2))>1 THEN 1 END) AS jauh,
-        COUNT(data_oss_osk.npsn) as jumlah FROM data_oss_osk JOIN Data_Sekolah_Sumatera ON data_oss_osk.npsn=Data_Sekolah_Sumatera.NPSN JOIN outlet_reference_1022 ON data_oss_osk.outlet_id=outlet_reference_1022.outlet_id $territory GROUP BY 1,2 ORDER BY 1,2;";
+        COUNT(CASE WHEN (ROUND(111.111 * DEGREES(ACOS(COS(RADIANS(CAST(outlet_ref__19032024.lattitude AS DECIMAL (10, 6)))) * COS(RADIANS(CAST(Data_Sekolah_Sumatera.LATITUDE AS DECIMAL (10, 6)))) * COS(RADIANS(CAST(outlet_ref__19032024.longitude AS DECIMAL (10, 6)) - CAST(Data_Sekolah_Sumatera.LONGITUDE AS DECIMAL (10, 6)))) + SIN(RADIANS(CAST(outlet_ref__19032024.lattitude AS DECIMAL (10, 6)))) * SIN(RADIANS(CAST(Data_Sekolah_Sumatera.LATITUDE AS DECIMAL (10, 6)))))), 2))<=1 THEN 1 END) AS dekat,
+        COUNT(CASE WHEN (ROUND(111.111 * DEGREES(ACOS(COS(RADIANS(CAST(outlet_ref__19032024.lattitude AS DECIMAL (10, 6)))) * COS(RADIANS(CAST(Data_Sekolah_Sumatera.LATITUDE AS DECIMAL (10, 6)))) * COS(RADIANS(CAST(outlet_ref__19032024.longitude AS DECIMAL (10, 6)) - CAST(Data_Sekolah_Sumatera.LONGITUDE AS DECIMAL (10, 6)))) + SIN(RADIANS(CAST(outlet_ref__19032024.lattitude AS DECIMAL (10, 6)))) * SIN(RADIANS(CAST(Data_Sekolah_Sumatera.LATITUDE AS DECIMAL (10, 6)))))), 2))>1 THEN 1 END) AS jauh,
+        COUNT(data_oss_osk.npsn) as jumlah FROM data_oss_osk JOIN Data_Sekolah_Sumatera ON data_oss_osk.npsn=Data_Sekolah_Sumatera.NPSN JOIN outlet_ref__19032024 ON data_oss_osk.outlet_id=outlet_ref__19032024.outlet_id $territory GROUP BY 1,2 ORDER BY 1,2;";
 
         // ddd($query);
 
