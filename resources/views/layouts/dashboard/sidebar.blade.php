@@ -302,6 +302,12 @@
 
 
         <a class="mt-4 flex cursor-pointer items-center bg-opacity-25 px-6 py-2 text-white transition-all hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100"
+            href="{{ route('download.index') }}">
+            <i class="fa-solid fa-download"></i>
+            <span class="mx-6">Download</span>
+        </a>
+
+        <a class="mt-4 flex cursor-pointer items-center bg-opacity-25 px-6 py-2 text-white transition-all hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100"
             href="{{ route('dokumen.index') }}">
             <i class="fa-solid fa-file"></i>
             <span class="mx-6">Dokumen</span>

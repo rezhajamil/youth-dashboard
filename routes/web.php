@@ -7,6 +7,7 @@ use App\Http\Controllers\ContentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DirectSalesContoller;
 use App\Http\Controllers\DirectUserController;
+use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\OutletController;
@@ -180,6 +181,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('content/news/create', [ContentController::class, 'create_news'])->name('news.create');
     Route::delete('content/news/{id}', [ContentController::class, 'destroy_news'])->name('news.destroy');
 
+    Route::get('download', [DownloadController::class, 'index'])->name('download.index');
+    Route::get('download/csv', [DownloadController::class, 'downloadCsv'])->name('download.csv');
     Route::get('content/dokumen', [ContentController::class, 'dokumen'])->name('dokumen.index');
     Route::post('content/dokumen', [ContentController::class, 'store_dokumen'])->name('dokumen.store');
     Route::get('content/dokumen/create', [ContentController::class, 'create_dokumen'])->name('dokumen.create');
