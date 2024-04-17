@@ -14,6 +14,9 @@ class Download extends Model
     {
         $m1 = date('Y-m-01', strtotime($date));
         $mtd = date('Y-m-d', strtotime($date));
+        $privilege = auth()->user()->privilege;
+        $branch = auth()->user()->branch;
+        $cluster = auth()->user()->cluster;
 
         $data = DB::select("SELECT 
             g.id AS id, 
@@ -48,6 +51,7 @@ class Download extends Model
             WHERE a.date BETWEEN '$m1' AND '$mtd'
                 AND b.status = '1'
                 AND a.jenis = 'SEKOLAH'
+                " . ($privilege == 'branch' ? "AND b.branch = '$branch'" : ($privilege == 'cluster' ? "AND b.cluster = '$cluster'" : "")) . "
             UNION ALL
             SELECT SUBSTRING_INDEX(a.poi,'-',1) AS id, 
                     a.poi, 
@@ -63,7 +67,9 @@ class Download extends Model
             LEFT JOIN data_user b ON b.telp = a.telp
             WHERE a.date BETWEEN '$m1' AND '$mtd'
                 AND b.status = '1'
-                AND a.jenis != 'SEKOLAH') AS g
+                AND a.jenis != 'SEKOLAH'
+                " . ($privilege == 'branch' ? "AND b.branch = '$branch'" : ($privilege == 'cluster' ? "AND b.cluster = '$cluster'" : "")) . "
+            ) AS g
         LEFT JOIN 
             (SELECT i.stategy, 
                     h.NPSN, 
@@ -72,6 +78,7 @@ class Download extends Model
                     h.KATEGORI_JENJANG 
             FROM Data_Sekolah_Sumatera h 
             JOIN strategy_profile i ON i.city=h.CITY
+            " . ($privilege == 'branch' ? "WHERE h.branch = '$branch'" : ($privilege == 'cluster' ? "WHERE h.cluster = '$cluster'" : "")) . "
             UNION ALL
             SELECT i.stategy, 
                     h.id AS NPSN,  

@@ -183,11 +183,11 @@
                 class="select-none border-b border-b-slate-400 text-white transition-all hover:bg-white hover:text-slate-800"><span
                     class="inline-block px-2 py-3">Upload Bulk BYU</span></a>
         </div>
-        <a class="mt-4 flex cursor-pointer items-center bg-opacity-25 px-6 py-2 text-white transition-all hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100"
+        {{-- <a class="flex items-center px-6 py-2 mt-4 text-white transition-all bg-opacity-25 cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100"
             href="{{ route('byu.index') }}">
             <i class="fa-solid fa-sim-card"></i>
             <span class="mx-6">By.U</span>
-        </a>
+        </a> --}}
         <a class="mt-4 flex cursor-pointer items-center px-6 py-2 text-white transition-all hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100"
             x-on:click="school=!school">
             <i class="fa-solid fa-school w-6"></i>
