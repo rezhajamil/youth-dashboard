@@ -373,7 +373,7 @@ class SalesContoller extends Controller
         return back();
     }
 
-    public function digipos()
+    public function digipos_old()
     {
         $branch = Auth::user()->privilege == 'branch' ? "WHERE a.branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == 'cluster' ? "WHERE a.cluster='" . Auth::user()->cluster . "'" : '');
         $query = "SELECT a.`cluster`,a.outlet_id,a.fisik,b.nama,b.role,
@@ -486,6 +486,67 @@ class SalesContoller extends Controller
         }
 
         return view('sales.digipos.index', compact('sales', 'sales_branch', 'sales_cluster'));
+    }
+
+    public function digipos(Request $request)
+    {
+        $list_trx_type = DB::table('trx_digipos_ds_2024')->select('trx_type')->distinct()->get();
+
+        $sales = [];
+        $sales_branch = [];
+        $sales_cluster = [];
+
+        if ($request->date) {
+            $territory = Auth::user()->privilege == 'branch' ? " AND branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == 'cluster' ? " AND cluster='" . Auth::user()->cluster . "'" : '');
+            $trx_type = $request->trx_type != "ALL" ? ' AND trx_type="' . $request->trx_type . '"' : '';
+
+            $m1 = date('Y-m-01', strtotime($request->date));
+            $mtd = date('Y-m-d', strtotime($request->date));
+            $last_m1 = date('Y-m-01', strtotime($this->convDate($mtd)));
+            $last_mtd = $this->convDate($mtd);
+
+            $query = "SELECT digipos_ao,nama_ao,branch,cluster,
+                    SUM(CASE WHEN event_date BETWEEN '$last_m1' AND '$last_mtd' THEN price ELSE 0 END) m1,
+                    SUM(CASE WHEN event_date BETWEEN '$m1' AND '$mtd' THEN price ELSE 0 END) mtd
+                    FROM trx_digipos_ds_2024 
+                    JOIN data_user
+                    ON data_user.id_digipos=trx_digipos_ds_2024.digipos_ao
+                    WHERE event_date BETWEEN '$last_m1' AND '$mtd'
+                    $trx_type
+                    $territory
+                    GROUP BY 1,2,3,4
+                    ORDER BY 3,4,2;";
+
+            $query_branch = "SELECT branch,
+                    SUM(CASE WHEN event_date BETWEEN '$last_m1' AND '$last_mtd' THEN price ELSE 0 END) m1,
+                    SUM(CASE WHEN event_date BETWEEN '$m1' AND '$mtd' THEN price ELSE 0 END) mtd
+                    FROM trx_digipos_ds_2024 
+                    JOIN data_user
+                    ON data_user.id_digipos=trx_digipos_ds_2024.digipos_ao
+                    WHERE event_date BETWEEN '$last_m1' AND '$mtd'
+                    $trx_type
+                    $territory
+                    GROUP BY 1
+                    ORDER BY 1;";
+
+            $query_cluster = "SELECT cluster,
+                    SUM(CASE WHEN event_date BETWEEN '$last_m1' AND '$last_mtd' THEN price ELSE 0 END) m1,
+                    SUM(CASE WHEN event_date BETWEEN '$m1' AND '$mtd' THEN price ELSE 0 END) mtd
+                    FROM trx_digipos_ds_2024 
+                    JOIN data_user
+                    ON data_user.id_digipos=trx_digipos_ds_2024.digipos_ao
+                    WHERE event_date BETWEEN '$last_m1' AND '$mtd'
+                    $trx_type
+                    $territory
+                    GROUP BY 1
+                    ORDER BY 1;";
+
+            $sales = DB::select($query);
+            $sales_branch = DB::select($query_branch);
+            $sales_cluster = DB::select($query_cluster);
+        }
+
+        return view('sales.digipos.index', compact('sales', 'sales_branch', 'sales_cluster', 'list_trx_type'));
     }
 
     public function product(Request $request)
