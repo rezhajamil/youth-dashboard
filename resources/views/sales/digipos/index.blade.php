@@ -65,64 +65,245 @@
                 <span class="mb-2 mt-6 block text-lg font-semibold text-gray-600"> By Branch</span>
                 <div class="w-fit overflow-hidden rounded-md bg-white shadow" id="table-branch">
                     <table class="w-fit border-collapse text-left">
-                        <thead class="border-b">
-                            <tr>
-                                <th class="border bg-y_tersier p-3 text-sm font-bold uppercase text-gray-100">No</th>
-                                <th class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
-                                    Branch</th>
-                                <th class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
-                                    M-1</th>
-                                <th class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
-                                    MTD</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($sales_branch as $key => $data)
-                                <tr class="hover:bg-gray-200">
-                                    <td class="border border-b p-3 font-bold text-gray-700">{{ $key + 1 }}</td>
-                                    <td class="border border-b p-3 uppercase text-gray-700">{{ $data->branch }}</td>
-                                    <td class="border border-b p-3 uppercase text-gray-700">
-                                        {{ convertBil($data->m1) }}</td>
-                                    <td class="border border-b p-3 uppercase text-gray-700">
-                                        {{ convertBil($data->mtd) }}</td>
+                        @if (request()->get('trx_type') == 'DIGITAL')
+                            <thead class="border-b">
+                                <tr>
+                                    <th rowspan="2"
+                                        class="border bg-y_tersier p-3 text-sm font-bold uppercase text-gray-100">No</th>
+                                    <th rowspan="2"
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        Branch</th>
+                                    <th colspan="2"
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        DIGITAL DTU</th>
+                                    <th colspan="2"
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        DIGITAL GAME</th>
+                                    <th colspan="2"
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        DIGITAL MUSIC</th>
+                                    <th colspan="2"
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        DIGITAL OTHER</th>
+                                    <th colspan="2"
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        DIGITAL VIDEO</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
+                                <tr>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        M-1</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        MTD</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        M-1</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        MTD</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        M-1</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        MTD</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        M-1</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        MTD</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        M-1</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        MTD</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($sales_branch as $key => $data)
+                                    <tr class="hover:bg-gray-200">
+                                        <td class="border border-b p-3 font-bold text-gray-700">{{ $key + 1 }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">{{ $data->branch }}</td>
+                                        <td class="text-gray-7000 border border-b p-3 uppercase">
+                                            {{ convertBil($data->m1_dtu) }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->mtd_dtu) }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->m1_game) }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->mtd_game) }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->m1_music) }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->mtd_music) }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->m1_other) }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->mtd_other) }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->m1_video) }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->mtd_video) }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        @else
+                            <thead class="border-b">
+                                <tr>
+                                    <th class="border bg-y_tersier p-3 text-sm font-bold uppercase text-gray-100">No</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        Branch</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        M-1</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        MTD</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($sales_branch as $key => $data)
+                                    <tr class="hover:bg-gray-200">
+                                        <td class="border border-b p-3 font-bold text-gray-700">{{ $key + 1 }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">{{ $data->branch }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->m1) }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->mtd) }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        @endif
                     </table>
                 </div>
 
                 <span class="mb-2 mt-6 block text-lg font-semibold text-gray-600"> By Cluster</span>
                 <div class="w-fit overflow-hidden rounded-md bg-white shadow" id="table-cluster">
                     <table class="w-fit border-collapse text-left">
-                        <thead class="border-b">
-                            <tr>
-                                <th class="border bg-y_tersier p-3 text-sm font-bold uppercase text-gray-100">No</th>
-                                <th class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
-                                    Cluster</th>
-                                <th class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
-                                    M-1</th>
-                                <th class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
-                                    MTD</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($sales_cluster as $key => $data)
-                                <tr class="hover:bg-gray-200">
-                                    <td class="border border-b p-3 font-bold text-gray-700">{{ $key + 1 }}</td>
-                                    <td class="border border-b p-3 uppercase text-gray-700">{{ $data->cluster }}</td>
-                                    <td class="border border-b p-3 uppercase text-gray-700">
-                                        {{ convertBil($data->m1) }}</td>
-                                    <td class="border border-b p-3 uppercase text-gray-700">
-                                        {{ convertBil($data->mtd) }}</td>
+                        @if (request()->get('trx_type') == 'DIGITAL')
+                            <thead class="border-b">
+                                <tr>
+                                    <th rowspan="2"
+                                        class="border bg-y_tersier p-3 text-sm font-bold uppercase text-gray-100">No</th>
+                                    <th rowspan="2"
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        Cluster</th>
+                                    <th colspan="2"
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        DIGITAL DTU</th>
+                                    <th colspan="2"
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        DIGITAL GAME</th>
+                                    <th colspan="2"
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        DIGITAL MUSIC</th>
+                                    <th colspan="2"
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        DIGITAL OTHER</th>
+                                    <th colspan="2"
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        DIGITAL VIDEO</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
+                                <tr>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        M-1</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        MTD</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        M-1</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        MTD</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        M-1</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        MTD</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        M-1</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        MTD</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        M-1</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        MTD</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($sales_cluster as $key => $data)
+                                    <tr class="hover:bg-gray-200">
+                                        <td class="border border-b p-3 font-bold text-gray-700">{{ $key + 1 }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">{{ $data->cluster }}</td>
+                                        <td class="text-gray-7000 border border-b p-3 uppercase">
+                                            {{ convertBil($data->m1_dtu) }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->mtd_dtu) }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->m1_game) }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->mtd_game) }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->m1_music) }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->mtd_music) }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->m1_other) }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->mtd_other) }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->m1_video) }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->mtd_video) }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        @else
+                            <thead class="border-b">
+                                <tr>
+                                    <th class="border bg-y_tersier p-3 text-sm font-bold uppercase text-gray-100">No</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        Cluster</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        M-1</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        MTD</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($sales_cluster as $key => $data)
+                                    <tr class="hover:bg-gray-200">
+                                        <td class="border border-b p-3 font-bold text-gray-700">{{ $key + 1 }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">{{ $data->cluster }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->m1) }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->mtd) }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        @endif
                     </table>
                 </div>
 
                 <span class="mt-6 inline-block text-lg font-semibold text-gray-600">Detail</span>
                 <div class="mb-2 flex items-end gap-x-4">
-                    <input type="text" name="search" id="search" placeholder="Search..." class="rounded-lg px-4">
+                    <input type="text" name="search" id="search" placeholder="Search..."
+                        class="rounded-lg px-4">
                     <div class="flex flex-col">
                         <span class="font-bold text-gray-600">Berdasarkan</span>
                         <select name="search_by" id="search_by" class="rounded-lg">
@@ -136,38 +317,149 @@
 
                 <div class="w-fit overflow-hidden rounded-md bg-white shadow">
                     <table class="w-fit border-collapse text-left">
-                        <thead class="border-b">
-                            <tr>
-                                <th class="border bg-y_tersier p-3 text-sm font-bold uppercase text-gray-100">No</th>
-                                <th class="border bg-y_tersier p-3 text-sm font-bold uppercase text-gray-100">Branch</th>
-                                <th class="border bg-y_tersier p-3 text-sm font-bold uppercase text-gray-100">Cluster</th>
-                                <th class="border bg-y_tersier p-3 text-sm font-bold uppercase text-gray-100">ID Digipos
-                                </th>
-                                <th class="border bg-y_tersier p-3 text-sm font-bold uppercase text-gray-100">Nama</th>
-                                <th class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
-                                    M-1</th>
-                                <th class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
-                                    MTD</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($sales as $key => $data)
-                                <tr class="hover:bg-gray-200">
-                                    <td class="border border-b p-3 font-bold text-gray-700">{{ $key + 1 }}</td>
-                                    <td class="branch border border-b p-3 uppercase text-gray-700">{{ $data->branch }}</td>
-                                    <td class="cluster border border-b p-3 uppercase text-gray-700">{{ $data->cluster }}
-                                    </td>
-                                    <td class="id_digipos border border-b p-3 uppercase text-gray-700">
-                                        {{ $data->digipos_ao }}</td>
-                                    <td class="nama border border-b p-3 uppercase text-gray-700">
-                                        {{ $data->nama_ao }}</td>
-                                    <td class="m1 border border-b p-3 uppercase text-gray-700">
-                                        {{ convertBil($data->m1) }}</td>
-                                    <td class="border border-b p-3 uppercase text-gray-700">
-                                        {{ convertBil($data->mtd) }}</td>
+                        @if (request()->get('trx_type') == 'DIGITAL')
+                            <thead class="border-b">
+                                <tr>
+                                    <th rowspan="2"
+                                        class="border bg-y_tersier p-3 text-sm font-bold uppercase text-gray-100">No</th>
+                                    <th rowspan="2"
+                                        class="border bg-y_tersier p-3 text-sm font-bold uppercase text-gray-100">Branch
+                                    </th>
+                                    <th rowspan="2"
+                                        class="border bg-y_tersier p-3 text-sm font-bold uppercase text-gray-100">Cluster
+                                    </th>
+                                    <th rowspan="2"
+                                        class="border bg-y_tersier p-3 text-sm font-bold uppercase text-gray-100">ID
+                                        Digipos
+                                    </th>
+                                    <th rowspan="2"
+                                        class="border bg-y_tersier p-3 text-sm font-bold uppercase text-gray-100">Nama</th>
+                                    <th colspan="2"
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        DIGITAL DTU</th>
+                                    <th colspan="2"
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        DIGITAL GAME</th>
+                                    <th colspan="2"
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        DIGITAL MUSIC</th>
+                                    <th colspan="2"
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        DIGITAL OTHER</th>
+                                    <th colspan="2"
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        DIGITAL VIDEO</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
+                                <tr>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        M-1</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        MTD</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        M-1</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        MTD</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        M-1</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        MTD</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        M-1</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        MTD</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        M-1</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        MTD</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($sales as $key => $data)
+                                    <tr class="hover:bg-gray-200">
+                                        <td class="border border-b p-3 font-bold text-gray-700">{{ $key + 1 }}</td>
+                                        <td class="branch border border-b p-3 uppercase text-gray-700">{{ $data->branch }}
+                                        </td>
+                                        <td class="cluster border border-b p-3 uppercase text-gray-700">
+                                            {{ $data->cluster }}
+                                        </td>
+                                        <td class="id_digipos border border-b p-3 uppercase text-gray-700">
+                                            {{ $data->digipos_ao }}</td>
+                                        <td class="nama border border-b p-3 uppercase text-gray-700">
+                                            {{ $data->nama_ao }}</td>
+                                        <td class="text-gray-7000 border border-b p-3 uppercase">
+                                            {{ convertBil($data->m1_dtu) }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->mtd_dtu) }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->m1_game) }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->mtd_game) }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->m1_music) }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->mtd_music) }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->m1_other) }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->mtd_other) }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->m1_video) }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->mtd_video) }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        @else
+                            <thead class="border-b">
+                                <tr>
+                                    <th class="border bg-y_tersier p-3 text-sm font-bold uppercase text-gray-100">No</th>
+                                    <th class="border bg-y_tersier p-3 text-sm font-bold uppercase text-gray-100">Branch
+                                    </th>
+                                    <th class="border bg-y_tersier p-3 text-sm font-bold uppercase text-gray-100">Cluster
+                                    </th>
+                                    <th class="border bg-y_tersier p-3 text-sm font-bold uppercase text-gray-100">ID
+                                        Digipos
+                                    </th>
+                                    <th class="border bg-y_tersier p-3 text-sm font-bold uppercase text-gray-100">Nama</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        M-1</th>
+                                    <th
+                                        class="border bg-y_tersier p-3 text-center text-sm font-medium uppercase text-gray-100">
+                                        MTD</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($sales as $key => $data)
+                                    <tr class="hover:bg-gray-200">
+                                        <td class="border border-b p-3 font-bold text-gray-700">{{ $key + 1 }}</td>
+                                        <td class="branch border border-b p-3 uppercase text-gray-700">{{ $data->branch }}
+                                        </td>
+                                        <td class="cluster border border-b p-3 uppercase text-gray-700">
+                                            {{ $data->cluster }}
+                                        </td>
+                                        <td class="id_digipos border border-b p-3 uppercase text-gray-700">
+                                            {{ $data->digipos_ao }}</td>
+                                        <td class="nama border border-b p-3 uppercase text-gray-700">
+                                            {{ $data->nama_ao }}</td>
+                                        <td class="m1 border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->m1) }}</td>
+                                        <td class="border border-b p-3 uppercase text-gray-700">
+                                            {{ convertBil($data->mtd) }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        @endif
                     </table>
                 </div>
             </div>

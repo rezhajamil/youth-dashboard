@@ -514,7 +514,68 @@ class SalesContoller extends Controller
             $last_m1 = date('Y-m-01', strtotime($this->convDate($mtd)));
             $last_mtd = $this->convDate($mtd);
 
-            $query = "SELECT digipos_ao,nama_ao,branch,cluster,
+            if ($request->trx_type == "DIGITAL") {
+                $query = "SELECT digipos_ao,nama_ao,branch,cluster,
+                    SUM(CASE WHEN event_date BETWEEN '$last_m1' AND '$last_mtd' AND trx_type='DIGITAL_DTU' THEN price ELSE 0 END) m1_dtu,
+                    SUM(CASE WHEN event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL_DTU' THEN price ELSE 0 END) mtd_dtu,
+                    SUM(CASE WHEN event_date BETWEEN '$last_m1' AND '$last_mtd' AND trx_type='DIGITAL_GAME' THEN price ELSE 0 END) m1_game,
+                    SUM(CASE WHEN event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL_GAME' THEN price ELSE 0 END) mtd_game,
+                    SUM(CASE WHEN event_date BETWEEN '$last_m1' AND '$last_mtd' AND trx_type='DIGITAL_MUSIC' THEN price ELSE 0 END) m1_music,
+                    SUM(CASE WHEN event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL_MUSIC' THEN price ELSE 0 END) mtd_music,
+                    SUM(CASE WHEN event_date BETWEEN '$last_m1' AND '$last_mtd' AND trx_type='DIGITAL_OTHER' THEN price ELSE 0 END) m1_other,
+                    SUM(CASE WHEN event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL_OTHER' THEN price ELSE 0 END) mtd_other,
+                    SUM(CASE WHEN event_date BETWEEN '$last_m1' AND '$last_mtd' AND trx_type='DIGITAL_VIDEO' THEN price ELSE 0 END) m1_video,
+                    SUM(CASE WHEN event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL_VIDEO' THEN price ELSE 0 END) mtd_video
+                    FROM trx_digipos_ds_2024 
+                    JOIN data_user
+                    ON data_user.id_digipos=trx_digipos_ds_2024.digipos_ao
+                    WHERE event_date BETWEEN '$last_m1' AND '$mtd'
+                    $trx_type
+                    $territory
+                    GROUP BY 1,2,3,4
+                    ORDER BY 3,4,2;";
+
+                $query_branch = "SELECT branch,
+                    SUM(CASE WHEN event_date BETWEEN '$last_m1' AND '$last_mtd' AND trx_type='DIGITAL_DTU' THEN price ELSE 0 END) m1_dtu,
+                    SUM(CASE WHEN event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL_DTU' THEN price ELSE 0 END) mtd_dtu,
+                    SUM(CASE WHEN event_date BETWEEN '$last_m1' AND '$last_mtd' AND trx_type='DIGITAL_GAME' THEN price ELSE 0 END) m1_game,
+                    SUM(CASE WHEN event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL_GAME' THEN price ELSE 0 END) mtd_game,
+                    SUM(CASE WHEN event_date BETWEEN '$last_m1' AND '$last_mtd' AND trx_type='DIGITAL_MUSIC' THEN price ELSE 0 END) m1_music,
+                    SUM(CASE WHEN event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL_MUSIC' THEN price ELSE 0 END) mtd_music,
+                    SUM(CASE WHEN event_date BETWEEN '$last_m1' AND '$last_mtd' AND trx_type='DIGITAL_OTHER' THEN price ELSE 0 END) m1_other,
+                    SUM(CASE WHEN event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL_OTHER' THEN price ELSE 0 END) mtd_other,
+                    SUM(CASE WHEN event_date BETWEEN '$last_m1' AND '$last_mtd' AND trx_type='DIGITAL_VIDEO' THEN price ELSE 0 END) m1_video,
+                    SUM(CASE WHEN event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL_VIDEO' THEN price ELSE 0 END) mtd_video
+                    FROM trx_digipos_ds_2024 
+                    JOIN data_user
+                    ON data_user.id_digipos=trx_digipos_ds_2024.digipos_ao
+                    WHERE event_date BETWEEN '$last_m1' AND '$mtd'
+                    $trx_type
+                    $territory
+                    GROUP BY 1
+                    ORDER BY 1;";
+
+                $query_cluster = "SELECT cluster,
+                    SUM(CASE WHEN event_date BETWEEN '$last_m1' AND '$last_mtd' AND trx_type='DIGITAL_DTU' THEN price ELSE 0 END) m1_dtu,
+                    SUM(CASE WHEN event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL_DTU' THEN price ELSE 0 END) mtd_dtu,
+                    SUM(CASE WHEN event_date BETWEEN '$last_m1' AND '$last_mtd' AND trx_type='DIGITAL_GAME' THEN price ELSE 0 END) m1_game,
+                    SUM(CASE WHEN event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL_GAME' THEN price ELSE 0 END) mtd_game,
+                    SUM(CASE WHEN event_date BETWEEN '$last_m1' AND '$last_mtd' AND trx_type='DIGITAL_MUSIC' THEN price ELSE 0 END) m1_music,
+                    SUM(CASE WHEN event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL_MUSIC' THEN price ELSE 0 END) mtd_music,
+                    SUM(CASE WHEN event_date BETWEEN '$last_m1' AND '$last_mtd' AND trx_type='DIGITAL_OTHER' THEN price ELSE 0 END) m1_other,
+                    SUM(CASE WHEN event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL_OTHER' THEN price ELSE 0 END) mtd_other,
+                    SUM(CASE WHEN event_date BETWEEN '$last_m1' AND '$last_mtd' AND trx_type='DIGITAL_VIDEO' THEN price ELSE 0 END) m1_video,
+                    SUM(CASE WHEN event_date BETWEEN '$m1' AND '$mtd' AND trx_type='DIGITAL_VIDEO' THEN price ELSE 0 END) mtd_video
+                    FROM trx_digipos_ds_2024 
+                    JOIN data_user
+                    ON data_user.id_digipos=trx_digipos_ds_2024.digipos_ao
+                    WHERE event_date BETWEEN '$last_m1' AND '$mtd'
+                    $trx_type
+                    $territory
+                    GROUP BY 1
+                    ORDER BY 1;";
+            } else {
+                $query = "SELECT digipos_ao,nama_ao,branch,cluster,
                     SUM(CASE WHEN event_date BETWEEN '$last_m1' AND '$last_mtd' THEN price ELSE 0 END) m1,
                     SUM(CASE WHEN event_date BETWEEN '$m1' AND '$mtd' THEN price ELSE 0 END) mtd
                     FROM trx_digipos_ds_2024 
@@ -526,7 +587,7 @@ class SalesContoller extends Controller
                     GROUP BY 1,2,3,4
                     ORDER BY 3,4,2;";
 
-            $query_branch = "SELECT branch,
+                $query_branch = "SELECT branch,
                     SUM(CASE WHEN event_date BETWEEN '$last_m1' AND '$last_mtd' THEN price ELSE 0 END) m1,
                     SUM(CASE WHEN event_date BETWEEN '$m1' AND '$mtd' THEN price ELSE 0 END) mtd
                     FROM trx_digipos_ds_2024 
@@ -538,7 +599,7 @@ class SalesContoller extends Controller
                     GROUP BY 1
                     ORDER BY 1;";
 
-            $query_cluster = "SELECT cluster,
+                $query_cluster = "SELECT cluster,
                     SUM(CASE WHEN event_date BETWEEN '$last_m1' AND '$last_mtd' THEN price ELSE 0 END) m1,
                     SUM(CASE WHEN event_date BETWEEN '$m1' AND '$mtd' THEN price ELSE 0 END) mtd
                     FROM trx_digipos_ds_2024 
@@ -549,6 +610,7 @@ class SalesContoller extends Controller
                     $territory
                     GROUP BY 1
                     ORDER BY 1;";
+            }
 
             $sales = DB::select($query);
             $sales_branch = DB::select($query_branch);
