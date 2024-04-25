@@ -490,7 +490,16 @@ class SalesContoller extends Controller
 
     public function digipos(Request $request)
     {
-        $list_trx_type = DB::table('trx_digipos_ds_2024')->select('trx_type')->distinct()->get();
+        // $list_trx_type = DB::table('trx_digipos_ds_2024')->select('trx_type')->distinct()->get();
+        $list_trx_type = [
+            (object)['trx_type' => 'BYU'],
+            (object)['trx_type' => 'DATA'],
+            (object)['trx_type' => 'DIGITAL'],
+            (object)['trx_type' => 'EXTENSION'],
+            (object)['trx_type' => 'ORBIT'],
+            (object)['trx_type' => 'ROAMING'],
+            (object)['trx_type' => 'VOICE_SMS'],
+        ];
 
         $sales = [];
         $sales_branch = [];
@@ -498,7 +507,7 @@ class SalesContoller extends Controller
 
         if ($request->date) {
             $territory = Auth::user()->privilege == 'branch' ? " AND branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == 'cluster' ? " AND cluster='" . Auth::user()->cluster . "'" : '');
-            $trx_type = $request->trx_type != "ALL" ? ' AND trx_type="' . $request->trx_type . '"' : '';
+            $trx_type = $request->trx_type != "ALL" ? ' AND trx_type like "%' . $request->trx_type . '%"' : '';
 
             $m1 = date('Y-m-01', strtotime($request->date));
             $mtd = date('Y-m-d', strtotime($request->date));
