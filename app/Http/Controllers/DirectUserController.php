@@ -267,21 +267,21 @@ class DirectUserController extends Controller
             $branch = DB::table('territory_new')->select('branch')->distinct()->whereNotNull('branch')->get();
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->orderBy('cluster')->get();
             $city = DB::table('territory_new')->select('kab_new as city')->distinct()->whereNotNull('kab_new')->where('cluster', $user->cluster)->orderBy('kab_new')->get();
-            $kecamatan = DB::table('territory')->select('kecamatan')->distinct()->whereNotNull('kecamatan')->where('new_cluster', $user->cluster)->orderBy('kecamatan')->get();
+            $kecamatan = DB::table('territory')->select('kecamatan')->distinct()->whereNotNull('kecamatan')->where('kabupaten', $user->city)->orderBy('kecamatan')->get();
             $tap = DB::table('taps')->select('nama')->distinct()->whereNotNull('nama')->where('cluster', $user->cluster)->orderBy('nama')->get();
         } else if (Auth::user()->privilege == "branch") {
             $region = DB::table('territory_new')->select('regional')->distinct()->where('regional', Auth::user()->regional)->get();
             $branch = DB::table('territory_new')->select('branch')->distinct()->where('branch', Auth::user()->branch)->get();
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->where('branch', Auth::user()->branch)->orderBy('cluster')->get();
             $city = DB::table('territory_new')->select('kab_new as city')->distinct()->whereNotNull('kab_new')->where('branch', Auth::user()->branch)->orderBy('kab_new')->get();
-            $kecamatan = DB::table('territory')->select('kecamatan')->distinct()->whereNotNull('kecamatan')->where('new_branch', Auth::user()->branch)->orderBy('kecamatan')->get();
+            $kecamatan = DB::table('territory')->select('kecamatan')->distinct()->whereNotNull('kecamatan')->where('kabupaten', $user->city)->orderBy('kecamatan')->get();
             $tap = DB::table('taps')->select('nama')->distinct()->whereNotNull('nama')->where('cluster', $user->cluster)->orderBy('nama')->get();
         } else {
             $region = DB::table('territory_new')->select('regional')->distinct()->where('regional', Auth::user()->regional)->get();
             $branch = DB::table('territory_new')->select('branch')->distinct()->where('branch', Auth::user()->branch)->get();
             $cluster = DB::table('territory_new')->select('cluster')->distinct()->whereNotNull('cluster')->where('cluster', Auth::user()->cluster)->orderBy('cluster')->get();
             $city = DB::table('territory_new')->select('kab_new as city')->distinct()->whereNotNull('kab_new')->where('cluster', Auth::user()->cluster)->orderBy('kab_new')->get();
-            $kecamatan = DB::table('territory')->select('kecamatan')->distinct()->whereNotNull('kecamatan')->where('new_cluster', Auth::user()->cluster)->orderBy('kecamatan')->get();
+            $kecamatan = DB::table('territory')->select('kecamatan')->distinct()->whereNotNull('kecamatan')->where('kabupaten', $user->city)->orderBy('kecamatan')->get();
             $tap = DB::table('taps')->select('nama')->distinct()->whereNotNull('nama')->where('cluster', $user->cluster)->orderBy('nama')->get();
         }
 

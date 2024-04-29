@@ -1,16 +1,16 @@
 @extends('layouts.dashboard.app')
 @section('body')
-    <div class="mx-4 w-full">
+    <div class="w-full mx-4">
         <div class="flex flex-col">
             <div class="mt-4">
-                <h4 class="align-baseline text-xl font-bold text-gray-600">Edit Data Direct User</h4>
+                <h4 class="text-xl font-bold text-gray-600 align-baseline">Edit Data Direct User</h4>
 
-                <div class="mx-auto w-fit overflow-auto rounded-md bg-white px-6 py-4 shadow sm:mx-0">
+                <div class="px-6 py-4 mx-auto overflow-auto bg-white rounded-md shadow w-fit sm:mx-0">
                     <form action="{{ route('direct_user.update', $user->id) }}" method="POST" class="">
                         @csrf
                         @method('put')
-                        <div class="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2">
-                            <div class="col-span-full grid grid-cols-3 gap-x-3">
+                        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+                            <div class="grid grid-cols-3 col-span-full gap-x-3">
                                 <div class="w-full">
                                     <label class="block text-gray-700" for="regional">Regional</label>
                                     <select name="regional" id="regional" class="w-full rounded-md">
@@ -25,7 +25,7 @@
                                         @endforeach
                                     </select>
                                     @error('regional')
-                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="w-full">
@@ -41,7 +41,7 @@
                                         @endforeach
                                     </select>
                                     @error('branch')
-                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="w-full">
@@ -55,7 +55,7 @@
                                         @endforeach
                                     </select>
                                     @error('cluster')
-                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -71,7 +71,7 @@
                                     @endforeach
                                 </select>
                                 @error('city')
-                                    <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
                             </div>
 
@@ -86,7 +86,7 @@
                                     @endforeach
                                 </select>
                                 @error('kecamatan')
-                                    <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
                             </div>
 
@@ -101,7 +101,7 @@
                                     @endforeach
                                 </select>
                                 @error('tap')
-                                    <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
                             </div>
 
@@ -116,26 +116,26 @@
                                     @endforeach
                                 </select>
                                 @error('role')
-                                    <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
                             </div>
 
                             <div>
                                 <label class="text-gray-700" for="nama">Nama Lengkap</label>
-                                <input class="form-input w-full rounded-md focus:border-indigo-600" type="text"
+                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="text"
                                     name="nama" value="{{ old('nama', $user->nama) }}">
                                 @error('nama')
-                                    <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
                             </div>
 
                             <div>
                                 <label class="text-gray-700" for="panggilan">Panggilan</label>
-                                <input class="form-input w-full rounded-md focus:border-indigo-600" type="text"
+                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="text"
                                     name="panggilan" value="{{ old('panggilan', $user->panggilan) }}">
 
                                 @error('panggilan')
-                                    <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
 
                             </div>
@@ -155,58 +155,58 @@
                                     </option>
                                 </select>
                                 @error('kampus')
-                                    <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
 
                             </div>
 
                             <div>
                                 <label class="text-gray-700" for="tgl_lahir">Tanggal Lahir</label>
-                                <input class="form-input w-full rounded-md focus:border-indigo-600" type="date"
+                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="date"
                                     name="tgl_lahir" value="{{ old('tgl_lahir', $user->tgl_lahir) }}">
                                 @error('tgl_lahir')
-                                    <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
 
                             </div>
 
                             <div>
                                 <label class="text-gray-700" for="telp">Telepon</label>
-                                <input class="form-input w-full rounded-md focus:border-indigo-600" type="number"
+                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="number"
                                     name="telp" value="{{ old('telp', $user->telp) }}">
 
                                 @error('telp')
-                                    <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
 
                             </div>
                             <div>
                                 <label class="text-gray-700" for="mkios">MKios</label>
-                                <input class="form-input w-full rounded-md focus:border-indigo-600" type="number"
+                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="number"
                                     name="mkios" value="{{ old('mkios', $user->mkios) }}">
 
                                 @error('mkios')
-                                    <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
 
                             </div>
                             <div>
                                 <label class="text-gray-700" for="link_aja">LinkAja</label>
-                                <input class="form-input w-full rounded-md focus:border-indigo-600" type="number"
+                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="number"
                                     name="link_aja" value="{{ old('link_aja', $user->link_aja) }}">
 
                                 @error('link_aja')
-                                    <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
 
                             </div>
                             <div>
                                 <label class="text-gray-700" for="id_digipos">ID Digipos</label>
-                                <input class="form-input w-full rounded-md focus:border-indigo-600" type="number"
+                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="number"
                                     name="id_digipos" value="{{ old('id_digipos', $user->id_digipos) }}">
 
                                 @error('id_digipos')
-                                    <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
 
                             </div>
@@ -216,44 +216,44 @@
 
                             <div>
                                 <label class="text-gray-700" for="user_calista">User Calista</label>
-                                <input class="form-input w-full rounded-md focus:border-indigo-600" type="text"
+                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="text"
                                     name="user_calista" value="{{ old('user_calista', $user->user_calista) }}">
 
                                 @error('user_calista')
-                                    <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
 
                             </div>
 
                             <div>
                                 <label class="text-gray-700" for="password">Password</label>
-                                <input class="form-input w-full rounded-md focus:border-indigo-600" type="text"
+                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="text"
                                     name="password" value="{{ old('password', $user->password) }}">
 
                                 @error('password')
-                                    <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
 
                             </div>
 
                             <div>
                                 <label class="text-gray-700" for="reff_byu">Reff Code BY.U</label>
-                                <input class="form-input w-full rounded-md focus:border-indigo-600" type="text"
+                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="text"
                                     name="reff_byu" value="{{ old('reff_byu', $user->reff_byu) }}">
 
                                 @error('reff_byu')
-                                    <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
 
                             </div>
 
                             <div>
                                 <label class="text-gray-700" for="reff_code">Reff Code Orbit</label>
-                                <input class="form-input w-full rounded-md focus:border-indigo-600" type="text"
+                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="text"
                                     name="reff_code" value="{{ old('reff_code', $user->reff_code) }}">
 
                                 @error('reff_code')
-                                    <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
 
                             </div>
@@ -261,9 +261,9 @@
 
                         </div>
 
-                        <div class="mt-4 flex justify-end">
+                        <div class="flex justify-end mt-4">
                             <button
-                                class="w-full rounded-md bg-y_premier px-4 py-2 font-bold text-white hover:bg-y_sekunder focus:bg-y_sekunder focus:outline-none">Submit</button>
+                                class="w-full px-4 py-2 font-bold text-white rounded-md bg-y_premier hover:bg-y_sekunder focus:bg-y_sekunder focus:outline-none">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -276,8 +276,24 @@
 @section('script')
     <script>
         $(document).ready(function() {
-
             $("#regional").on('input', () => {
+                getRegional()
+            })
+
+            $("#branch").on('input', () => {
+                getBranch()
+            })
+
+            $("#cluster").on('input', () => {
+                getTap()
+                getKabupaten()
+            })
+
+            $("#city").on('input', () => {
+                getKecamatan()
+            })
+
+            function getRegional() {
                 var regional = $("#regional").val();
                 console.log(regional)
                 $.ajax({
@@ -305,9 +321,9 @@
                         console.log(e)
                     }
                 })
-            })
+            }
 
-            $("#branch").on('input', () => {
+            function getBranch() {
                 var branch = $("#branch").val();
                 console.log(branch)
                 $.ajax({
@@ -334,9 +350,9 @@
                         console.log(e)
                     }
                 })
-            })
+            }
 
-            $("#cluster").on('input', () => {
+            function getTap() {
                 var cluster = $("#cluster").val();
                 console.log(cluster)
                 $.ajax({
@@ -363,7 +379,10 @@
                         console.log(e)
                     }
                 })
+            }
 
+            function getKabupaten() {
+                var cluster = $("#cluster").val();
                 $.ajax({
                     url: "{{ route('wilayah.get_kabupaten') }}",
                     method: "POST",
@@ -389,9 +408,9 @@
                         console.log(e)
                     }
                 })
-            })
+            }
 
-            $("#city").on('input', () => {
+            function getKecamatan() {
                 var kabupaten = $("#city").val();
                 console.log(kabupaten)
                 $.ajax({
@@ -418,7 +437,7 @@
                         console.log(e)
                     }
                 })
-            })
+            }
         })
     </script>
 @endsection
