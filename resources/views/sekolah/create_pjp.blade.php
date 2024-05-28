@@ -1,33 +1,34 @@
 @extends('layouts.dashboard.app')
 @section('body')
-    <div class="mx-4 w-full">
+    <div class="w-full mx-4">
         <div class="flex flex-col">
             <div class="flex gap-x-3">
-                <span class="align-baseline text-xl font-bold">Jenis Kunjungan : </span>
-                <select name="jenis" id="jenis" class="border-0 bg-transparent p-0 pr-8 text-xl font-bold underline">
+                <span class="text-xl font-bold align-baseline">Jenis Kunjungan : </span>
+                <select name="jenis" id="jenis" class="p-0 pr-8 text-xl font-bold underline bg-transparent border-0">
                     <option value="sekolah" selected disabled class="text-gray-600">Pilih Jenis Kunjungan</option>
                     <option value="sekolah">Sekolah</option>
                     <option value="event">Event</option>
                     <option value="u60">U60</option>
                     <option value="orbit">Orbit</option>
                     <option value="outlet">Outlet</option>
+                    <option value="site_acq">Site Acquisition</option>
                 </select>
             </div>
 
-            <div class="mt-4 grid gap-y-12" id="container">
+            <div class="grid mt-4 gap-y-12" id="container">
             </div>
-            <div class="fixed inset-0 z-20 flex h-full w-full items-center justify-center overflow-auto bg-black/80"
+            <div class="fixed inset-0 z-20 flex items-center justify-center w-full h-full overflow-auto bg-black/80"
                 style="display:none;" id="search-container" x-transition>
-                <i class="fa-solid fa-xmark absolute right-10 top-5 z-10 cursor-pointer text-3xl text-white transition hover:text-premier"
+                <i class="absolute z-10 text-3xl text-white transition cursor-pointer fa-solid fa-xmark right-10 top-5 hover:text-premier"
                     id="search-close" x-on:click="search=false"></i>
-                <div class="mx-4 flex w-full flex-col overflow-hidden rounded-lg bg-white sm:w-1/2">
-                    <span class="mb-4 inline-block w-full bg-premier p-4 text-center text-lg font-bold text-white">Cari
+                <div class="flex flex-col w-full mx-4 overflow-hidden bg-white rounded-lg sm:w-1/2">
+                    <span class="inline-block w-full p-4 mb-4 text-lg font-bold text-center text-white bg-premier">Cari
                         Sekolah</span>
-                    <input type="text" class="sekolah mx-4 rounded" name="sekolah" id="sekolah"
+                    <input type="text" class="mx-4 rounded sekolah" name="sekolah" id="sekolah"
                         placeholder="Ketik Nama Sekolah" class="mb-4" autofocus>
                     <img src="{{ asset('images/loading.svg') }}" alt="Loading" id="loading"
-                        class="loading mx-auto mt-6 h-24 w-24">
-                    <div class="mt-2 flex h-64 w-full flex-col overflow-auto py-2" id="school-list">
+                        class="w-24 h-24 mx-auto mt-6 loading">
+                    <div class="flex flex-col w-full h-64 py-2 mt-2 overflow-auto" id="school-list">
                     </div>
                 </div>
             </div>
@@ -432,6 +433,68 @@
                                     </form>
                                 </div>
                             </div>`);
+                        } else if ($(this).val() == 'site_acq') {
+                            $("#container").html(`<div class="" x-data="{search:false}">
+                                <h4 class="text-xl font-bold text-gray-600 align-baseline">Kunjungan Site Acquisition</h4>
+                                <div class="px-6 py-4 mx-auto overflow-auto bg-white rounded-md shadow sm:mx-0 w-fit" x-data="{search:false}">
+                                    <form action="{{ route('sekolah.pjp.store') }}" method="POST" class="">
+                                        @csrf
+                                        <input type="hidden" name="kategori" value="site_acq">
+                                        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+                                            <div class="grid grid-cols-3 gap-x-3 col-span-full gap-y-4">
+                                                <div>
+                                                    <label class="block text-gray-700" for="cluster">Cluster</label>
+                                                    <select name="cluster" id="cluster" class="w-full rounded-md cluster">
+                                                        <option value="" selected disabled>Pilih Cluster</option>
+                                                        @foreach ($cluster as $item)
+                                                            <option value="{{ $item->cluster }}">{{ $item->cluster }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('cluster')
+                                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                                <div>
+                                                    <label class="block text-gray-700" for="telp">Direct Sales</label>
+                                                    <select name="telp" id="telp" class="w-full rounded-md telp" required>
+                                                        <option value="" selected disabled>Pilih Direct Sales</option>
+                                                    </select>
+                                                    @error('telp')
+                                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                                <div>
+                                                    <label class="block text-gray-700" for="site_id">SITE ID</label>
+                                                    <select name="site_id" id="site_id" class="w-full rounded-md site-id" required>
+                                                        <option value="" selected disabled>Pilih SITE ID</option>
+                                                    </select>
+                                                    @error('site_id')
+                                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                                <div>
+                                                    <label class="text-gray-700" for="date">Tanggal Kunjungan</label>
+                                                    <input class="w-full rounded-md form-input focus:border-indigo-600" type="date" name="date" value="{{ old('date') }}">
+                                                    @error('date')
+                                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                                <div>
+                                                    <label class="text-gray-700" for="keterangan">Keterangan</label>
+                                                    <input class="w-full rounded-md form-input focus:border-indigo-600" type="text" name="keterangan" placeholder="Keterangan" value="{{ old('keterangan') }}">
+                                                    @error('keterangan')
+                                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                    
+                                            <div class="flex justify-end mt-4 col-span-full">
+                                                <button class="w-full px-4 py-2 font-bold text-white bg-orange-800 rounded-md hover:bg-orange-700 focus:outline-none focus:bg-orange-700">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>`);
                         }
 
                         $(document).on('change', "#cluster", () => {
@@ -471,111 +534,154 @@
                                 }
                             });
 
-                            $.ajax({
-                                url: "{{ route('sekolah.pjp.poi') }}",
-                                method: "GET",
-                                dataType: "JSON",
-                                data: {
-                                    cluster: cluster,
-                                    _token: "{{ csrf_token() }}"
-                                },
-                                success: (data) => {
-                                    const {
-                                        poi
-                                    } = data;
-                                    console.log(data);
+                            if ($("#jenis").val() == 'event' || $("#jenis").val() == 'orbit') {
+                                $.ajax({
+                                    url: "{{ route('sekolah.pjp.poi') }}",
+                                    method: "GET",
+                                    dataType: "JSON",
+                                    data: {
+                                        cluster: cluster,
+                                        _token: "{{ csrf_token() }}"
+                                    },
+                                    success: (data) => {
+                                        const {
+                                            poi
+                                        } = data;
+                                        console.log(data);
 
-                                    if (poi.length) {
-                                        $("#poi").html(
-                                            `<option value="" disabled selected>Pilih POI</option>` +
-                                            poi.map((item) => {
-                                                return `
-                                    <option value="${item.id}">${item.poi_name.toString().toUpperCase()}</option>
-                                    `
-                                            })
-                                        )
-                                    } else {
-                                        $("#poi").html(
-                                            `<option value="" disabled selected>Pilih POI</option>`
-                                        )
+                                        if (poi.length) {
+                                            $("#poi").html(
+                                                `<option value="" disabled selected>Pilih POI</option>` +
+                                                poi.map((item) => {
+                                                    return `
+                                        <option value="${item.id}">${item.poi_name.toString().toUpperCase()}</option>
+                                        `
+                                                })
+                                            )
+                                        } else {
+                                            $("#poi").html(
+                                                `<option value="" disabled selected>Pilih POI</option>`
+                                            )
+                                        }
+
+                                    },
+                                    error: (e) => {
+                                        console.log(e)
                                     }
+                                });
+                            }
 
-                                },
-                                error: (e) => {
-                                    console.log(e)
-                                }
-                            });
+                            if ($("#jenis").val() == 'u60') {
+                                $.ajax({
+                                    url: "{{ route('sekolah.pjp.site') }}",
+                                    method: "GET",
+                                    dataType: "JSON",
+                                    data: {
+                                        cluster: cluster,
+                                        _token: "{{ csrf_token() }}"
+                                    },
+                                    success: (data) => {
+                                        const {
+                                            site
+                                        } = data;
+                                        console.log(data);
 
-                            $.ajax({
-                                url: "{{ route('sekolah.pjp.site') }}",
-                                method: "GET",
-                                dataType: "JSON",
-                                data: {
-                                    cluster: cluster,
-                                    _token: "{{ csrf_token() }}"
-                                },
-                                success: (data) => {
-                                    const {
-                                        site
-                                    } = data;
-                                    console.log(data);
+                                        if (site.length) {
+                                            $("#site_id").html(
+                                                `<option value="" disabled selected>Pilih SITE ID</option>` +
+                                                site.map((item) => {
+                                                    return `
+                                        <option value="${item.site_id}">${item.site_id.toString().toUpperCase()}</option>
+                                        `
+                                                })
+                                            )
+                                        } else {
+                                            $("#site_id").html(
+                                                `<option value="" disabled selected>Pilih SITE ID</option>`
+                                            )
+                                        }
 
-                                    if (site.length) {
-                                        $("#site_id").html(
-                                            `<option value="" disabled selected>Pilih SITE ID</option>` +
-                                            site.map((item) => {
-                                                return `
-                                    <option value="${item.site_id}">${item.site_id.toString().toUpperCase()}</option>
-                                    `
-                                            })
-                                        )
-                                    } else {
-                                        $("#site_id").html(
-                                            `<option value="" disabled selected>Pilih SITE ID</option>`
-                                        )
+                                    },
+                                    error: (e) => {
+                                        console.log(e)
                                     }
+                                });
+                            }
 
-                                },
-                                error: (e) => {
-                                    console.log(e)
-                                }
-                            });
+                            if ($("#jenis").val() == 'outlet') {
+                                $.ajax({
+                                    url: "{{ route('sekolah.pjp.outlet') }}",
+                                    method: "GET",
+                                    dataType: "JSON",
+                                    data: {
+                                        cluster: cluster,
+                                        _token: "{{ csrf_token() }}"
+                                    },
+                                    success: (data) => {
+                                        const {
+                                            outlet
+                                        } = data;
+                                        console.log(data);
 
-                            $.ajax({
-                                url: "{{ route('sekolah.pjp.outlet') }}",
-                                method: "GET",
-                                dataType: "JSON",
-                                data: {
-                                    cluster: cluster,
-                                    _token: "{{ csrf_token() }}"
-                                },
-                                success: (data) => {
-                                    const {
-                                        outlet
-                                    } = data;
-                                    console.log(data);
+                                        if (outlet.length) {
+                                            $("#outlet").html(
+                                                `<option value="" disabled selected>Pilih OUTLET</option>` +
+                                                outlet.map((item) => {
+                                                    return `
+                                        <option value="${item.outlet_id}">${item.outlet_id} | ${item.nama_outlet.toString().toUpperCase()}</option>
+                                        `
+                                                })
+                                            )
+                                        } else {
+                                            $("#outlet").html(
+                                                `<option value="" disabled selected>Pilih OUTLET</option>`
+                                            )
+                                        }
 
-                                    if (outlet.length) {
-                                        $("#outlet").html(
-                                            `<option value="" disabled selected>Pilih OUTLET</option>` +
-                                            outlet.map((item) => {
-                                                return `
-                                    <option value="${item.outlet_id}">${item.outlet_id} | ${item.nama_outlet.toString().toUpperCase()}</option>
-                                    `
-                                            })
-                                        )
-                                    } else {
-                                        $("#outlet").html(
-                                            `<option value="" disabled selected>Pilih OUTLET</option>`
-                                        )
+                                    },
+                                    error: (e) => {
+                                        console.log(e)
                                     }
-
-                                },
-                                error: (e) => {
-                                    console.log(e)
-                                }
-                            });
+                                });
+                            }
                             // }
+
+                            if ($("#jenis").val() == 'site_acq') {
+                                $.ajax({
+                                    url: "{{ route('sekolah.pjp.site_acq') }}",
+                                    method: "GET",
+                                    dataType: "JSON",
+                                    data: {
+                                        cluster: cluster,
+                                        _token: "{{ csrf_token() }}"
+                                    },
+                                    success: (data) => {
+                                        const {
+                                            site_acq
+                                        } = data;
+                                        console.log(data);
+
+                                        if (site_acq.length) {
+                                            $("#site_id").html(
+                                                `<option value="" disabled selected>Pilih SITE ID</option>` +
+                                                site_acq.map((item) => {
+                                                    return `
+                                        <option value="${item.SITE_ID}">${item.SITE_ID.toString().toUpperCase()}|${item.SITENAME.toString()}</option>
+                                        `
+                                                })
+                                            )
+                                        } else {
+                                            $("#site_id").html(
+                                                `<option value="" disabled selected>Pilih SITE ID</option>`
+                                            )
+                                        }
+
+                                    },
+                                    error: (e) => {
+                                        console.log(e)
+                                    }
+                                });
+                            }
                         })
 
                     })

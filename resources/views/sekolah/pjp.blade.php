@@ -12,7 +12,7 @@
                     class="inline-block px-4 py-2 my-2 font-bold text-white rounded-md bg-y_premier hover:bg-y_premier"><i
                         class="mr-2 fa-solid fa-plus"></i> Data Kunjungan</a>
                 <button id="capture"
-                    class="px-3 py-2 font-semibold text-white rounded bg-emerald-500 h-fit hover:bg-teal-800"><i
+                    class="px-3 py-2 font-semibold text-white rounded h-fit bg-emerald-500 hover:bg-teal-800"><i
                         class="mr-2 fa-solid fa-circle-down"></i>PDF</button>
                 <button id="btn-excel"
                     class="px-3 py-2 font-semibold text-white bg-green-800 rounded h-fit hover:bg-emerald-800"><i
@@ -56,7 +56,7 @@
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Frekuensi</th>
                                 <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Waktu</th>
                                 @if (Auth::user()->privilege == 'superadmin' || Auth::user()->privilege == 'branch')
-                                    <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier action">
+                                    <th class="p-3 text-sm font-medium text-gray-100 uppercase action bg-y_tersier">
                                         Action
                                     </th>
                                 @endif
@@ -71,7 +71,7 @@
                                     <td class="p-3 text-gray-700 border-b branch">{{ $data->branch }}</td>
                                     <td class="p-3 text-gray-700 border-b cluster">{{ $data->cluster }}</td>
                                     <td class="p-3 text-gray-700 border-b npsn">{{ $data->npsn }}</td>
-                                    <td class="p-3 text-gray-700 border-b whitespace-nowrap nama_sekolah">
+                                    <td class="p-3 text-gray-700 border-b nama_sekolah whitespace-nowrap">
                                         {{ $data->NAMA_SEKOLAH ?? '-' }}</td>
                                     <td class="p-3 text-gray-700 border-b event">{{ $data->event ?? '-' }}</td>
                                     <td class="p-3 text-gray-700 border-b nama whitespace-nowrap">{{ $data->nama }}
@@ -87,7 +87,7 @@
                                     @else
                                         <td class="p-3 text-gray-700 border-b whitespace-nowrap"></td>
                                     @endif
-                                    <td class="p-3 text-gray-700 border-b whitespace-nowrap action">
+                                    <td class="p-3 text-gray-700 border-b action whitespace-nowrap">
                                         {{-- <a href="{{ route('sekolah.pjp.edit',$data->id) }}" class="block my-1 text-base font-semibold text-blue-600 transition hover:text-blue-800">Edit</a> --}}
                                         <form action="{{ route('sekolah.pjp.destroy', $data->id) }}" method="post">
                                             @csrf

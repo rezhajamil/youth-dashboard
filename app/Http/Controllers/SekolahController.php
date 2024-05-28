@@ -429,6 +429,22 @@ class SekolahController extends Controller
                 'longitude' => $outlet->longitude,
                 'latitude' => $outlet->latitude,
             ]);
+        } else if ($request->kategori == 'site_acq') {
+            $request->validate([
+                'date' => 'required',
+                'site_id' => 'required',
+            ]);
+            $site = DB::table('site_list_acq')->where('site_id', $request->site_id)->first();
+            $pjp = DB::table('pjp')->insert([
+                'kategori' => $request->kategori,
+                'npsn' => $request->site_id,
+                'event' => ucwords($request->event),
+                'telp' => $request->telp,
+                'date' => $request->date,
+                'keterangan' => $request->keterangan,
+                'longitude' => $site->longitude,
+                'latitude' => $site->latitude,
+            ]);
         }
 
         return redirect()->route('sekolah.pjp');
@@ -460,6 +476,13 @@ class SekolahController extends Controller
         $site = DB::table('4g_list_site')->where('cluster', $request->cluster)->orderBy('site_id')->get();
 
         return response()->json(compact('site'));
+    }
+
+    public function get_site_acq(Request $request)
+    {
+        $site_acq = DB::table('site_list_acq')->where('cluster', $request->cluster)->orderBy('site_id')->get();
+
+        return response()->json(compact('site_acq'));
     }
 
     public function get_outlet(Request $request)
