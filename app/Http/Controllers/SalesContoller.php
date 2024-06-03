@@ -762,6 +762,93 @@ class SalesContoller extends Controller
         return view('sales.product.index', compact('list_kategori', 'list_regional', 'list_branch', 'sales_branch', 'sales_cluster', 'sales', 'update', 'last_validasi'));
     }
 
+    public function exportProduct(Request $request)
+    {
+        ini_set("max_execution_time", "0");
+
+        $kategori = $request->kategori;
+        $select_mytsel = $kategori == 'MYTSEL VALIDASI' ? ",c.revenue" : '';
+        $join_mytsel = $kategori == 'MYTSEL VALIDASI' ? " JOIN validasi_mytsel c ON a.msisdn=c.msisdn" : '';
+        $sum_mytsel = $kategori == 'MYTSEL VALIDASI' ? " ,SUM(CASE WHEN c.revenue!='NULL' THEN c.revenue ELSE 0 END) revenue" : '';
+
+        if ($request->date && $kategori) {
+            $m1 = date('Y-m-01', strtotime($request->date));
+            $mtd = date('Y-m-d', strtotime($request->date));
+            $last_m1 = date('Y-m-01', strtotime($this->convDate($mtd)));
+            $last_mtd = $this->convDate($mtd);
+            $kategori = in_array($kategori, ['MYTSEL ENTRY', 'MYTSEL VALIDASI'])  ? 'MY TELKOMSEL' : $kategori;
+
+            if ($request->regional) {
+                $regional = "regional='" . $request->regional . "'";
+                $and = "and ";
+            } else {
+                $regional = "";
+                $and = "";
+            }
+
+            if ($request->branch) {
+                $branch = "branch='" . $request->branch . "'";
+                $and_branch = "and ";
+            } else {
+                $branch = Auth::user()->privilege == "branch" ? "branch='" . Auth::user()->branch . "'" : (Auth::user()->privilege == "cluster" ? "b.cluster='" . Auth::user()->cluster . "'" : '');
+                $where = Auth::user()->privilege == "branch" || Auth::user()->privilege == "cluster" ? "where" : "";
+                $and_branch = Auth::user()->privilege == "branch" || Auth::user()->privilege == "cluster" ? "and" : "";
+            }
+
+            $sales = DB::table('sales_copy as a')
+                ->select(
+                    'b.nama',
+                    'b.branch',
+                    'b.cluster',
+                    'b.role',
+                    'b.telp',
+                    'b.reff_code',
+                    'a.msisdn',
+                    'a.date',
+                    'a.serial',
+                    'a.poi',
+                    'a.jenis',
+                    'a.detail'
+                )
+                ->join('data_user as b', 'b.telp', '=', 'a.telp')
+                ->whereBetween('a.date', [$m1, $mtd])
+                ->where('a.status', '<>', '1')
+                ->where('a.kategori', $kategori)
+                ->where('b.status', '1')
+                ->orderByDesc('b.regional')
+                ->orderBy('b.branch')
+                ->orderBy('b.cluster')
+                ->orderBy('b.nama');
+
+            if ($request->kategori == 'MYTSEL VALIDASI') {
+                $sales = $sales->select('c.revenue', "SUM(CASE WHEN c.revenue!='NULL' THEN c.revenue ELSE 0 END) revenue")->join('validasi_mytsel as c', 'a.msisdn', '=', 'c.msisdn');
+            }
+
+            $sales->when($request->regional, function ($q) use ($request) {
+                return $q->where('regional', $request->regional);
+            });
+
+            $sales->when($request->branch, function ($q) use ($request) {
+                return $q->where('branch', $request->branch);
+            });
+
+            $sales->when(auth()->user()->privilege == 'branch', function ($q) use ($regional) {
+                return $q->where('b.branch', auth()->user()->branch);
+            });
+
+            $sales->when(auth()->user()->privilege == 'cluster', function ($q) use ($branch) {
+                return $q->where('b.cluster', auth()->user()->cluster);
+            });
+
+            $sales = $sales->get();
+        } else {
+            $sales = [];
+        }
+
+
+        return response()->json($sales);
+    }
+
     public function location(Request $request)
     {
         $list_jenis = DB::table('kategori_sales')->select('jenis_sales as jenis')->where('status', 1)->distinct()->get();

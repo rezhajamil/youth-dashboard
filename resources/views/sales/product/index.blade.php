@@ -160,6 +160,8 @@
                         </div>
                         <div class="cursor-pointer rounded-lg bg-green-600 px-4 py-2 font-bold text-white transition hover:bg-green-600"
                             id="btn-excel"><i class="fa-solid fa-file-excel mr-2"></i>Excel</div>
+                        <span class="self-center justify-self-center font-bold" id="loading"
+                            style="display: none">Loading...</span>
                     </div>
                 @endif
 
@@ -292,44 +294,91 @@
             })
 
             function fnExcelReport() {
-                // var tab_text = "<table border='2px'><tr bgcolor='#B90027' style='color:#fff'>";
-                // var textRange;
-                // var j = 0;
-                // tab = document.getElementById('table-excel'); // id of table
-                // console.log(tab);
+                $("#loading").show()
 
-                // for (j = 0; j < tab.rows.length; j++) {
-                //     tab_text = tab_text + tab.rows[j].innerHTML + "</tr>";
-                //     //tab_text=tab_text+"</tr>";
-                // }
+                $.ajax({
+                    url: '/product/sales/export',
+                    method: 'GET',
+                    data: {
+                        date: $("#date").val(),
+                        kategori: $("#kategori").val(),
+                        regional: $("#regional").val(),
+                        branch: $("#branch").val(),
+                    },
+                    success: function(response) {
+                        $("#loading").hide()
+                        let table = $('<table></table>').attr('id', 'temp-table').css('display',
+                            'none');
+                        $('body').append(table);
 
-                // tab_text = tab_text + "</table>";
-                // tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, ""); //remove if u want links in your table
-                // tab_text = tab_text.replace(/<img[^>]*>/gi, ""); // remove if u want images in your table
-                // tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+                        // Populate the table with the response data
+                        let header =
+                            `<tr>
+                                <th class='p-4 text-sm font-bold text-gray-100 uppercase bg-y_tersier'>No</th>
+                                <th>Branch</th>
+                                <th>Cluster</th>
+                                <th>Nama</th>
+                                <th>Telp</th>
+                                <th>Role</th>
+                                <th>Jenis</th>
+                                <th>Detail</th>
+                                <th>MSISDN</th>
+                                ${
+                                    $("#kategori").val()!='MYTSEL VALIDASI'&&$("#kategori").val()!='MYTSEL ENTRY'&&$("#kategori").val()!="BYU"?`<th>No Kompetitor</th>`:""
+                                }
+                                ${
+                                    $("#kategori").val()=='BYU'?`<th>POI</th>`:""
+                                }
+                                <th>Tanggal Lapor</th>
+                                ${
+                                    $("#kategori").val()=='MYTSEL VALIDASI'?`<th>Revenue</th>`:""
+                                }
+                                </tr>`;
+                        table.append(header);
 
-                // var ua = window.navigator.userAgent;
-                // var msie = ua.indexOf("MSIE ");
+                        response.forEach(function(sales, idx) {
+                            let row = `<tr>
+                                    <td>${idx+1}</td>
+                                    <td>${sales.branch}</td>
+                                    <td>${sales.cluster}</td>
+                                    <td>${sales.nama}</td>
+                                    <td>${sales.telp}</td>
+                                    <td>${sales.role}</td>
+                                    <td>${sales.jenis}</td>
+                                    <td>${sales.detail}</td>
+                                    <td>${sales.msisdn}</td>
+                                    ${
+                                        $("#kategori").val()!='MYTSEL VALIDASI'&&$("#kategori").val()!='MYTSEL ENTRY'&&$("#kategori").val()!="BYU"?`<th>${sales.serial}</th>`:""
+                                    }
+                                    ${
+                                        $("#kategori").val()=='BYU'?`<th>${sales.serial}</th>`:""
+                                    }
+                                    <th>${sales.date}</th>
+                                    ${
+                                        $("#kategori").val()=='MYTSEL VALIDASI'?`<th>${sales.revenue=='NULL'?'0':(sales.revenue==null?'Belum ada validasi':sales.revenue)}</th>`:""
+                                    }
+                                </tr>`
+                            table.append(row);
+                        })
 
-                // if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) // If Internet Explorer
-                // {
-                //     txtArea1.document.open("txt/html", "replace");
-                //     txtArea1.document.write(tab_text);
-                //     txtArea1.document.close();
-                //     txtArea1.focus();
-                //     sa = txtArea1.document.execCommand("SaveAs", true, "Sales Product.xlsx");
-                // } else //other browser not tested on IE 11
-                //     sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
+                        // Trigger the download
+                        table.table2excel({
+                            exclude: ".action, .tooltip-text",
+                            filename: "download.xls",
+                            fileext: ".xls",
+                            filename: "Sales By Product" + ".xls",
+                            exclude_links: true,
+                            exclude_inputs: true,
+                        });
 
-                // return (sa);
-                $(`#table-excel-container`).table2excel({
-                    exclude: ".action, .tooltip-text",
-                    filename: "download.xls",
-                    fileext: ".xls",
-                    filename: "Sales By Product" + ".xls",
-                    exclude_links: true,
-                    exclude_inputs: true,
-                });
+                        // Remove the temporary table
+                        table.remove();
+                    },
+                    error: function() {
+                        $("#loading").hide()
+                        alert('Failed to fetch data for export.');
+                    }
+                })
             }
         })
     </script>
