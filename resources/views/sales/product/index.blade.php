@@ -297,7 +297,7 @@
                 $("#loading").show()
 
                 $.ajax({
-                    url: '/product/sales/export',
+                    url: "{{ URL::to('/product/sales/export') }}",
                     method: 'GET',
                     data: {
                         date: $("#date").val(),
