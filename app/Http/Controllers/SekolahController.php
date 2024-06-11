@@ -38,11 +38,11 @@ class SekolahController extends Controller
         }
 
         if ($request->kecamatan) {
-            $sekolah = Sekolah::where('kecamatan', $request->kecamatan)->join('data_sekolah_favorit', 'Data_Sekolah_Sumatera.NPSN', '=', 'data_sekolah_favorit.npsn', 'left')->orderBy('nama_sekolah')->get();
+            $sekolah = Sekolah::where('provinsi', $request->provinsi)->where('kab_kota', $request->kabupaten)->where('kecamatan', $request->kecamatan)->join('data_sekolah_favorit', 'Data_Sekolah_Sumatera.NPSN', '=', 'data_sekolah_favorit.npsn', 'left')->orderBy('nama_sekolah')->get();
             $kabupaten = DB::table('territory')->select('kabupaten')->where('provinsi', $request->provinsi)->whereNotNull('kabupaten')->distinct()->orderBy('kabupaten')->get();
             $kecamatan = DB::table('territory')->select('kecamatan')->where('kabupaten', $request->kabupaten)->whereNotNull('kecamatan')->distinct()->orderBy('kecamatan')->get();
         } else if ($request->kabupaten) {
-            $sekolah = Sekolah::where('kab_kota', $request->kabupaten)->join('data_sekolah_favorit', 'Data_Sekolah_Sumatera.NPSN', '=', 'data_sekolah_favorit.npsn', 'left')->orderBy('kecamatan')->orderBy('nama_sekolah')->get();
+            $sekolah = Sekolah::where('provinsi', $request->provinsi)->where('kab_kota', $request->kabupaten)->join('data_sekolah_favorit', 'Data_Sekolah_Sumatera.NPSN', '=', 'data_sekolah_favorit.npsn', 'left')->orderBy('kecamatan')->orderBy('nama_sekolah')->get();
             $kabupaten = DB::table('territory')->select('kabupaten')->where('provinsi', $request->provinsi)->whereNotNull('kabupaten')->distinct()->orderBy('kabupaten')->get();
             $kecamatan = DB::table('territory')->select('kecamatan')->where('kabupaten', $request->kabupaten)->whereNotNull('kecamatan')->distinct()->orderBy('kecamatan')->get();
         } else if ($request->provinsi) {

@@ -279,7 +279,6 @@
                 });
             }
 
-
             $("#by_region").on("change", function() {
                 $("#table-region").toggle();
             })

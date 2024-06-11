@@ -300,7 +300,7 @@ class SurveyController extends Controller
             }
         }
 
-        if ($request->npsn) {
+        if ($survey->tipe == 'Siswa') {
             $answer = DB::table('survey_answer')->where('session', $request->session)->where('telp_siswa', $request->jawaban_0[0])->whereMonth('time_start', date('m'))->whereYear('time_start', date('Y'))->count();
             // ddd($request->session);
             if ($answer < 1) {
@@ -319,7 +319,7 @@ class SurveyController extends Controller
                 // return redirect(URL::to("/qns/survey/$request->url?npsn=$request->npsn&finish=1"));
                 return redirect()->route('survey.answer.create', ['url' => $request->url, 'npsn' => $request->npsn, 'finish' => 1]);
             }
-        } else if ($request->telp) {
+        } else if ($survey->tipe == 'Travel') {
             // $answer = DB::table('survey_travel_answer')->where('session', $request->session)->where('telp_pic', $request->telp);
             // if ($request->jawaban_7[0] != "Belum Punya") {
             //     $answer->orWhere('id_digipos', $request->jawaban_8[0]);
