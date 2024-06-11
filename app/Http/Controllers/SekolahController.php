@@ -219,16 +219,31 @@ class SekolahController extends Controller
             'jlh_siswa_pr' => 'nullable|numeric',
         ]);
 
+        $sekolah = DB::table('data_sekolah_favorit')->where('npsn', $npsn)->first();
 
-        DB::table('data_sekolah_favorit')->where('npsn', $npsn)->update([
-            'nama_kepala_sekolah' => $request->nama_kepala_sekolah,
-            'nama_operator' => $request->nama_operator,
-            'akses_internet' => $request->akses_internet,
-            'sumber_listrik' => $request->sumber_listrik,
-            'jlh_siswa_lk' => $request->jlh_siswa_lk,
-            'jlh_siswa_pr' => $request->jlh_siswa_pr,
-            'tgl_update' => date('Y-m-d'),
-        ]);
+        if ($sekolah) {
+            $sekolah->update([
+                'npsn' => $npsn,
+                'nama_kepala_sekolah' => $request->nama_kepala_sekolah,
+                'nama_operator' => $request->nama_operator,
+                'akses_internet' => $request->akses_internet,
+                'sumber_listrik' => $request->sumber_listrik,
+                'jlh_siswa_lk' => $request->jlh_siswa_lk,
+                'jlh_siswa_pr' => $request->jlh_siswa_pr,
+                'tgl_update' => date('Y-m-d'),
+            ]);
+        } else {
+            DB::table('data_sekolah_favorit')->insert([
+                'npsn' => $npsn,
+                'nama_kepala_sekolah' => $request->nama_kepala_sekolah,
+                'nama_operator' => $request->nama_operator,
+                'akses_internet' => $request->akses_internet,
+                'sumber_listrik' => $request->sumber_listrik,
+                'jlh_siswa_lk' => $request->jlh_siswa_lk,
+                'jlh_siswa_pr' => $request->jlh_siswa_pr,
+                'tgl_update' => date('Y-m-d'),
+            ]);
+        }
 
         return redirect()->route('sekolah.show', $npsn);
     }
