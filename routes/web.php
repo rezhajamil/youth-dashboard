@@ -83,7 +83,7 @@ Route::get('/find_school', [SurveyController::class, 'find_school']);
 Route::post('/find_school_pjp', [SekolahController::class, 'find_school']);
 
 Route::get('sales/get_location', [SalesContoller::class, 'getLocation'])->name('sales.get_location');
-Route::get('mytsel', [SalesContoller::class, 'getRefferal'])->name('sales.get_refferal');
+Route::get('tradein', [SalesContoller::class, 'getRefferal'])->name('sales.get_refferal');
 Route::post('store_refferal', [SalesContoller::class, 'storeRefferal'])->name('sales.store_refferal');
 
 Route::middleware(['cors'])->group(function () {
