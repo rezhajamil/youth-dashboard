@@ -1032,36 +1032,34 @@ class SalesContoller extends Controller
     public function getRefferal(Request $request)
     {
         $user = [];
+        $paket = [];
 
-        if ($request->nik) {
-            $user = DB::table('user_refferal')->where('nik_siad', $request->nik)->first();
+        if ($request->telp) {
+            $user = DB::table('user_buddies')->where('user_id', $request->telp)->first();
+            $paket = DB::table('produk_sales')->select('detail as paket')->where('kategori', 'TRADE IN')->orderBy('detail')->get();
         }
 
-        return view('sales.refferal', compact('user'));
+        return view('sales.refferal', compact('user', 'paket'));
     }
 
     public function storeRefferal(Request $request)
     {
         $request->validate([
-            'nik' => ['required'],
-            'msisdn' => ['required', 'min:11', new MsisdnNumber],
+            'telp' => ['required'],
+            'msisdn' => ['required', 'min:11', 'unique:sales_refferal,msisdn', new MsisdnNumber],
+            'kompetitor' => ['required', 'min:13', 'starts_with:628', 'unique:sales_refferal,kompetitor'],
+            'paket' => ['required'],
         ]);
 
-        $count = DB::table('sales_refferal')->where('msisdn', $request->msisdn)->where('program', $request->program)->count();
+        $data = DB::table('sales_refferal')->insert([
+            'nik' => $request->telp,
+            'msisdn' => $request->msisdn,
+            'program' => 'TRADE IN BUDDIES',
+            'paket' => $request->paket,
+            'date' => date('Y-m-d'),
+        ]);
 
-        if ($count) {
-            return back()->withErrors(['msisdn' => 'MSISDN sudah pernah di input'])->withInput();
-        } else {
-            $data = DB::table('sales_refferal')->insert([
-                'nik' => $request->nik,
-                'msisdn' => $request->msisdn,
-                'program' => 'mytsel',
-                'date' => date('Y-m-d'),
-            ]);
-        }
-
-
-        return redirect()->route('sales.get_refferal', ['nik' => $request->nik])->with('success', 'Berhasil Input Data Refferal');
+        return redirect()->route('sales.get_refferal', ['telp' => $request->telp])->with('success', 'Berhasil Input Data Trade In');
     }
 
     public function getLocation(Request $request)

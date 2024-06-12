@@ -39,6 +39,6 @@ class MsisdnNumber implements Rule
      */
     public function message()
     {
-        return 'Format MSISDN Salah. Awalan harus 628xxxx';
+        return 'Format MSISDN Salah / Bukan nomor TSEL. Awalan harus 628xxxx';
     }
 }
