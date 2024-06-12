@@ -285,7 +285,7 @@ class SekolahController extends Controller
         $kecamatan = DB::table('territory')->select('kecamatan')->distinct()->where('kabupaten', $kabupaten)->whereNotNull('kecamatan')->orderBy('kecamatan')->get();
 
         return response()->json($kecamatan);
-    }q  
+    }
 
     public function oss_osk()
     {
