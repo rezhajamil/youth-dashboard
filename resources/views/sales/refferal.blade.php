@@ -10,9 +10,9 @@
                 </div>
             </div>
         </span>
-        @if (request()->get('nik') && $user)
+        @if (request()->get('telp') && $user)
             <div class="my-4 h-fit w-full rounded-lg bg-indigo-600 px-4 py-2 shadow-xl sm:w-3/4">
-                <span class="inline-block w-full text-left font-bold text-white">Halo, {{ $user->name }} 👋🏻</span>
+                <span class="inline-block w-full text-left font-bold text-white">Halo, {{ $user->user_name }} 👋🏻</span>
                 <span class="mt-1 inline-block w-full text-left text-sm text-gray-100">The pages of yesterday cant be
                     revised,
                     but
