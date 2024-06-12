@@ -201,6 +201,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('product/sales', [SalesContoller::class, 'product'])->name('sales.product');
     Route::get('location/sales', [SalesContoller::class, 'location'])->name('sales.location');
     Route::get('/product/sales/export', [SalesContoller::class, 'exportProduct']);
+    Route::get('trade_in/sales', [SalesContoller::class, 'tradeInBuddies'])->name('sales.trade_in.index');
 
     Route::get("location/taps", [LocationController::class, 'taps'])->name('location.taps');
     Route::get("location/taps/create", [LocationController::class, 'create_taps'])->name('location.taps.create');

@@ -1054,6 +1054,7 @@ class SalesContoller extends Controller
         $data = DB::table('sales_refferal')->insert([
             'nik' => $request->telp,
             'msisdn' => $request->msisdn,
+            'kompetitor' => $request->kompetitor,
             'program' => 'TRADE IN BUDDIES',
             'paket' => $request->paket,
             'date' => date('Y-m-d'),
@@ -1078,5 +1079,12 @@ class SalesContoller extends Controller
         $list_location = $list_location->get();
 
         return response()->json($list_location);
+    }
+
+    public function tradeInBuddies(Request $request)
+    {
+        $data = DB::table('sales_refferal')->join('user_buddies', 'sales_refferal.nik', '=', 'user_buddies.user_id')->where('program', 'TRADE IN BUDDIES')->orderBy('regional', 'desc')->orderBy('branch')->orderBy('cluster')->orderBy('city')->get();
+
+        return view('sales.trade.index', compact('data'));
     }
 }

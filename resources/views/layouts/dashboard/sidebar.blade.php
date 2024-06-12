@@ -182,6 +182,9 @@
             <a href="{{ route('event.create_peserta_sekolah') }}"
                 class="select-none border-b border-b-slate-400 text-white transition-all hover:bg-white hover:text-slate-800"><span
                     class="inline-block px-2 py-3">Upload Bulk BYU</span></a>
+            <a href="{{ route('sales.trade_in.index') }}"
+                class="select-none border-b border-b-slate-400 text-white transition-all hover:bg-white hover:text-slate-800"><span
+                    class="inline-block px-2 py-3">Trade In Buddies</span></a>
         </div>
         {{-- <a class="flex items-center px-6 py-2 mt-4 text-white transition-all bg-opacity-25 cursor-pointer hover:bg-slate-800 hover:bg-opacity-25 hover:text-gray-100"
             href="{{ route('byu.index') }}">
