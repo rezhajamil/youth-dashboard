@@ -169,7 +169,8 @@
     </div>
 @endsection
 @section('script')
-    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+    {{-- <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script> --}}
+    <script src="https://cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
     <script>
         $(document).ready(function() {
             $("#search").on("input", function() {
@@ -204,36 +205,45 @@
             })
 
             function fnExcelReport() {
-                var tab_text = "<table border='2px'><tr bgcolor='#B90027' style='color:#fff'>";
-                var textRange;
-                var j = 0;
-                tab = document.getElementById('table-data'); // id of table
+                // var tab_text = "<table border='2px'><tr bgcolor='#B90027' style='color:#fff'>";
+                // var textRange;
+                // var j = 0;
+                // tab = document.getElementById('table-data'); // id of table
 
-                for (j = 0; j < tab.rows.length; j++) {
-                    tab_text = tab_text + tab.rows[j].innerHTML + "</tr>";
-                    //tab_text=tab_text+"</tr>";
-                }
+                // for (j = 0; j < tab.rows.length; j++) {
+                //     tab_text = tab_text + tab.rows[j].innerHTML + "</tr>";
+                //     //tab_text=tab_text+"</tr>";
+                // }
 
-                tab_text = tab_text + "</table>";
-                tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, ""); //remove if u want links in your table
-                tab_text = tab_text.replace(/<img[^>]*>/gi, ""); // remove if u want images in your table
-                tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+                // tab_text = tab_text + "</table>";
+                // tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, ""); //remove if u want links in your table
+                // tab_text = tab_text.replace(/<img[^>]*>/gi, ""); // remove if u want images in your table
+                // tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
 
-                var ua = window.navigator.userAgent;
-                var msie = ua.indexOf("MSIE ");
+                // var ua = window.navigator.userAgent;
+                // var msie = ua.indexOf("MSIE ");
 
-                if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) // If Internet Explorer
-                {
-                    txtArea1.document.open("txt/html", "replace");
-                    txtArea1.document.write(tab_text);
-                    txtArea1.document.close();
-                    txtArea1.focus();
-                    sa = txtArea1.document.execCommand("SaveAs", true, "Say Thanks to Sumit.xlss");
-                } else //other browser not tested on IE 11
-                    console.log(tab_text);
-                sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
+                // if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) // If Internet Explorer
+                // {
+                //     txtArea1.document.open("txt/html", "replace");
+                //     txtArea1.document.write(tab_text);
+                //     txtArea1.document.close();
+                //     txtArea1.focus();
+                //     sa = txtArea1.document.execCommand("SaveAs", true, "Say Thanks to Sumit.xlss");
+                // } else //other browser not tested on IE 11
+                //     console.log(tab_text);
+                // sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
 
-                return (sa);
+                // return (sa);
+
+                $("#table-data").table2excel({
+                    exclude: ".action, .tooltip-text",
+                    filename: "download.xls",
+                    fileext: ".xls",
+                    filename: "Sales By Location" + ".xls",
+                    exclude_links: true,
+                    exclude_inputs: true,
+                });
             }
 
             $('#button').click(function() {

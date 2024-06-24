@@ -127,13 +127,13 @@ class LocationController extends Controller
         } else {
             $region = DB::table('territory_new')->select('regional')->orderBy('regional', 'desc')->where('regional', auth()->user()->regional)->distinct()->get();
         }
+
         $location = DB::table('location_poi')->select('name')->distinct()->get();
         $keterangan = DB::table('keterangan_poi')->select('name')->distinct()->get();
         $jenis = DB::table('list_poi')->select('jenis_poi')->distinct()->get();
 
         return view('location.poi.create', compact('region', 'location', 'keterangan', 'jenis'));
     }
-
 
     public function store_poi(Request $request)
     {
