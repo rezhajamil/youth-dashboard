@@ -53,6 +53,24 @@
                         </div>
                     </form>
                 </div>
+                <hr class="h-1 w-1/2 bg-neutral-600">
+                <div class="flex justify-between">
+                    <form class="my-3 flex flex-wrap items-center gap-x-4 gap-y-2" action="{{ route('sekolah.index') }}"
+                        method="get">
+                        <input type="number" name="npsn" id="npsn" placeholder="NPSN" class="rounded-lg px-4 py-2"
+                            value="{{ request()->get('npsn') ?? '' }}" />
+                        <div class="flex gap-x-3">
+                            <button
+                                class="rounded-lg bg-y_tersier px-4 py-2 font-bold text-white transition hover:bg-y_tersier"><i
+                                    class="fa-solid fa-magnifying-glass mr-2"></i>Cari</button>
+                            @if (request()->get('npsn'))
+                                <a href="{{ route('sekolah.index') }}"
+                                    class="rounded-lg bg-gray-600 px-4 py-2 font-bold text-white transition hover:bg-gray-800"><i
+                                        class="fa-solid fa-circle-xmark mr-2"></i>Reset</a>
+                            @endif
+                        </div>
+                    </form>
+                </div>
 
                 <div class="my-3 flex items-center gap-x-4">
                     <select name="branch" id="branch" class="rounded-lg px-6">
@@ -67,7 +85,7 @@
                 </div>
 
                 <div class="my-3 flex flex-wrap items-end gap-x-4">
-                    <input type="text" name="search" id="search" placeholder="Search..." class="rounded-lg px-4">
+                    <input type="text" name="search" id="search" placeholder="Filter..." class="rounded-lg px-4">
                     <div class="flex flex-col">
                         {{-- <span class="font-bold text-gray-600">Berdasarkan</span> --}}
                         <select name="search_by" id="search_by" class="rounded-lg">

@@ -55,6 +55,10 @@ class SekolahController extends Controller
             $kecamatan = [];
         }
 
+        if ($request->npsn) {
+            $sekolah = Sekolah::where('NPSN', 'like', "%" . $request->npsn . "%")->get();
+        }
+
         // ddd($sekolah);
         return view('sekolah.index', compact('provinsi', 'kabupaten', 'kecamatan', 'branch', 'sekolah'));
     }
