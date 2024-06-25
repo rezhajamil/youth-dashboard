@@ -721,9 +721,23 @@ class SalesContoller extends Controller
                     'a.serial',
                     'a.poi',
                     'a.jenis',
-                    'a.detail'
+                    'a.detail',
+                    'd.*'
                 )
                 ->join('data_user as b', 'b.telp', '=', 'a.telp')
+                ->leftJoin('kode_prefix_operator as d', function ($join) {
+                    $join->on(
+                        DB::raw("CASE 
+                              WHEN LEFT(a.serial, 1) = '0' THEN SUBSTRING(a.serial, 1, 4) 
+                              WHEN LEFT(a.serial, 1) = '6' THEN SUBSTRING(a.serial, 3, 3) 
+                            END"),
+                        '=',
+                        DB::raw("CASE 
+                                WHEN LEFT(a.serial, 1) = '0' THEN d.kode_prefix
+                                WHEN LEFT(a.serial, 1) = '6' THEN SUBSTRING(d.kode_prefix, 2, 3)
+                            END")
+                    );
+                })
                 ->whereBetween('a.date', [$m1, $mtd])
                 ->where('a.status', '<>', '1')
                 ->where('a.kategori', $kategori)
@@ -808,9 +822,23 @@ class SalesContoller extends Controller
                     'a.serial',
                     'a.poi',
                     'a.jenis',
-                    'a.detail'
+                    'a.detail',
+                    'd.*'
                 )
                 ->join('data_user as b', 'b.telp', '=', 'a.telp')
+                ->leftJoin('kode_prefix_operator as d', function ($join) {
+                    $join->on(
+                        DB::raw("CASE 
+                              WHEN LEFT(a.serial, 1) = '0' THEN SUBSTRING(a.serial, 1, 4) 
+                              WHEN LEFT(a.serial, 1) = '6' THEN SUBSTRING(a.serial, 3, 3) 
+                            END"),
+                        '=',
+                        DB::raw("CASE 
+                                WHEN LEFT(a.serial, 1) = '0' THEN d.kode_prefix
+                                WHEN LEFT(a.serial, 1) = '6' THEN SUBSTRING(d.kode_prefix, 2, 3)
+                            END")
+                    );
+                })
                 ->whereBetween('a.date', [$m1, $mtd])
                 ->where('a.status', '<>', '1')
                 ->where('a.kategori', $kategori)

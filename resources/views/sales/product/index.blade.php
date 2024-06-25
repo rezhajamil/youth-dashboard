@@ -183,6 +183,8 @@
                                         Request::get('kategori') != 'BYU')
                                     <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">No Kompetitor
                                     </th>
+                                    <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">Operator
+                                    </th>
                                 @endif
                                 @if (Request::get('kategori') == 'BYU')
                                     <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">POI
@@ -218,6 +220,8 @@
                                             Request::get('kategori') != 'MYTSEL VALIDASI' &&
                                             Request::get('kategori') != 'BYU')
                                         <td class="serial border-b p-4 uppercase text-gray-700">{{ $data->serial }}</td>
+                                        <td class="serial border-b p-4 uppercase text-gray-700">
+                                            {{ $data->operator ?? 'Lainnya' }}</td>
                                     @endif
                                     @if (Request::get('kategori') == 'BYU')
                                         <td class="serial poi border-b p-4 uppercase text-gray-700">{{ $data->poi }}
@@ -323,7 +327,7 @@
                                 <th>Detail</th>
                                 <th>MSISDN</th>
                                 ${
-                                    $("#kategori").val()!='MYTSEL VALIDASI'&&$("#kategori").val()!='MYTSEL ENTRY'&&$("#kategori").val()!="BYU"?`<th>No Kompetitor</th>`:""
+                                    $("#kategori").val()!='MYTSEL VALIDASI'&&$("#kategori").val()!='MYTSEL ENTRY'&&$("#kategori").val()!="BYU"?`<th>No Kompetitor</th><th>Operator</th>`:""
                                 }
                                 ${
                                     $("#kategori").val()=='BYU'?`<th>POI</th>`:""
@@ -347,7 +351,7 @@
                                     <td>${sales.detail}</td>
                                     <td>${sales.msisdn}</td>
                                     ${
-                                        $("#kategori").val()!='MYTSEL VALIDASI'&&$("#kategori").val()!='MYTSEL ENTRY'&&$("#kategori").val()!="BYU"?`<th>${sales.serial}</th>`:""
+                                        $("#kategori").val()!='MYTSEL VALIDASI'&&$("#kategori").val()!='MYTSEL ENTRY'&&$("#kategori").val()!="BYU"?`<th>${sales.serial}</th><th>${sales.operator}</th>`:""
                                     }
                                     ${
                                         $("#kategori").val()=='BYU'?`<th>${sales.serial}</th>`:""
