@@ -373,7 +373,7 @@ class SekolahController extends Controller
                 'date' => $request->date,
                 'frekuensi' => $request->frekuensi,
                 'hari' => $request->hari,
-                'lokasi' => $sekolah->NAMA_SEKOLAH,
+                'lokasi' => $sekolah->NAMA_SEKOLAH ? $sekolah->NAMA_SEKOLAH : $request->npsn,
                 'longitude' => $sekolah->LONGITUDE,
                 'latitude' => $sekolah->LATITUDE,
             ]);
