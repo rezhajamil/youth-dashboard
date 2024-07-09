@@ -211,6 +211,7 @@ class SekolahController extends Controller
             'PJP' => $request->pjp,
             'FREKUENSI' => $request->frekuensi,
             'TELP' => $request->telp,
+            'UPDATED_AT' => now()
         ]);
 
         return redirect()->route('sekolah.show', $npsn);
