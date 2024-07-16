@@ -398,18 +398,18 @@ class DirectUserController extends Controller
             if ($request->cluster && $request->role) {
                 $absensi = DB::select("SELECT cluster,absen_ao.nama,date,absen_ao.telp,branch,role
                         FROM absen_ao
-                        JOIN data_user
+                        LEFT JOIN data_user
                         on absen_ao.telp=data_user.telp
-                        WHERE MONTH(date)=" . $month . " AND YEAR(date)=" . $year . " 
+                        WHERE data_user.status=1 AND MONTH(date)=" . $month . " AND YEAR(date)=" . $year . " 
                         AND CLUSTER='" . $request->cluster . "'
                         $role
                         ORDER BY 2,3;");
             } else if ($request->role) {
                 $absensi = DB::select("SELECT cluster,absen_ao.nama,date,absen_ao.telp,branch,role 
                         FROM absen_ao
-                        JOIN data_user
+                        LEFT JOIN data_user
                         on absen_ao.telp=data_user.telp
-                        WHERE MONTH(date)=" . $month . " AND YEAR(date)=" . $year . "
+                        WHERE data_user.status=1 AND MONTH(date)=" . $month . " AND YEAR(date)=" . $year . "
                         $role
                         ORDER BY 2,3;");
             } else {
@@ -419,9 +419,9 @@ class DirectUserController extends Controller
             if ($request->cluster && $request->role) {
                 $absensi = DB::select("SELECT cluster,absen_ao.nama,date,absen_ao.telp,branch,role 
                         FROM absen_ao
-                        JOIN data_user
+                        LEFT JOIN data_user
                         on absen_ao.telp=data_user.telp
-                        WHERE MONTH(date)=" . $month . " AND YEAR(date)=" . $year . " 
+                        WHERE data_user.status=1 AND MONTH(date)=" . $month . " AND YEAR(date)=" . $year . " 
                         AND CLUSTER='" . $request->cluster . "'
                         $role
                         ORDER BY 2,3;");

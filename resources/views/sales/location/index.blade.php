@@ -110,6 +110,9 @@
                                 <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">Kategori</th>
                                 <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">Detail</th>
                                 <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">POI</th>
+                                @if (request()->get('jenis') == 'SEKOLAH')
+                                    <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">Jenjang</th>
+                                @endif
                                 <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">Jarak</th>
                                 <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">Status</th>
                                 <th class="bg-y_tersier p-4 text-sm font-medium uppercase text-gray-100">MSISDN</th>
@@ -139,6 +142,10 @@
                                         {{ $data->detail }}</td>
                                     <td class="poi whitespace-nowrap border-b p-4 uppercase text-gray-700">
                                         {{ $data->poi }}</td>
+                                    @if (request()->get('jenis') == 'SEKOLAH')
+                                        <td class="jenjang whitespace-nowrap border-b p-4 uppercase text-gray-700">
+                                            {{ $data->jenjang }}</td>
+                                    @endif
                                     <td class="jarak whitespace-nowrap border-b p-4 uppercase text-gray-700">
                                         {{ $data->jarak }} Km</td>
                                     <td class="status whitespace-nowrap border-b p-4 uppercase text-gray-700">
