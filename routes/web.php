@@ -18,6 +18,7 @@ use App\Http\Controllers\SekolahController;
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\TakerController;
 use App\Http\Controllers\ThreadController;
+use App\Http\Controllers\TravelController;
 use App\Http\Controllers\WilayahController;
 use Illuminate\Support\Facades\Route;
 
@@ -270,6 +271,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('byu/get_max_input', [ByuController::class, 'get_max_input'])->name('byu.get_max_input');
 
     Route::resource('sertifikat', CertificateController::class);
+
+    Route::get('travel', [TravelController::class, 'index'])->name('travel.index');
+    Route::get('travel/create', [TravelController::class, 'create'])->name('travel.create');
+    Route::get('travel/edit/{id}', [TravelController::class, 'edit'])->name('travel.edit');
+    Route::get('travel/keberangkatan', [TravelController::class, 'keberangkatan'])->name('travel.keberangkatan');
 });
 
 require __DIR__ . '/auth.php';

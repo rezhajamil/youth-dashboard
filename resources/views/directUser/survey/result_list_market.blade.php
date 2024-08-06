@@ -1,25 +1,25 @@
 @extends('layouts.dashboard.app')
 @section('body')
-    <div class="w-full mx-4">
+    <div class="mx-4 w-full">
         <div class="flex flex-col">
             <div class="mt-4">
                 <div class="flex">
                     <a href="{{ url()->previous() }}"
-                        class="block px-4 py-2 my-2 font-bold text-white rounded-md bg-y_premier w-fit hover:bg-y_premier"><i
-                            class="mr-2 fa-solid fa-arrow-left"></i> Kembali</a>
+                        class="my-2 block w-fit rounded-md bg-y_premier px-4 py-2 font-bold text-white hover:bg-y_premier"><i
+                            class="fa-solid fa-arrow-left mr-2"></i> Kembali</a>
                     <button id="button"
-                        class="inline-block px-4 py-2 mx-3 my-2 font-semibold text-white transition-all bg-teal-600 rounded-md hover:bg-teal-800"><i
-                            class="mr-2 fa-solid fa-file-arrow-down"></i>Excel</button>
+                        class="mx-3 my-2 inline-block rounded-md bg-teal-600 px-4 py-2 font-semibold text-white transition-all hover:bg-teal-800"><i
+                            class="fa-solid fa-file-arrow-down mr-2"></i>Excel</button>
                 </div>
-                <h4 class="inline-block mb-2 text-xl font-bold text-gray-600 align-baseline" id="title">
+                <h4 class="mb-2 inline-block align-baseline text-xl font-bold text-gray-600" id="title">
                     {{ $survey->nama }} | {{ $sekolah->NAMA_SEKOLAH }} | {{ Request::get('start_date') }} s/d
                     {{ Request::get('end_date') }}</h4>
                 {{-- <button class="px-2 py-1 ml-2 text-lg text-white transition bg-green-600 rounded-md hover:bg-green-800" id="capture"><i class="fa-regular fa-circle-down"></i></button> --}}
                 <input type="hidden" name="sekolah" id="sekolah" value="{{ json_encode($sekolah) }}">
                 <input type="hidden" name="survey" id="survey" value="{{ json_encode($survey) }}">
                 <input type="hidden" name="answer" id="answer" value="{{ json_encode($answer) }}">
-                <div class="mb-8 overflow-auto bg-white rounded-md shadow w-fit" id="result-container">
-                    <table class="overflow-auto text-left bg-white border-collapse w-fit" id="table-data">
+                <div class="mb-8 w-fit overflow-auto rounded-md bg-white shadow" id="result-container">
+                    <table class="w-fit border-collapse overflow-auto bg-white text-left" id="table-data">
                         <thead class="border-b" id="thead">
                             {{-- <tr class="border-b">
                             <th rowspan="3" class="p-3 text-sm font-medium text-center text-gray-100 uppercase border bg-y_tersier">No</th>
@@ -30,7 +30,7 @@
                         </tr> --}}
                         </thead>
                         <tbody class="max-h-screen overflow-y-auto" id="tbody">
-                            <tr id="load" class="font-semibold text-center text-white bg-tersier">
+                            <tr id="load" class="bg-tersier text-center font-semibold text-white">
                                 <td colspan="6">Memuat Data...</td>
                             </tr>
                         </tbody>
