@@ -1091,6 +1091,40 @@ class SalesContoller extends Controller
         return redirect()->route('sales.get_refferal', ['telp' => $request->telp])->with('success', 'Berhasil Input Data Trade In');
     }
 
+    public function getRefferalPon(Request $request)
+    {
+        $user = [];
+        $paket = [];
+
+        if ($request->telp) {
+            $user = DB::table('user_buddies')->where('user_id', $request->telp)->first();
+            $paket = DB::table('produk_sales')->select('detail as paket')->where('kategori', 'TRADE IN')->orderBy('detail')->get();
+        }
+
+        return view('sales.refferal_pon', compact('user', 'paket'));
+    }
+
+    public function storeRefferalPon(Request $request)
+    {
+        $request->validate([
+            'telp' => ['required'],
+            'msisdn' => ['required', 'min:11', 'unique:sales_refferal,msisdn', new MsisdnNumber],
+            'kompetitor' => ['required', 'min:13', 'starts_with:628', 'unique:sales_refferal,kompetitor'],
+            'paket' => ['required'],
+        ]);
+
+        $data = DB::table('sales_refferal')->insert([
+            'nik' => $request->telp,
+            'msisdn' => $request->msisdn,
+            'kompetitor' => $request->kompetitor,
+            'program' => 'PON',
+            'paket' => $request->paket,
+            'date' => date('Y-m-d'),
+        ]);
+
+        return redirect()->route('sales.get_refferal_pon', ['telp' => $request->telp])->with('success', 'Berhasil Input Data');
+    }
+
     public function getLocation(Request $request)
     {
         $start_date = date('Y-m-01', strtotime($request->date));

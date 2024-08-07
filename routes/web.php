@@ -85,7 +85,9 @@ Route::post('/find_school_pjp', [SekolahController::class, 'find_school']);
 
 Route::get('sales/get_location', [SalesContoller::class, 'getLocation'])->name('sales.get_location');
 Route::get('tradein', [SalesContoller::class, 'getRefferal'])->name('sales.get_refferal');
+Route::get('pon', [SalesContoller::class, 'getRefferalPon'])->name('sales.get_refferal_pon');
 Route::post('store_refferal', [SalesContoller::class, 'storeRefferal'])->name('sales.store_refferal');
+Route::post('store_refferal_pon', [SalesContoller::class, 'storeRefferalPon'])->name('sales.store_refferal_pon');
 
 Route::middleware(['cors'])->group(function () {
     Route::get('/test', [SurveyController::class, 'test']);
