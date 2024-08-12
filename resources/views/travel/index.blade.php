@@ -32,38 +32,49 @@
                     <table class="overflow-auto text-left border-collapse w-fit">
                         <thead class="border-b">
                             <tr>
-                                <th class="p-3 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Nama</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Provinsi</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Kota</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Kecamatan</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Cluster</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">SBP</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Current Status</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">ID Digipos Travel
+                                <th class="p-2 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No</th>
+                                <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Nama</th>
+                                <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Provinsi</th>
+                                <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Kota</th>
+                                <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Kecamatan</th>
+                                <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Cluster</th>
+                                <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-y_tersier">SBP</th>
+                                <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Current Status</th>
+                                <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-y_tersier">ID Digipos Travel
                                 </th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">ID Digipos DS</th>
-                                <th class="p-3 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Action</th>
+                                <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-y_tersier">ID Digipos DS</th>
+                                <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Foto Travel</th>
+                                <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($travels as $key => $data)
                                 <tr class="hover:bg-gray-200">
-                                    <td class="p-3 font-bold text-gray-700 border-b">{{ $key + 1 }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border-b nama">{{ $data->nama }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border-b provinsi">{{ $data->provinsi }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border-b kota">{{ $data->kota }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border-b kecamatan">{{ $data->kecamatan }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border-b cluster">{{ $data->cluster }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border-b sbp">{{ $data->sbp }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border-b">
+                                    <td class="p-2 text-sm font-bold text-gray-700 border-b">{{ $key + 1 }}</td>
+                                    <td class="p-2 text-sm text-gray-700 uppercase border-b nama">{{ $data->nama }}</td>
+                                    <td class="p-2 text-sm text-gray-700 uppercase border-b provinsi">{{ $data->provinsi }}
+                                    </td>
+                                    <td class="p-2 text-sm text-gray-700 uppercase border-b kota">{{ $data->kota }}</td>
+                                    <td class="p-2 text-sm text-gray-700 uppercase border-b kecamatan">
+                                        {{ $data->kecamatan }}</td>
+                                    <td class="p-2 text-sm text-gray-700 uppercase border-b cluster">{{ $data->cluster }}
+                                    </td>
+                                    <td class="p-2 text-sm text-gray-700 uppercase border-b sbp">{{ $data->sbp }}</td>
+                                    <td class="p-2 text-sm text-gray-700 uppercase border-b">
                                         {{ $data->current_status != '' ? $data->current_status : '-' }}</td>
-                                    <td class="p-3 text-gray-700 uppercase border-b id_digipos_travel">
+                                    <td class="p-2 text-sm text-gray-700 uppercase border-b id_digipos_travel">
                                         {{ $data->id_digipos_travel_agent != '' ? $data->id_digipos_travel_agent : '-' }}
                                     </td>
-                                    <td class="p-3 text-gray-700 uppercase border-b id_digipos_ds">
+                                    <td class="p-2 text-sm text-gray-700 uppercase border-b id_digipos_ds">
                                         {{ $data->id_digipos_ds != '' ? $data->id_digipos_ds : '-' }}</td>
-                                    <td class="p-3 text-gray-700 border-b">
+                                    <td class="p-2 text-sm text-gray-700 uppercase border-b foto_travel">
+                                        <div class="flex flex-col gap-1">
+                                            @foreach ($data->images as $image)
+                                                <img src="{{ asset('storage/' . $image->url) }}" alt="{{ $data->nama }}"
+                                                    class="w-32 h-32 my-1">
+                                            @endforeach
+                                        </div>
+                                    <td class="p-2 text-sm text-gray-700 border-b">
                                         <a href="{{ route('travel.edit', $data->id) }}"
                                             class="block my-1 text-base font-semibold transition text-y_premier hover:text-indigo-800">Edit</a>
                                     </td>

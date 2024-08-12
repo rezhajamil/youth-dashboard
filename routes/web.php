@@ -277,6 +277,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('travel', [TravelController::class, 'index'])->name('travel.index');
     Route::get('travel/create', [TravelController::class, 'create'])->name('travel.create');
     Route::get('travel/edit/{id}', [TravelController::class, 'edit'])->name('travel.edit');
+    Route::put('travel/update/{id}', [TravelController::class, 'update'])->name('travel.update');
     Route::get('travel/keberangkatan', [TravelController::class, 'keberangkatan'])->name('travel.keberangkatan');
 });
 
