@@ -71,7 +71,7 @@
                                         <div class="flex flex-col gap-1">
                                             @foreach ($data->images as $image)
                                                 <img src="{{ asset('storage/' . $image->url) }}" alt="{{ $data->nama }}"
-                                                    class="w-32 h-32 my-1">
+                                                    class="h-24 my-1">
                                             @endforeach
                                         </div>
                                     <td class="p-2 text-sm text-gray-700 border-b">

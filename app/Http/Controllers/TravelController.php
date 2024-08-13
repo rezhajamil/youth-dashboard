@@ -30,6 +30,7 @@ class TravelController extends Controller
         $request->validate([
             'id_digipos_travel_agent' => 'numeric|nullable',
             'id_digipos_ds' => 'numeric|nullable',
+            'foto_travel' => 'max:2048'
         ]);
 
         $travel = Travel::find($id);
