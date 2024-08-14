@@ -53,4 +53,9 @@ class TravelController extends Controller
 
         return redirect()->route('travel.index');
     }
+
+    public function keberangkatan(Request $request)
+    {
+        return view('travel.keberangkatan.index');
+    }
 }
