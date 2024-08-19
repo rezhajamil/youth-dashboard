@@ -66,7 +66,7 @@ class TravelController extends Controller
             ->whereBetween('tgl', [$startDate, $endDate])
             ->groupBy('tgl', 'negara')
             ->get();
-
+        dd($keberangkatan);
         return view('travel.keberangkatan.index', compact('startDate', 'endDate', 'keberangkatan'));
     }
 
