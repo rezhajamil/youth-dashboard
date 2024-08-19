@@ -24,12 +24,11 @@
 
 
                 <div class="overflow-auto bg-white rounded-md shadow w-fit">
-                    {{-- @include('components.calendar', [
+                    @include('components.calendar', [
                         'startDate' => $startDate,
                         'endDate' => $endDate,
                         'data' => $keberangkatan,
-                    ]) --}}
-                    @include('components.calendar2')
+                    ])
                 </div>
 
             </div>
