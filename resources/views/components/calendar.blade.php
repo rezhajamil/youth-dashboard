@@ -1,5 +1,4 @@
 <!-- component -->
-{{ dd($data) }}
 <div class="lg:flex lg:h-full lg:flex-col">
     <header class="flex items-center justify-between px-6 py-4 border-b border-gray-200 lg:flex-none">
         <h1 class="text-base font-semibold leading-6 text-gray-900">
@@ -42,6 +41,7 @@
         <div class="flex text-xs leading-6 text-gray-700 bg-gray-200 lg:flex-auto">
             @php
                 $currentDate = \Carbon\Carbon::parse($startDate)->startOfWeek();
+                dd($currentDate);
                 $endMonth = \Carbon\Carbon::parse($endDate)->endOfMonth();
                 $lastDate = \Carbon\Carbon::parse($endMonth)->endOfWeek();
                 $numberOfWeeks = ceil($currentDate->diffInDays($lastDate) / 7);
