@@ -45,7 +45,7 @@
                 $lastDate = \Carbon\Carbon::parse($endMonth)->endOfWeek();
                 $numberOfWeeks = ceil($currentDate->diffInDays($lastDate) / 7);
             @endphp
-            <div class="lg:grid-rows-{{ $numberOfWeeks }} hidden w-full lg:grid lg:grid-cols-7 lg:gap-px">
+            <div class="grid-rows-{{ $numberOfWeeks }} grid w-full grid-cols-7 gap-px">
 
                 @while ($currentDate <= $lastDate)
                     @php
