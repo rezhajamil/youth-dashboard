@@ -41,7 +41,6 @@
         <div class="flex text-xs leading-6 text-gray-700 bg-gray-200 lg:flex-auto">
             @php
                 $currentDate = \Carbon\Carbon::parse($startDate)->startOfWeek();
-                dd($currentDate);
                 $endMonth = \Carbon\Carbon::parse($endDate)->endOfMonth();
                 $lastDate = \Carbon\Carbon::parse($endMonth)->endOfWeek();
                 $numberOfWeeks = ceil($currentDate->diffInDays($lastDate) / 7);
