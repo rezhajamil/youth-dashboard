@@ -54,7 +54,7 @@
                         $isToday = $currentDate->isToday();
                     @endphp
 
-                    <div class="{{ $isCurrentMonth ? 'bg-white' : 'bg-gray-100 text-gray-500' }} relative px-3 py-2">
+                    <div class="{{ $isCurrentMonth ? 'bg-white' : 'bg-gray-200 text-gray-500' }} relative px-3 py-2">
                         @if ($isToday)
                             <time datetime="{{ $currentDate->format('Y-m-d') }}"
                                 class="flex items-center justify-center w-6 h-6 font-bold text-white bg-indigo-600 rounded-full">
