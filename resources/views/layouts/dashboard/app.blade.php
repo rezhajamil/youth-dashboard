@@ -32,7 +32,8 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
         integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
-
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     {{-- <script>
         new WOW().init();
 
@@ -78,7 +79,26 @@
         input[type=number] {
             -moz-appearance: textfield;
         }
+
+        .select2-container .select2-selection--single {
+            height: 100%;
+            padding: 6px 9px;
+            border-color: #000
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__placeholder {
+            color: #000
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 36px;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 28px;
+        }
     </style>
+    @stack('styles')
     @if (isset($plain))
         @yield('body')
     @else

@@ -279,6 +279,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('travel/edit/{id}', [TravelController::class, 'edit'])->name('travel.edit');
     Route::put('travel/update/{id}', [TravelController::class, 'update'])->name('travel.update');
     Route::get('travel/keberangkatan', [TravelController::class, 'keberangkatan'])->name('travel.keberangkatan');
+    Route::get('travel/keberangkatan/create', [TravelController::class, 'create_keberangkatan'])->name('travel.create_keberangkatan');
+    Route::post('travel/keberangkatan/store', [TravelController::class, 'store_keberangkatan'])->name('travel.store_keberangkatan');
 });
 
 require __DIR__ . '/auth.php';

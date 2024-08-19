@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Travel;
+use App\Models\TravelKeberangkatan;
+use App\Models\TravelNegara;
 use App\Models\TravelPhoto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -56,6 +58,37 @@ class TravelController extends Controller
 
     public function keberangkatan(Request $request)
     {
-        return view('travel.keberangkatan.index');
+        $startDate = $request->start_date ?? date('Y-m-01');
+        $endDate = $request->end_date ?? date('Y-m-d');
+
+        $keberangkatan = TravelKeberangkatan::with(['travel'])
+            ->select('tgl', 'negara', DB::raw('SUM(jumlah_jamaah) as jlh'))
+            ->whereBetween('tgl', [$startDate, $endDate])
+            ->groupBy('tgl', 'negara')
+            ->get();
+
+        return view('travel.keberangkatan.index', compact('startDate', 'endDate', 'keberangkatan'));
+    }
+
+    public function create_keberangkatan(Request $request)
+    {
+        $travels = Travel::select(['id', 'nama'])->orderBy('nama')->get();
+        $countries = DB::table('list_negara_travel')->get();
+
+        return view('travel.keberangkatan.create', compact('travels', 'countries'));
+    }
+
+    public function store_keberangkatan(Request $request)
+    {
+        $request->validate([
+            'id_travel' => ['required'],
+            'negara' => ['required'],
+            'tgl' => ['required'],
+            'jumlah_jamaah' => ['required'],
+        ]);
+
+        $keberangkatan = TravelKeberangkatan::insert($request->except('_token'));
+
+        return redirect()->route('travel.keberangkatan');
     }
 }
