@@ -1,14 +1,14 @@
 <!-- component -->
-<div class="lg:flex lg:h-full lg:flex-col">
-    <header class="flex items-center justify-between px-6 py-4 border-b border-gray-200 lg:flex-none">
+<div class="flex flex-col h-full">
+    <header class="flex items-center justify-between flex-none px-6 py-4 border-b border-gray-200">
         <h1 class="text-base font-semibold leading-6 text-gray-900">
             <time datetime="{{ date('Y-m-d', strtotime($startDate)) }}">{{ date('d M Y', strtotime($startDate)) }}
                 {{ $endDate ? ' - ' . date('d M Y', strtotime($endDate)) : '' }}</time>
         </h1>
     </header>
-    <div class="shadow ring-1 ring-black ring-opacity-5 lg:flex lg:flex-auto lg:flex-col">
+    <div class="flex flex-col flex-auto shadow ring-1 ring-black ring-opacity-5">
         <div
-            class="grid grid-cols-7 gap-px text-xs font-semibold leading-6 text-center text-gray-700 bg-gray-200 border-b border-gray-300 lg:flex-none">
+            class="grid flex-none grid-cols-7 gap-px text-xs font-semibold leading-6 text-center text-gray-700 bg-gray-200 border-b border-gray-300">
             <div class="flex justify-center py-2 bg-white">
                 <span>M</span>
                 <span class="sr-only sm:not-sr-only">on</span>
@@ -38,7 +38,7 @@
                 <span class="sr-only sm:not-sr-only">un</span>
             </div>
         </div>
-        <div class="flex text-xs leading-6 text-gray-700 bg-gray-200 lg:flex-auto">
+        <div class="flex flex-auto text-xs leading-6 text-gray-700 bg-gray-200">
             @php
                 $currentDate = \Carbon\Carbon::parse($startDate)->startOfWeek();
                 $endMonth = \Carbon\Carbon::parse($endDate)->endOfMonth();
