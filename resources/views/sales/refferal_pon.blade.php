@@ -1,10 +1,10 @@
-@extends('layouts.dashboard.app', ['plain' => true, 'title' => 'Report Trade In PON'])
+@extends('layouts.dashboard.app', ['plain' => true, 'title' => 'Report Renewal PON'])
 @section('body')
     <div class="absolute w-full h-full -z-10">
         <img src="{{ asset('images/PON-2024.jpg') }}" alt="" class="object-cover object-center w-full h-full">
     </div>
     <section class="relative flex flex-col items-center w-full h-full min-h-screen px-4 py-4 bg-slate-900/40">
-        <span class="inline-block w-full mt-2 mb-6 font-bold text-left text-white">Report Trade In PON
+        <span class="inline-block w-full mt-2 mb-6 font-bold text-left text-white">Report Renewal PON
             <br>
             <div class="flex pt-2 gap-x-1">
                 <span>by</span>
@@ -33,7 +33,7 @@
                         <i class="mr-2 fa-solid fa-arrow-left-long"></i>Kembali
                     </a>
                 @else
-                    <span class="inline-block w-full font-bold text-center text-slate-500">Report Trade In PON</span>
+                    <span class="inline-block w-full font-bold text-center text-slate-500">Report Renewal PON</span>
                     <form action="{{ route('sales.store_refferal_pon') }}" method="post">
                         @csrf
                         <input type="hidden" name="telp" value="{{ $user->telp }}">
