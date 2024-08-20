@@ -1116,7 +1116,6 @@ class SalesContoller extends Controller
         $data = DB::table('sales_refferal')->insert([
             'nik' => $request->telp,
             'msisdn' => $request->msisdn,
-            'kompetitor' => $request->kompetitor,
             'program' => 'PON',
             'paket' => $request->paket,
             'date' => date('Y-m-d'),
