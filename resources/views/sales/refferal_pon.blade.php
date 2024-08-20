@@ -15,7 +15,7 @@
         </span>
         @if (request()->get('telp') && $user)
             <div class="w-full px-4 py-2 my-4 bg-orange-600 rounded-lg shadow-xl h-fit sm:w-3/4">
-                <span class="inline-block w-full font-bold text-left text-white">Halo, {{ $user->user_name }} 👋🏻</span>
+                <span class="inline-block w-full font-bold text-left text-white">Halo, {{ $user->nama }} 👋🏻</span>
                 <span class="inline-block w-full mt-1 text-sm text-left text-gray-100">The pages of yesterday cant be
                     revised,
                     but
@@ -36,9 +36,9 @@
                     <span class="inline-block w-full font-bold text-center text-slate-500">Report Trade In PON</span>
                     <form action="{{ route('sales.store_refferal_pon') }}" method="post">
                         @csrf
-                        <input type="hidden" name="telp" value="{{ $user->user_id }}">
+                        <input type="hidden" name="telp" value="{{ $user->telp }}">
                         <input class="w-full mt-4 rounded-md form-input placeholder:text-sm focus:border-sekunder"
-                            type="number" name="msisdn" id="msisdn" placeholder="Nomor Trade In (08xxx)*"
+                            type="number" name="msisdn" id="msisdn" placeholder="Nomor Trade In (628xxx)*"
                             value="{{ old('msisdn') }}" required>
                         @error('msisdn')
                             <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
