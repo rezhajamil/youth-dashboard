@@ -247,12 +247,22 @@ class SurveyController extends Controller
                 return redirect(URL::to('/qns/survey?telp=' . $request->telp . '&npsn=' . $request->npsn . '&kelas=' . $request->kelas . '&telp_siswa=' . $request->telp_siswa));
             }
         } else {
-            DB::table('survey_travel_answer')->insert([
-                'session' => $survey->id,
-                'telp' => $request->telp,
-                'time_start' => date('Y-m-d H:i:s'),
-                'finish' => '0',
-            ]);
+            if ($survey->tipe == 'PON') {
+                DB::table('survey_pon_answer')->insert([
+                    'session' => $survey->id,
+                    'telp' => $request->telp,
+                    'time_start' => date('Y-m-d H:i:s'),
+                    'finish' => '0',
+                ]);
+            } else {
+
+                DB::table('survey_travel_answer')->insert([
+                    'session' => $survey->id,
+                    'telp' => $request->telp,
+                    'time_start' => date('Y-m-d H:i:s'),
+                    'finish' => '0',
+                ]);
+            }
         }
 
         return redirect(URL::to('/qns/survey?telp=' . $request->telp));
@@ -341,6 +351,24 @@ class SurveyController extends Controller
             // } else {
             //     return redirect(URL::to("/qns/survey/$request->url?telp=$request->telp&finish=1"));
             // }
+        } else if ($survey->tipe == 'PON') {
+            DB::table('survey_pon_answer')->insert([
+                'session' => $request->session,
+                'telp' => $request->telp,
+                'id_digipos' => 0,
+                'pilihan' => json_encode($pilihan),
+                'telp_pic' => $request->telp,
+                'time_start' => date('Y-m-d H:i:s'),
+                'finish' => '1'
+            ]);
+
+            DB::table('data_user_pon')->insert([
+                'telp' => $request->jawaban_0[0],
+                'nama' => $request->jawaban_1[0],
+                'linkaja' => $request->jawaban_2[0],
+                'telp_pic' => $request->jawaban_3[0],
+                'tipe_lokasi' => $request->jawaban_4[0],
+            ]);
         } else {
             DB::table('survey_answer')->where('session', $request->session)->where('telp', $request->telp)->where('telp_siswa', $request->telp_siswa)->update([
                 'finish' => '1',
