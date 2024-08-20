@@ -14,7 +14,7 @@
             </div>
         </span>
         @if (request()->get('telp') && $user)
-            <div class="w-full px-4 py-2 my-4 bg-green-500 rounded-lg shadow-xl h-fit sm:w-3/4">
+            <div class="w-full px-4 py-2 my-4 bg-green-600 rounded-lg shadow-xl h-fit sm:w-3/4">
                 <span class="inline-block w-full font-bold text-left text-white">Halo, {{ $user->nama }} 👋🏻</span>
                 <span class="inline-block w-full mt-1 text-sm text-left text-gray-100">The pages of yesterday cant be
                     revised,
