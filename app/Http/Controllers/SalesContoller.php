@@ -1097,7 +1097,7 @@ class SalesContoller extends Controller
         $paket = [];
 
         if ($request->telp) {
-            $user = DB::table('user_buddies')->where('user_id', $request->telp)->first();
+            $user = DB::table('data_user_pon')->where('telp', $request->telp)->first();
             $paket = DB::table('produk_sales')->select('detail as paket')->where('kategori', 'TRADE IN')->orderBy('detail')->get();
         }
 

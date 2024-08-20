@@ -38,7 +38,7 @@
                         @csrf
                         <input type="hidden" name="telp" value="{{ $user->user_id }}">
                         <input class="w-full mt-4 rounded-md form-input placeholder:text-sm focus:border-sekunder"
-                            type="number" name="msisdn" id="msisdn" placeholder="Nomor Trade In (628xxx)*"
+                            type="number" name="msisdn" id="msisdn" placeholder="Nomor Trade In (08xxx)*"
                             value="{{ old('msisdn') }}" required>
                         @error('msisdn')
                             <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
