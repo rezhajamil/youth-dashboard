@@ -366,8 +366,8 @@ class SurveyController extends Controller
                 'telp' => $request->jawaban_0[0],
                 'nama' => $request->jawaban_1[0],
                 'linkaja' => $request->jawaban_2[0],
-                'telp_pic' => $request->jawaban_3[0],
-                'tipe_lokasi' => $request->jawaban_4[0],
+                'telp_pic' => $request->telp,
+                'tipe_lokasi' => $request->jawaban_3[0],
             ]);
         } else {
             DB::table('survey_answer')->where('session', $request->session)->where('telp', $request->telp)->where('telp_siswa', $request->telp_siswa)->update([
