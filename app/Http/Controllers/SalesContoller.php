@@ -1109,7 +1109,6 @@ class SalesContoller extends Controller
         $request->validate([
             'telp' => ['required'],
             'msisdn' => ['required', 'min:11', 'unique:sales_refferal,msisdn', new MsisdnNumber],
-            'kompetitor' => ['required', 'min:13', 'starts_with:628', 'unique:sales_refferal,kompetitor'],
             'paket' => ['required'],
         ]);
 
