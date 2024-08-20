@@ -70,8 +70,7 @@
                 <form action="{{ route('sales.get_refferal_pon') }}" method="get">
                     <span class="font-semibold text-sekunder">Telepon Buddies</span>
                     <input class="w-full mt-2 rounded-md form-input focus:border-orange-600" type="number" name="telp"
-                        id="telp" placeholder="Masukkan Telepon / USER ID Buddies (6281234xxxxx)"
-                        value="{{ old('telp') }}" required>
+                        id="telp" placeholder="Masukkan Telepon (081234xxxxx)" value="{{ old('telp') }}" required>
                     <button type="submit" id="btn-submit"
                         class="w-full px-6 py-2 my-4 font-semibold text-white bg-orange-800 rounded">Submit</button>
                 </form>
