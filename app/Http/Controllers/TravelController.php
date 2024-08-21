@@ -32,6 +32,8 @@ class TravelController extends Controller
         $request->validate([
             'id_digipos_travel_agent' => 'numeric|nullable',
             'id_digipos_ds' => 'numeric|nullable',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
             'foto_travel' => 'max:2048'
         ]);
 
@@ -39,6 +41,8 @@ class TravelController extends Controller
         $travel->current_status = $request->current_status;
         $travel->id_digipos_travel_agent = $request->id_digipos_travel_agent;
         $travel->id_digipos_ds = $request->id_digipos_ds;
+        $travel->latitude = $request->latitude;
+        $travel->longitude = $request->longitude;
         $travel->save();
 
         if ($request->foto_travel) {

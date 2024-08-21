@@ -10,7 +10,7 @@
                         enctype="multipart/form-data">
                         @csrf
                         @method('put')
-                        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-4">
+                        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-3">
                             <div class="w-full">
                                 <label class="block text-gray-700" for="current_status">Current Status</label>
                                 <select name="current_status" id="current_status" class="w-full rounded-md">
@@ -40,6 +40,22 @@
                                 <input class="w-full rounded-md form-input focus:border-indigo-600" type="number"
                                     name="id_digipos_ds" value="{{ old('id_digipos_ds', $travel->id_digipos_ds) }}">
                                 @error('id_digipos_ds')
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="w-full">
+                                <label class="text-gray-700" for="latitude">Latitude</label>
+                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="number"
+                                    step="any" name="latitude" value="{{ old('latitude', $travel->latitude) }}">
+                                @error('latitude')
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="w-full">
+                                <label class="text-gray-700" for="longitude">Longitude</label>
+                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="number"
+                                    step="any" name="longitude" value="{{ old('longitude', $travel->longitude) }}">
+                                @error('longitude')
                                     <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
                             </div>

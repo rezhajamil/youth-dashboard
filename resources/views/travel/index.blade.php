@@ -43,6 +43,8 @@
                                 <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-y_tersier">ID Digipos Travel
                                 </th>
                                 <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-y_tersier">ID Digipos DS</th>
+                                <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Latitude</th>
+                                <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Longitude</th>
                                 <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Foto Travel</th>
                                 <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Action</th>
                             </tr>
@@ -67,6 +69,10 @@
                                     </td>
                                     <td class="p-2 text-sm text-gray-700 uppercase border-b id_digipos_ds">
                                         {{ $data->id_digipos_ds != '' ? $data->id_digipos_ds : '-' }}</td>
+                                    <td class="p-2 text-sm text-gray-700 uppercase border-b latitude">{{ $data->latitude }}
+                                    </td>
+                                    <td class="p-2 text-sm text-gray-700 uppercase border-b longitude">
+                                        {{ $data->longitude }}</td>
                                     <td class="p-2 text-sm text-gray-700 uppercase border-b foto_travel">
                                         <div class="flex flex-col gap-1">
                                             @foreach ($data->images as $image)
