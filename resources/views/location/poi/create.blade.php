@@ -107,9 +107,9 @@
                                     <label class="block text-gray-700" for="jenis_poi">Jenis POI</label>
                                     <select name="jenis_poi" id="jenis_poi" class="w-full rounded-md">
                                         <option value="" selected disabled>Pilih Jenis POI</option>
-                                        <option value="Event" selected>Event</option>
-                                        <option value="Sekolah" selected>Sekolah</option>
-                                        <option value="TRADE IN SBS" selected>TRADE IN SBS</option>
+                                        <option value="Event">Event</option>
+                                        <option value="Sekolah">Sekolah</option>
+                                        <option value="TRADE IN SBS">TRADE IN SBS</option>
                                         {{-- <option value="Orbit">Orbit</option> --}}
                                         {{-- @foreach ($jenis as $item)
                                     <option value="{{ $item->jenis_poi }}" {{ old('jenis_poi')==$item->jenis_poi?'selected':'' }}>
@@ -148,7 +148,6 @@
                                         <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
-
                             </div>
 
                             <div class="flex justify-end mt-4 col-span-full">
