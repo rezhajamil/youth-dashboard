@@ -1,15 +1,15 @@
 @extends('layouts.dashboard.app')
 @section('body')
-    <div class="mx-4 w-full">
+    <div class="w-full mx-4">
         <div class="flex flex-col">
             <div class="mt-4">
-                <h4 class="align-baseline text-xl font-bold text-gray-600">Tambah Data POI</h4>
+                <h4 class="text-xl font-bold text-gray-600 align-baseline">Tambah Data POI</h4>
 
-                <div class="mx-auto w-fit overflow-auto rounded-md bg-white px-6 py-4 shadow sm:mx-0">
+                <div class="px-6 py-4 mx-auto overflow-auto bg-white rounded-md shadow w-fit sm:mx-0">
                     <form action="{{ route('location.poi.store') }}" method="POST" class="">
                         @csrf
-                        <div class="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2">
-                            <div class="col-span-full grid grid-cols-5 gap-x-3">
+                        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+                            <div class="grid grid-cols-5 col-span-full gap-x-3">
                                 <div class="w-full">
                                     <label class="block text-gray-700" for="regional">Regional</label>
                                     <select name="regional" id="regional" class="w-full rounded-md">
@@ -22,7 +22,7 @@
                                         @endforeach
                                     </select>
                                     @error('regional')
-                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="w-full">
@@ -31,7 +31,7 @@
                                         <option value="" selected disabled>Pilih Branch</option>
                                     </select>
                                     @error('branch')
-                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 {{-- <div class="w-full">
@@ -49,7 +49,7 @@
                                         <option value="" selected disabled>Pilih Cluster</option>
                                     </select>
                                     @error('cluster')
-                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="w-full">
@@ -58,7 +58,7 @@
                                         <option value="" selected disabled>Pilih Kabupaten</option>
                                     </select>
                                     @error('kabupaten')
-                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="w-full">
@@ -67,12 +67,12 @@
                                         <option value="" selected disabled>Pilih Kecamatan</option>
                                     </select>
                                     @error('kecamatan')
-                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
 
-                            <div class="col-span-full grid grid-cols-3 gap-x-3">
+                            <div class="grid grid-cols-3 col-span-full gap-x-3">
                                 <div class="w-full">
                                     <label class="block text-gray-700" for="location">Location</label>
                                     <select name="location" id="location" class="w-full rounded-md">
@@ -85,7 +85,7 @@
                                         @endforeach
                                     </select>
                                     @error('location')
-                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="w-full">
@@ -100,7 +100,7 @@
                                         @endforeach
                                     </select>
                                     @error('keterangan_poi')
-                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="w-full">
@@ -108,6 +108,8 @@
                                     <select name="jenis_poi" id="jenis_poi" class="w-full rounded-md">
                                         <option value="" selected disabled>Pilih Jenis POI</option>
                                         <option value="Event" selected>Event</option>
+                                        <option value="Sekolah" selected>Sekolah</option>
+                                        <option value="TRADE IN SBS" selected>TRADE IN SBS</option>
                                         {{-- <option value="Orbit">Orbit</option> --}}
                                         {{-- @foreach ($jenis as $item)
                                     <option value="{{ $item->jenis_poi }}" {{ old('jenis_poi')==$item->jenis_poi?'selected':'' }}>
@@ -116,42 +118,42 @@
                                     @endforeach --}}
                                     </select>
                                     @error('jenis_poi')
-                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
 
-                            <div class="col-span-full grid grid-cols-3 gap-x-3">
+                            <div class="grid grid-cols-3 col-span-full gap-x-3">
                                 <div>
                                     <label class="text-gray-700" for="name">Nama POI</label>
-                                    <input class="form-input w-full rounded-md focus:border-indigo-600" type="text"
+                                    <input class="w-full rounded-md form-input focus:border-indigo-600" type="text"
                                         name="name" value="{{ old('name') }}">
                                     @error('name')
-                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div>
                                     <label class="text-gray-700" for="latitude">Latitude</label>
-                                    <input class="form-input w-full rounded-md focus:border-indigo-600" type="text"
+                                    <input class="w-full rounded-md form-input focus:border-indigo-600" type="text"
                                         name="latitude" value="{{ old('latitude') }}">
                                     @error('latitude')
-                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div>
                                     <label class="text-gray-700" for="longitude">Longitude</label>
-                                    <input class="form-input w-full rounded-md focus:border-indigo-600" type="text"
+                                    <input class="w-full rounded-md form-input focus:border-indigo-600" type="text"
                                         name="longitude" value="{{ old('longitude') }}">
                                     @error('longitude')
-                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
+                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
 
                             </div>
 
-                            <div class="col-span-full mt-4 flex justify-end">
+                            <div class="flex justify-end mt-4 col-span-full">
                                 <button
-                                    class="w-full rounded-md bg-y_premier px-4 py-2 font-bold text-white hover:bg-y_sekunder focus:bg-y_sekunder focus:outline-none">Submit</button>
+                                    class="w-full px-4 py-2 font-bold text-white rounded-md bg-y_premier hover:bg-y_sekunder focus:bg-y_sekunder focus:outline-none">Submit</button>
                             </div>
                     </form>
                 </div>
