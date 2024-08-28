@@ -17,22 +17,40 @@
                             value="{{ Request::get('end_date') ?? $endDate }}" required>
                         @if ($region)
                             <select class="mx-2 rounded" name="region" id="region">
-                                <option value="" selected disabled>Pilih Region</option>
+                                <option value="" selected>Pilih Region</option>
                                 @foreach ($region as $item)
-                                    <option value="{{ $item->regional }}">{{ $item->regional }}</option>
+                                    <option value="{{ $item->regional }}"
+                                        {{ $item->regional == Request::get('region') ? 'selected' : '' }}>
+                                        {{ $item->regional }}
+                                    </option>
                                 @endforeach
                             </select>
                             <select class="mx-2 rounded" name="branch" id="branch">
-                                <option value="" selected disabled>Pilih Branch</option>
+                                <option value="" selected>Pilih Branch</option>
+                                @if (Request::get('branch'))
+                                    <option value="{{ Request::get('branch') }}" selected>{{ Request::get('branch') }}
+                                    </option>
+                                @endif
                             </select>
                             <select class="mx-2 rounded" name="cluster" id="cluster">
-                                <option value="" selected disabled>Pilih Branch</option>
+                                <option value="" selected>Pilih Cluster</option>
+                                @if (Request::get('cluster'))
+                                    <option value="{{ Request::get('cluster') }}" selected>{{ Request::get('cluster') }}
+                                    </option>
+                                @endif
                             </select>
                         @endif
                         <button type="submit"
                             class="inline-block px-4 py-2 my-2 ml-3 font-bold text-white transition-all rounded-md bg-y_premier hover:bg-y_premier"><i
                                 class="mr-2 fa-solid fa-magnifying-glass"></i>
-                            Cari</button>
+                            Cari
+                        </button>
+                        @if (Request::get('region'))
+                            <a href="{{ route('travel.keberangkatan') }}"
+                                class="px-4 py-2 font-bold text-white transition bg-gray-600 rounded-lg h-fit whitespace-nowrap hover:bg-gray-800"><i
+                                    class="mr-2 fa-solid fa-circle-xmark"></i>Reset
+                            </a>
+                        @endif
                     </form>
                 </div>
 
@@ -43,7 +61,6 @@
                         'data' => $keberangkatan,
                     ])
                 </div>
-
             </div>
         </div>
 

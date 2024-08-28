@@ -13,6 +13,6 @@ class TravelKeberangkatan extends Model
 
     public function travel()
     {
-        return $this->belongsTo(Travel::class, 'id_travel');
+        return $this->belongsTo(Travel::class, 'id_travel', 'id');
     }
 }

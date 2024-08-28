@@ -145,10 +145,10 @@ class TravelController extends Controller
 
 
         $keberangkatan = TravelKeberangkatan::with(['travel.territory'])
-            ->select('tgl', 'negara', DB::raw('SUM(jumlah_jamaah) as jlh'));
+            ->select('id_travel', 'tgl', 'negara', DB::raw('SUM(jumlah_jamaah) as jlh'));
 
-        if ($privilege == 'supearadmin') {
-            $region = DB::table('territory_new')->select('regional')->get();
+        if ($privilege == 'superadmin') {
+            $region = DB::table('territory_new')->select('regional')->distinct()->get();
             if ($request->region) {
                 $keberangkatan = $keberangkatan->whereHas('travel.territory', function ($query) use ($request) {
                     $query->where('regional', $request->region);
@@ -181,7 +181,8 @@ class TravelController extends Controller
         }
 
         $keberangkatan = $keberangkatan->whereBetween('tgl', [$startDate, $endDate])
-            ->groupBy('tgl', 'negara')->get();
+            ->groupBy('id_travel', 'tgl', 'negara')->get();
+
 
         return view('travel.keberangkatan.index', compact('startDate', 'endDate', 'region', 'keberangkatan'));
     }
