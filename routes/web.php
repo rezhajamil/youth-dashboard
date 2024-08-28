@@ -56,7 +56,6 @@ Route::name('sekolah.')->group(function () {
     Route::post('sekolah/get_kecamatan', [SekolahController::class, 'getKecamatan'])->name('get_kecamatan');
 });
 
-
 Route::get('/qns', [QuizController::class, 'answer'])->name('quiz.answer.create');
 Route::get('/start/quiz/', [QuizController::class, 'start'])->name('quiz.answer.start');
 Route::get('/answer_list/quiz/{id}', [QuizController::class, 'answer_list'])->name('quiz.answer.list');
@@ -276,6 +275,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('travel', [TravelController::class, 'index'])->name('travel.index');
     Route::get('travel/create', [TravelController::class, 'create'])->name('travel.create');
+    Route::post('travel/store', [TravelController::class, 'store'])->name('travel.store');
     Route::get('travel/edit/{id}', [TravelController::class, 'edit'])->name('travel.edit');
     Route::put('travel/update/{id}', [TravelController::class, 'update'])->name('travel.update');
     Route::get('travel/keberangkatan', [TravelController::class, 'keberangkatan'])->name('travel.keberangkatan');

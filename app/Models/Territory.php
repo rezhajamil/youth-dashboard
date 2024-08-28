@@ -11,6 +11,8 @@ class Territory extends Model
 {
     use HasFactory;
 
+    protected $table = 'territory_new';
+
     public static function getCluster($lbo = false)
     {
         $privilege = Auth::user()->privilege;

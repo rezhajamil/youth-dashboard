@@ -27,6 +27,14 @@
                                 @enderror
                             </div>
                             <div class="w-full">
+                                <label class="text-gray-700" for="rs_digipos">No RS Digipos (62xxxx)</label>
+                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="number"
+                                    name="rs_digipos" value="{{ old('rs_digipos', $travel->rs_digipos) }}">
+                                @error('rs_digipos')
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="w-full">
                                 <label class="text-gray-700" for="id_digipos_travel_agent">ID Digipos Travel Agent</label>
                                 <input class="w-full rounded-md form-input focus:border-indigo-600" type="number"
                                     name="id_digipos_travel_agent"
@@ -36,10 +44,15 @@
                                 @enderror
                             </div>
                             <div class="w-full">
-                                <label class="text-gray-700" for="id_digipos_ds">ID Digipos DS</label>
-                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="number"
-                                    name="id_digipos_ds" value="{{ old('id_digipos_ds', $travel->id_digipos_ds) }}">
-                                @error('id_digipos_ds')
+                                <label class="block text-gray-700" for="telp_ds">Petugas</label>
+                                <select name="telp_ds" id="telp_ds" class="w-full rounded-md select2" style="">
+                                    <option value="" selected disabled>Pilih Petugas</option>
+                                    @foreach ($user as $item)
+                                        <option value="{{ $item->telp }}">{{ $item->nama }} | {{ $item->telp }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('telp_ds')
                                     <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -62,8 +75,16 @@
                             <div class="w-full">
                                 <label class="text-gray-700" for="foto_travel">Foto Travel</label>
                                 <input class="w-full rounded-md form-input focus:border-indigo-600" type="file"
-                                    accept=".jpg,.png,.jpeg" multiple name="foto_travel[]">
+                                    accept=".jpg,.png,.jpeg" name="foto_travel">
                                 @error('foto_travel')
+                                    <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="w-full">
+                                <label class="text-gray-700" for="foto_bak">Foto BAK</label>
+                                <input class="w-full rounded-md form-input focus:border-indigo-600" type="file"
+                                    accept=".jpg,.png,.jpeg" name="foto_bak">
+                                @error('foto_bak')
                                     <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -83,6 +104,11 @@
 @endsection
 @section('script')
     <script>
-        $(document).ready(function() {})
+        $(document).ready(function() {
+            $('.select2').select2({
+                // placeholder: 'Pilih Travel',
+                allowClear: false
+            });
+        })
     </script>
 @endsection

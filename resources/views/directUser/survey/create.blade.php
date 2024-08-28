@@ -1,27 +1,27 @@
 @extends('layouts.dashboard.app')
 @section('body')
-    <div class="w-full mx-4">
+    <div class="mx-4 w-full">
         <div class="flex flex-col">
             <div class="mt-4">
-                <h4 class="text-xl font-bold text-gray-600 align-baseline">Tambah Data Survey</h4>
+                <h4 class="align-baseline text-xl font-bold text-gray-600">Tambah Data Survey</h4>
 
-                <div class="px-6 py-4 mx-auto overflow-auto bg-white rounded-md shadow w-fit sm:mx-0">
+                <div class="mx-auto w-fit overflow-auto rounded-md bg-white px-6 py-4 shadow sm:mx-0">
                     <form action="{{ route('survey.store') }}" method="POST" class="">
                         @csrf
-                        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2" id="soal-container">
-                            <div class="grid grid-cols-1 gap-6 col-span-full sm:grid-cols-3">
+                        <div class="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2" id="soal-container">
+                            <div class="col-span-full grid grid-cols-1 gap-6 sm:grid-cols-3">
                                 <div>
                                     <label class="text-gray-700" for="nama">Nama Survey</label>
-                                    <input class="w-full rounded-md form-input focus:border-indigo-600" type="text"
+                                    <input class="form-input w-full rounded-md focus:border-indigo-600" type="text"
                                         name="nama" value="{{ old('nama') }}" required>
                                     @error('nama')
-                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div>
                                     <label class="text-gray-700" for="tipe">Tipe Survey</label>
                                     <select name="tipe" id="tipe"
-                                        class="w-full rounded-md form-input focus:border-indigo-600" required>
+                                        class="form-input w-full rounded-md focus:border-indigo-600" required>
                                         <option value="" selected disabled>Pilih Tipe Survey</option>
                                         <option value="DS">DS</option>
                                         <option value="Siswa">Siswa</option>
@@ -29,11 +29,11 @@
                                         <option value="PON">PON</option>
                                     </select>
                                     @error('tipe')
-                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
-                            <div class="grid grid-cols-4 gap-6 col-span-full">
+                            <div class="col-span-full grid grid-cols-4 gap-6">
                                 <div class="w-full">
                                     <label class="block text-gray-700" for="regional">Regional</label>
                                     <select name="regional" id="regional" class="w-full rounded-md" required>
@@ -47,7 +47,7 @@
                                         @endforeach
                                     </select>
                                     @error('regional')
-                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="w-full">
@@ -61,7 +61,7 @@
                                         @endforeach
                                     </select>
                                     @error('branch')
-                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="w-full">
@@ -76,7 +76,7 @@
                                         @endforeach
                                     </select>
                                     @error('cluster')
-                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="w-full">
@@ -91,11 +91,11 @@
                                         @endforeach
                                     </select>
                                     @error('role')
-                                        <span class="block mt-1 text-sm italic text-red-600">{{ $message }}</span>
+                                        <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
-                            <div class="flex flex-col col-span-full">
+                            <div class="col-span-full flex flex-col">
                                 <label class="block text-gray-700" for="deskripsi">Deskripsi</label>
                                 <input type="hidden" name="deskripsi" id="deskripsi" value="{!! old('deskripsi') !!}">
                                 <trix-editor input="deskripsi"></trix-editor>
@@ -103,25 +103,25 @@
                                     <span class="block text-sm italic text-red-600">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="grid grid-cols-1 border-b-4 col-span-full sm:grid-cols-2">
-                                <div class="flex justify-between col-span-full gap-x-4">
-                                    <span class="font-bold text-blue-600 underline transition-all cursor-pointer add-soal">+
+                            <div class="col-span-full grid grid-cols-1 border-b-4 sm:grid-cols-2">
+                                <div class="col-span-full flex justify-between gap-x-4">
+                                    <span class="add-soal cursor-pointer font-bold text-blue-600 underline transition-all">+
                                         Tambah Soal</span>
                                     <span
-                                        class="font-bold text-black underline transition-all cursor-pointer counter-soal">Jumlah
+                                        class="counter-soal cursor-pointer font-bold text-black underline transition-all">Jumlah
                                         Soal : </span>
                                 </div>
-                                <div class="grid grid-cols-4 col-span-full gap-x-4">
+                                <div class="col-span-full grid grid-cols-4 gap-x-4">
                                     <div class="col-span-2">
                                         <label class="text-gray-700" for="soal">Soal</label>
-                                        <input class="w-full rounded-md form-input focus:border-indigo-600" type="text"
+                                        <input class="form-input w-full rounded-md focus:border-indigo-600" type="text"
                                             name="soal[]" value="Boleh dong sebutkan Nomor hape kamu.. (Awalan '08')"
                                             required>
                                     </div>
-                                    <div class="flex flex-col col-span-1">
+                                    <div class="col-span-1 flex flex-col">
                                         <label class="text-gray-700" for="jenis_soal">Jenis Soal</label>
                                         <select name="jenis_soal[]"
-                                            class="w-full rounded-md select-jenis form-input focus:border-indigo-600">
+                                            class="select-jenis form-input w-full rounded-md focus:border-indigo-600">
                                             <option value="Pilgan" disabled>Pilihan Ganda</option>
                                             <option value="Isian" selected>Isian</option>
                                             <option value="Pilgan & Isian" disabled>Pilihan Ganda & Isian</option>
@@ -129,10 +129,10 @@
                                             <option value="Prioritas" disabled>Prioritas</option>
                                         </select>
                                     </div>
-                                    <div class="flex flex-col col-span-1">
+                                    <div class="col-span-1 flex flex-col">
                                         <label class="text-gray-700" for="validasi">Jenis Validasi</label>
                                         <select name="validasi[]"
-                                            class="w-full rounded-md form-input focus:border-indigo-600">
+                                            class="form-input w-full rounded-md focus:border-indigo-600">
                                             <option value="" disabled>Tidak Ada</option>
                                             <option value="telp" selected>Nomor Telepon</option>
                                             <option value="nama" disabled>Nama (Bukan Angka)</option>
@@ -142,14 +142,14 @@
                                 <div class="option-container col-span-full">
                                     <input type="hidden" name="jumlah_opsi[]" value="1">
                                     <div class="my-4">
-                                        <div class="flex justify-end hidden gap-x-4">
+                                        <div class="flex hidden justify-end gap-x-4">
                                             <span
-                                                class="inline-block font-bold text-right text-green-600 underline transition-all cursor-pointer add-opsi">+
+                                                class="add-opsi inline-block cursor-pointer text-right font-bold text-green-600 underline transition-all">+
                                                 Tambah Opsi</span>
                                         </div>
                                         <div class="flex">
                                             <input
-                                                class="w-full border-2 border-gray-400 form-input first-letter:uppercase focus:border-indigo-600"
+                                                class="form-input w-full border-2 border-gray-400 first-letter:uppercase focus:border-indigo-600"
                                                 type="text" name="opsi[]" readonly required>
                                         </div>
                                     </div>
@@ -188,9 +188,9 @@
                             </div>
                         </div>
 
-                        <div class="flex justify-end mt-4">
+                        <div class="mt-4 flex justify-end">
                             <button
-                                class="w-full px-4 py-2 font-bold text-white rounded-md bg-y_premier hover:bg-y_sekunder focus:bg-y_sekunder focus:outline-none">Submit</button>
+                                class="w-full rounded-md bg-y_premier px-4 py-2 font-bold text-white hover:bg-y_sekunder focus:bg-y_sekunder focus:outline-none">Submit</button>
                         </div>
                     </form>
                 </div>

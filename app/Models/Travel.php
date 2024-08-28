@@ -17,4 +17,14 @@ class Travel extends Model
     {
         return $this->hasMany(TravelPhoto::class, 'id_travel');
     }
+
+    public function ds()
+    {
+        return $this->belongsTo(DataUser::class, 'telp_ds', 'telp');
+    }
+
+    public function territory()
+    {
+        return $this->belongsTo(Territory::class, 'cluster', 'cluster');
+    }
 }
