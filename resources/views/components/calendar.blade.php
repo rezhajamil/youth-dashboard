@@ -81,7 +81,7 @@
                                     })
                                     ->filter();
                             @endphp
-                            @if (Auth::user()->privilege == 'supearadmin')
+                            @if (Auth::user()->privilege == 'superadmin')
                                 <ol class="mt-2">
                                     @foreach ($regionalCounts as $idx => $item)
                                         <li>
