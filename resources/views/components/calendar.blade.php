@@ -46,7 +46,6 @@
                 $numberOfWeeks = ceil($currentDate->diffInDays($lastDate) / 7);
             @endphp
             <div class="grid-rows-{{ $numberOfWeeks }} grid w-full grid-cols-7 gap-px">
-
                 @while ($currentDate <= $lastDate)
                     @php
                         // $isCurrentMonth = $currentDate->month == \Carbon\Carbon::parse($startDate)->month;
@@ -67,8 +66,59 @@
                         @endif
 
                         @if ($data->where('tgl', $currentDate->format('Y-m-d'))->isNotEmpty())
-                            @foreach ($data->where('tgl', $currentDate->format('Y-m-d')) as $item)
+                            @php
+                                $regionalCounts = $keberangkatan
+                                    ->groupBy('travel.territory.regional')
+                                    ->map(function ($group) use ($currentDate) {
+                                        return $group->where('tgl', $currentDate->format('Y-m-d'))->sum('jlh');
+                                    })
+                                    ->filter();
+
+                                $clusterCounts = $keberangkatan
+                                    ->groupBy('travel.territory.cluster')
+                                    ->map(function ($group) use ($currentDate) {
+                                        return $group->where('tgl', $currentDate->format('Y-m-d'))->sum('jlh');
+                                    })
+                                    ->filter();
+                            @endphp
+                            @if (Auth::user()->privilege == 'supearadmin')
                                 <ol class="mt-2">
+                                    @foreach ($regionalCounts as $idx => $item)
+                                        <li>
+                                            <a href="#" class="flex group">
+                                                <p
+                                                    class="flex-auto font-medium text-gray-900 truncate group-hover:text-indigo-600">
+                                                    {{ ucwords(strtolower($idx)) ?? '' }}
+                                                </p>
+                                                <time datetime="{{ $item->tgl ?? '2024-08-10T10:00' }}"
+                                                    class="flex-none hidden ml-3 text-gray-500 group-hover:text-indigo-600 md:block">
+                                                    {{ $item ?? '0' }}
+                                                </time>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ol>
+                                <hr class="h-1">
+                            @endif
+                            <ol class="mt-2">
+                                @foreach ($clusterCounts as $idx => $item)
+                                    <li>
+                                        <a href="#" class="flex group">
+                                            <p
+                                                class="flex-auto font-medium text-gray-900 truncate group-hover:text-indigo-600">
+                                                {{ ucwords(strtolower($idx)) ?? '' }}
+                                            </p>
+                                            <time datetime="{{ $item->tgl ?? '2024-08-10T10:00' }}"
+                                                class="flex-none hidden ml-3 text-gray-500 group-hover:text-indigo-600 md:block">
+                                                {{ $item ?? '0' }}
+                                            </time>
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ol>
+                            <hr class="h-1">
+                            <ol class="mt-2">
+                                @foreach ($data->where('tgl', $currentDate->format('Y-m-d')) as $item)
                                     <li>
                                         <a href="#" class="flex group">
                                             <p
@@ -81,8 +131,8 @@
                                             </time>
                                         </a>
                                     </li>
-                                </ol>
-                            @endforeach
+                                @endforeach
+                            </ol>
                         @endif
                     </div>
 

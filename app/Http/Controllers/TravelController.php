@@ -183,6 +183,15 @@ class TravelController extends Controller
         $keberangkatan = $keberangkatan->whereBetween('tgl', [$startDate, $endDate])
             ->groupBy('id_travel', 'tgl', 'negara')->get();
 
+        $regionalCounts = $keberangkatan->groupBy('travel.territory.regional')
+            ->map(function ($group) {
+                return $group->sum('jlh');
+            });
+
+        $clusterCounts = $keberangkatan->groupBy('travel.territory.cluster')
+            ->map(function ($group) {
+                return $group->count();
+            });
 
         return view('travel.keberangkatan.index', compact('startDate', 'endDate', 'region', 'keberangkatan'));
     }
