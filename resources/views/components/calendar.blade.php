@@ -49,7 +49,8 @@
                 @while ($currentDate <= $lastDate)
                     @php
                         // $isCurrentMonth = $currentDate->month == \Carbon\Carbon::parse($startDate)->month;
-                        $isCurrentMonth = $currentDate >= $startDate && $currentDate <= $endDate;
+                        $isCurrentMonth =
+                            $currentDate >= $startDate && $currentDate <= \Carbon\Carbon::parse($endDate)->addDay();
                         $isToday = $currentDate->isToday();
                     @endphp
 
