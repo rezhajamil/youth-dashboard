@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\TravelsExport;
 use App\Models\DataUser;
 use App\Models\Travel;
 use App\Models\TravelKeberangkatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
