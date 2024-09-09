@@ -40,6 +40,8 @@
         </div>
         <div class="flex flex-auto text-xs leading-6 text-gray-700 bg-gray-200">
             @php
+                $startDate = \Carbon\Carbon::parse($startDate);
+                $endDate = \Carbon\Carbon::parse($endDate);
                 $currentDate = \Carbon\Carbon::parse($startDate)->startOfWeek();
                 $endMonth = \Carbon\Carbon::parse($endDate)->endOfMonth();
                 $lastDate = \Carbon\Carbon::parse($endMonth)->endOfWeek();
@@ -49,8 +51,7 @@
                 @while ($currentDate <= $lastDate)
                     @php
                         // $isCurrentMonth = $currentDate->month == \Carbon\Carbon::parse($startDate)->month;
-                        $isCurrentMonth =
-                            $currentDate >= $startDate && $currentDate <= \Carbon\Carbon::parse($endDate)->addDay();
+                        $isCurrentMonth = $currentDate >= $startDate && $currentDate <= $endDate;
                         $isToday = $currentDate->isToday();
                     @endphp
 

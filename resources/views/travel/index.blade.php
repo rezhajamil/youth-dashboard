@@ -9,6 +9,10 @@
                     class="inline-block px-4 py-2 my-2 font-bold text-white rounded-md bg-y_premier hover:bg-y_premier"><i
                         class="mr-2 fa-solid fa-plus"></i> Data Travel Baru</a>
 
+                <a href="{{ route('travel.export') }}"
+                    class="inline-block px-4 py-2 my-2 font-bold text-white bg-green-500 rounded-md hover:bg-green-600"><i
+                        class="mr-2 fa-solid fa-file-excel"></i> Download Excel</a>
+
                 <div class="flex flex-wrap items-end mb-2 gap-x-4">
                     <input type="text" name="search" id="search" placeholder="Search..." class="px-4 rounded-lg">
                     <div class="flex flex-col">
@@ -29,7 +33,7 @@
             @endif --}}
 
                 <div class="overflow-auto bg-white rounded-md shadow w-fit">
-                    <table class="overflow-auto text-left border-collapse w-fit">
+                    <table class="overflow-auto text-left border-collapse w-fit" id="table-travel">
                         <thead class="border-b">
                             <tr>
                                 <th class="p-2 text-sm font-bold text-gray-100 uppercase bg-y_tersier">No</th>
@@ -51,7 +55,7 @@
                                 <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Longitude</th>
                                 <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Foto Travel</th>
                                 <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Foto BAK</th>
-                                <th class="p-2 text-sm font-medium text-gray-100 uppercase bg-y_tersier">Action</th>
+                                <th class="p-2 text-sm font-medium text-gray-100 uppercase action bg-y_tersier">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -90,7 +94,8 @@
                                         @if ($data->foto_travel)
                                             <div class="flex flex-col gap-1">
                                                 <img src="{{ asset('storage/' . $data->foto_travel) }}"
-                                                    alt="{{ $data->nama }}" class="object-cover w-full h-24 my-1">
+                                                    alt="{{ $data->nama }}" class="object-cover w-full my-1"
+                                                    style="height: 90px;object-fit:cover">
                                             </div>
                                         @endif
                                     </td>
@@ -98,11 +103,12 @@
                                         @if ($data->foto_bak)
                                             <div class="flex flex-col gap-1">
                                                 <img src="{{ asset('storage/' . $data->foto_bak) }}"
-                                                    alt="{{ $data->nama }}" class="object-cover w-full h-24 my-1">
+                                                    alt="{{ $data->nama }}" class="object-cover w-full my-1"
+                                                    style="height: 90px;object-fit:cover">
                                             </div>
                                         @endif
                                     </td>
-                                    <td class="p-2 text-sm text-gray-700 border-b">
+                                    <td class="p-2 text-sm text-gray-700 border-b action">
                                         <a href="{{ route('travel.edit', $data->id) }}"
                                             class="block my-1 text-base font-semibold transition text-y_premier hover:text-indigo-800">Edit</a>
                                     </td>
@@ -162,6 +168,20 @@
                 });
 
             }
+
         })
+
+
+        function exportToExcel(tableId) {
+
+            let tableData = document.getElementById(tableId).outerHTML;
+            tableData = tableData.replace(/<A[^>]*>|<\/A>/g, ""); //remove if u want links in your table
+            tableData = tableData.replace(/<input[^>]*>|<\/input>/gi, ""); //remove input params
+            let a = document.createElement('a');
+            a.href = `data:application/vnd.ms-excel, ${encodeURIComponent(tableData)}`
+            a.download = 'data travel.xls'
+            a.click()
+
+        }
     </script>
 @endsection

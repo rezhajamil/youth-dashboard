@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\TravelsExport;
 use App\Models\DataUser;
 use App\Models\Travel;
 use App\Models\TravelKeberangkatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class TravelController extends Controller
 {
@@ -216,5 +222,90 @@ class TravelController extends Controller
         $keberangkatan = TravelKeberangkatan::insert($request->except('_token'));
 
         return redirect()->route('travel.keberangkatan');
+    }
+
+    public function export()
+    {
+        $travels = Travel::with(['ds']);
+
+        if (Auth::user()->privilege === 'cluster') {
+            $travels = $travels->where('cluster', Auth::user()->cluster);
+        }
+
+        $travels = $travels->get();
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Set header
+        $sheet->setCellValue('A1', 'No')
+            ->setCellValue('B1', 'Nama')
+            ->setCellValue('C1', 'Provinsi')
+            ->setCellValue('D1', 'Kota')
+            ->setCellValue('E1', 'Kecamatan')
+            ->setCellValue('F1', 'Cluster')
+            ->setCellValue('G1', 'SBP')
+            ->setCellValue('H1', 'Alamat')
+            ->setCellValue('I1', 'Current Status')
+            ->setCellValue('J1', 'RS Digipos')
+            ->setCellValue('K1', 'ID Digipos Travel')
+            ->setCellValue('L1', 'Nama DS')
+            ->setCellValue('M1', 'ID Digipos DS')
+            ->setCellValue('N1', 'Linkaja DS')
+            ->setCellValue('O1', 'Latitude')
+            ->setCellValue('P1', 'Longitude')
+            ->setCellValue('Q1', 'Foto Travel')
+            ->setCellValue('R1', 'Foto BAK');
+
+        $row = 2; // Mulai dari baris kedua
+        foreach ($travels as $key => $travel) {
+            $sheet->setCellValue("A{$row}", $key + 1)
+                ->setCellValue("B{$row}", $travel->nama)
+                ->setCellValue("C{$row}", $travel->provinsi)
+                ->setCellValue("D{$row}", $travel->kota)
+                ->setCellValue("E{$row}", $travel->kecamatan)
+                ->setCellValue("F{$row}", $travel->cluster)
+                ->setCellValue("G{$row}", $travel->sbp)
+                ->setCellValue("H{$row}", $travel->alamat)
+                ->setCellValue("I{$row}", $travel->current_status != '' ? $travel->current_status : '-')
+                ->setCellValue("J{$row}", $travel->id_digipos_travel_agent != '' ? $travel->id_digipos_travel_agent : '-')
+                ->setCellValue("K{$row}", $travel->rs_digipos != '' ? $travel->rs_digipos : '-')
+                ->setCellValue("L{$row}", optional($travel->ds)->nama ?? '-')
+                ->setCellValue("M{$row}", optional($travel->ds)->id_digipos ?? '-')
+                ->setCellValue("N{$row}", optional($travel->ds)->linkaja ?? '-')
+                ->setCellValue("O{$row}", $travel->latitude != '' ? $travel->latitude : '-')
+                ->setCellValue("P{$row}", $travel->longitude != '' ? $travel->longitude : '-')
+            ;
+
+            // Tambahkan gambar foto_travel
+            if ($travel->foto_travel) {
+                $drawing = new Drawing();
+                $drawing->setName('Foto Travel');
+                $drawing->setPath(storage_path('app/public/' . $travel->foto_travel)); // Path gambar
+                $drawing->setHeight(90); // Atur tinggi sesuai kebutuhan
+                $drawing->setCoordinates("Q{$row}"); // Lokasi gambar pada sheet
+                $drawing->setWorksheet($sheet);
+            }
+
+            // Tambahkan gambar foto_bak
+            if ($travel->foto_bak) {
+                $drawing = new Drawing();
+                $drawing->setName('Foto BAK');
+                $drawing->setPath(storage_path('app/public/' . $travel->foto_bak)); // Path gambar
+                $drawing->setHeight(90); // Atur tinggi sesuai kebutuhan
+                $drawing->setCoordinates("R{$row}"); // Lokasi gambar pada sheet
+                $drawing->setWorksheet($sheet);
+            }
+
+            $row++;
+        }
+
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+
+        // Simpan file ke storage
+        $filePath = storage_path('app/public/data_travel.xlsx');
+        $writer->save($filePath);
+
+        return response()->download($filePath)->deleteFileAfterSend(true);
     }
 }
