@@ -30,10 +30,10 @@ class TravelController extends Controller
     public function create()
     {
         $user = DataUser::orderBy('nama');
-        $province = DB::table('territory_new')->select('provinsi')->orderBy('provinsi');
-        $city = DB::table('territory_new')->select('kab_new as city')->orderBy('kab_new');
-        $district = DB::table('territory')->select('kecamatan')->orderBy('kecamatan');
-        $cluster = DB::table('territory_new')->select('cluster')->orderBy('cluster');
+        $province = DB::table('territory_new')->distinct()->select('provinsi')->orderBy('provinsi');
+        $city = DB::table('territory_new')->distinct()->select('kab_new as city')->orderBy('kab_new');
+        $district = DB::table('territory')->distinct()->select('kecamatan')->orderBy('kecamatan');
+        $cluster = DB::table('territory_new')->distinct()->select('cluster')->orderBy('cluster');
 
         if (Auth::user()->privilege == 'cluster') {
             $user = $user->where('cluster', Auth::user()->cluster);
@@ -279,7 +279,7 @@ class TravelController extends Controller
                 $drawing = new Drawing();
                 $drawing->setName('Foto Travel');
                 $drawing->setPath(storage_path('app/public/' . $travel->foto_travel)); // Path gambar
-                $drawing->setHeight(90); // Atur tinggi sesuai kebutuhan
+                $drawing->setWidth(30);
                 $drawing->setCoordinates("Q{$row}"); // Lokasi gambar pada sheet
                 $drawing->setWorksheet($sheet);
             }
@@ -289,7 +289,7 @@ class TravelController extends Controller
                 $drawing = new Drawing();
                 $drawing->setName('Foto BAK');
                 $drawing->setPath(storage_path('app/public/' . $travel->foto_bak)); // Path gambar
-                $drawing->setHeight(90); // Atur tinggi sesuai kebutuhan
+                $drawing->setWidth(30);
                 $drawing->setCoordinates("R{$row}"); // Lokasi gambar pada sheet
                 $drawing->setWorksheet($sheet);
             }
