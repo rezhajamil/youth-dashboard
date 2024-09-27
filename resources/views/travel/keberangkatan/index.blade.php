@@ -1,18 +1,18 @@
 @extends('layouts.dashboard.app')
 @section('body')
-    <div class="mx-4 w-full">
+    <div class="w-full mx-4">
         <div class="flex flex-col">
             <div class="mt-4">
-                <h4 class="align-baseline text-xl font-bold text-gray-600">Data Keberangkatan Travel</h4>
-
+                <h4 class="text-xl font-bold text-gray-600 align-baseline">Data Keberangkatan Travel</h4>
                 <a href="{{ route('travel.create_keberangkatan') }}"
-                    class="my-2 inline-block rounded-md bg-y_premier px-4 py-2 font-bold text-white hover:bg-y_premier"><i
-                        class="fa-solid fa-plus mr-2"></i> Data Keberangkatan Baru</a>
-                <div class="my-6 flex items-center gap-x-3">
+                    class="inline-block px-4 py-2 my-2 font-bold text-white rounded-md bg-y_premier hover:bg-y_premier">
+                    <i class="mr-2 fa-solid fa-plus"></i> Data Keberangkatan Baru
+                </a>
+                <div class="flex items-center my-6 gap-x-3">
                     <form action="{{ route('travel.keberangkatan') }}" method="get">
                         <input class="rounded" type="date" name="start_date" id="start_date"
                             value="{{ Request::get('start_date') ?? $startDate }}" required>
-                        <span class="mx-2 inline-block font-bold">s/d</span>
+                        <span class="inline-block mx-2 font-bold">s/d</span>
                         <input class="rounded" type="date" name="end_date" id="end_date"
                             value="{{ Request::get('end_date') ?? $endDate }}" required>
                         @if ($region)
@@ -41,20 +41,19 @@
                             </select>
                         @endif
                         <button type="submit"
-                            class="my-2 ml-3 inline-block rounded-md bg-y_premier px-4 py-2 font-bold text-white transition-all hover:bg-y_premier"><i
-                                class="fa-solid fa-magnifying-glass mr-2"></i>
+                            class="inline-block px-4 py-2 my-2 ml-3 font-bold text-white transition-all rounded-md bg-y_premier hover:bg-y_premier"><i
+                                class="mr-2 fa-solid fa-magnifying-glass"></i>
                             Cari
                         </button>
                         @if (Request::get('region'))
                             <a href="{{ route('travel.keberangkatan') }}"
-                                class="h-fit whitespace-nowrap rounded-lg bg-gray-600 px-4 py-2 font-bold text-white transition hover:bg-gray-800"><i
-                                    class="fa-solid fa-circle-xmark mr-2"></i>Reset
+                                class="px-4 py-2 font-bold text-white transition bg-gray-600 rounded-lg h-fit whitespace-nowrap hover:bg-gray-800"><i
+                                    class="mr-2 fa-solid fa-circle-xmark"></i>Reset
                             </a>
                         @endif
                     </form>
                 </div>
-
-                <div class="w-fit overflow-auto rounded-md bg-white shadow">
+                <div class="overflow-auto bg-white rounded-md shadow w-fit">
                     @include('components.calendar', [
                         'startDate' => $startDate,
                         'endDate' => $endDate,
@@ -163,7 +162,6 @@
                             })
 
                         )
-
                     },
                     error: (e) => {
                         console.log(e)

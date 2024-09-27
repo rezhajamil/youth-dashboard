@@ -1,11 +1,11 @@
 @extends('layouts.dashboard.app')
 @section('body')
-    <div class="mx-4 my-4 w-full">
+    <div class="w-full mx-4 my-4">
         <div class="flex flex-col">
             <div class="mt-4">
-                <h4 class="align-baseline text-xl font-bold text-gray-600">Absensi</h4>
+                <h4 class="text-xl font-bold text-gray-600 align-baseline">Absensi</h4>
 
-                <div class="my-4 flex justify-between">
+                <div class="flex justify-between my-4">
                     <form class="flex flex-wrap items-center gap-x-4 gap-y-2" action="{{ route('direct_user.absensi') }}"
                         method="get">
                         <select name="cluster" id="cluster"
@@ -30,7 +30,8 @@
                         <select name="month" id="month" required>
                             <option value="" selected disabled>Pilih Bulan</option>
                             @for ($i = 1; $i < 13; $i++)
-                                <option value="{{ $i }}" {{ date('n') == $i ? 'selected' : '' }}>
+                                <option value="{{ $i }}"
+                                    {{ (request()->get('month') ? (request()->get('month') == $i ? 'selected' : '') : date('n') == $i) ? 'selected' : '' }}>
                                     {{ $i }}
                                 </option>
                             @endfor
@@ -38,19 +39,20 @@
                         <select name="year" id="year" required>
                             <option value="" selected disabled>Pilih Tahun</option>
                             @for ($i = date('Y') - 2; $i <= date('Y'); $i++)
-                                <option value="{{ $i }}" {{ date('Y') == $i ? 'selected' : '' }}>
+                                <option value="{{ $i }}"
+                                    {{ (request()->get('year') ? (request()->get('year') == $i ? 'selected' : '') : date('Y') == $i) ? 'selected' : '' }}>
                                     {{ $i }}
                                 </option>
                             @endfor
                         </select>
                         <div class="flex gap-x-3">
                             <button
-                                class="rounded-lg bg-y_premier px-4 py-2 font-bold text-white transition hover:bg-y_premier"><i
-                                    class="fa-solid fa-magnifying-glass mr-2"></i>Cari</button>
+                                class="px-4 py-2 font-bold text-white transition rounded-lg bg-y_premier hover:bg-y_premier"><i
+                                    class="mr-2 fa-solid fa-magnifying-glass"></i>Cari</button>
                             @if (request()->get('date'))
                                 <a href="{{ route('broadcast.index') }}"
-                                    class="rounded-lg bg-gray-600 px-4 py-2 font-bold text-white transition hover:bg-gray-800"><i
-                                        class="fa-solid fa-circle-xmark mr-2"></i>Reset</a>
+                                    class="px-4 py-2 font-bold text-white transition bg-gray-600 rounded-lg hover:bg-gray-800"><i
+                                        class="mr-2 fa-solid fa-circle-xmark"></i>Reset</a>
                             @endif
                         </div>
                     </form>
@@ -62,19 +64,19 @@
 
                 </div>
 
-                <span class="mb-2 mt-6 inline-block text-lg font-semibold text-gray-600">Absensi :
+                <span class="inline-block mt-6 mb-2 text-lg font-semibold text-gray-600">Absensi :
                     {{ date('F', strtotime("$year-" . $month . '-01')) }} {{ $year }}</span>
-                <div class="w-fit overflow-hidden rounded-md bg-white shadow">
-                    <table class="w-fit border-collapse text-left">
+                <div class="overflow-hidden bg-white rounded-md shadow w-fit">
+                    <table class="text-left border-collapse w-fit">
                         <thead class="border-b">
                             <tr>
                                 {{-- <th class="p-2 text-sm font-bold text-gray-100 uppercase border-2 border-tersier bg-y_tersier">No</th> --}}
                                 <th
-                                    class="border-2 border-tersier bg-y_tersier p-2 text-center text-sm font-medium uppercase text-gray-100">
+                                    class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 border-tersier bg-y_tersier">
                                     Nama</th>
                                 @foreach ($period as $data)
                                     <th
-                                        class="whitespace-nowrap border-2 border-tersier bg-y_tersier p-2 text-center text-sm font-medium uppercase text-gray-100">
+                                        class="p-2 text-sm font-medium text-center text-gray-100 uppercase border-2 whitespace-nowrap border-tersier bg-y_tersier">
                                         {{ date('d', strtotime($data)) }}</th>
                                 @endforeach
                             </tr>
@@ -87,24 +89,25 @@
                                 @if ($data->telp != $telp)
                                     <tr class="transition hover:bg-gray-200/40">
                                         {{-- <td class="p-2 font-bold text-center text-gray-700 border-2">{{ $key+1 }}</td> --}}
-                                        <td class="border-2 p-2 uppercase text-gray-700">
+                                        <td class="p-2 text-gray-700 uppercase border-2">
                                             <a href="{{ URL::to('/absensi/show/' . $data->telp . '?month=' . $month . '&year=' . $year) }}"
                                                 class="transition hover:text-indigo-800">
                                                 <span
-                                                    class="block whitespace-nowrap font-semibold">{{ $data->nama }}</span>
+                                                    class="block font-semibold whitespace-nowrap">{{ $data->nama }}</span>
                                             </a>
                                             <a href="{{ URL::to('/absensi/show/' . $data->telp . '?month=' . $month . '&year=' . $year) }}"
                                                 class="transition hover:text-indigo-800">
                                                 <span
-                                                    class="block whitespace-nowrap text-xs font-light">{{ $data->branch }}
+                                                    class="block text-xs font-light whitespace-nowrap">{{ $data->branch }}
                                                     | {{ $data->telp }} | {{ $data->role }}</span>
                                             </a>
                                         </td>
                                         @foreach ($period as $item)
-                                            <td class="border-2 p-2 text-center uppercase text-gray-700">
+                                            <td class="p-2 text-center text-gray-700 uppercase border-2">
                                                 @foreach ($absensi as $absen)
                                                     @if (date('Y-m-d', strtotime($item)) == $absen->date && $data->telp == $absen->telp)
-                                                        <i class="fa-solid fa-circle-check text-3xl text-green-600"></i>
+                                                        {{-- <i class="text-3xl text-green-600 fa-solid fa-circle-check"></i> --}}
+                                                        <img src="{{ asset('icon/fa-circle-check.svg') }}" alt="">
                                                     @endif
                                                 @endforeach
                                             </td>

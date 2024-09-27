@@ -95,7 +95,7 @@ class DirectUserController extends Controller
 
         if (in_array($request->role, ['AO', 'EO'])) {
             $request->validate([
-                'id_digipos' => [Rule::unique('data_user', 'id_digipos')->where(fn (QueryBuilder $query) => $query->where('status', 1))]
+                'id_digipos' => [Rule::unique('data_user', 'id_digipos')->where(fn(QueryBuilder $query) => $query->where('status', 1))]
             ]);
         }
 
@@ -430,7 +430,7 @@ class DirectUserController extends Controller
             }
         }
         $role = DB::table('user_type')->where('status', '1')->get();
-        // ddd($role);
+        // ddd($period);
         return view('directUser.absensi.index', compact('absensi', 'period', 'cluster', 'year', 'month', 'role'));
     }
 

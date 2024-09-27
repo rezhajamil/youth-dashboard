@@ -305,9 +305,7 @@
                     <option value="${item.kecamatan}">${item.kecamatan}</option>
                     `
                             })
-
                         )
-
                     },
                     error: (e) => {
                         console.log(e)
