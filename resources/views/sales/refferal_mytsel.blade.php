@@ -1,7 +1,7 @@
-@extends('layouts.dashboard.app', ['plain' => true, 'title' => 'Report Trade In MYTSEL'])
+@extends('layouts.dashboard.app', ['plain' => true, 'title' => 'Report Downloader MYTSEL'])
 @section('body')
     <section class="flex h-full min-h-screen w-full flex-col items-center bg-premier px-4 py-4">
-        <span class="mb-6 mt-2 inline-block w-full text-left font-bold text-white">Report Trade In MYTSEL
+        <span class="mb-6 mt-2 inline-block w-full text-left font-bold text-white">Report Downloader MYTSEL
             <br>
             <div class="flex gap-x-1 pt-2">
                 <span>by</span>
@@ -30,12 +30,12 @@
                         <i class="fa-solid fa-arrow-left-long mr-2"></i>Kembali
                     </a>
                 @else
-                    <span class="inline-block w-full text-center font-bold text-slate-500">Report Trade In Mytsel</span>
+                    <span class="inline-block w-full text-center font-bold text-slate-500">Report Downloader Mytsel</span>
                     <form action="{{ route('sales.store_refferal_mytsel') }}" method="post">
                         @csrf
                         <input type="hidden" name="telp" value="{{ $user->telp }}">
                         <input class="form-input mt-4 w-full rounded-md placeholder:text-sm focus:border-sekunder"
-                            type="number" name="msisdn" id="msisdn" placeholder="Nomor Trade In (628xxx)*"
+                            type="number" name="msisdn" id="msisdn" placeholder="Nomor Downloader (628xxx)*"
                             value="{{ old('msisdn') }}" required>
                         @error('msisdn')
                             <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
