@@ -40,17 +40,6 @@
                         @error('msisdn')
                             <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
                         @enderror
-                        <select name="paket" id="paket"
-                            class="form-input mt-4 w-full rounded-md focus:border-sekunder" required>
-                            <option value="" selected disabled>Pilih Paket*</option>
-                            @foreach ($paket as $d)
-                                <option value="{{ $d->paket }}" {{ old('paket') == $d->paket ? 'selected' : '' }}>
-                                    {{ $d->paket }}</option>
-                            @endforeach
-                        </select>
-                        @error('paket')
-                            <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
-                        @enderror
                         <button type="submit" id="btn-submit"
                             class="my-2 w-full rounded bg-premier px-6 py-2 font-semibold text-white">Submit</button>
                         <a href="{{ route('sales.get_refferal_mytsel') }}"

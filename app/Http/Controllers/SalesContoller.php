@@ -1174,14 +1174,12 @@ class SalesContoller extends Controller
         $request->validate([
             'telp' => ['required'],
             'msisdn' => ['required', 'min:11', 'unique:sales_refferal,msisdn', new MsisdnNumber],
-            'paket' => ['required'],
         ]);
 
         $data = DB::table('sales_refferal')->insert([
             'nik' => $request->telp,
             'msisdn' => $request->msisdn,
             'program' => 'MYTSEL',
-            'paket' => $request->paket,
             'date' => date('Y-m-d'),
         ]);
 
