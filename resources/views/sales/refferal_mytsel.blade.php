@@ -25,7 +25,7 @@
             @if (request()->get('telp'))
                 @if (!$user)
                     <span class="inline-block w-full text-center font-bold text-slate-600">User Tidak Ditemukan</span>
-                    <a href="{{ route('sales.get_refferal') }}"
+                    <a href="{{ route('sales.get_refferal_mytsel') }}"
                         class="mx-auto my-2 block w-fit rounded bg-sekunder px-4 py-2 font-semibold text-white transition-all hover:bg-black">
                         <i class="fa-solid fa-arrow-left-long mr-2"></i>Kembali
                     </a>
