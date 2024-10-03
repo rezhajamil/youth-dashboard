@@ -40,12 +40,6 @@
                         @error('msisdn')
                             <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
                         @enderror
-                        <input class="form-input mt-4 w-full rounded-md placeholder:text-sm focus:border-sekunder"
-                            type="number" name="kompetitor" id="kompetitor" placeholder="Nomor Kompetitor (628xxx)*"
-                            value="{{ old('kompetitor') }}" required>
-                        @error('kompetitor')
-                            <span class="mt-1 block text-sm italic text-red-600">{{ $message }}</span>
-                        @enderror
                         <select name="paket" id="paket"
                             class="form-input mt-4 w-full rounded-md focus:border-sekunder" required>
                             <option value="" selected disabled>Pilih Paket*</option>
