@@ -1123,6 +1123,73 @@ class SalesContoller extends Controller
         return redirect()->route('sales.get_refferal_pon', ['telp' => $request->telp])->with('success', 'Berhasil Input Data');
     }
 
+    public function getRefferalTapanuli(Request $request)
+    {
+        $user = [];
+        $paket = [];
+
+        if ($request->telp) {
+            $user = DB::table('data_user_tradein_sf_hh')->where('telp', $request->telp)->first();
+            $paket = DB::table('produk_sales')->select('detail as paket')->where('kategori', 'TRADE IN')->orderBy('detail')->get();
+        }
+
+        return view('sales.refferal_tapanuli', compact('user', 'paket'));
+    }
+
+    public function storeRefferalTapanuli(Request $request)
+    {
+        $request->validate([
+            'telp' => ['required'],
+            'msisdn' => ['required', 'min:11', 'unique:sales_refferal,msisdn', new MsisdnNumber],
+            'paket' => ['required'],
+        ]);
+
+        $data = DB::table('sales_refferal')->insert([
+            'nik' => $request->telp,
+            'msisdn' => $request->msisdn,
+            'kompetitor' => $request->kompetitor,
+            'program' => 'TAPANULI',
+            'paket' => $request->paket,
+            'date' => date('Y-m-d'),
+        ]);
+
+        return redirect()->route('sales.get_refferal_tapanuli', ['telp' => $request->telp])->with('success', 'Berhasil Input Data');
+    }
+
+    public function getRefferalMytsel(Request $request)
+    {
+        $user = [];
+        $paket = [];
+
+        if ($request->telp) {
+            $user = DB::table('data_user_tradein_sf_hh')->where('telp', $request->telp)->first();
+            $paket = DB::table('produk_sales')->select('detail as paket')->where('kategori', 'TRADE IN')->orderBy('detail')->get();
+        }
+
+        return view('sales.refferal_mytsel', compact('user', 'paket'));
+    }
+
+    public function storeRefferalMytsel(Request $request)
+    {
+        $request->validate([
+            'telp' => ['required'],
+            'msisdn' => ['required', 'min:11', 'unique:sales_refferal,msisdn', new MsisdnNumber],
+            'paket' => ['required'],
+        ]);
+
+        $data = DB::table('sales_refferal')->insert([
+            'nik' => $request->telp,
+            'msisdn' => $request->msisdn,
+            'kompetitor' => $request->kompetitor,
+            'program' => 'MYTSEL',
+            'paket' => $request->paket,
+            'date' => date('Y-m-d'),
+        ]);
+
+        return redirect()->route('sales.get_refferal_mytsel', ['telp' => $request->telp])->with('success', 'Berhasil Input Data');
+    }
+
+
     public function getLocation(Request $request)
     {
         $start_date = date('Y-m-01', strtotime($request->date));
