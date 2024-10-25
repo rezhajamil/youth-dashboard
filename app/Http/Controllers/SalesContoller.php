@@ -1208,7 +1208,16 @@ class SalesContoller extends Controller
 
     public function tradeInBuddies(Request $request)
     {
-        $data = DB::table('sales_refferal')->join('user_buddies', 'sales_refferal.nik', '=', 'user_buddies.user_id')->where('program', 'TRADE IN BUDDIES')->orderBy('regional', 'desc')->orderBy('branch')->orderBy('cluster')->orderBy('city')->get();
+        $user = Auth::user();
+        $data = DB::table('sales_refferal')->join('user_buddies', 'sales_refferal.nik', '=', 'user_buddies.user_id')->where('program', 'TRADE IN BUDDIES');
+
+        if ($user->privilege == 'branch') {
+            $data->where('user_buddies.branch', $user->branch);
+        } else if ($user->privilege == 'cluster') {
+            $data->where('user_buddies.cluster', $user->cluster);
+        }
+
+        $data = $data->orderBy('regional', 'desc')->orderBy('branch')->orderBy('cluster')->orderBy('city')->get();
 
         return view('sales.trade.index', compact('data'));
     }
