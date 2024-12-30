@@ -139,6 +139,12 @@
                                     FREKUENSI</th>
                                 <th
                                     class="border border-white bg-y_tersier p-2 text-sm font-medium uppercase text-gray-100">
+                                    LONGITUDE</th>
+                                <th
+                                    class="border border-white bg-y_tersier p-2 text-sm font-medium uppercase text-gray-100">
+                                    LATITUDE</th>
+                                <th
+                                    class="border border-white bg-y_tersier p-2 text-sm font-medium uppercase text-gray-100">
                                     Action</th>
                             </tr>
                         </thead>
@@ -165,6 +171,8 @@
                                         <td class="cluster border p-2 text-gray-700">{{ $data->CLUSTER }}</td>
                                         <td class="border p-2 text-gray-700">{{ $data->PJP }}</td>
                                         <td class="border p-2 text-gray-700">{{ $data->FREKUENSI }}</td>
+                                        <td class="border p-2 text-gray-700">{{ $data->LONGITUDE ?? '-' }}</td>
+                                        <td class="border p-2 text-gray-700">{{ $data->LATITUDE ?? '-' }}</td>
                                         <td class="border p-2 text-gray-700">
                                             <a href="{{ route('sekolah.show', $data->NPSN) }}" target="_blank"
                                                 class="my-1 block text-base font-semibold text-teal-600 transition hover:text-teal-800">Detail</a>
